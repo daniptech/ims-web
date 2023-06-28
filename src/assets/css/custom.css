@@ -1,0 +1,98 @@
+.auth-page {
+    height: auto;
+    min-height: 100vh;
+}
+
+.auth-page .auth-page-login .auth-form .form-item {
+    margin-bottom: 20px !important;
+}
+
+.auth-page .auth-page-register .auth-form .form-item .ant-input-prefix {
+    margin-inline-end: 7px !important;
+}
+
+.auth-page .auth-page-login .navigate-auth,
+.auth-page .auth-page-register .navigate-auth {
+    cursor: pointer;
+}
+
+.custom-sidebar {
+    border-right: 1px solid gray;
+}
+
+.custom-sidebar .ant-layout-sider-children {
+    height: 95vh;
+    overflow-y: auto;
+}
+
+.custom-sidebar .ant-layout-sider-children ul {
+    /* opacity: 1; */
+    /* background-color: rgba(248,249,250)!important; */
+    /* color: black; */
+    width: 100%;
+}
+
+.custom-sidebar .ant-layout-sider-trigger {
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+    background-color: #ededf7;
+}
+
+.custom-sidebar .ant-layout-sider-trigger:hover {
+    color: #1677FF !important;
+}
+
+::-webkit-scrollbar {
+    width: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1677FF;
+    border-radius: 5px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #1677FF;
+}
+
+.dashboard-home .dashboard-tab .ant-tabs-nav {
+    margin: 0;
+}
+
+.dashboard-home .dashboard-tab .dashboard-section {
+    background-color: #f5faff;
+    border-bottom: 1px solid #dae1e4 !important;
+}
+
+.sales-activity .sales-activity-card {
+    border: 1px solid #dae1e4;
+    width: auto;
+    height: auto;
+    border-radius: 10px;
+}
+
+.sales-activity .sales-activity-card:hover {
+    border-color: #41a0d9;
+}
+.dashboard-home .inventory-summary{
+    border-left: 1px solid #dae1e4 !important;
+}
+.dashboard-home .inventory-summary .inventory-summary-card{
+    border: 1px solid #dae1e4;
+    width: 100%;
+    border-radius: 10px;
+}
+.dashboard-home .inventory-summary .inventory-summary-card:hover {
+    border-color: #41a0d9;
+}
+.dashboard-home .dashboard-tab .ant-tabs-nav{
+    padding-left: 10px;
+}
+.dashboard-tab .product-detail-box{
+    border: 1px solid #dae1e4;
+}
