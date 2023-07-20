@@ -1,42 +1,45 @@
-import { Button, Card, Carousel, Form, Input, Select } from 'antd'
-import React, { useState } from 'react'
-import { Images } from '../controller/Images'
+import { Button, Card, Form, Input, Select } from 'antd';
+import React, { useState } from 'react';
 import { countryData } from '../data/CountryData';
-import OtpPopup from '../modals/OtpPopup';
+import OtpPopup from '../components/modals/OtpPopup';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../controller/routes';
-import { enterOnlyNumber } from '../controller/enteronlynumber';
+import { routes } from '../components/controller/routes';
+import { enterOnlyNumber } from '../components/controller/enteronlynumber';
 
 const Login = () => {
   const { Option } = Select;
-  const navigate=useNavigate()
-  const [loginWith, setLoginWith] = useState("phone");
-  const [OpenOtpPopup, setOpenOtpPopup] = useState(false)
+  const navigate = useNavigate();
+  const [loginWith, setLoginWith] = useState('phone');
+  const [OpenOtpPopup, setOpenOtpPopup] = useState(false);
   const selectBefore = (
-    <Form.Item name="country_code"
+    <Form.Item
+      name="country_code"
       rules={[
         {
           required: true,
           message: 'Please input your Country code!'
         }
       ]}
-      noStyle>
-      <Select placeholder='country code' className='heehjj' style={{ width: 80 }}>
+      noStyle
+    >
+      <Select placeholder="country code" className="heehjj" style={{ width: 80 }}>
         {countryData.map((val, index) => {
-          return <Option value={val.code} key={index}>{val.code}</Option>
+          return (
+            <Option value={val.code} key={index}>
+              {val.code}
+            </Option>
+          );
         })}
       </Select>
     </Form.Item>
   );
   const onFinish = (value) => {
-    console.log(value)
-    setOpenOtpPopup(true)
-  }
+    console.log(value);
+    setOpenOtpPopup(true);
+  };
 
   return (
-    <div
-      className="w-100 d-flex justify-content-center align-items-center p-5 bg-light auth-page"
-    >
+    <div className="w-100 d-flex justify-content-center align-items-center p-5 bg-light auth-page">
       <Card
         className="auth-page-login"
         style={{
@@ -64,12 +67,11 @@ const Login = () => {
             // onFinishFailed={onFinishFailed}
             autoComplete="off"
           >
-            {loginWith == 'email'
-              ?
+            {loginWith === 'email' ? (
               <>
                 <Form.Item
                   name="email"
-                  className='form-item'
+                  className="form-item"
                   rules={[
                     {
                       required: true,
@@ -83,13 +85,21 @@ const Login = () => {
                 >
                   <Input placeholder="Email Address" className="p-2" />
                 </Form.Item>
-                <div style={{ cursor: 'pointer' }} className='text-primary' onClick={() => { setLoginWith('phone') }} >Login with mobile number</div>
+                <div
+                  style={{ cursor: 'pointer' }}
+                  className="text-primary"
+                  onClick={() => {
+                    setLoginWith('phone');
+                  }}
+                >
+                  Login with mobile number
+                </div>
               </>
-              :
+            ) : (
               <>
                 <Form.Item
                   name="number"
-                  className='form-item'
+                  className="form-item"
                   rules={[
                     {
                       required: true,
@@ -97,13 +107,27 @@ const Login = () => {
                     }
                   ]}
                 >
-                  <Input placeholder="Phone Number" minLength={10} maxLength={10} className="p-2" addonBefore={selectBefore} onKeyPress={(e)=>enterOnlyNumber(e)} />
+                  <Input
+                    placeholder="Phone Number"
+                    minLength={10}
+                    maxLength={10}
+                    className="p-2"
+                    addonBefore={selectBefore}
+                    onKeyPress={(e) => enterOnlyNumber(e)}
+                  />
                 </Form.Item>
-                <div style={{ cursor: 'pointer' }} className='text-primary' onClick={() => { setLoginWith('email') }}>Login with email</div>
+                <div
+                  style={{ cursor: 'pointer' }}
+                  className="text-primary"
+                  onClick={() => {
+                    setLoginWith('email');
+                  }}
+                >
+                  Login with email
+                </div>
               </>
-
-            }
-            <Form.Item className='mt-2'>
+            )}
+            <Form.Item className="mt-2">
               <Button
                 type="primary"
                 shape="round"
@@ -115,16 +139,25 @@ const Login = () => {
             </Form.Item>
             <div className="text-center text-muted">
               Don&apos;t have an account?{' '}
-              <span className="text-primary navigate-auth" onClick={()=>navigate(routes.register.self)}>
+              <span
+                className="text-primary navigate-auth"
+                onClick={() => navigate(routes.register.self)}
+              >
                 Register.
               </span>
             </div>
           </Form>
         </div>
       </Card>
-      {OpenOtpPopup && <OtpPopup OpenOtpPopup={OpenOtpPopup} setOpenOtpPopup={setOpenOtpPopup} loginWith={loginWith} />}
+      {OpenOtpPopup && (
+        <OtpPopup
+          OpenOtpPopup={OpenOtpPopup}
+          setOpenOtpPopup={setOpenOtpPopup}
+          loginWith={loginWith}
+        />
+      )}
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;
