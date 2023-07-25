@@ -12,7 +12,7 @@ export const routes = {
     dashboard: 'inventory-dashboard'
   }),
   inventory: include('/inventory', {
-    slef: '',
+    self: '',
     items: include('items', {
       self: '',
       view: ':id',
@@ -43,5 +43,45 @@ export const routes = {
       new: 'new',
       edit: ':id/edit'
     }),
-  })
+  }),
+  purchase: include('/purchase', {
+    self: '',
+    vendor: include('vendor', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    purchaseOrder: include('purchase-order', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    purchaseReceives: include('purchase-receives', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    bill: include('bills', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    paymentMode: include('payment-mode', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    vendorCredit: include('vendor-credit', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+  }
+  )
 };

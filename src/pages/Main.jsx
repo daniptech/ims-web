@@ -21,6 +21,9 @@ import CreateAndEditPriceList from './Inventory/PriceList/CreateAndEditPriceList
 import InventoryAdjustmentList from './Inventory/inventoryAdjustment/InventoryAdjustmentList';
 import CreateAndEditInventoryAdjustment from './Inventory/inventoryAdjustment/CreateAndEditInventoryAdjustment';
 import InventoryAdjustmentView from './Inventory/inventoryAdjustment/InventoryAdjustmentView';
+import VendorList from './Purchase/Vendor/VendorList';
+import VendorView from './Purchase/Vendor/VendorView';
+import CreateAndEditVendor from './Purchase/Vendor/CreateAndEditVendor';
 
 const Main = () => {
   const [selectKey, setSelectKey] = useState('1');
@@ -52,14 +55,13 @@ const Main = () => {
       getItem('sales Return', '14'),
       getItem('Credit Notes', '15')
     ]),
-    getItem('Purchasea', 'purchasea', <FontAwesomeIcon icon={faBagShopping} />, [
-      getItem('Vendors', '16'),
-      getItem('Expenses', '17'),
-      getItem('Purchase Orders', '18'),
-      getItem('Purchase Receives', '19'),
-      getItem('Bills', '20'),
-      getItem('Payments Mode', '21'),
-      getItem('Vendor Credits', '22')
+    getItem('Purchase', 'purchase', <FontAwesomeIcon icon={faBagShopping} />, [
+      getItem('Vendors', 'vendor'),
+      getItem('Purchase Order', 'purchaseOrder'),
+      getItem('Purchase Receives', 'purchaseReceives'),
+      getItem('Bills', 'bill'),
+      getItem('Payments Mode', 'paymentMode'),
+      getItem('Vendor Credits', 'vendorCredit')
     ]),
     getItem('Reports', 'reports', <FontAwesomeIcon icon={faChartSimple} />)
   ];
@@ -86,8 +88,15 @@ const Main = () => {
             <Route path={routes.inventory.priceList.new} element={<CreateAndEditPriceList />} />
             <Route path={routes.inventory.priceList.edit} element={<CreateAndEditPriceList />} />
             <Route path={routes.inventory.inventoryAdjustments.self} element={<InventoryAdjustmentList />} />
-            <Route path={routes.inventory.inventoryAdjustments.new} element={<CreateAndEditInventoryAdjustment />} />
             <Route path={routes.inventory.inventoryAdjustments.view} element={<InventoryAdjustmentView />} />
+            <Route path={routes.inventory.inventoryAdjustments.new} element={<CreateAndEditInventoryAdjustment />} />
+            <Route path={routes.inventory.inventoryAdjustments.edit} element={<CreateAndEditInventoryAdjustment />} />
+          </Route>
+          <Route path={routes.purchase.self}>
+            <Route path={routes.purchase.vendor.self} element={<VendorList />} />
+            <Route path={routes.purchase.vendor.view} element={<VendorView />} />
+            <Route path={routes.purchase.vendor.edit} element={<CreateAndEditVendor />} />
+            <Route path={routes.purchase.vendor.new} element={<CreateAndEditVendor />} />
           </Route>
         </Routes>
       </div>
