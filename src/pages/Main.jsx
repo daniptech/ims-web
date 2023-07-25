@@ -21,7 +21,10 @@ import CreateAndEditPriceList from './Inventory/PriceList/CreateAndEditPriceList
 import InventoryAdjustmentList from './Inventory/inventoryAdjustment/InventoryAdjustmentList';
 import CreateAndEditInventoryAdjustment from './Inventory/inventoryAdjustment/CreateAndEditInventoryAdjustment';
 import InventoryAdjustmentView from './Inventory/inventoryAdjustment/InventoryAdjustmentView';
-
+import CustomerItemsList from './Sales/Customer/CustomerItemList'
+import CustomerView from './Sales/Customer/CustomerView'
+import CreateAndEditCustomer from './Sales/Customer/CreateAndEditCustomer';
+//import { CustomerView, CustomerItemsList} from './Sales/Customer';
 const Main = () => {
   const [selectKey, setSelectKey] = useState('1');
   function getItem(label, key, icon, children) {
@@ -41,8 +44,8 @@ const Main = () => {
       getItem('Price Lists', 'priceList'),
       getItem('Inventory Adjustments', 'inventoryAdjustments')
     ]),
-    getItem('sales', 'sales', <ShoppingCartOutlined />, [
-      getItem('Customers', '7'),
+    getItem('Sales', 'sales', <ShoppingCartOutlined />, [
+      getItem('Customers', 'customers'),
       getItem('Sales Order', '8'),
       getItem('Packages', '9'),
       getItem('Shipments', '10'),
@@ -88,6 +91,10 @@ const Main = () => {
             <Route path={routes.inventory.inventoryAdjustments.self} element={<InventoryAdjustmentList />} />
             <Route path={routes.inventory.inventoryAdjustments.new} element={<CreateAndEditInventoryAdjustment />} />
             <Route path={routes.inventory.inventoryAdjustments.view} element={<InventoryAdjustmentView />} />
+            <Route path={routes.sales.customers.self} element={<CustomerItemsList/>}/>
+            <Route path={routes.sales.customers.view} element={<CustomerView/>}/>
+            <Route path={routes.sales.customers.new} element={<CreateAndEditCustomer/>}/>
+            <Route path={routes.sales.customers.edit} element={<CreateAndEditCustomer/>}/>
           </Route>
         </Routes>
       </div>

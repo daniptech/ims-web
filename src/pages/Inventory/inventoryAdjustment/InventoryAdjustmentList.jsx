@@ -4,7 +4,7 @@ import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../components/controller/routes';
-import { click } from '@testing-library/user-event/dist/click';
+//import { click } from '@testing-library/user-event/dist/click';
 import { reverse } from 'named-urls';
 
 const InventoryAdjustmentList = () => {

@@ -43,5 +43,14 @@ export const routes = {
       new: 'new',
       edit: ':id/edit'
     }),
+  }),
+  sales:include('/sales',{
+    self:'',
+    customers:include('customer-items',{
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    })
   })
 };
