@@ -15,6 +15,7 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
     setSelectKey(val?.key);
     // navigate()
     if (val?.keyPath?.length > 1) {
+      debugger
       navigate(routes[val.keyPath[1]][val.keyPath[0]].self);
     } else if (val.key === 'home') {
       navigate(routes.home.dashboard);
