@@ -51,6 +51,30 @@ export const routes = {
       view: ':id',
       new: 'new',
       edit: ':id/edit'
+    }),
+    salesOrder: include('salesOrder', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    packages: include('packages', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    shipment: include('shipment', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    deliveryChallans: include('deliveryChallans', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
     })
   }),
   purchase: include('/purchase', {

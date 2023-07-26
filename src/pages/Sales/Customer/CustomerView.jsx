@@ -56,7 +56,6 @@ const CustomerView = () => {
       headerTitle={'Mr.Test'}
       items={moreItems}
       editScreen={reverse(routes.sales.customers.edit ,{id:params.id})}
-      createBundle={'Create Bundle'}
     />
     <TopTaps
       tapItem={tabList}

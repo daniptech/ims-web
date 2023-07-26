@@ -1,8 +1,10 @@
 import { ArrowLeftOutlined, InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons'
-import { Button, Form, Input, Select, Tabs, Tooltip } from 'antd'
+import { Button, Form, Input, Select, Tabs, Tooltip,Radio } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { ContactPerson } from './CustomerTabs/ContactPerson'
+import { ContactPerson } from './Tabs/ContactPerson'
+import OtherDetail from './Tabs/OtherDetails'
+import Address from './Tabs/Address'
 //import OtherDetail from '../Tabs/OtherDetail';
 //import Address from '../Tabs/Address';
 
@@ -10,6 +12,11 @@ const { TabPane } = Tabs;
 const CreateAndEditCustomer = () => {
     const navigate = useNavigate()
     const params = useParams()
+    const [value, setValue] = React.useState(1);
+  const onChange = (e) => {
+    console.log('radio checked', e.target.value);
+    setValue(e.target.value);
+  };
     return (
         <div className='w-100'>
             <div className='w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between '>
@@ -38,6 +45,25 @@ const CreateAndEditCustomer = () => {
                     <div>
                         <div className="row col-12 p-4 m-0">
                             <div className="col-6 d-flex flex-column gap-3">
+                                <div className="row col-12 d-flex  align-items-center">
+                                    <div className="col-3">
+                                        <label className="d-flex align-items-center gap-1">
+                                            <span>Customer Type</span>{' '}
+                                            <Tooltip
+                                                placement="rightTop"
+                                                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                                            >
+                                                <InfoCircleOutlined className="text-muted" />
+                                            </Tooltip>{' '}
+                                        </label>
+                                    </div>
+                                    <div className="col-6">
+                                        <Radio.Group onChange={onChange} value={value} className="d-flex m-0 form-item">
+                                            <Radio value={1}>Business</Radio>
+                                            <Radio value={2}>Individual</Radio>
+                                        </Radio.Group>
+                                    </div>
+                                </div>
                                 <div className="row col-12 d-flex  align-items-center">
                                     <div className="col-3">
                                         <label className="d-flex align-items-center gap-1">
@@ -94,7 +120,7 @@ const CreateAndEditCustomer = () => {
                                         </div>
                                     </div>
                                 </div>
-<div className="row col-12 d-flex  align-items-center">
+                                <div className="row col-12 d-flex  align-items-center">
                                     <div className="col-3">
                                         <label className="d-flex align-items-center gap-1">
                                             <span>Company Name</span>
@@ -109,7 +135,7 @@ const CreateAndEditCustomer = () => {
                                 <div className="row col-12 d-flex  align-items-center">
                                     <div className="col-3">
                                         <label className="d-flex align-items-center gap-1 text-danger">
-                                            Vendor Display Name *
+                                            Customer Display Name *
                                             <Tooltip
                                                 placement="rightTop"
                                                 title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
@@ -127,7 +153,7 @@ const CreateAndEditCustomer = () => {
                                 <div className="row col-12 d-flex  align-items-center">
                                     <div className="col-3">
                                         <label className="d-flex align-items-center gap-1">
-                                            Vendor Email
+                                            Customer Email
                                             <Tooltip
                                                 placement="rightTop"
                                                 title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
@@ -145,7 +171,7 @@ const CreateAndEditCustomer = () => {
                                 <div className="row col-12 d-flex  align-items-center">
                                     <div className="col-3">
                                         <label className="d-flex align-items-center gap-1">
-                                            Vendor Phone
+                                            Customer Phone
                                             <Tooltip
                                                 placement="rightTop"
                                                 title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
@@ -175,21 +201,23 @@ const CreateAndEditCustomer = () => {
                         <div className='p-4'>
                             <Tabs defaultActiveKey="1">
                                 <TabPane tab='Other Details' className="" key="1">
-                                    {/* <OtherDetail /> */}
+                                    <OtherDetail />
                                 </TabPane>
                                 <TabPane tab='Address' className="" key="2">
-                                    {/* <Address /> */}
+                                    <Address />
                                 </TabPane>
                                 <TabPane tab='Contact Persons' className="" key="3">
                                 <ContactPerson/>
                                 </TabPane>
-                                <TabPane tab='Bank Details' className="" key="4">
-                                </TabPane>
-                                <TabPane tab='Custom Fields' className="" key="5">
-                                </TabPane>
-                                <TabPane tab='Reporting Tags' className="" key="6">
-                                </TabPane>
                                 <TabPane tab='Remarks' className="" key="7">
+                                   <div className="row col-12 p-4 m-0">
+                                        <div className="col-6 d-flex flex-column gap-3">
+                                            <div>Remarks<span className='text-muted'> (For Internal Use)</span></div>
+                                            <Form.Item name='remark'>
+                                                <Input.TextArea />
+                                            </Form.Item>
+                                        </div>
+                                    </div>
                                 </TabPane>
                             </Tabs>
                         </div>

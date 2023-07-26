@@ -397,3 +397,38 @@ display: contents;
   border-radius: 2px;
 }
 
+.packages-Not {
+  width: 450px;
+  height: 65px;
+  background-image: url('../images/Icons/package.png'); /* Replace 'ant_body.png' with the actual path to your ant body image */
+  background-size: cover;
+   display:flex;
+   justify-content:space-between;
+   align-items: center;
+   padding-left: 40px;
+   padding-right: 40px;
+}
+
+.shipped-Not {
+  width: 450px;
+  height: 65px;
+  background-image: url('../images/Icons/packageyellow.png'); /* Replace 'ant_body.png' with the actual path to your ant body image */
+  background-size: cover;
+   display:flex;
+   justify-content:space-between;
+   align-items: center;
+   padding-left: 40px;
+   padding-right: 40px;
+}
+.delivery-Not {
+  width: 450px;
+  height: 65px;
+  background-image: url('../images/Icons/packagegreen.png'); /* Replace 'ant_body.png' with the actual path to your ant body image */
+  background-size: cover;
+   display:flex;
+   justify-content:space-between;
+   align-items: center;
+   padding-left: 40px;
+   padding-right: 40px;
+}
+

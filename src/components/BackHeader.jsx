@@ -12,7 +12,7 @@ export const BackHeader = ({items,createBundle,headerTitle,editScreen}) => {
         </div>
         <div className='d-flex justify-content-center align-items-center gap-2 '>
           <Button className='d-flex justify-content-center align-items-center p-2 fs-5 bg-light' onClick={()=>navigate(editScreen)}><EditOutlined /></Button>
-          <Button type='primary' >{createBundle}</Button>
+          {createBundle&&(<Button type='primary' >{createBundle}</Button>)}
           <Dropdown
             menu={{
               items: items,

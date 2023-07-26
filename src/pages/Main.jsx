@@ -28,6 +28,14 @@ import CreateAndEditCustomer from './Sales/Customer/CreateAndEditCustomer';
 import VendorList from './Purchase/Vendor/VendorList';
 import VendorView from './Purchase/Vendor/VendorView';
 import CreateAndEditVendor from './Purchase/Vendor/CreateAndEditVendor';
+import SalesOrderItemsList from './Sales/SalesOrder/SalesOrderItemList';
+import { CreateAndEditSalesOrder } from './Sales/SalesOrder/CreateAndEditSalesOrder';
+import SalesOrderView from './Sales/SalesOrder/SalesOrderView';
+import PackageItemList from './Sales/Packages/PackageItemList';
+import CreateAndEditPackage from './Sales/Packages/CreateAndEditPackage';
+import ShipmentItemsList from './Sales/Shipment/ShipmentItemList';
+import CreateAndEditShipment from './Sales/Shipment/CreateAndEditShipment';
+import DeliveryChallansItemList from './Sales/DeliveryChallans/DeliveryChallansItemList';
 
 const Main = () => {
   const [selectKey, setSelectKey] = useState('1');
@@ -50,10 +58,10 @@ const Main = () => {
     ]),
     getItem('Sales', 'sales', <ShoppingCartOutlined />, [
       getItem('Customers', 'customers'),
-      getItem('Sales Order', '8'),
-      getItem('Packages', '9'),
-      getItem('Shipments', '10'),
-      getItem('Delivery Challans', '11'),
+      getItem('Sales Order', 'salesOrder'),
+      getItem('Packages', 'packages'),
+      getItem('Shipments', 'shipment'),
+      getItem('Delivery Challans', 'deliveryChallans'),
       getItem('Invoice', '12'),
       getItem('Payment Received', '13'),
       getItem('sales Return', '14'),
@@ -97,10 +105,21 @@ const Main = () => {
             <Route path={routes.inventory.inventoryAdjustments.edit} element={<CreateAndEditInventoryAdjustment />} />
           </Route>
           <Route path={routes.sales.self}>
-          <Route path={routes.sales.customers.self} element={<CustomerItemsList/>}/>
+            <Route path={routes.sales.customers.self} element={<CustomerItemsList/>}/>
             <Route path={routes.sales.customers.view} element={<CustomerView/>}/>
             <Route path={routes.sales.customers.new} element={<CreateAndEditCustomer/>}/>
             <Route path={routes.sales.customers.edit} element={<CreateAndEditCustomer/>}/>
+            <Route path={routes.sales.salesOrder.self} element={<SalesOrderItemsList/>}/>
+            <Route path={routes.sales.salesOrder.new} element={<CreateAndEditSalesOrder/>}/>
+            <Route path={routes.sales.salesOrder.edit} element={<CreateAndEditSalesOrder/>}/>
+            <Route path={routes.sales.salesOrder.view} element={<SalesOrderView/>}/>
+            <Route path={routes.sales.packages.self} element={<PackageItemList/>}/>
+            <Route path={routes.sales.packages.new} element={<CreateAndEditPackage/>}/>
+            <Route path={routes.sales.packages.edit} element={<CreateAndEditPackage/>}/>
+            <Route path={routes.sales.shipment.self} element={<ShipmentItemsList/>}/>
+            <Route path={routes.sales.shipment.new} element={<CreateAndEditShipment/>}/>
+            <Route path={routes.sales.shipment.edit} element={<CreateAndEditShipment/>}/>
+            <Route path={routes.sales.deliveryChallans.self} element={<DeliveryChallansItemList/>}/>
           </Route>
           <Route path={routes.purchase.self}>
             <Route path={routes.purchase.vendor.self} element={<VendorList />} />
