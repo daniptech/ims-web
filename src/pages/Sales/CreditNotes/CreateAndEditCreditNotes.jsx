@@ -16,7 +16,7 @@ import {
   
   
   
-  const CreateAndEditDeliveryChallans = () => {
+  const CreateAndEditCreditNotes = () => {
     const navigate = useNavigate();
     const params = useParams();
     const [value, setValue] = React.useState(1);
@@ -54,7 +54,7 @@ import {
         <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
           <div className="d-flex align-items-center gap-4 fs-5">
             <ArrowLeftOutlined className="custom-back-button" onClick={() => navigate(-1)} />
-            <span className="fw-medium">{params.id ? 'Edit' : 'New'} Delivery Challan</span>
+            <span className="fw-medium">{params.id ? 'Edit' : 'New'} Credit Note</span>
           </div>
           <div className="d-flex align-items-center gap-4 fs-5">
             <Button onClick={() => navigate(-1)}>Cancel</Button>
@@ -138,12 +138,12 @@ import {
                   <div className="row col-12 d-flex  align-items-center">
                     <div className="col-3">
                       <label className="d-flex align-items-center gap-1 text-danger">
-                        <span>Delivery Challan# *</span>
+                        <span>Credit Note# *</span>
                       </label>
                     </div>
                     <div className="col-6">
                       <Form.Item name="company_name" className="d-flex m-0 form-item">
-                        <Input placeholder="SO-00004" suffix={<SettingOutlined />} />
+                        <Input placeholder="CN-00004" suffix={<SettingOutlined />} />
                       </Form.Item>
                     </div>
                   </div>
@@ -161,8 +161,8 @@ import {
                   </div>
                   <div className="row col-12 d-flex  align-items-center">
                     <div className="col-3">
-                      <label className="d-flex align-items-center gap-1">
-                        <span>Delivery Challan Date</span>
+                      <label className="d-flex align-items-center gap-1 text-danger">
+                        <span>Credit Note Date *</span>
                       </label>
                     </div>
                     <div className="col-6">
@@ -178,7 +178,7 @@ import {
                   <div className="row col-12 d-flex  align-items-center">
                     <div className="col-3">
                       <label className="d-flex align-items-center gap-1">
-                        <span>Challan Type</span>
+                        <span>Salesperson</span>
                       </label>
                     </div>
                     <div className="col-6">
@@ -188,7 +188,7 @@ import {
                               width: '90%'
                             }}
                             showSearch
-                            placeholder="Choose a proper challan type."
+                            placeholder="Let your customer know what this credit Notes is for."
                             optionFilterProp="children"
                             onChange={onChange}
                             onSearch={onSearch}
@@ -197,23 +197,23 @@ import {
                             }
                             options={[
                               {
-                                value: 'supply_of_liquid_gas',
-                                label: 'Supply Of Liquid Gas'
-                              },
-                              {
-                                value: 'job_work',
-                                label: 'Job Work'
-                              },
-                              {
-                                value: 'supply_on_approval',
-                                label: 'Supply on Approval'
-                              },
-                              {
-                                value: 'others',
-                                label: 'Others'
+                                value: 'test',
+                                label: 'Test'
                               },
                             ]}
                           />
+                      </Form.Item>
+                    </div>
+                  </div>
+                 <div className="row col-12 d-flex  align-items-center">
+                    <div className="col-3">
+                      <label className="d-flex align-items-center gap-1 text-danger">
+                        <span>Subject</span>
+                      </label>
+                    </div>
+                    <div className="col-6">
+                      <Form.Item name="sales_order_date" className="d-flex m-0 form-item">
+                      <Input.TextArea showCount maxLength={100} />
                       </Form.Item>
                     </div>
                   </div>
@@ -225,6 +225,7 @@ import {
                     <thead className='w-100'>
                       <tr className='border-bottom border-top'>
                         <th style={{ width: '34%' }} className='border-end' >ITEM DETAILS</th>
+                        <th style={{ width: '15%' }} className='border-end text-end' >Account</th>
                         <th style={{ width: '15%' }} className='border-end text-end' >QUANTITY</th>
                         <th style={{ width: '15%' }} className='border-end text-end' >RATE</th>
                         <th style={{ width: '15%' }} className='border-end text-end' >DISCOUNT</th>
@@ -240,6 +241,18 @@ import {
                           </div>
                           <Input className='item-detail' placeholder='Type or Click to select an item.' />
                         </div></td>
+                        <td style={{ width: '15%' }} className='border-end' ><Select placeholder="Select Account" className='w-100' options={[{
+                                value: 'advance_tex',
+                                label: 'Advance Tex'
+                              },
+                              {
+                                value: 'employee_advance',
+                                label: 'Employee Advance'
+                              },
+                              {
+                                value: 'prepaid_expenses',
+                                label: 'Prepaid Expenses'
+                              },]}/></td>
                         <td style={{ width: '15%' }} className='border-end' ><Input className='input-field' placeholder='1.00' /></td>
                         <td style={{ width: '15%' }} className='border-end' ><Input className='input-field' placeholder='0.00' /></td>
                         <td style={{ width: '15%' }} className='border-end' ><Input className='input-field' placeholder='0.00' /><Select className='w-100' options={[{
@@ -284,7 +297,7 @@ import {
                         <span>Customer Notes</span>
                         <div>
                           <Form.Item name='customer_notes'>
-                            <Input.TextArea placeholder='will be displayed on purchase order'/>
+                            <Input.TextArea placeholder='will be displayed on credit notes'/>
                           </Form.Item>
                         </div>
                       </div>
@@ -339,7 +352,7 @@ import {
                 <div className='col-6 border-end'>
                   <span>Terms & Conditions</span>
                   <Form.Item name='t&c'>
-                    <Input.TextArea style={{ minHeight: '70px' }} />
+                    <Input.TextArea style={{ minHeight: '70px' }} placeholder='Enter the terms and conditions of your business to be displayed in your transaction'/>
                   </Form.Item>
                 </div>
                 <div className='col-4'>
@@ -361,7 +374,7 @@ import {
     )
   }
   
-  export default CreateAndEditDeliveryChallans
+  export default CreateAndEditCreditNotes
   
   
   

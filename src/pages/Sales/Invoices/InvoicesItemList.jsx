@@ -14,16 +14,16 @@ const columns = [
     lock: true,
   },
   {
-    title: 'DELIVERY CHALLAN#',
-    dataIndex: 'delivery_challan',
-    sorter: (a, b) => a.delivery_challan - b.delivery_challan,
+    title: 'INVOICES#',
+    dataIndex: 'invoices',
+    sorter: (a, b) => a.invoices - b.invoices,
     isVisible: true,
     lock: true,
   },
   {
-    title: 'REFERENCE NUMBER',
-    dataIndex: 'reference_number',
-    sorter: (a, b) => a.reference_number - b.reference_number,
+    title: 'ORDER NUMBER',
+    dataIndex: 'order_number',
+    sorter: (a, b) => a.order_number - b.order_number,
     isVisible: true,
     lock: true,
   },
@@ -42,9 +42,9 @@ const columns = [
     lock: true,
   },
   {
-    title: 'INVOICE STATUS',
-    dataIndex: 'invoice_status',
-    sorter: (a, b) => a.invoice_status - b.invoicestatus,
+    title: 'DUE DATE',
+    dataIndex: 'due_date',
+    sorter: (a, b) => a.due_date - b.due_date,
     isVisible: true,
     lock: true,
   },
@@ -55,31 +55,40 @@ const columns = [
     isVisible: true,
     lock: true,
   },
+  {
+    title: 'BALANCE DUE',
+    dataIndex: 'balance_due',
+    sorter: (a, b) => a.balance_due - b.balance_due,
+    isVisible: true,
+    lock: true,
+  }
 ];
 const data = [
   {
     key: '1',
     date:'25/07/2023',
     customer_name: 'Mr.Test1',
-    delivery_challan:"Chllan2",
-    reference_number: 'ref-00007',
+    due_date:"12/07/2023",
+    invoices: 'INV-00007',
     status:"DRAFT",
-    invoice_status: '',
-    amount:'Rs.450.00'
+    order_number: '',
+    amount:'Rs.450.00',
+    balance_due:'Rs.450.00'
   },
   {
     key: '2',
-    date:'26/07/2023',
-    customer_name: 'Mr.Test2',
-    delivery_challan:"Chllan3",
-    reference_number: 'ref-00007',
+    date:'25/07/2023',
+    customer_name: 'Neeraj kumar',
+    due_date:"25/07/2023",
+    invoices: 'INV-000001 ',
     status:"DRAFT",
-    invoice_status: '',
-    amount:'Rs.890.00'
+    order_number: 'OR-000001',
+    amount:'Rs.450.00',
+    balance_due:'Rs.450.00'
   },
 ];
 
-const DeliveryChallansItemList = () => {
+const InvoicesItemList = () => {
   const navigate=useNavigate()
   const [selectedRows, setSelectedRows] = useState({
     selectedRowKeys: '',
@@ -152,8 +161,8 @@ const DeliveryChallansItemList = () => {
               bordered={false}
               // labelInValue
               defaultValue={{
-                value: 'all_delivery_challans',
-                label: 'All Delivery Challans'
+                value: 'all_unpaid_invoices',
+                label: 'Unpaid Invoices'
               }}
               style={{
                 width: 'auto'
@@ -172,36 +181,55 @@ const DeliveryChallansItemList = () => {
                   name: 'Draft'
                 },
                 {
-                  value: 'open',
-                  label: 'Open',
-                  name:'Open'
+                  value: 'pending',
+                  label: 'Pending ',
+                  name: 'Pending'
                 },
                 {
-                  value: 'delivered',
-                  label: 'Delivered',
-                  name:'Delivered'
+                  value: 'approved',
+                  label: 'Approved',
+                  name:'Approved'
                 },
                 {
-                  value: 'returned',
-                  label: 'Returned',
-                  name:'Returned'
+                  value: 'customer_viewed',
+                  label: 'Customer Viewed',
+                  name:'Customer Viewed'
                 },
                 {
-                 value:'partially_invoiced',
-                 label: "Partially Invoiced",
-                 name :"Partially Invoiced"
+                  value: 'partially_paid',
+                  label: 'Partially_Paid',
+                  name:'Partially_Paid'
                 },
                 {
-                 value:'invoiced',
-                 label: "Invoiced",
-                 name :"Invoiced"
+                 value:'unpaid',
+                 label: "Unpaid",
+                 name :"Unpaid"
+                },
+                {
+                 value:'overdue',
+                 label: "Overdue",
+                 name :"Overdue"
+                },
+                {
+                 value:'payment_initiated',
+                 label: "Payment Initiated",
+                 name :"Payment Initiated"
+                },
+                {
+                 value:'paid',
+                 label: "Paid",
+                 name :"Paid"
+                },{
+                 value:'void',
+                 label: "Void",
+                 name :"Void"
                 }
               ]}
             />
             <Button
               type="primary"
               className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-              onClick={()=>navigate(routes.sales.deliveryChallans.new)}
+              onClick={()=>navigate(routes.sales.invoices.new)}
             >
               + New
             </Button>
@@ -217,7 +245,7 @@ const DeliveryChallansItemList = () => {
             ...rowSelection,
           }}
           onRow={(record) => ({
-            onClick: () => navigate(reverse(routes.sales.deliveryChallans.view, { id: record.key })),
+            onClick: () => navigate(reverse(routes.sales.invoices.view, { id: record.key })),
           })}
           columns={columns}
           dataSource={data}
@@ -232,4 +260,4 @@ const DeliveryChallansItemList = () => {
   )
 };
 
-export default DeliveryChallansItemList;
+export default InvoicesItemList;

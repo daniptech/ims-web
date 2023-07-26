@@ -9,7 +9,7 @@ import { faFileInvoice, faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { render } from '@testing-library/react'
 
-const DeliveryChallansView = () => {
+const InvoicesView = () => {
     const navigate = useNavigate()
     const params = useParams()
     return (
@@ -19,10 +19,10 @@ const DeliveryChallansView = () => {
                 <div className='d-flex justify-content-between align-items-center p-4 px-3'>
                     <div className='d-flex  align-items-center gap-2 fs-5 '>
                         <ArrowLeftOutlined onClick={() => navigate(-1)} className='custom-back-button' />
-                        <span className='fw-medium'>Delivery Challans </span>
+                        <span className='fw-medium'>Invoices </span>
                     </div>
                     <div className='d-flex justify-content-center align-items-center gap-2 '>
-                        <Button className='d-flex justify-content-center align-items-center p-2 fs-5 bg-light' onClick={() => navigate(reverse(routes.purchase.purchaseOrder.edit, { id: params.id }))}><EditOutlined /></Button>
+                        <Button className='d-flex justify-content-center align-items-center p-2 fs-5 bg-light' onClick={() => navigate(reverse(routes.sales.invoices.edit, { id: params.id }))}><EditOutlined /></Button>
                         <Button className='d-flex justify-content-center align-items-center'><MailOutlined />Send Mail</Button>
                         <Dropdown
                             trigger='click'
@@ -87,15 +87,15 @@ const DeliveryChallansView = () => {
                         <div className='row col-12'>
                             <div className='col-6 d-flex flex-column gap-3'>
                                 <div>
-                                    <h4 className='m-0'>DELIVERY CHALLAN</h4>
-                                    <span>Delivery Challan# Challan</span>
+                                    <h4 className='m-0'>TAX INVOICE</h4>
+                                    <span>Invoices#  INV-000001</span>
                                 </div>
                                 <div>
                                     <span className='text-muted fw-medium'>STATUS</span>
                                     <div className='p-2' style={{ borderLeftColor: 'orange', borderLeftWidth: '3px', borderLeftStyle: 'solid' }}>
                                         <div className='row col-12'>
                                             <div className='col-3'>order</div>
-                                            <div className='col-9'><span className='bg-primary bg-opacity-75 p-1 rounded-2'>Draft</span></div>
+                                            <div className='col-9'><span className='bg-primary bg-opacity-75 p-1 rounded-2'>Overdue</span></div>
 
                                         </div>
                                         <div className='row col-12'>
@@ -106,23 +106,23 @@ const DeliveryChallansView = () => {
                                     </div>
                                 </div>
                                 <div className='row col-12'>
-                                    <div className='col-3 text-muted fw-medium'>Ref#</div>
-                                    <div className='col-9'> reference</div>
-                                    <div className='col-3 text-muted fw-medium'>Challan Date</div>
+                                    <div className='col-3 text-muted fw-medium'>Invoice Date</div>
                                     <div className='col-9'> 25/07/2023</div>
-                                    <div className='col-3 text-muted fw-medium'>Challan Type</div>
-                                    <div className='col-9'> Job Work</div>
+                                    <div className='col-3 text-muted fw-medium'>Terms</div>
+                                    <div className='col-9'> Due On Receipt</div>
+                                    <div className='col-3 text-muted fw-medium'>Due Date</div>
+                                    <div className='col-9'> 12/07/2023</div>
                                 </div>
 
                             </div>
                             <div className='col-6 d-flex flex-column justify-content-between'>
                                 
                                 <div className='d-flex flex-column'>
-                                    <strong className='text-muted'>DELIVERY TO</strong>
-                                    <span>veeresh</span>
+                                    <strong className='text-muted'>Personal</strong>
+                                    <span>Demo test</span>
                                     <span>Delhi</span>
                                     <span>India</span>
-                                    <spna>6396340468</spna>
+                                    <spna>6562032444</spna>
                                 </div>
                             </div>
                         </div>
@@ -170,6 +170,13 @@ const DeliveryChallansView = () => {
                         </div>
                         <div className='row col-12 '>
                             <div className='col-6'>
+                            <div className='row col-12 mt-2'>
+                                    <div className='col-6 d-flex flex-column'>
+                                        <span className='text-muted mt-4'>Total In Words</span>
+                                        <span className='text-muted'>Indian Rupee Twelve Only</span>
+                                        <span className='fs-5 mt-4'>Thanks for your business.</span>
+                                    </div>
+                                </div>
                             </div>
                             <div className='col-6 text-end d-flex flex-column gap-3'>
                                 <div className='row col-12 mt-2'>
@@ -209,15 +216,22 @@ const DeliveryChallansView = () => {
                                         <strong> Rs.100.80</strong>
                                     </div>
                                 </div>
+                                <div className='row col-12'>
+                                    <div className='col-6 d-flex flex-column'>
+                                        <strong className='fs-5 '>Balance Due</strong>
+                                    </div>
+                                    <div className='col-6 '>
+                                        <strong> Rs.100.80</strong>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <Divider />
                         <div className='d-flex flex-column justify-content-between'>
                             <div className='d-flex flex-column'>
-                                <strong >Notes</strong>
-                                <span>notes</span>
-                                <strong className='mt-4'>Terms & Conditions</strong>
-                                <span>condition</span>
+                                <strong >More Information</strong>
+                                <span>Salesperson : test</span>
+                                <span>Selected Emails </span>
                                 <spna className='mt-2'>Authorized Signature_____________</spna>
                             </div>
                         </div>
@@ -228,4 +242,4 @@ const DeliveryChallansView = () => {
     )
 }
 
-export default DeliveryChallansView
+export default InvoicesView

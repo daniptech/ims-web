@@ -45,6 +45,14 @@ import CreateAndEditPurchaseReceive from './Purchase/PurchaseReceive/CreateAndEd
 import BillList from './Purchase/Bills/BillList';
 import BillView from './Purchase/Bills/BillView';
 import CreateAndEditBill from './Purchase/Bills/CreateAndEditBill';
+import CreateAndEditDeliveryChallans from './Sales/DeliveryChallans/CreateAndEditDeliveryChallans';
+import DeliveryChallansView from './Sales/DeliveryChallans/DeliveryChallansView';
+import InvoicesItemList from './Sales/Invoices/InvoicesItemList';
+import CreateAndEditInvoice from './Sales/Invoices/CreateAndEditInvoice';
+import InvoicesView from './Sales/Invoices/InvoicesView';
+import CreditNotesItemList from './Sales/CreditNotes/CreditNotesItemList';
+import CreateAndEditCreditNotes from './Sales/CreditNotes/CreateAndEditCreditNotes';
+import CreditNotesView from './Sales/CreditNotes/CreditNotesView';
 
 const Main = () => {
   const [selectKey, setSelectKey] = useState('1');
@@ -71,10 +79,10 @@ const Main = () => {
       getItem('Packages', 'packages'),
       getItem('Shipments', 'shipment'),
       getItem('Delivery Challans', 'deliveryChallans'),
-      getItem('Invoice', '12'),
+      getItem('Invoice', 'invoices'),
       getItem('Payment Received', '13'),
       getItem('sales Return', '14'),
-      getItem('Credit Notes', '15')
+      getItem('Credit Notes', 'creditNotes')
     ]),
     getItem('Purchase', 'purchase', <FontAwesomeIcon icon={faBagShopping} />, [
       getItem('Vendors', 'vendor'),
@@ -112,6 +120,7 @@ const Main = () => {
             <Route path={routes.inventory.inventoryAdjustments.view} element={<InventoryAdjustmentView />} />
             <Route path={routes.inventory.inventoryAdjustments.new} element={<CreateAndEditInventoryAdjustment />} />
             <Route path={routes.inventory.inventoryAdjustments.edit} element={<CreateAndEditInventoryAdjustment />} />
+            
           </Route>
           <Route path={routes.sales.self}>
             <Route path={routes.sales.customers.self} element={<CustomerItemsList/>}/>
@@ -129,6 +138,17 @@ const Main = () => {
             <Route path={routes.sales.shipment.new} element={<CreateAndEditShipment/>}/>
             <Route path={routes.sales.shipment.edit} element={<CreateAndEditShipment/>}/>
             <Route path={routes.sales.deliveryChallans.self} element={<DeliveryChallansItemList/>}/>
+            <Route path={routes.sales.deliveryChallans.new} element={<CreateAndEditDeliveryChallans/>}/>
+            <Route path={routes.sales.deliveryChallans.edit} element={<CreateAndEditDeliveryChallans/>}/>
+            <Route path={routes.sales.deliveryChallans.view} element={<DeliveryChallansView/>}/>
+            <Route path={routes.sales.invoices.self} element={<InvoicesItemList/>}/>
+            <Route path={routes.sales.invoices.new} element={<CreateAndEditInvoice/>}/>
+            <Route path={routes.sales.invoices.edit} element={<CreateAndEditInvoice/>}/>
+            <Route path={routes.sales.invoices.view} element={<InvoicesView/>}/>
+            <Route path={routes.sales.creditNotes.self} element={<CreditNotesItemList/>}/>
+            <Route path={routes.sales.creditNotes.new} element={<CreateAndEditCreditNotes/>}/>
+            <Route path={routes.sales.creditNotes.edit} element={<CreateAndEditCreditNotes/>}/>
+            <Route path={routes.sales.creditNotes.view} element={<CreditNotesView/>}/>
           </Route>
           <Route path={routes.purchase.self}>
             <Route path={routes.purchase.vendor.self} element={<VendorList />} />

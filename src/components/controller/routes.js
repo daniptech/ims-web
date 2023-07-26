@@ -75,6 +75,18 @@ export const routes = {
       view: ':id',
       new: 'new',
       edit: ':id/edit'
+    }),
+    invoices: include('invoices', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    creditNotes: include('creditNotes', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
     })
   }),
   purchase: include('/purchase', {

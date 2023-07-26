@@ -16,7 +16,7 @@ import {
   
   
   
-  const CreateAndEditDeliveryChallans = () => {
+  const CreateAndEditInvoice = () => {
     const navigate = useNavigate();
     const params = useParams();
     const [value, setValue] = React.useState(1);
@@ -54,7 +54,7 @@ import {
         <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
           <div className="d-flex align-items-center gap-4 fs-5">
             <ArrowLeftOutlined className="custom-back-button" onClick={() => navigate(-1)} />
-            <span className="fw-medium">{params.id ? 'Edit' : 'New'} Delivery Challan</span>
+            <span className="fw-medium">{params.id ? 'Edit' : 'New'} Invoices</span>
           </div>
           <div className="d-flex align-items-center gap-4 fs-5">
             <Button onClick={() => navigate(-1)}>Cancel</Button>
@@ -138,19 +138,19 @@ import {
                   <div className="row col-12 d-flex  align-items-center">
                     <div className="col-3">
                       <label className="d-flex align-items-center gap-1 text-danger">
-                        <span>Delivery Challan# *</span>
+                        <span>Invoice# *</span>
                       </label>
                     </div>
                     <div className="col-6">
                       <Form.Item name="company_name" className="d-flex m-0 form-item">
-                        <Input placeholder="SO-00004" suffix={<SettingOutlined />} />
+                        <Input placeholder="INV-00004" suffix={<SettingOutlined />} />
                       </Form.Item>
                     </div>
                   </div>
                   <div className="row col-12 d-flex  align-items-center">
                     <div className="col-3">
                       <label className="d-flex align-items-center gap-1">
-                        <span>Reference# </span>
+                        <span>Order Number </span>
                       </label>
                     </div>
                     <div className="col-6">
@@ -161,8 +161,8 @@ import {
                   </div>
                   <div className="row col-12 d-flex  align-items-center">
                     <div className="col-3">
-                      <label className="d-flex align-items-center gap-1">
-                        <span>Delivery Challan Date</span>
+                      <label className="d-flex align-items-center gap-1 text-danger">
+                        <span>Invoice Date</span>
                       </label>
                     </div>
                     <div className="col-6">
@@ -214,6 +214,69 @@ import {
                               },
                             ]}
                           />
+                      </Form.Item>
+                    </div>
+                  </div>
+                <div className="row col-12 d-flex  align-items-center">
+                        <div className="col-3">
+                            <label className="d-flex align-items-center gap-1">
+                            Payment Terms
+                            <Tooltip
+                                placement="rightTop"
+                                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                                <InfoCircleOutlined className="text-muted" />
+                            </Tooltip>{' '}
+                            </label>
+                        </div>
+                        <div className="col-6">
+                            <Form.Item name="payment_terms" className="d-flex m-0 form-item">
+                            <Select
+                                style={{
+                                width: '90%'
+                                }}
+                                showSearch
+                                placeholder="Select or add customer"
+                                optionFilterProp="children"
+                                onChange={onChange}
+                                onSearch={onSearch}
+                                filterOption={(input, option) =>
+                                (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                                }
+                                options={[
+                                {
+                                    value: 'net15',
+                                    label: 'Net 15'
+                                },
+                                {
+                                    value: 'net30',
+                                    label: 'Net 30'
+                                },
+                                {
+                                    value: 'net25',
+                                    label: 'Net 25'
+                                },
+                                {
+                                    value: 'due_end_the_month',
+                                    label: 'Due end of the month'
+                                },
+                                {
+                                    value: 'due_on_receipt',
+                                    label: 'Due on Receipt'
+                                }
+                                ]}
+                            />
+                            </Form.Item>
+                        </div>
+                    </div>
+                    <div className="row col-12 d-flex  align-items-center">
+                    <div className="col-3">
+                      <label className="d-flex align-items-center gap-1 text-danger">
+                        <span>Subject</span>
+                      </label>
+                    </div>
+                    <div className="col-6">
+                      <Form.Item name="sales_order_date" className="d-flex m-0 form-item">
+                      <Input.TextArea showCount maxLength={100} />
                       </Form.Item>
                     </div>
                   </div>
@@ -361,7 +424,7 @@ import {
     )
   }
   
-  export default CreateAndEditDeliveryChallans
+  export default CreateAndEditInvoice
   
   
   
