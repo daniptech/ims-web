@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import OtherDetail from '../Tabs/OtherDetail';
 import Address from '../Tabs/Address';
 import BankDetails from '../Tabs/BankDetails';
+import { ContactPerson } from '../Tabs/ContactPerson';
 const { TabPane } = Tabs;
 const CreateAndEditVendor = () => {
     const navigate = useNavigate()
@@ -183,16 +184,20 @@ const CreateAndEditVendor = () => {
                                     <Address />
                                 </TabPane>
                                 <TabPane tab='Contact Persons' className="" key="3">
-
+                                    <ContactPerson />
                                 </TabPane>
                                 <TabPane tab='Bank Details' className="" key="4">
                                     <BankDetails />
                                 </TabPane>
-                                <TabPane tab='Reporting Tags' className="" key="5">
-
-                                </TabPane>
-                                <TabPane tab='Remarks' className="" key="6">
-
+                                <TabPane tab='Remarks' className="" key="5">
+                                    <div className="row col-12 p-4 m-0">
+                                        <div className="col-6 d-flex flex-column gap-3">
+                                            <div>Remarks<span className='text-muted'> (For Internal Use)</span></div>
+                                            <Form.Item name='remark'>
+                                                <Input.TextArea />
+                                            </Form.Item>
+                                        </div>
+                                    </div>
                                 </TabPane>
                             </Tabs>
                         </div>

@@ -1,9 +1,7 @@
-import { ArrowLeftOutlined, CaretDownOutlined, CaretRightOutlined, DownOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons'
-import { Button, Dropdown, Form, Input, InputNumber, Popconfirm, Segmented, Table, Tabs, Typography } from 'antd'
-import React, { useState } from 'react'
-import { Icons } from '../../../components/controller/Images';
+import { ArrowLeftOutlined, DownOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { Button, Dropdown, Tabs } from 'antd'
+import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-import AdjustStock from '../../../components/modals/AdjustStock';
 import { reverse } from 'named-urls';
 import { routes } from '../../../components/controller/routes';
 import OverView from '../Tabs/OverView';
@@ -15,7 +13,6 @@ const { TabPane } = Tabs;
 const VendorView = () => {
     const params = useParams()
     const navigate = useNavigate()
-    const [openAdjustment, setOpenAdjustment] = useState(false)
     const moreItem = [
         {
             key: '1',
@@ -43,7 +40,6 @@ const VendorView = () => {
                 </div>
                 <div className='d-flex justify-content-center align-items-center gap-2 '>
                     <Button className='d-flex justify-content-center align-items-center p-2 fs-5 bg-light' onClick={() => navigate(reverse(routes.purchase.vendor.edit, { id: params.id }))}><EditOutlined /></Button>
-                    <Button type='primary' onClick={() => setOpenAdjustment(true)} >Adjust Stock</Button>
                     <Dropdown
                         menu={{
                             items: moreItem,
@@ -105,7 +101,6 @@ const VendorView = () => {
                     </div>
                 </TabPane>
             </Tabs>
-            {openAdjustment && <AdjustStock openAdjustment={openAdjustment} setOpenAdjustment={setOpenAdjustment} />}
         </div>
     )
 }
