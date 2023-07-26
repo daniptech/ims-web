@@ -338,7 +338,7 @@ const CreateAndEditPurchaseOrder = () => {
                     </div>
                   </div>
                   <div className='col-8'>
-                    <div className='w-100 row col-12 bg-light rounded-2 p-2'>
+                    <div className='w-100 row col-12 bg-light rounded-2 p-2 lh-lg'>
                       <div className='col-6'>Sub Total</div>
                       <div className='col-6 text-end text-muted'>0.00</div>
                       <div className='col-4'>Discount</div>
@@ -368,7 +368,7 @@ const CreateAndEditPurchaseOrder = () => {
                       </div>
                       <div className='col-4 text-end text-muted'>0.00</div>
                       <div className='col-4'>
-                      TCS
+                     <Form.Item></Form.Item>
                       </div>
                       <div className='col-4'>
                         <Form.Item name='discount'>

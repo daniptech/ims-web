@@ -7,7 +7,7 @@ import {
     UploadOutlined
 } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Form, Input, Select, DatePicker, Tooltip, Dropdown, Upload, message, Divider } from 'antd';
+import { Button, Form, Input, Select, DatePicker, Tooltip, Dropdown, Upload, message, Divider, Radio } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -54,7 +54,7 @@ const CreateAndEditBill = () => {
             <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
                 <div className="d-flex align-items-center gap-4 fs-5">
                     <ArrowLeftOutlined className="custom-back-button" onClick={() => navigate(-1)} />
-                    <span className="fw-medium">{params.id ? 'Edit' : 'New'} Purchase Order</span>
+                    <span className="fw-medium">{params.id ? 'Edit' : 'New'} Bill</span>
                 </div>
                 <div className="d-flex align-items-center gap-4 fs-5">
                     <Button onClick={() => navigate(-1)}>Cancel</Button>
@@ -71,7 +71,11 @@ const CreateAndEditBill = () => {
                     overflow: 'scroll',
                     paddingBottom: '100px'
                 }}>
-                <Form layout="vertical" name="conpositeForm">
+                <Form layout="vertical" 
+                initialValues={{
+                    type:'tds'
+                }}
+                 name="conpositeForm">
                     <div>
                         <div className="w-100 row col-12 bg-light p-4">
                             <div className='col-6'>
@@ -251,27 +255,29 @@ const CreateAndEditBill = () => {
                                 <table className='w-100 custom-table-create'>
                                     <thead className='w-100'>
                                         <tr className='border-bottom border-top'>
-                                            <th style={{ width: '34%' }} className='border-end' >ITEM DETAILS</th>
-                                            <th style={{ width: '15%' }} className='border-end text-end' >ACCOUNT</th>
-                                            <th style={{ width: '15%' }} className='border-end text-end' >QUANTITY</th>
-                                            <th style={{ width: '15%' }} className='border-end text-end' >RATE</th>
-                                            <th style={{ width: '15%' }} className=' text-end'>AMOUNT</th>
-                                            <th style={{ width: '6%' }} className='text-end'></th>
+                                            <th style={{ width: '30%' }} className='border-end' >ITEM DETAILS</th>
+                                            <th style={{ width: '13%' }} className='border-end text-end' >ACCOUNT</th>
+                                            <th style={{ width: '13%' }} className='border-end text-end' >QUANTITY</th>
+                                            <th style={{ width: '13%' }} className='border-end text-end' >RATE</th>
+                                            <th style={{ width: '13%' }} className=' text-end'>CUSTOMER DETAILS</th>
+                                            <th style={{ width: '13%' }} className=' text-end'>AMOUNT</th>
+                                            <th style={{ width: '5%' }} className='text-end'></th>
                                         </tr>
                                     </thead>
                                     <tbody className='w-100'>
                                         <tr className='border-bottom'>
-                                            <td style={{ width: '34%' }} className='border-end' ><div className='d-flex gap-2'>
+                                            <td style={{ width: '30%' }} className='border-end' ><div className='d-flex gap-2'>
                                                 <div className='p-1 table-img'>
                                                     <FontAwesomeIcon icon={faImage} style={{ color: "#c7c7c7", height: 25 }} />
                                                 </div>
                                                 <Input className='item-detail' placeholder='Type or Click to select an item.' />
                                             </div></td>
-                                            <td style={{ width: '15%' }} className='border-end' ><Select className='w-100' options={[]} /></td>
-                                            <td style={{ width: '15%' }} className='border-end' ><Input className='input-field' placeholder='0.00' /></td>
-                                            <td style={{ width: '15%' }} className='border-end' ><Input className='input-field' placeholder='0.00' /></td>
-                                            <td style={{ width: '15%' }} className='text-end' >0.00</td>
-                                            <td style={{ width: '6%' }} className='p-3'><FontAwesomeIcon icon={faCircleXmark} style={{ color: "#e26a6a", }} /></td>
+                                            <td style={{ width: '13%' }} className='border-end' ><Select className='w-100' options={[]} /></td>
+                                            <td style={{ width: '13%' }} className='border-end' ><Input className='input-field' placeholder='0.00' /></td>
+                                            <td style={{ width: '13%' }} className='border-end' ><Input className='input-field' placeholder='0.00' /></td>
+                                            <td style={{ width: '13%' }} className='border-end' ><Select className='w-100' options={[]} /></td>
+                                            <td style={{ width: '13%' }} className='text-end' >0.00</td>
+                                            <td style={{ width: '5%' }} className='p-3'><FontAwesomeIcon icon={faCircleXmark} style={{ color: "#e26a6a", }} /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -303,7 +309,7 @@ const CreateAndEditBill = () => {
 
                                     </div>
                                     <div className='col-8'>
-                                        <div className='w-100 row col-12 bg-light rounded-2 p-2'>
+                                        <div className='w-100 row col-12 bg-light rounded-2 p-2 lh-lg'>
                                             <div className='col-6'>Sub Total</div>
                                             <div className='col-6 text-end text-muted'>0.00</div>
                                             <div className='col-4'>Discount</div>
@@ -333,7 +339,12 @@ const CreateAndEditBill = () => {
                                             </div>
                                             <div className='col-4 text-end text-muted'>0.00</div>
                                             <div className='col-4'>
-                                                TCS
+                                                <Form.Item name='type'>
+                                                    <Radio.Group >
+                                                        <Radio value='tds'>TDS</Radio>
+                                                        <Radio value='tcs'>TCS</Radio>
+                                                    </Radio.Group>
+                                                </Form.Item>
                                             </div>
                                             <div className='col-4'>
                                                 <Form.Item name='discount'>
