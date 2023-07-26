@@ -36,6 +36,15 @@ import CreateAndEditPackage from './Sales/Packages/CreateAndEditPackage';
 import ShipmentItemsList from './Sales/Shipment/ShipmentItemList';
 import CreateAndEditShipment from './Sales/Shipment/CreateAndEditShipment';
 import DeliveryChallansItemList from './Sales/DeliveryChallans/DeliveryChallansItemList';
+import PurchaseOrderList from './Purchase/PurchaseOrder/PurchaseOrderList';
+import PurchaseOrderView from './Purchase/PurchaseOrder/PurchaseOrderView';
+import CreateAndEditPurchaseOrder from './Purchase/PurchaseOrder/CreateAndEditPurchaseOrder'
+import PurchaseReceiveList from './Purchase/PurchaseReceive/PurchaseReceiveList';
+import PurchaseReceiveView from './Purchase/PurchaseReceive/PurchaseReceiveView';
+import CreateAndEditPurchaseReceive from './Purchase/PurchaseReceive/CreateAndEditPurchaseReceive';
+import BillList from './Purchase/Bills/BillList';
+import BillView from './Purchase/Bills/BillView';
+import CreateAndEditBill from './Purchase/Bills/CreateAndEditBill';
 
 const Main = () => {
   const [selectKey, setSelectKey] = useState('1');
@@ -126,6 +135,18 @@ const Main = () => {
             <Route path={routes.purchase.vendor.view} element={<VendorView />} />
             <Route path={routes.purchase.vendor.edit} element={<CreateAndEditVendor />} />
             <Route path={routes.purchase.vendor.new} element={<CreateAndEditVendor />} />
+            <Route path={routes.purchase.purchaseOrder.self} element={<PurchaseOrderList />} />
+            <Route path={routes.purchase.purchaseOrder.view} element={<PurchaseOrderView />} />
+            <Route path={routes.purchase.purchaseOrder.new} element={<CreateAndEditPurchaseOrder />} />
+            <Route path={routes.purchase.purchaseOrder.edit} element={<CreateAndEditPurchaseOrder />} />
+            <Route path={routes.purchase.purchaseReceives.self} element={<PurchaseReceiveList />} />
+            <Route path={routes.purchase.purchaseReceives.view} element={<PurchaseReceiveView />} />
+            <Route path={routes.purchase.purchaseReceives.new} element={<CreateAndEditPurchaseReceive />} />
+            <Route path={routes.purchase.purchaseReceives.edit} element={<CreateAndEditPurchaseReceive />} />
+            <Route path={routes.purchase.bill.self} element={<BillList />} />
+            <Route path={routes.purchase.bill.view} element={<BillView />} />
+            <Route path={routes.purchase.bill.new} element={<CreateAndEditBill />} />
+            <Route path={routes.purchase.bill.edit} element={<CreateAndEditBill />} />
           </Route>
         </Routes>
       </div>
