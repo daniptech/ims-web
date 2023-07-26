@@ -259,7 +259,7 @@ const BillList = () => {
     return (
         <div className="w-100 h-100">
             <div className="w-100 d-flex justify-content-between align-items-center position-relative">
-                <Tabs defaultActiveKey="1" className="upload-document w-100">
+                <Tabs defaultActiveKey="2" className="upload-document w-100">
                     <TabPane tab={<h6 className='m-0'>Uploaded Documents</h6>} className="" key="1">
                         <div className="w-100"
                             style={{
@@ -408,7 +408,7 @@ const BillList = () => {
                                         columns={columns.filter((val) => val.isVisible)}
                                         dataSource={data}
                                         onRow={(record) => ({
-                                            onClick: () => navigate(reverse(routes.purchase.purchaseOrder.view, { id: record.key })),
+                                            onClick: () => navigate(reverse(routes.purchase.bill.view, { id: record.key })),
                                         })}
                                         scroll={{ x: 1000 }}
                                         className=""

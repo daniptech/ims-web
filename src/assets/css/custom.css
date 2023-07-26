@@ -442,3 +442,10 @@ display: contents;
 .upload-document .ant-tabs-nav .ant-tabs-nav-wrap{
   padding: 15px 15px 0px 15px;
 }
+
+.payment-mode-box{
+  border: 1px dotted orange;
+  width: 400px;
+  background-color: #fffef5;
+  color:orange;
+}
