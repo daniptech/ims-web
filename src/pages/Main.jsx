@@ -45,6 +45,9 @@ import CreateAndEditPurchaseReceive from './Purchase/PurchaseReceive/CreateAndEd
 import BillList from './Purchase/Bills/BillList';
 import BillView from './Purchase/Bills/BillView';
 import CreateAndEditBill from './Purchase/Bills/CreateAndEditBill';
+import PaymentModeList from './Purchase/PaymentMode/PaymentModeList';
+import PaymentModeView from './Purchase/PaymentMode/PaymentModeView';
+import CreateAndEditPaymentMode from './Purchase/PaymentMode/CreateAndEditPaymentMode';
 
 const Main = () => {
   const [selectKey, setSelectKey] = useState('1');
@@ -147,6 +150,10 @@ const Main = () => {
             <Route path={routes.purchase.bill.view} element={<BillView />} />
             <Route path={routes.purchase.bill.new} element={<CreateAndEditBill />} />
             <Route path={routes.purchase.bill.edit} element={<CreateAndEditBill />} />
+            <Route path={routes.purchase.paymentMode.self} element={<PaymentModeList />} />
+            <Route path={routes.purchase.paymentMode.view} element={<PaymentModeView />} />
+            <Route path={routes.purchase.paymentMode.new} element={<CreateAndEditPaymentMode />} />
+            <Route path={routes.purchase.paymentMode.edit} element={<CreateAndEditPaymentMode />} />
           </Route>
         </Routes>
       </div>
