@@ -100,7 +100,7 @@ const Main = () => {
       getItem('Vendors', 'vendor'),
       getItem('Purchase Order', 'purchaseOrder'),
       getItem('Purchase Receives', 'purchaseReceives'),
-      getItem('Bills', 'bill'),
+      getItem('Bills', 'bills'),
       getItem('Payments Mode', 'paymentMode'),
       getItem('Vendor Credits', 'vendorCredit')
     ]),
@@ -113,7 +113,7 @@ const Main = () => {
         <NavBar />
         <Routes>
           <Route path={routes.home.dashboard} element={<Home />} />
-          <Route path={routes.inventory.self}>
+          {/* <Route path={routes.inventory.self}> */}
             <Route path={routes.inventory.items.self} element={<ItemsList />} />
             <Route path={routes.inventory.items.view} element={<ItemView />} />
             <Route path={routes.inventory.items.new} element={<CreateAndEditItems />} />
@@ -147,8 +147,8 @@ const Main = () => {
               path={routes.inventory.inventoryAdjustments.edit}
               element={<CreateAndEditInventoryAdjustment />}
             />
-          </Route>
-          <Route path={routes.sales.self}>
+          {/* </Route> */}
+          {/* <Route path={routes.sales.self}> */}
             <Route path={routes.sales.customers.self} element={<CustomerItemsList />} />
             <Route path={routes.sales.customers.view} element={<CustomerView />} />
             <Route path={routes.sales.customers.new} element={<CreateAndEditCustomer />} />
@@ -195,8 +195,8 @@ const Main = () => {
               path={routes.sales.paymentReceived.edit}
               element={<CreateAndEditPaymentReceived />}
             />
-          </Route>
-          <Route path={routes.purchase.self}>
+          {/* </Route> */}
+          {/* <Route path={routes.purchase.self}> */}
             <Route path={routes.purchase.vendor.self} element={<VendorList />} />
             <Route path={routes.purchase.vendor.view} element={<VendorView />} />
             <Route path={routes.purchase.vendor.edit} element={<CreateAndEditVendor />} />
@@ -221,10 +221,10 @@ const Main = () => {
               path={routes.purchase.purchaseReceives.edit}
               element={<CreateAndEditPurchaseReceive />}
             />
-            <Route path={routes.purchase.bill.self} element={<BillList />} />
-            <Route path={routes.purchase.bill.view} element={<BillView />} />
-            <Route path={routes.purchase.bill.new} element={<CreateAndEditBill />} />
-            <Route path={routes.purchase.bill.edit} element={<CreateAndEditBill />} />
+            <Route path={routes.purchase.bills.self} element={<BillList />} />
+            <Route path={routes.purchase.bills.view} element={<BillView />} />
+            <Route path={routes.purchase.bills.new} element={<CreateAndEditBill />} />
+            <Route path={routes.purchase.bills.edit} element={<CreateAndEditBill />} />
             <Route path={routes.purchase.paymentMode.self} element={<PaymentModeList />} />
             <Route path={routes.purchase.paymentMode.view} element={<PaymentModeView />} />
             <Route path={routes.purchase.paymentMode.new} element={<CreateAndEditPaymentMode />} />
@@ -233,7 +233,7 @@ const Main = () => {
             <Route path={routes.purchase.vendorCredit.view} element={<VendorCreditView />} />
             <Route path={routes.purchase.vendorCredit.new} element={<CreateAndEditVendorCredit />} />
             <Route path={routes.purchase.vendorCredit.edit} element={<CreateAndEditVendorCredit />} />
-          </Route>
+          {/* </Route> */}
           <Route path={routes.reports.self} element={<ReportsItemsList />} />
           <Route path='*' element={<PageNoteFound setSelectKey={setSelectKey}/>}/>
         </Routes>
