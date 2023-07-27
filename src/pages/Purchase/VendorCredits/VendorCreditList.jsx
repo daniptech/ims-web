@@ -9,7 +9,7 @@ import CustomizeTableColumns from '../../../components/modals/CustomizeTableColu
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
-const PaymentModeList = () => {
+const VendorCreditList = () => {
     const navigate = useNavigate()
     const [searchText, setSearchText] = useState('');
     const [searchedColumn, setSearchedColumn] = useState('');
@@ -155,20 +155,21 @@ const PaymentModeList = () => {
         },
         {
             id: 2,
-            title: 'PAYMENT#',
-            dataIndex: 'payment',
-            key: 'payment',
-            width: '20%',
-            ...getColumnSearchProps('payment'),
-            sorter: (a, b) => a.payment.length - b.payment.length,
+            title: 'CREDIT NOTE#',
+            dataIndex: 'credit_note',
+            key: 'credit_note',
+            ...getColumnSearchProps('credit_note'),
+            sorter: (a, b) => a.credit_note.length - b.credit_note.length,
             isVisible: true,
-            lock: false
+            lock: true
         },
         {
             id: 3,
-            title: 'REFERENCE#',
-            dataIndex: 'reference',
-            key: 'reference',
+            title: 'REFERENCE NUMBER#',
+            dataIndex: 'reference_number',
+            key: 'reference_number',
+            ...getColumnSearchProps('reference_number'),
+            sorter: (a, b) => a.reference_number.length - b.reference_number.length,
             isVisible: true,
             lock: false
         },
@@ -177,59 +178,39 @@ const PaymentModeList = () => {
             title: 'VENDOR NAME',
             dataIndex: 'vendor_name',
             key: 'vendor_name',
+            ...getColumnSearchProps('vendor_name'),
+            sorter: (a, b) => a.vendor_name.length - b.vendor_name.length,
             isVisible: true,
             lock: true
         },
         {
             id: 5,
-            title: 'BILL#',
-            dataIndex: 'bill',
-            key: 'bill',
+            title: 'STATUS',
+            dataIndex: 'status',
+            key: 'status',
             isVisible: true,
-            lock: false
+            lock: true
+
         },
         {
             id: 6,
-            title: 'MODE',
-            dataIndex: 'mode',
-            key: 'mode',
+            title: 'AMOUNT',
+            dataIndex: 'amount',
+            key: 'amount',
+            render: (text) => <span>Rs.{text}</span>,
+            sorter: (a, b) => a.amount.length - b.amount.length,
             isVisible: true,
             lock: true
         },
         {
             id: 7,
-            title: 'AMOUNT',
-            dataIndex: 'amount',
-            key: 'amount',
-            render: (text) =><span>Rs.{text}</span> ,
+            title: 'BALANCE',
+            dataIndex: 'balance',
+            key: 'balance',
+            render: (text) => <span>Rs.{text}</span>,
+            sorter: (a, b) => a.balance.length - b.balance.length,
             isVisible: true,
-            lock: true
-        },
-        {
-            id: 8,
-            title: 'UNUSED AMOUNT',
-            dataIndex: 'unused_amount',
-            key: 'unused_amount',
-            render: (text) =><span>Rs.{text}</span> ,
-            isVisible: true,
-            lock: false,
-        },
-        {
-            id: 9,
-            title: 'PAID THROUGH ACCOUNT',
-            dataIndex: 'paid_through_account',
-            key: 'paid_through_account',
-            isVisible: false,
             lock: false
-        },
-        {
-            id: 10,
-            title: 'STATUS',
-            dataIndex: 'status',
-            key: 'status',
-            isVisible: false,
-            lock: false
-
         }
     ]);
 
@@ -238,15 +219,12 @@ const PaymentModeList = () => {
         {
             key: '1',
             date: '20-04-2024',
-            payment:'1',
-            reference:'	bill payment reference',
-            vendor_name:'	kumar, Neeraj',
-            bill:'',
-            mode:'Cash',
-            amount:'2,000.00',
-            unused_amount:'2,000.00',
-            paid_through_account:'Petty Cash',
-            status:''
+            reference_number: 'OR-00096',
+            vendor_name: 'Purchase Vender',
+            amount: '2,000.00',
+            status: 'DRAFT',
+            credit_note:'DN-1200001',
+            balance:'11,212.00'
 
 
 
@@ -306,24 +284,51 @@ const PaymentModeList = () => {
                             bordered={false}
                             // labelInValue
                             defaultValue={{
-                                value: 'all_payment',
-                                label: 'All Payment',
+                                value: 'all_composite_items',
+                                label: 'All Composite Items'
                             }}
                             style={{
                                 width: 'auto'
                             }}
+                            optionLabelProp='name'
                             onChange={(val) => console.log(val)}
                             options={[
                                 {
-                                    value: 'all_payment',
-                                    label: 'All Payment',
-                                }
+                                    value: 'all_vendor_credit',
+                                    label: 'All',
+                                    name: "All Vendor Credits "
+                                },
+                                {
+                                    value: 'draft_vendor_credit',
+                                    label: 'Draft',
+                                    name: 'Draft Vendor Credits'
+                                },
+                                {
+                                    value: 'pending_approval_vendor_credit',
+                                    label: 'Pending Approval',
+                                    name: 'Pending Approval Vendor Credits'
+                                },
+                                {
+                                    value: 'open_vendor_credit',
+                                    label: 'Open',
+                                    name: 'Open Vendor Credits'
+                                },
+                                {
+                                    value: 'closed_vendor_credit',
+                                    label: 'Closed',
+                                    name: 'Closed Vendor Credits'
+                                },
+                                {
+                                    value: 'void_vendor_credit',
+                                    label: 'Void',
+                                    name: 'Void Vendor Credits'
+                                },
                             ]}
                         />
                         <Button
                             type="primary"
                             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-                            onClick={() => navigate(routes.purchase.paymentMode.new)}
+                            onClick={() => navigate(routes.purchase.vendorCredit.new)}
                         >
                             + New
                         </Button>
@@ -349,7 +354,7 @@ const PaymentModeList = () => {
                     columns={columns.filter((val) => val.isVisible)}
                     dataSource={data}
                     onRow={(record) => ({
-                        onClick: () => navigate(reverse(routes.purchase.paymentMode.view, { id: record.key })),
+                        onClick: () => navigate(reverse(routes.purchase.vendorCredit.view, { id: record.key })),
                     })}
                     scroll={{ x: 1000 }}
                     className=""
@@ -372,4 +377,4 @@ const PaymentModeList = () => {
     );
 };
 
-export default PaymentModeList;
+export default VendorCreditList;

@@ -6,23 +6,32 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartFlatbed } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { routes } from './controller/routes';
+import { useEffect } from 'react';
 const { Sider } = Layout;
 
 const Sidebar = ({ selectKey, setSelectKey, items }) => {
+  useEffect(()=>{
+    const pathname=window.location.pathname.split("/")
+    const currentSelectKey=pathname[2]
+    if(currentSelectKey=="inventoryDashboard"){
+      setSelectKey('home')
+    }else{
+      setSelectKey(currentSelectKey)
+    }
+  },[])
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const handleChange = (val) => {
+    debugger
     setSelectKey(val?.key);
-    // navigate()
     if (val?.keyPath?.length > 1) {
-      debugger
       navigate(routes[val.keyPath[1]][val.keyPath[0]].self);
     } else if (val.key === 'home') {
       navigate(routes.home.dashboard);
     }
   };
   return (
-    <div style={{minHeight:'100vh'}}>
+    <div style={{ minHeight: '100vh' }}>
       <div
         className="demo-logo-vertical d-flex justify-content-center align-items-center text-white gap-2"
         style={{ height: '40px', background: '#1677FF' }}
