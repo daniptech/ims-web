@@ -68,14 +68,12 @@ const data = [
     order_status:'Draft'
   },
 ];
-
 const SalesOrderItemsList = () => {
   const navigate=useNavigate()
   const [selectedRows, setSelectedRows] = useState({
     selectedRowKeys: '',
     selectedRows: []
   })
-  // rowSelection object indicates the need for row selection
   const rowSelection = {
     selectedRowKeys: selectedRows.selectedRowKeys,
     onChange: (selectedRowKeys, selectedRows) => {
@@ -85,11 +83,6 @@ const SalesOrderItemsList = () => {
       })
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
-    // getCheckboxProps: (record) => ({
-    //   disabled: record.name === 'Disabled User',
-    //   // Column configuration not to be checked
-    //   name: record.name,
-    // }),
   };
   const items = [
     {
@@ -114,7 +107,6 @@ const SalesOrderItemsList = () => {
     },
   ];
   const [currentPage, setCurrentPage] = useState(1);
-
   const handleChangePage = (page) => {
     setCurrentPage(page);
   };
@@ -140,7 +132,6 @@ const SalesOrderItemsList = () => {
             <Select
               className="item-table-filter"
               bordered={false}
-              // labelInValue
               defaultValue={{
                 value: 'all',
                 label: 'All Sales Order'
@@ -231,5 +222,4 @@ const SalesOrderItemsList = () => {
     </div>
   )
 };
-
 export default SalesOrderItemsList;

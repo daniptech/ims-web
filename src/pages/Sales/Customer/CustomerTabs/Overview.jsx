@@ -14,7 +14,6 @@ import {
 import { Button, Dropdown,Space,Radio} from 'antd';
 import { Link } from 'react-router-dom';
 import userIcon from '../../../../assets/images/Icons/userIcon.png';
-import messageIcon from '../../../../assets/images/Icons/comment.png'
 const items = [
   {
     label: '1st menu item',
@@ -33,7 +32,6 @@ const items = [
     key: '4',
   },
 ];
-
 export const Overview = () => {
   const [address,setAddress] = React.useState(true)
   const [otherDetails,setOtherDetails] = React.useState(true)
@@ -263,7 +261,6 @@ export const Overview = () => {
     </div>
   );
 };
-
 const linkStyle = {
   textDecoration: 'none',
 };

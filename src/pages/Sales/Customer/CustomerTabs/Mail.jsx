@@ -1,5 +1,5 @@
 import { DownOutlined, MailOutlined } from '@ant-design/icons'
-import { Avatar, Button, Dropdown } from 'antd'
+import { Avatar, Dropdown } from 'antd'
 import React from 'react'
 export const Mail = () => {
     return (

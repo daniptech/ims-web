@@ -125,14 +125,12 @@ const data = [
   },
 
 ];
-
 const CustomerItemsList = () => {
   const navigate=useNavigate()
   const [selectedRows, setSelectedRows] = useState({
     selectedRowKeys: '',
     selectedRows: []
   })
-  // rowSelection object indicates the need for row selection
   const rowSelection = {
     selectedRowKeys: selectedRows.selectedRowKeys,
     onChange: (selectedRowKeys, selectedRows) => {
@@ -142,11 +140,6 @@ const CustomerItemsList = () => {
       })
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
-    // getCheckboxProps: (record) => ({
-    //   disabled: record.name === 'Disabled User',
-    //   // Column configuration not to be checked
-    //   name: record.name,
-    // }),
   };
   const items = [
     {
@@ -171,7 +164,6 @@ const CustomerItemsList = () => {
     },
   ];
   const [currentPage, setCurrentPage] = useState(1);
-
   const handleChangePage = (page) => {
     setCurrentPage(page);
   };
@@ -191,13 +183,11 @@ const CustomerItemsList = () => {
             </Dropdown>
             <CloseOutlined onClick={() => rowSelection.onChange("", [])} className='text-muted' />
           </>
-
           :
           <>
             <Select
               className="item-table-filter"
               bordered={false}
-              // labelInValue
               defaultValue={{
                 value: 'all_customers',
                 label: 'All Customers'
@@ -273,5 +263,4 @@ const CustomerItemsList = () => {
     </div>
   )
 };
-
 export default CustomerItemsList;

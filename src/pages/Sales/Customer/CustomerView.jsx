@@ -1,7 +1,5 @@
-import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons'
-import { Button, Dropdown, Tabs } from 'antd'
 import React from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { routes } from '../../../components/controller/routes'
 import { reverse } from 'named-urls'
 import { Overview } from './CustomerTabs/Overview'
@@ -12,8 +10,6 @@ import { BackHeader } from '../../../components/BackHeader'
 import { TopTaps } from '../../../components/TopTaps'
 const CustomerView = () => {
   const params = useParams()
-  const { TabPane } = Tabs;
-  const navigate = useNavigate()
   const moreItems = [
     {
       key: '1',
@@ -60,72 +56,7 @@ const CustomerView = () => {
     <TopTaps
       tapItem={tabList}
     />
-      {/* <Tabs defaultActiveKey="1" className="item-view-tabs">
-        <TabPane tab={<h6 className='m-0'>Overview</h6>} className="" key="1">
-          <div className="w-100 px-3"
-            style={{
-              maxHeight: '70vh',
-              height: '100%',
-              overflow: 'scroll',
-              paddingBottom: '79px'
-            }}>
-            <Overview />
-          </div>
-        </TabPane>
-        <TabPane tab={<h6 className='m-0'>Comments</h6>} className="" key="2">
-          <div className="w-100 px-3"
-            style={{
-              maxHeight: '70vh',
-              height: '100%',
-              overflow: 'scroll',
-              paddingBottom: '79px'
-            }}>
-            <Comment />
-          </div>
-        </TabPane>
-        <TabPane tab={<h6 className='m-0'>Transactions</h6>} className="" key="3">
-                    <div className="w-100 p-3"
-                        style={{
-                            maxHeight: '70vh',
-                            height: '100%',
-                            overflow: 'scroll',
-                            paddingBottom: '79px'
-                        }}>
-                        <Transactions />
-
-                    </div>
-
-                </TabPane>
-                <TabPane tab={<h6 className='m-0'>Mails</h6>} className="" key="4">
-                    <div className="w-100 p-3"
-                        style={{
-                            maxHeight: '70vh',
-                            height: '100%',
-                            overflow: 'scroll',
-                            paddingBottom: '79px'
-                        }}>
-                        <Mail />
-
-                    </div>
-
-                </TabPane>
-                <TabPane tab={<h6 className='m-0'>Statement</h6>} className="" key="5">
-                    <div className="w-100 p-3"
-                        style={{
-                            maxHeight: '70vh',
-                            height: '100%',
-                            overflow: 'scroll',
-                            paddingBottom: '79px'
-                        }}>
-                        <Statement />
-
-                    </div>
-
-                </TabPane>
-      </Tabs> */}
-
     </div>
   )
 }
-
 export default CustomerView

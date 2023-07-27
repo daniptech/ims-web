@@ -21,8 +21,8 @@ import CreateAndEditPriceList from './Inventory/PriceList/CreateAndEditPriceList
 import InventoryAdjustmentList from './Inventory/inventoryAdjustment/InventoryAdjustmentList';
 import CreateAndEditInventoryAdjustment from './Inventory/inventoryAdjustment/CreateAndEditInventoryAdjustment';
 import InventoryAdjustmentView from './Inventory/inventoryAdjustment/InventoryAdjustmentView';
-import CustomerItemsList from './Sales/Customer/CustomerItemList'
-import CustomerView from './Sales/Customer/CustomerView'
+import CustomerItemsList from './Sales/Customer/CustomerItemList';
+import CustomerView from './Sales/Customer/CustomerView';
 import CreateAndEditCustomer from './Sales/Customer/CreateAndEditCustomer';
 //import { CustomerView, CustomerItemsList} from './Sales/Customer';
 import VendorList from './Purchase/Vendor/VendorList';
@@ -38,7 +38,7 @@ import CreateAndEditShipment from './Sales/Shipment/CreateAndEditShipment';
 import DeliveryChallansItemList from './Sales/DeliveryChallans/DeliveryChallansItemList';
 import PurchaseOrderList from './Purchase/PurchaseOrder/PurchaseOrderList';
 import PurchaseOrderView from './Purchase/PurchaseOrder/PurchaseOrderView';
-import CreateAndEditPurchaseOrder from './Purchase/PurchaseOrder/CreateAndEditPurchaseOrder'
+import CreateAndEditPurchaseOrder from './Purchase/PurchaseOrder/CreateAndEditPurchaseOrder';
 import PurchaseReceiveList from './Purchase/PurchaseReceive/PurchaseReceiveList';
 import PurchaseReceiveView from './Purchase/PurchaseReceive/PurchaseReceiveView';
 import CreateAndEditPurchaseReceive from './Purchase/PurchaseReceive/CreateAndEditPurchaseReceive';
@@ -56,6 +56,11 @@ import CreditNotesView from './Sales/CreditNotes/CreditNotesView';
 import PaymentModeList from './Purchase/PaymentMode/PaymentModeList';
 import PaymentModeView from './Purchase/PaymentMode/PaymentModeView';
 import CreateAndEditPaymentMode from './Purchase/PaymentMode/CreateAndEditPaymentMode';
+import { SalesReturns } from './Sales/SalesReturns/SalesReturns';
+import PaymentReceivedItemList from './Sales/PaymentReceived/PaymentReceivedItemList';
+import { PaymentReceivedView } from './Sales/PaymentReceived/PaymentReceivedView';
+import CreateAndEditPaymentReceived from './Sales/PaymentReceived/CreateAndEditPaymentReceived';
+import { ReportsItemsList } from './Reports/ReportsItemsList';
 
 const Main = () => {
   const [selectKey, setSelectKey] = useState('1');
@@ -83,8 +88,8 @@ const Main = () => {
       getItem('Shipments', 'shipment'),
       getItem('Delivery Challans', 'deliveryChallans'),
       getItem('Invoice', 'invoices'),
-      getItem('Payment Received', '13'),
-      getItem('sales Return', '14'),
+      getItem('Payment Received', 'paymentReceived'),
+      getItem('sales Return', 'salesReturn'),
       getItem('Credit Notes', 'creditNotes')
     ]),
     getItem('Purchase', 'purchase', <FontAwesomeIcon icon={faBagShopping} />, [
@@ -111,7 +116,10 @@ const Main = () => {
             <Route path={routes.inventory.items.edit} element={<CreateAndEditItems />} />
             <Route path={routes.inventory.compositeItem.self} element={<CompositeItemsList />} />
             <Route path={routes.inventory.compositeItem.view} element={<CompositeView />} />
-            <Route path={routes.inventory.compositeItem.new} element={<CreateAndEditCompositeItem />} />
+            <Route
+              path={routes.inventory.compositeItem.new}
+              element={<CreateAndEditCompositeItem />}
+            />
             <Route path={routes.inventory.itemGroups.self} element={<ItemGroupList />} />
             <Route path={routes.inventory.itemGroups.view} element={<ItemGroupVIew />} />
             <Route path={routes.inventory.itemGroups.new} element={<CreateAndEditGroupItem />} />
@@ -119,39 +127,70 @@ const Main = () => {
             <Route path={routes.inventory.priceList.self} element={<PriceListItems />} />
             <Route path={routes.inventory.priceList.new} element={<CreateAndEditPriceList />} />
             <Route path={routes.inventory.priceList.edit} element={<CreateAndEditPriceList />} />
-            <Route path={routes.inventory.inventoryAdjustments.self} element={<InventoryAdjustmentList />} />
-            <Route path={routes.inventory.inventoryAdjustments.view} element={<InventoryAdjustmentView />} />
-            <Route path={routes.inventory.inventoryAdjustments.new} element={<CreateAndEditInventoryAdjustment />} />
-            <Route path={routes.inventory.inventoryAdjustments.edit} element={<CreateAndEditInventoryAdjustment />} />
-            
+            <Route
+              path={routes.inventory.inventoryAdjustments.self}
+              element={<InventoryAdjustmentList />}
+            />
+            <Route
+              path={routes.inventory.inventoryAdjustments.view}
+              element={<InventoryAdjustmentView />}
+            />
+            <Route
+              path={routes.inventory.inventoryAdjustments.new}
+              element={<CreateAndEditInventoryAdjustment />}
+            />
+            <Route
+              path={routes.inventory.inventoryAdjustments.edit}
+              element={<CreateAndEditInventoryAdjustment />}
+            />
           </Route>
           <Route path={routes.sales.self}>
-            <Route path={routes.sales.customers.self} element={<CustomerItemsList/>}/>
-            <Route path={routes.sales.customers.view} element={<CustomerView/>}/>
-            <Route path={routes.sales.customers.new} element={<CreateAndEditCustomer/>}/>
-            <Route path={routes.sales.customers.edit} element={<CreateAndEditCustomer/>}/>
-            <Route path={routes.sales.salesOrder.self} element={<SalesOrderItemsList/>}/>
-            <Route path={routes.sales.salesOrder.new} element={<CreateAndEditSalesOrder/>}/>
-            <Route path={routes.sales.salesOrder.edit} element={<CreateAndEditSalesOrder/>}/>
-            <Route path={routes.sales.salesOrder.view} element={<SalesOrderView/>}/>
-            <Route path={routes.sales.packages.self} element={<PackageItemList/>}/>
-            <Route path={routes.sales.packages.new} element={<CreateAndEditPackage/>}/>
-            <Route path={routes.sales.packages.edit} element={<CreateAndEditPackage/>}/>
-            <Route path={routes.sales.shipment.self} element={<ShipmentItemsList/>}/>
-            <Route path={routes.sales.shipment.new} element={<CreateAndEditShipment/>}/>
-            <Route path={routes.sales.shipment.edit} element={<CreateAndEditShipment/>}/>
-            <Route path={routes.sales.deliveryChallans.self} element={<DeliveryChallansItemList/>}/>
-            <Route path={routes.sales.deliveryChallans.new} element={<CreateAndEditDeliveryChallans/>}/>
-            <Route path={routes.sales.deliveryChallans.edit} element={<CreateAndEditDeliveryChallans/>}/>
-            <Route path={routes.sales.deliveryChallans.view} element={<DeliveryChallansView/>}/>
-            <Route path={routes.sales.invoices.self} element={<InvoicesItemList/>}/>
-            <Route path={routes.sales.invoices.new} element={<CreateAndEditInvoice/>}/>
-            <Route path={routes.sales.invoices.edit} element={<CreateAndEditInvoice/>}/>
-            <Route path={routes.sales.invoices.view} element={<InvoicesView/>}/>
-            <Route path={routes.sales.creditNotes.self} element={<CreditNotesItemList/>}/>
-            <Route path={routes.sales.creditNotes.new} element={<CreateAndEditCreditNotes/>}/>
-            <Route path={routes.sales.creditNotes.edit} element={<CreateAndEditCreditNotes/>}/>
-            <Route path={routes.sales.creditNotes.view} element={<CreditNotesView/>}/>
+            <Route path={routes.sales.customers.self} element={<CustomerItemsList />} />
+            <Route path={routes.sales.customers.view} element={<CustomerView />} />
+            <Route path={routes.sales.customers.new} element={<CreateAndEditCustomer />} />
+            <Route path={routes.sales.customers.edit} element={<CreateAndEditCustomer />} />
+            <Route path={routes.sales.salesOrder.self} element={<SalesOrderItemsList />} />
+            <Route path={routes.sales.salesOrder.new} element={<CreateAndEditSalesOrder />} />
+            <Route path={routes.sales.salesOrder.edit} element={<CreateAndEditSalesOrder />} />
+            <Route path={routes.sales.salesOrder.view} element={<SalesOrderView />} />
+            <Route path={routes.sales.packages.self} element={<PackageItemList />} />
+            <Route path={routes.sales.packages.new} element={<CreateAndEditPackage />} />
+            <Route path={routes.sales.packages.edit} element={<CreateAndEditPackage />} />
+            <Route path={routes.sales.shipment.self} element={<ShipmentItemsList />} />
+            <Route path={routes.sales.shipment.new} element={<CreateAndEditShipment />} />
+            <Route path={routes.sales.shipment.edit} element={<CreateAndEditShipment />} />
+            <Route
+              path={routes.sales.deliveryChallans.self}
+              element={<DeliveryChallansItemList />}
+            />
+            <Route
+              path={routes.sales.deliveryChallans.new}
+              element={<CreateAndEditDeliveryChallans />}
+            />
+            <Route
+              path={routes.sales.deliveryChallans.edit}
+              element={<CreateAndEditDeliveryChallans />}
+            />
+            <Route path={routes.sales.deliveryChallans.view} element={<DeliveryChallansView />} />
+            <Route path={routes.sales.invoices.self} element={<InvoicesItemList />} />
+            <Route path={routes.sales.invoices.new} element={<CreateAndEditInvoice />} />
+            <Route path={routes.sales.invoices.edit} element={<CreateAndEditInvoice />} />
+            <Route path={routes.sales.invoices.view} element={<InvoicesView />} />
+            <Route path={routes.sales.creditNotes.self} element={<CreditNotesItemList />} />
+            <Route path={routes.sales.creditNotes.new} element={<CreateAndEditCreditNotes />} />
+            <Route path={routes.sales.creditNotes.edit} element={<CreateAndEditCreditNotes />} />
+            <Route path={routes.sales.creditNotes.view} element={<CreditNotesView />} />
+            <Route path={routes.sales.salesReturn.self} element={<SalesReturns />} />
+            <Route path={routes.sales.paymentReceived.self} element={<PaymentReceivedItemList />} />
+            <Route path={routes.sales.paymentReceived.view} element={<PaymentReceivedView />} />
+            <Route
+              path={routes.sales.paymentReceived.new}
+              element={<CreateAndEditPaymentReceived />}
+            />
+            <Route
+              path={routes.sales.paymentReceived.edit}
+              element={<CreateAndEditPaymentReceived />}
+            />
           </Route>
           <Route path={routes.purchase.self}>
             <Route path={routes.purchase.vendor.self} element={<VendorList />} />
@@ -160,12 +199,24 @@ const Main = () => {
             <Route path={routes.purchase.vendor.new} element={<CreateAndEditVendor />} />
             <Route path={routes.purchase.purchaseOrder.self} element={<PurchaseOrderList />} />
             <Route path={routes.purchase.purchaseOrder.view} element={<PurchaseOrderView />} />
-            <Route path={routes.purchase.purchaseOrder.new} element={<CreateAndEditPurchaseOrder />} />
-            <Route path={routes.purchase.purchaseOrder.edit} element={<CreateAndEditPurchaseOrder />} />
+            <Route
+              path={routes.purchase.purchaseOrder.new}
+              element={<CreateAndEditPurchaseOrder />}
+            />
+            <Route
+              path={routes.purchase.purchaseOrder.edit}
+              element={<CreateAndEditPurchaseOrder />}
+            />
             <Route path={routes.purchase.purchaseReceives.self} element={<PurchaseReceiveList />} />
             <Route path={routes.purchase.purchaseReceives.view} element={<PurchaseReceiveView />} />
-            <Route path={routes.purchase.purchaseReceives.new} element={<CreateAndEditPurchaseReceive />} />
-            <Route path={routes.purchase.purchaseReceives.edit} element={<CreateAndEditPurchaseReceive />} />
+            <Route
+              path={routes.purchase.purchaseReceives.new}
+              element={<CreateAndEditPurchaseReceive />}
+            />
+            <Route
+              path={routes.purchase.purchaseReceives.edit}
+              element={<CreateAndEditPurchaseReceive />}
+            />
             <Route path={routes.purchase.bill.self} element={<BillList />} />
             <Route path={routes.purchase.bill.view} element={<BillView />} />
             <Route path={routes.purchase.bill.new} element={<CreateAndEditBill />} />
@@ -175,6 +226,7 @@ const Main = () => {
             <Route path={routes.purchase.paymentMode.new} element={<CreateAndEditPaymentMode />} />
             <Route path={routes.purchase.paymentMode.edit} element={<CreateAndEditPaymentMode />} />
           </Route>
+          <Route path={routes.reports.self} element={<ReportsItemsList />} />
         </Routes>
       </div>
     </div>

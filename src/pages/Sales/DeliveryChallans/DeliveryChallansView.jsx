@@ -1,5 +1,5 @@
-import { ArrowLeftOutlined, CaretDownOutlined, DeleteOutlined, DownOutlined, EditOutlined, MailOutlined, MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { Button, Collapse, Divider, Dropdown, Image, Table } from 'antd'
+import { ArrowLeftOutlined, CaretDownOutlined,EditOutlined, MailOutlined, MoreOutlined} from '@ant-design/icons'
+import { Button, Divider, Dropdown, Image, Table } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { routes } from '../../../components/controller/routes'
@@ -7,13 +7,10 @@ import { reverse } from 'named-urls'
 import { Icons } from '../../../components/controller/Images'
 import { faFileInvoice, faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { render } from '@testing-library/react'
-
 const DeliveryChallansView = () => {
     const navigate = useNavigate()
     const params = useParams()
     return (
-
         <div className='item-view-container w-100 bg-white'>
             <div className='w-100 border-bottom'>
                 <div className='d-flex justify-content-between align-items-center p-4 px-3'>
@@ -96,12 +93,10 @@ const DeliveryChallansView = () => {
                                         <div className='row col-12'>
                                             <div className='col-3'>order</div>
                                             <div className='col-9'><span className='bg-primary bg-opacity-75 p-1 rounded-2'>Draft</span></div>
-
                                         </div>
                                         <div className='row col-12'>
                                             <div className='col-3'>Receive</div>
                                             <div className='col-9'> <div className='text-success'>Received</div></div>
-
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +108,6 @@ const DeliveryChallansView = () => {
                                     <div className='col-3 text-muted fw-medium'>Challan Type</div>
                                     <div className='col-9'> Job Work</div>
                                 </div>
-
                             </div>
                             <div className='col-6 d-flex flex-column justify-content-between'>
                                 
@@ -166,7 +160,6 @@ const DeliveryChallansView = () => {
                                 }]}
                                 pagination={false}
                             />
-
                         </div>
                         <div className='row col-12 '>
                             <div className='col-6'>
@@ -227,5 +220,4 @@ const DeliveryChallansView = () => {
         </div>
     )
 }
-
 export default DeliveryChallansView

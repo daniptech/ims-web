@@ -2,7 +2,6 @@ import { FacebookOutlined, InfoCircleOutlined, SkypeOutlined, TwitterOutlined } 
 import { Form, Input, Select, Tooltip } from 'antd'
 import React from 'react'
 import { useState } from 'react'
-
 const OtherDetail = () => {
     const [addmore,setAddMore]=useState(false)
     return (
@@ -158,5 +157,4 @@ const OtherDetail = () => {
         </div>
     )
 }
-
 export default OtherDetail

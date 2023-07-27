@@ -14,9 +14,16 @@ const columns = [
     lock: true,
   },
   {
-    title: 'SHIPMENT ORDER#',
-    dataIndex: 'shipment_order',
-    sorter: (a, b) => a.shipment_order - b.shipment_order,
+    title: 'PAYMENT#',
+    dataIndex: 'payment',
+    sorter: (a, b) => a.payment - b.payment,
+    isVisible: true,
+    lock: true,
+  },
+  {
+    title: 'REFERENCE#',
+    dataIndex: 'reference',
+    sorter: (a, b) => a.reference - b.reference,
     isVisible: true,
     lock: true,
   },
@@ -28,49 +35,48 @@ const columns = [
     lock: true,
   },
   {
-    title: 'SALES ORDER#',
-    dataIndex: 'sales_order',
-    sorter: (a, b) => a.sales_order - b.sales_order,
+    title: 'INVOICE',
+    dataIndex: 'invoice',
+    sorter: (a, b) => a.invoice - b.invoice,
     isVisible: true,
     lock: true,
   },
   {
-    title: 'PACKAGE#',
-    dataIndex: 'package',
-    sorter: (a, b) => a.package - b.package,
+    title: 'MODE',
+    dataIndex: 'mode',
+    sorter: (a, b) => a.mode - b.mode,
     isVisible: true,
     lock: true,
   },
   {
-    title: 'CARRIER',
-    dataIndex: 'carrier',
-    sorter: (a, b) => a.carrier - b.carrier,
+    title: 'AMOUNT',
+    dataIndex: 'amount',
+    sorter: (a, b) => a.amount - b.amount,
     isVisible: true,
     lock: true,
   },
   {
-    title: 'TRACKING#',
-    dataIndex: 'tracking',
-    sorter: (a, b) => a.tracking - b.tracking,
-    isVisible: true,
-    lock: true,
-  },
-  {
-    title: 'STATUS',
-    dataIndex: 'status',
-    sorter: (a, b) => a.status - b.status,
-    isVisible: true,
-    lock: true,
-  },
-  {
-    title: 'SHIPPING RATE',
-    dataIndex: 'shipping_rate',
-    sorter: (a, b) => a.shipping_rate - b.shipping_rate,
+    title: 'UNUSED AMOUNT',
+    dataIndex: 'unused_amount',
+    sorter: (a, b) => a.unused_amount - b.unused_amount,
     isVisible: true,
     lock: true,
   },
 ];
-const ShipmentItemsList = () => {
+const data = [
+  {
+    key: '1',
+    date: '25/07/2023',
+    payment:"1",
+    reference: 're-002',
+    customer_name:'Mr. Customer 1',
+    invoice:'',
+    mode:'Cash',
+    amount:'Rs.18000.00',
+    unused_amount:'Rs.18000.00',
+  },
+];
+const PaymentReceivedItemList = () => {
   const navigate=useNavigate()
   const [selectedRows, setSelectedRows] = useState({
     selectedRowKeys: '',
@@ -129,6 +135,7 @@ const ShipmentItemsList = () => {
             </Dropdown>
             <CloseOutlined onClick={() => rowSelection.onChange("", [])} className='text-muted' />
           </>
+
           :
           <>
             <Select
@@ -136,7 +143,7 @@ const ShipmentItemsList = () => {
               bordered={false}
               defaultValue={{
                 value: 'all',
-                label: 'All Shipped'
+                label: 'All Received Payments'
               }}
               style={{
                 width: 'auto'
@@ -145,46 +152,16 @@ const ShipmentItemsList = () => {
               onChange={(val) => console.log(val)}
               options={[
                 {
-                  value: 'shipped',
-                  label: 'Shipped',
-                  name:"Shipped"
+                  value: 'all',
+                  label: 'All Payments',
+                  name:"All Payments"
                 },
-                {
-                  value: 'in_transit',
-                  label: 'In-Transit',
-                  name: 'In-Transit'
-                },
-                {
-                  value: 'out_for_delivery',
-                  label: 'Out For Delivery',
-                  name:'Out For Delivery'
-                },
-                {
-                  value: 'faild_delivery_attempt',
-                  label: 'Faild Delivery Attempt',
-                  name:'Faild Delivery Attempt'
-                },
-                {
-                  value: 'customers_clearance',
-                  label: 'Customers Clearance',
-                  name:'Customers Clearance'
-                },
-                {
-                 value:'ready_for_pickup',
-                 label: "Ready For Pickup",
-                 name :"Ready For Pickup"
-                },
-                {
-                 value:'delayed',
-                 label: "Delayed",
-                 name :"Delayed"
-                }
               ]}
             />
             <Button
               type="primary"
               className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-              onClick={()=>navigate(routes.sales.shipment.new)}
+              onClick={()=>navigate(routes.sales.paymentReceived.new)}
             >
               + New
             </Button>
@@ -200,10 +177,10 @@ const ShipmentItemsList = () => {
             ...rowSelection,
           }}
           onRow={(record) => ({
-            onClick: () => navigate(reverse(routes.sales.shipment.new, { id: record.key })),
+            onClick: () => navigate(reverse(routes.sales.paymentReceived.view, { id: record.key })),
           })}
           columns={columns}
-          dataSource={[]}
+          dataSource={data}
           pagination={{
             current: currentPage,
             pageSize: 8,
@@ -214,4 +191,4 @@ const ShipmentItemsList = () => {
     </div>
   )
 };
-export default ShipmentItemsList;
+export default PaymentReceivedItemList;

@@ -87,6 +87,18 @@ export const routes = {
       view: ':id',
       new: 'new',
       edit: ':id/edit'
+    }),
+    salesReturn: include('salesReturn', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
+    }),
+    paymentReceived: include('paymentReceived', {
+      self: '',
+      view: ':id',
+      new: 'new',
+      edit: ':id/edit'
     })
   }),
   purchase: include('/purchase', {
@@ -127,5 +139,8 @@ export const routes = {
       new: 'new',
       edit: ':id/edit'
     })
+  }),
+  reports:include('reports',{
+    self:''
   })
 };
