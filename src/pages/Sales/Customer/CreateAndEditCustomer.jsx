@@ -1,13 +1,10 @@
-import { ArrowLeftOutlined, InfoCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, InfoCircleOutlined} from '@ant-design/icons'
 import { Button, Form, Input, Select, Tabs, Tooltip,Radio } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ContactPerson } from './Tabs/ContactPerson'
 import OtherDetail from './Tabs/OtherDetails'
 import Address from './Tabs/Address'
-//import OtherDetail from '../Tabs/OtherDetail';
-//import Address from '../Tabs/Address';
-
 const { TabPane } = Tabs;
 const CreateAndEditCustomer = () => {
     const navigate = useNavigate()

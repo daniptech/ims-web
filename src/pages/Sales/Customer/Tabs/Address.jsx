@@ -1,6 +1,5 @@
 import { Form, Input, Select } from 'antd'
 import React from 'react'
-
 const Address = () => {
     return (
         <div className="row col-12 p-4 m-0">
@@ -236,5 +235,4 @@ const Address = () => {
         </div>
     )
 }
-
 export default Address

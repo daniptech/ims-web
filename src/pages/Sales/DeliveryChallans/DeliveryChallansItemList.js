@@ -85,7 +85,6 @@ const DeliveryChallansItemList = () => {
     selectedRowKeys: '',
     selectedRows: []
   })
-  // rowSelection object indicates the need for row selection
   const rowSelection = {
     selectedRowKeys: selectedRows.selectedRowKeys,
     onChange: (selectedRowKeys, selectedRows) => {
@@ -95,11 +94,6 @@ const DeliveryChallansItemList = () => {
       })
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
     },
-    // getCheckboxProps: (record) => ({
-    //   disabled: record.name === 'Disabled User',
-    //   // Column configuration not to be checked
-    //   name: record.name,
-    // }),
   };
   const items = [
     {
@@ -144,13 +138,11 @@ const DeliveryChallansItemList = () => {
             </Dropdown>
             <CloseOutlined onClick={() => rowSelection.onChange("", [])} className='text-muted' />
           </>
-
           :
           <>
             <Select
               className="item-table-filter"
               bordered={false}
-              // labelInValue
               defaultValue={{
                 value: 'all_delivery_challans',
                 label: 'All Delivery Challans'
@@ -231,5 +223,4 @@ const DeliveryChallansItemList = () => {
     </div>
   )
 };
-
 export default DeliveryChallansItemList;

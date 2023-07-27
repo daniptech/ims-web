@@ -1,5 +1,5 @@
-import { ArrowLeftOutlined, CaretDownOutlined, DeleteOutlined, DownOutlined, EditOutlined, MailOutlined, MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { Button, Collapse, Divider, Dropdown, Image, Table } from 'antd'
+import { ArrowLeftOutlined, CaretDownOutlined,EditOutlined, MailOutlined, MoreOutlined} from '@ant-design/icons'
+import { Button,Divider, Dropdown, Image, Table } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { routes } from '../../../components/controller/routes'
@@ -7,13 +7,10 @@ import { reverse } from 'named-urls'
 import { Icons } from '../../../components/controller/Images'
 import { faFileInvoice, faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { render } from '@testing-library/react'
-
 const CreditNotesView = () => {
     const navigate = useNavigate()
     const params = useParams()
     return (
-
         <div className='item-view-container w-100 bg-white'>
             <div className='w-100 border-bottom'>
                 <div className='d-flex justify-content-between align-items-center p-4 px-3'>
@@ -241,5 +238,4 @@ const CreditNotesView = () => {
         </div>
     )
 }
-
 export default CreditNotesView

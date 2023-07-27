@@ -5,11 +5,9 @@ import { faCircleXmark} from '@fortawesome/free-regular-svg-icons'
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons'
 export const ContactPerson = () => {
   const [tbodyCount, setTbodyCount] = React.useState(1);
-
   const handleIncrement = () => {
     setTbodyCount((prevCount) => prevCount + 1);
   };
-
   const handleDecrement = () => {
     setTbodyCount((prevCount) => Math.max(prevCount - 1, 1));
   };

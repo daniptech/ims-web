@@ -28,14 +28,15 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
       navigate(routes[val.keyPath[1]][val.keyPath[0]].self);
     } else if (val.key === 'home') {
       navigate(routes.home.dashboard);
+    } else if (val.key == 'reports') {
+      navigate(routes.reports.self);
     }
   };
   return (
     <div style={{ minHeight: '100vh' }}>
       <div
         className="demo-logo-vertical d-flex justify-content-center align-items-center text-white gap-2"
-        style={{ height: '40px', background: '#1677FF' }}
-      >
+        style={{ height: '40px', background: '#1677FF' }}>
         <FontAwesomeIcon icon={faCartFlatbed} />
         {!collapsed && <span>Inventory</span>}
       </div>
@@ -44,8 +45,7 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
         // style={{ mixHeight: '93vh' }}
         collapsible
         collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}
-      >
+        onCollapse={(value) => setCollapsed(value)}>
         {/* <div
           className="demo-logo-vertical d-flex justify-content-center align-items-center text-white gap-2"
           style={{ height: '40px', background: '#1677FF' }}

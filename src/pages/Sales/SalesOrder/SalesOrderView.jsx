@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined, CaretDownOutlined, DeleteOutlined, DownOutlined, EditOutlined, MailOutlined, MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, CaretDownOutlined, DeleteOutlined, EditOutlined, MailOutlined, MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Button, Collapse, Divider, Dropdown, Image, Table } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -7,7 +7,6 @@ import { reverse } from 'named-urls'
 import { Icons } from '../../../components/controller/Images'
 import { faFileInvoice, faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { render } from '@testing-library/react'
 const SalesOrderView = () => {
     const navigate = useNavigate()
     const params = useParams()
@@ -100,10 +99,6 @@ const SalesOrderView = () => {
                             {
                                 key: '1',
                                 label: 'Invoice',
-                                // children: <div className='d-flex align-item-center justify-content-center'>
-                                //     <p class="mb-0">No items have been received yet!  - </p>
-                                //     <p style={{ color: "#1677FF", cursor: 'pointer' }} >New Purchase receive</p>
-                                // </div>
                                 children: <Table columns={[
                                     { title: 'Invoice#', dataIndex: 'purchase_receive', key: 'purchase_receive' },
                                     { title: 'received on', dataIndex: 'received_on', key: 'received_on' },

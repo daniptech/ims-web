@@ -1,25 +1,20 @@
 import {
     ArrowLeftOutlined,
     DownOutlined,
-    InfoCircleOutlined,
-    SearchOutlined,
     SettingOutlined,
-    UploadOutlined
+    UploadOutlined,
+    SearchOutlined
   } from '@ant-design/icons';
   import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-  import { Button, Form, Input, Select, DatePicker, Tooltip, Dropdown, Upload, message, Divider } from 'antd';
+  import { Button, Form, Input, Select, DatePicker, Dropdown, Upload, message, Divider } from 'antd';
   import dayjs from 'dayjs';
   import React from 'react';
   import { useNavigate, useParams } from 'react-router-dom';
   import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
   import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-  
-  
-  
   const CreateAndEditDeliveryChallans = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const [value, setValue] = React.useState(1);
     const onSearch = (value) => console.log(value);
     const { Option } = Select;
     const onChange = (value) => {
@@ -33,8 +28,8 @@ import {
         authorization: 'authorization-text'
       },
       beforeUpload: (file) => {
-        const isFileTypeValid = file.type === 'image/jpeg' || file.type === 'image/png'; // Add the desired file types here
-        const isSizeValid = file.size / 1024 / 1024 <= 5; // Maximum file size of 5MB
+        const isFileTypeValid = file.type === 'image/jpeg' || file.type === 'image/png';
+        const isSizeValid = file.size / 1024 / 1024 <= 5;
         if (!isFileTypeValid) {
           message.error('You can only upload JPEG or PNG files!');
         }
@@ -360,10 +355,4 @@ import {
       </div>
     )
   }
-  
   export default CreateAndEditDeliveryChallans
-  
-  
-  
-  
-  
