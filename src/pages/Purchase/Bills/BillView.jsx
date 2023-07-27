@@ -22,7 +22,7 @@ const BillView = () => {
                         <span className='fw-medium'>Bill Name </span>
                     </div>
                     <div className='d-flex justify-content-center align-items-center gap-2 '>
-                        <Button className='d-flex justify-content-center align-items-center p-2 fs-5 bg-light' onClick={() => navigate(reverse(routes.purchase.bill.edit, { id: params.id }))}><EditOutlined /></Button>
+                        <Button className='d-flex justify-content-center align-items-center p-2 fs-5 bg-light' onClick={() => navigate(reverse(routes.purchase.bills.edit, { id: params.id }))}><EditOutlined /></Button>
                         <Dropdown
                             trigger='click'
                             menu={{

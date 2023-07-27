@@ -408,7 +408,7 @@ const BillList = () => {
                                         columns={columns.filter((val) => val.isVisible)}
                                         dataSource={data}
                                         onRow={(record) => ({
-                                            onClick: () => navigate(reverse(routes.purchase.bill.view, { id: record.key })),
+                                            onClick: () => navigate(reverse(routes.purchase.bills.view, { id: record.key })),
                                         })}
                                         scroll={{ x: 1000 }}
                                         className=""
@@ -429,7 +429,7 @@ const BillList = () => {
                     <Button
                         type="primary"
                         className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-                        onClick={() => navigate(routes.purchase.bill.new)}
+                        onClick={() => navigate(routes.purchase.bills.new)}
                     >
                         + New
                     </Button>

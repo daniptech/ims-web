@@ -120,7 +120,7 @@ export const routes = {
       new: 'new',
       edit: ':id/edit'
     }),
-    bill: include('bills', {
+    bills: include('bills', {
       self: '',
       view: ':id',
       new: 'new',
