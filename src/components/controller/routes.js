@@ -8,8 +8,7 @@ export const routes = {
     self: ''
   }),
   home: include('/home', {
-    self: '',
-    dashboard: 'inventory-dashboard'
+    dashboard: 'inventoryDashboard'
   }),
   inventory: include('/inventory', {
     self: '',
@@ -19,25 +18,25 @@ export const routes = {
       new: 'new',
       edit: ':id/edit'
     }),
-    itemGroups: include('item-groups', {
+    itemGroups: include('itemGroups', {
       self: '',
       view: ':id',
       new: 'new',
       edit: ':id/edit'
     }),
-    compositeItem: include('composite-items', {
+    compositeItem: include('compositeItems', {
       self: '',
       view: ':id',
       new: 'new',
       edit: ':id/edit'
     }),
-    priceList: include('price-list', {
+    priceList: include('priceList', {
       self: '',
       view: ':id',
       new: 'new',
       edit: ':id/edit'
     }),
-    inventoryAdjustments: include('inventory-adjustments', {
+    inventoryAdjustments: include('inventoryAdjustments', {
       self: '',
       view: ':id',
       new: 'new',
@@ -109,13 +108,13 @@ export const routes = {
       new: 'new',
       edit: ':id/edit'
     }),
-    purchaseOrder: include('purchase-order', {
+    purchaseOrder: include('purchaseOrder', {
       self: '',
       view: ':id',
       new: 'new',
       edit: ':id/edit'
     }),
-    purchaseReceives: include('purchase-receives', {
+    purchaseReceives: include('purchaseReceives', {
       self: '',
       view: ':id',
       new: 'new',
@@ -127,13 +126,13 @@ export const routes = {
       new: 'new',
       edit: ':id/edit'
     }),
-    paymentMode: include('payment-mode', {
+    paymentMode: include('paymentMode', {
       self: '',
       view: ':id',
       new: 'new',
       edit: ':id/edit'
     }),
-    vendorCredit: include('vendor-credit', {
+    vendorCredit: include('vendorCredit', {
       self: '',
       view: ':id',
       new: 'new',

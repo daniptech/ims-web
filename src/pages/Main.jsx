@@ -56,6 +56,10 @@ import CreditNotesView from './Sales/CreditNotes/CreditNotesView';
 import PaymentModeList from './Purchase/PaymentMode/PaymentModeList';
 import PaymentModeView from './Purchase/PaymentMode/PaymentModeView';
 import CreateAndEditPaymentMode from './Purchase/PaymentMode/CreateAndEditPaymentMode';
+import VendorCreditList from './Purchase/VendorCredits/VendorCreditList';
+import VendorCreditView from './Purchase/VendorCredits/VendorCreditView';
+import CreateAndEditVendorCredit from './Purchase/VendorCredits/CreateAndEditVendorCredit';
+import PageNoteFound from './PageNoteFound';
 import { SalesReturns } from './Sales/SalesReturns/SalesReturns';
 import PaymentReceivedItemList from './Sales/PaymentReceived/PaymentReceivedItemList';
 import { PaymentReceivedView } from './Sales/PaymentReceived/PaymentReceivedView';
@@ -225,8 +229,13 @@ const Main = () => {
             <Route path={routes.purchase.paymentMode.view} element={<PaymentModeView />} />
             <Route path={routes.purchase.paymentMode.new} element={<CreateAndEditPaymentMode />} />
             <Route path={routes.purchase.paymentMode.edit} element={<CreateAndEditPaymentMode />} />
+            <Route path={routes.purchase.vendorCredit.self} element={<VendorCreditList />} />
+            <Route path={routes.purchase.vendorCredit.view} element={<VendorCreditView />} />
+            <Route path={routes.purchase.vendorCredit.new} element={<CreateAndEditVendorCredit />} />
+            <Route path={routes.purchase.vendorCredit.edit} element={<CreateAndEditVendorCredit />} />
           </Route>
           <Route path={routes.reports.self} element={<ReportsItemsList />} />
+          <Route path='*' element={<PageNoteFound setSelectKey={setSelectKey}/>}/>
         </Routes>
       </div>
     </div>
