@@ -50,15 +50,15 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLo
           <div className="row col-12 mt-5 gap-1 justify-content-center m-0">
             <div className="col-md-6 col-lg-5">
               <Form.Item noStyle>
-                <Button block onClick={() => setOpenOtpPopup(false)} type="primary">
-                  cancel
+                <Button block htmlType="submit" type="primary">
+                  Submit
                 </Button>
               </Form.Item>
             </div>
             <div className="col-md-6 col-lg-5">
               <Form.Item noStyle>
-                <Button block htmlType="submit" type="primary">
-                  Submit
+                <Button block onClick={() => setOpenOtpPopup(false)} type="primary">
+                  cancel
                 </Button>
               </Form.Item>
             </div>

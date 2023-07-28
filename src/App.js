@@ -20,7 +20,8 @@ function App() {
   }, [loginuser])
   const loginCheck = localStorage.getItem('login')
   const checkLogin = () => {
-    if (window.location.pathname == routes.login.self || window.location.pathname == routes.register.self) {
+    const check=window.location.hash?.split('/')[1]
+    if (check == 'login' || check == 'register') {
       return false
     } else if (loginCheck) {
       return true
