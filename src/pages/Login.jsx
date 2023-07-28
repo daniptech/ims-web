@@ -1,16 +1,18 @@
-import { Button, Card, Form, Input, Select } from 'antd';
+import { Button, Card, Form, Input, Select, message } from 'antd';
 import React, { useState } from 'react';
 import { countryData } from '../data/CountryData';
 import OtpPopup from '../components/modals/OtpPopup';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../components/controller/routes';
 import { enterOnlyNumber } from '../components/controller/enteronlynumber';
+import { loginData } from '../data/LoginData';
 
-const Login = () => {
+const Login = ({setLoginUser}) => {
   const { Option } = Select;
   const navigate = useNavigate();
   const [loginWith, setLoginWith] = useState('phone');
   const [OpenOtpPopup, setOpenOtpPopup] = useState(false);
+  const [currentUser, setCurrentUser] = useState('')
   const selectBefore = (
     <Form.Item
       name="country_code"
@@ -22,7 +24,7 @@ const Login = () => {
       ]}
       noStyle
     >
-      <Select placeholder="country code" className="heehjj" style={{ width: 80 }}>
+      <Select showSearch placeholder="country code" className="" style={{ width: 80 }}>
         {countryData.map((val, index) => {
           return (
             <Option value={val.code} key={index}>
@@ -34,8 +36,26 @@ const Login = () => {
     </Form.Item>
   );
   const onFinish = (value) => {
-    console.log(value);
-    setOpenOtpPopup(true);
+    var minm = 1000;
+    var maxm = 9999;
+    const otp = Math.floor(Math.random() * (maxm - minm + 1)) + minm;
+    if (value['email']) {
+      const checkUser = loginData?.filter((val) => val.email == value.email)
+      if (checkUser?.length) {
+        setCurrentUser({ ...checkUser[0], otp: otp })
+        setOpenOtpPopup(true);
+      } else {
+        message.error("please enter Vaild credential")
+      }
+    } else {
+      const checkUser = loginData?.filter((val) => val.phone == value.phone && val.country_code == value.country_code)
+      if (checkUser?.length) {
+        setCurrentUser({ ...checkUser[0], otp: otp })
+        setOpenOtpPopup(true);
+      } else {
+        message.error("please enter Vaild credential")
+      }
+    }
   };
 
   return (
@@ -98,7 +118,7 @@ const Login = () => {
             ) : (
               <>
                 <Form.Item
-                  name="number"
+                  name="phone"
                   className="form-item"
                   rules={[
                     {
@@ -154,6 +174,8 @@ const Login = () => {
           OpenOtpPopup={OpenOtpPopup}
           setOpenOtpPopup={setOpenOtpPopup}
           loginWith={loginWith}
+          currentUser={currentUser}
+          setLoginUser={(val)=>setLoginUser(val)}
         />
       )}
     </div>

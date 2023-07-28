@@ -1,10 +1,10 @@
-import { Button, Form, Modal } from 'antd';
+import { Button, Form, Modal, message } from 'antd';
 import { InputOTP } from 'antd-input-otp';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../controller/routes';
 
-const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith }) => {
+const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLoginUser}) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const handleFinish = (values) => {
@@ -18,8 +18,15 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith }) => {
           errors: ['OTP is invalid.']
         }
       ]);
-    console.log(`OTP: ${otp}`);
-    navigate(routes.home.dashboard);
+    console.log(otp)
+    const formOtpText = otp.toString()
+    if (currentUser.otp == formOtpText.replaceAll(',', "")) {
+      localStorage.setItem("login", true)
+      setLoginUser(true)
+      navigate(routes.home.dashboard);
+    } else {
+      message.error('otp Not Match')
+    }
   };
 
   return (
@@ -38,7 +45,7 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith }) => {
           >
             <InputOTP autoFocus inputType="numeric" length={4} />
           </Form.Item>
-
+          <span className='fw-semibold'><span className='fw-medium'>OTP :</span> {currentUser.otp}</span>
           <div className="row col-12 mt-5 gap-1 justify-content-center m-0">
             <div className="col-md-6 col-lg-5">
               <Form.Item noStyle>
