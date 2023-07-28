@@ -5,6 +5,7 @@ import { faEllipsis, faFileLines } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CalenderSelect from '../../components/CalenderSelect';
 import dayjs from 'dayjs';
+import ChartView from '../../components/ChartView';
 const { TabPane } = Tabs;
 const Home = () => {
   const [topSellingItemcalenderDropDown, setTopSellingItemCalenderDropDown] = useState({
@@ -314,6 +315,9 @@ const Home = () => {
                   </div>
                 </div>
               </div>
+              <div className="w-100 p-4">
+            <ChartView/>
+            </div>
             </div>
           </div>
         </TabPane>

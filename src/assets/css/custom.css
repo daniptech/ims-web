@@ -514,3 +514,10 @@
   max-height: 400px !important;
   overflow: scroll;
 }
+
+.chart-card{
+  border: 1px solid #8cdff9;
+  border-left: 3px solid #0caee0;
+  padding: 6px 10px;
+  background-color: #edfafe;
+}

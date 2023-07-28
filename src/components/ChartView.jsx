@@ -1,5 +1,7 @@
 import { DownOutlined } from '@ant-design/icons';
 import CanvasJSReact from '@canvasjs/react-charts';
+import { faCircle } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, Space } from 'antd';
 import React from 'react'
 var CanvasJS = CanvasJSReact.CanvasJS;
@@ -17,6 +19,8 @@ const ChartView = () => {
             // suffix: "%",
             interval: 20
         },
+        width: 600,
+        height: 300,
         axisX: {
             // title: "Week of Year",
             // prefix: "W",
@@ -55,7 +59,7 @@ const ChartView = () => {
     }
     return (
         <div>
-            <div className='w-100 border border-black p-3'>
+            <div className='w-100 border border-black h-auto p-3'>
                 <div className='d-flex justify-content-between'>
                     <span className='fs-6'>Sales Order Summary (In INR)</span>
                     <Dropdown trigger='click' className='fs-6'>
@@ -66,7 +70,21 @@ const ChartView = () => {
                     </Dropdown>
                 </div>
                 <hr />
-                <CanvasJSChart options={options}/>
+                <div className='row col-12'>
+                    <div className='col-7 border-end'>
+                        <div className='w-100'><CanvasJSChart options={options} /></div>
+                    </div>
+                    <div className='col-2 d-flex flex-column gap-3'>
+                        <div>Total Sales</div>
+                        <div className='d-flex gap-3 chart-card' style={{ width: '100%' }}>
+                            <FontAwesomeIcon icon={faCircle} style={{ color: "#0caee0", }} />
+                            <div>
+                                <span>DIRECT SALES</span>
+                                <div>Rs.0.00</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     )
