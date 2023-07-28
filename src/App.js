@@ -26,9 +26,9 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<div>nkkn</div>} />
-        <Route exact path={routes.login.self} element={<Login setLoginUser={(val) => setLoginUser(val)} />} />
-        <Route exact path={routes.register.self} element={<Register />} />
+        <Route path="/" element={<Navigate to={routes.login.self} />} />
+        <Route path={routes.login.self} element={<Login setLoginUser={(val) => setLoginUser(val)} />} />
+        <Route path={routes.register.self} element={<Register />} />
       </Routes>
       {
         checkLogin() && <Main />
