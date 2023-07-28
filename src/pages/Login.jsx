@@ -7,7 +7,7 @@ import { routes } from '../components/controller/routes';
 import { enterOnlyNumber } from '../components/controller/enteronlynumber';
 import { loginData } from '../data/LoginData';
 
-const Login = ({setLoginUser}) => {
+const Login = ({setLoginUser,setSelectKey}) => {
   const { Option } = Select;
   const navigate = useNavigate();
   const [loginWith, setLoginWith] = useState('phone');
@@ -176,6 +176,7 @@ const Login = ({setLoginUser}) => {
           loginWith={loginWith}
           currentUser={currentUser}
           setLoginUser={(val)=>setLoginUser(val)}
+          setSelectKey={(val)=>setSelectKey(val)}
         />
       )}
     </div>

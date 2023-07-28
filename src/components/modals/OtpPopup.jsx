@@ -4,7 +4,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../controller/routes';
 
-const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLoginUser}) => {
+const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLoginUser,setSelectKey}) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const handleFinish = (values) => {
@@ -23,6 +23,7 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLo
     if (currentUser.otp == formOtpText.replaceAll(',', "")) {
       localStorage.setItem("login", true)
       setLoginUser(true)
+      setSelectKey('home')
       navigate(routes.home.dashboard);
     } else {
       message.error('otp Not Match')

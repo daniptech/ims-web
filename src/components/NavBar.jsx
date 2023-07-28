@@ -6,8 +6,11 @@ import { useState } from 'react';
 import NotificationDrawer from './modals/NotificationDrawer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { routes } from './controller/routes';
+import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
+  const navigate=useNavigate()
   const [notificationdrawer, setNotificationDrawer] = useState(false)
   const [searchType, setsearchType] = useState({
     key: 'customer',
@@ -139,7 +142,6 @@ const NavBar = () => {
             </Badge>
             <Dropdown
               overlayClassName='user-btn-dropdown'
-              trigger='click'
               arrow
               dropdownRender={() => <div className=''>
                 <div className='bg-light p-3 border-bottom rounded-2'>
@@ -157,7 +159,11 @@ const NavBar = () => {
                   </div>
                   <div className='d-flex justify-content-between align-items-center mt-3'>
                     <span>My Account</span>
-                    <span className='text-danger d-flex align-items-center gap-2' style={{ cursor: 'pointer' }}><FontAwesomeIcon icon={faArrowRightFromBracket} />Sign Out</span>
+                    <span className='text-danger d-flex align-items-center gap-2' style={{ cursor: 'pointer' }} onClick={()=>{
+                      localStorage.setItem('login',false)
+                      navigate(routes.login.self)
+                    }} ><FontAwesomeIcon icon={faArrowRightFromBracket} accordion
+                    />Sign Out</span>
                   </div>
                 </div>
               </div>}
