@@ -4,9 +4,6 @@ import Home from './Dashboard/Home';
 import Sidebar from '../components/Sidebar';
 import NavBar from '../components/NavBar';
 import ItemsList from './Inventory/items/ItemsList';
-import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { faBagShopping, faCartFlatbed, faChartSimple } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { routes } from '../components/controller/routes';
 import ItemView from './Inventory/items/ItemView';
 import CompositeView from './Inventory/composite/CompositeView';
@@ -195,7 +192,7 @@ const Main = ({items, selectKey, setSelectKey}) => {
           <Route path={routes.purchase.vendorCredit.view} element={<VendorCreditView />} />
           <Route path={routes.purchase.vendorCredit.new} element={<CreateAndEditVendorCredit />} />
           <Route path={routes.purchase.vendorCredit.edit} element={<CreateAndEditVendorCredit />} />
-          {/* </Route> */}
+          {/* </Route>  */}
           <Route path={routes.reports.self} element={<ReportsItemsList />} />
           {/* <Route path='*' element={<PageNoteFound setSelectKey={setSelectKey} />} /> */}
         </Routes>
