@@ -1,14 +1,14 @@
 import { ArrowLeftOutlined, CaretDownOutlined, CaretRightOutlined, DownOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons'
 import { Button, Dropdown, Form, Input, InputNumber, Popconfirm, Segmented, Table, Tabs, Typography } from 'antd'
 import React, { useState } from 'react'
-import { Icons } from '../../../components/controller/Images';
+import { Icons } from '../../../controller/Images';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdjustStock from '../../../components/modals/AdjustStock';
 import OverView from '../Tabs/OverView';
 import Transaction from '../Tabs/Transaction';
 import History from '../Tabs/History';
 import { reverse } from 'named-urls';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 const { TabPane } = Tabs;
 
 const ItemView = () => {

@@ -2,7 +2,7 @@ import { Button, Form, Modal, message } from 'antd';
 import { InputOTP } from 'antd-input-otp';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../controller/routes';
+import { routes } from '../../controller/routes';
 
 const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLoginUser,setSelectKey}) => {
   const navigate = useNavigate();

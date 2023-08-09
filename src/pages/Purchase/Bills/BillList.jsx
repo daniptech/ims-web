@@ -1,9 +1,9 @@
 import { Button, Tabs, Select, Upload, message, Image, Table, Input, Space, Dropdown } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import Highlighter from 'react-highlight-words';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
-import { Images } from '../../../components/controller/Images';
+import { Images } from '../../../controller/Images';
 import { useRef, useState } from 'react';
 import { SearchOutlined, MoreOutlined,CloseOutlined } from '@ant-design/icons'
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';

@@ -11,7 +11,7 @@ import { CloseOutlined, DownOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Select, Table } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
 const columns = [
   {

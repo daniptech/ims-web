@@ -1,10 +1,10 @@
 import { ArrowLeftOutlined, CaretDownOutlined, EditOutlined, MailOutlined, MoreOutlined } from '@ant-design/icons'
 import { Button, Divider, Dropdown, Image } from 'antd'
 import React from 'react'
-import { routes } from '../../../components/controller/routes'
+import { routes } from '../../../controller/routes'
 import { useNavigate, useParams } from 'react-router-dom'
 import { reverse } from 'named-urls'
-import { Icons } from '../../../components/controller/Images'
+import { Icons } from '../../../controller/Images'
 export const PaymentReceivedView = () => {
   const navigate = useNavigate()
   const params = useParams()

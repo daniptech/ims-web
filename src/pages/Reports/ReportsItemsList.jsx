@@ -13,7 +13,7 @@ import {
 import { Button, Col, Row, Select, Tabs} from 'antd';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../../components/controller/routes';
+import { routes } from '../../controller/routes';
 export const ReportsItemsList = () => {
   const navigate = useNavigate();
   const { TabPane } = Tabs;

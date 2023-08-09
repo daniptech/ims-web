@@ -4,7 +4,7 @@ import Home from './Dashboard/Home';
 import Sidebar from '../components/Sidebar';
 import NavBar from '../components/NavBar';
 import ItemsList from './Inventory/items/ItemsList';
-import { routes } from '../components/controller/routes';
+import { routes } from '../controller/routes';
 import ItemView from './Inventory/items/ItemView';
 import CompositeView from './Inventory/composite/CompositeView';
 import CreateAndEditCompositeItem from './Inventory/composite/CreateAndEditCompositeItem';

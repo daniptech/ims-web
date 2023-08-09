@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartFlatbed } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
-import { routes } from './controller/routes';
+import { routes } from '../controller/routes';
 import { useEffect } from 'react';
 const { Sider } = Layout;
 

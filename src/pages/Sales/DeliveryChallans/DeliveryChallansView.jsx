@@ -2,9 +2,9 @@ import { ArrowLeftOutlined, CaretDownOutlined,EditOutlined, MailOutlined, MoreOu
 import { Button, Divider, Dropdown, Image, Table } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { routes } from '../../../components/controller/routes'
+import { routes } from '../../../controller/routes'
 import { reverse } from 'named-urls'
-import { Icons } from '../../../components/controller/Images'
+import { Icons } from '../../../controller/Images'
 import { faFileInvoice, faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const DeliveryChallansView = () => {

@@ -2,12 +2,12 @@ import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons
 import { Button, Dropdown, Tabs } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Icons } from '../../../components/controller/Images'
+import { Icons } from '../../../controller/Images'
 import OverView from '../Tabs/OverView'
 import Transaction from '../Tabs/Transaction'
 import BuildingHistory from '../Tabs/BuildingHistory'
 import History from '../Tabs/History'
-import { routes } from '../../../components/controller/routes'
+import { routes } from '../../../controller/routes'
 import { reverse } from 'named-urls'
 
 const CompositeView = () => {

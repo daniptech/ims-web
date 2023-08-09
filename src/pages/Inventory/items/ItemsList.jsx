@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
 const data = [
   {

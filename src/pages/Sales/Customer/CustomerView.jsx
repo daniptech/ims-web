@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
-import { routes } from '../../../components/controller/routes'
+import { routes } from '../../../controller/routes'
 import { reverse } from 'named-urls'
 import { Overview } from './CustomerTabs/Overview'
 import { Mail } from './CustomerTabs/Mail'

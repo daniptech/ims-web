@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import { countryData } from '../data/CountryData';
 import OtpPopup from '../components/modals/OtpPopup';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../components/controller/routes';
-import { enterOnlyNumber } from '../components/controller/enteronlynumber';
+import { routes } from '../controller/routes';
+import { enterOnlyNumber } from '../controller/enteronlynumber';
 import { loginData } from '../data/LoginData';
 
 const Login = ({setLoginUser,setSelectKey}) => {

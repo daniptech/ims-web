@@ -2,7 +2,7 @@ import { DownloadOutlined, MenuOutlined } from '@ant-design/icons';
 import { Button, Dropdown, Select, Table, Card, Col, Row} from 'antd';
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 const PackageItemList = () => {
   const navigate = useNavigate();
   return (

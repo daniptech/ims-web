@@ -5,8 +5,8 @@ import { GlobalOutlined } from '@ant-design/icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../components/controller/routes';
-import { enterOnlyNumber } from '../components/controller/enteronlynumber';
+import { routes } from '../controller/routes';
+import { enterOnlyNumber } from '../controller/enteronlynumber';
 
 const Register = () => {
   const { Option } = Select;

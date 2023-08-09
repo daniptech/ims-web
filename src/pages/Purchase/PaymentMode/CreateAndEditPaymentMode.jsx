@@ -2,8 +2,8 @@ import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons
 import { Button, Dropdown, Tabs } from 'antd'
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Icons } from '../../../components/controller/Images'
-import { routes } from '../../../components/controller/routes'
+import { Icons } from '../../../controller/Images'
+import { routes } from '../../../controller/routes'
 import { reverse } from 'named-urls'
 import PaymentModeTab from '../Tabs/PaymentModeTab'
 

@@ -3,7 +3,7 @@ import { Button, Dropdown, Tabs } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import { reverse } from 'named-urls';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 import OverView from '../Tabs/OverView';
 import Comment from '../Tabs/Comment';
 import Mail from '../Tabs/Mail';

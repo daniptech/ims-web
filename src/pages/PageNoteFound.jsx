@@ -1,8 +1,8 @@
 import { Button, Image } from 'antd'
 import React from 'react'
-import { Images } from '../components/controller/Images'
+import { Images } from '../controller/Images'
 import { useNavigate } from 'react-router-dom'
-import { routes } from '../components/controller/routes'
+import { routes } from '../controller/routes'
 
 const PageNoteFound = ({setSelectKey}) => {
     const navigate = useNavigate()

@@ -3,10 +3,10 @@ import { faFileInvoice } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Divider, Dropdown, Image, Table } from 'antd'
 import React from 'react'
-import { routes } from '../../../components/controller/routes'
+import { routes } from '../../../controller/routes'
 import { useNavigate, useParams } from 'react-router-dom'
 import { reverse } from 'named-urls'
-import { Icons } from '../../../components/controller/Images'
+import { Icons } from '../../../controller/Images'
 import { faImage } from '@fortawesome/free-regular-svg-icons'
 
 const VendorCreditView = () => {

@@ -3,8 +3,8 @@ import React, { useState } from 'react'
 import { CaretDownOutlined, CaretRightOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons'
 import MultiImageUpload from '../../../components/MultiImageUpload';
 import ChartView from '../../../components/ChartView';
-import { Images } from '../../../components/controller/Images';
-import { routes } from '../../../components/controller/routes';
+import { Images } from '../../../controller/Images';
+import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
 import { useParams } from 'react-router-dom';
 const EditableCell = ({

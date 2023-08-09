@@ -2,7 +2,7 @@ import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, MessageOutl
 import { Button, Col, Collapse, Dropdown, Image, Select, Table } from 'antd';
 import React from 'react'
 import { useState } from 'react';
-import { Icons } from '../../../components/controller/Images';
+import { Icons } from '../../../controller/Images';
 
 const OverView = () => {
     const [otherDetail, setOtherDetail] = useState({ defaultCurrency: 'view' })

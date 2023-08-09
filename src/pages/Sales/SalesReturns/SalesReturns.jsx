@@ -2,7 +2,7 @@ import { Button, Divider } from 'antd';
 import {CheckCircleOutlined } from '@ant-design/icons';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 import Grap from '../../../assets/images/salesReturnGrap.png'
 export const SalesReturns = () => {
   const navigate=useNavigate()

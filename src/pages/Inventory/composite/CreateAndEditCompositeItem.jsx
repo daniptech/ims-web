@@ -8,7 +8,7 @@ import { Button, Checkbox, Divider, Form, Input, Select, Space, Tooltip, Dropdow
 import React, { useRef, useState } from 'react';
 import MultiImageUpload from '../../../components/MultiImageUpload';
 import { useNavigate, useParams } from 'react-router-dom';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import NotificationDrawer from './modals/NotificationDrawer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import { routes } from './controller/routes';
+import { routes } from '../controller/routes';
 import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {

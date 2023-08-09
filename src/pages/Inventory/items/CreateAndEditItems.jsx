@@ -24,7 +24,7 @@ import {
 import React, { useRef, useState } from 'react'
 import MultiImageUpload from '../../../components/MultiImageUpload'
 import { useNavigate, useParams } from 'react-router-dom';
-import { routes } from '../../../components/controller/routes';
+import { routes } from '../../../controller/routes';
 
 const CreateAndEditItems = () => {
     const params = useParams()
