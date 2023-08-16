@@ -2,9 +2,7 @@ import React from 'react'
 import { Button, Divider, Form, Input, Steps } from 'antd';
 import { DeleteOutlined, MessageOutlined } from '@ant-design/icons';
 export const Comment = () => {
-  const onChange = (e) => {
-    console.log('Change:', e.target.value);
-  };
+ 
   return (
     <div className='row col-12'>
     <div className='col-6 p-4'>

@@ -1,5 +1,5 @@
-import { ArrowLeftOutlined, CaretDownOutlined, CaretRightOutlined, DownOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons'
-import { Button, Dropdown, Form, Input, InputNumber, Popconfirm, Segmented, Table, Tabs, Typography } from 'antd'
+import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons'
+import { Button, Dropdown, Tabs } from 'antd'
 import React, { useState } from 'react'
 import { Icons } from '../../../controller/Images';
 import { useNavigate, useParams } from 'react-router-dom';

@@ -7,28 +7,45 @@ import { faCartFlatbed } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../controller/routes';
 import { useEffect } from 'react';
+import { user } from '../controller/api/AuthServices';
+import { useDispatch } from 'react-redux'
+import { setUserRole } from '../controller/localStorageHandler';
+import { setCurrentUser } from '../redux/slices/userSlice';
 const { Sider } = Layout;
 
+
 const Sidebar = ({ selectKey, setSelectKey, items }) => {
-  useEffect(()=>{
-    const pathname=window.location.pathname.split("/")
-    const currentSelectKey=pathname[2]
-    if(currentSelectKey=="inventoryDashboard"){
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const pathname = window.location.hash.split("/")
+    const currentSelectKey = pathname[2]
+    if (currentSelectKey === "inventoryDashboard") {
       setSelectKey('home')
-    }else{
+    } else if (pathname[1] === "reports") {
+      setSelectKey('reports')
+    } else {
       setSelectKey(currentSelectKey)
     }
-  },[])
+    try {
+      user().then(res => {
+        setUserRole(res.data.role)
+        dispatch(setCurrentUser(res.data))
+      }).catch(err => console.log(err))
+    } catch (error) {
+      console.log('err=>', error)
+    }
+  }, [setSelectKey])
+
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);
   const handleChange = (val) => {
-    debugger
     setSelectKey(val?.key);
     if (val?.keyPath?.length > 1) {
       navigate(routes[val.keyPath[1]][val.keyPath[0]].self);
     } else if (val.key === 'home') {
       navigate(routes.home.dashboard);
-    } else if (val.key == 'reports') {
+    } else if (val.key === 'reports') {
       navigate(routes.reports.self);
     }
   };

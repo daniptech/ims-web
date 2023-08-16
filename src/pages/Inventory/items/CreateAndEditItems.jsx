@@ -1,14 +1,3 @@
-// import React from 'react'
-
-// const CreateAndEditItems = () => {
-//   return (
-//     <div>
-
-//     </div>
-//   )
-// }
-
-// export default CreateAndEditItems
 import { ArrowLeftOutlined, PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import {
     Button,
@@ -24,7 +13,6 @@ import {
 import React, { useRef, useState } from 'react'
 import MultiImageUpload from '../../../components/MultiImageUpload'
 import { useNavigate, useParams } from 'react-router-dom';
-import { routes } from '../../../controller/routes';
 
 const CreateAndEditItems = () => {
     const params = useParams()

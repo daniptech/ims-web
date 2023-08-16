@@ -4,7 +4,7 @@ import { Images } from '../controller/Images'
 import { useNavigate } from 'react-router-dom'
 import { routes } from '../controller/routes'
 
-const PageNoteFound = ({setSelectKey}) => {
+const PageNoteFound = ({ setSelectKey }) => {
     const navigate = useNavigate()
     return (
         <div className='w-100 d-flex justify-content-center' style={{
@@ -17,11 +17,11 @@ const PageNoteFound = ({setSelectKey}) => {
                     <Image src={Images.pagenotefoundtext} alt='' preview={false} />
                     <div className='mt-4'><Button type='primary' size='large' onClick={() => {
                         setSelectKey('home')
-navigate(routes.home.dashboard)
+                        navigate(routes.home.dashboard)
                     }}>
                         <Image src={Images.gotohometext} width={100} alt='' preview={false} />
-                        </Button>
-                        </div>
+                    </Button>
+                    </div>
                 </div>
             </div>
         </div>

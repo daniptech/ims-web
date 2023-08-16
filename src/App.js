@@ -10,6 +10,7 @@ import { useEffect, useState } from 'react';
 import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { faBagShopping, faCartFlatbed, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { isLoggedIn } from './controller/localStorageHandler';
 
 function App() {
   const [loginuser, setLoginUser] = useState(false)
@@ -20,7 +21,7 @@ function App() {
   }, [loginuser])
   const loginCheck = localStorage.getItem('login')
   const checkLogin = () => {
-    const check=window.location.hash?.split('/')[1]
+    const check = window.location.hash?.split('/')[1]
     if (check == 'login' || check == 'register') {
       return false
     } else if (loginCheck) {
@@ -70,11 +71,11 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Navigate to={routes.login.self} />} />
-        <Route path={routes.login.self} element={<Login setLoginUser={(val) => setLoginUser(val)} setSelectKey={(val)=>setSelectKey(val)} />} />
+        <Route path={routes.login.self} element={<Login setLoginUser={(val) => setLoginUser(val)} setSelectKey={(val) => setSelectKey(val)} />} />
         <Route path={routes.register.self} element={<Register />} />
       </Routes>
       {
-        checkLogin() && <Main items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
+        isLoggedIn() && <Main items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
       }
     </div>
   );

@@ -28,14 +28,14 @@ const MultiImageUpload = ({
     const checkPrimery = fileList?.filter((val) => val.primery);
     const makePrimery = newFileList?.map((val, index) => {
       if (checkPrimery?.length) {
-        if (val.uid == checkPrimery[0].uid) {
+        if (val.uid === checkPrimery[0].uid) {
           return val;
         } else {
           val['primery'] = false;
           return val;
         }
       } else {
-        if (index == 0) {
+        if (index === 0) {
           val['primery'] = true;
           return val;
         } else {
@@ -77,7 +77,7 @@ const MultiImageUpload = ({
   };
   const handleChangePrimery = () => {
     const makePrimery = fileList?.map((val) => {
-      if (val.uid == previewImage.uid) {
+      if (val.uid === previewImage.uid) {
         val.primery = true;
         return val;
       } else {
@@ -86,7 +86,7 @@ const MultiImageUpload = ({
       }
     });
     setFileList(makePrimery);
-    const filterCurrentPreview = fileList?.filter((val) => val.uid == previewImage.uid);
+    const filterCurrentPreview = fileList?.filter((val) => val.uid === previewImage.uid);
     setPreviewImage(filterCurrentPreview[0]);
     handlePreview(filterCurrentPreview[0]);
   };
@@ -161,12 +161,13 @@ const MultiImageUpload = ({
           }`}
         itemRender={(file, fileList) => (
           <img
-            className={fileList.uid == previewImage.uid && 'upload-image-list-item-active'}
+            className={fileList.uid === previewImage.uid && 'upload-image-list-item-active'}
             src={fileList.thumbUrl}
             onClick={() => handlePreviewImage(fileList)}
             style={{ cursor: 'pointer' }}
             width={25}
             height={25}
+            alt=''
           />
         )}
       >

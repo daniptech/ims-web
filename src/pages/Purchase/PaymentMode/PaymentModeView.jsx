@@ -1,6 +1,4 @@
 import { ArrowLeftOutlined, CaretDownOutlined, EditOutlined, MailOutlined, MoreOutlined } from '@ant-design/icons'
-import { faFileInvoice } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Button, Divider, Dropdown, Image } from 'antd'
 import React from 'react'
 import { routes } from '../../../controller/routes'

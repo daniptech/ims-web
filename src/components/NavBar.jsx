@@ -8,9 +8,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { routes } from '../controller/routes';
 import { useNavigate } from 'react-router-dom';
+import { logout } from '../controller/localStorageHandler';
 
 const NavBar = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const [notificationdrawer, setNotificationDrawer] = useState(false)
   const [searchType, setsearchType] = useState({
     key: 'customer',
@@ -93,9 +94,10 @@ const NavBar = () => {
 
   ]
   const handleSearchMenuClick = (value) => {
-    const currentSerchType = searchTypeMenu?.filter(val => val.key == value.key)
+    const currentSerchType = searchTypeMenu?.filter(val => val.key === value.key)
     setsearchType(currentSerchType[0])
   }
+
   return (
     <>
       <Header
@@ -120,7 +122,7 @@ const NavBar = () => {
                     <Menu onClick={handleSearchMenuClick} >
                       {searchTypeMenu?.map(item => {
                         return (
-                          <Menu.Item className={item.key == searchType.key && "bg-primary"} key={item.key}>
+                          <Menu.Item className={item.key === searchType.key && "bg-primary"} key={item.key}>
                             {item.label}
                           </Menu.Item>
                         )
@@ -159,11 +161,11 @@ const NavBar = () => {
                   </div>
                   <div className='d-flex justify-content-between align-items-center mt-3'>
                     <span>My Account</span>
-                    <span className='text-danger d-flex align-items-center gap-2' style={{ cursor: 'pointer' }} onClick={()=>{
-                      localStorage.setItem('login',false)
+                    <span className='text-danger d-flex align-items-center gap-2' style={{ cursor: 'pointer' }} onClick={() => {
+                      logout()
                       navigate(routes.login.self)
                     }} ><FontAwesomeIcon icon={faArrowRightFromBracket} accordion
-                    />Sign Out</span>
+                      />Sign Out</span>
                   </div>
                 </div>
               </div>}

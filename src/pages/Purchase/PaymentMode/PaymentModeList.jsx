@@ -1,13 +1,11 @@
-import { CaretDownOutlined, CloseOutlined, DeleteOutlined, DownOutlined, MoreOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Input, Select, Space, Table, Tooltip } from 'antd';
+import { CaretDownOutlined, CloseOutlined, DeleteOutlined, SearchOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Input, Select, Space, Table } from 'antd';
 import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import { useNavigate } from 'react-router-dom';
 import { reverse } from 'named-urls';
 import { routes } from '../../../controller/routes';
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
 
 const PaymentModeList = () => {
     const navigate = useNavigate()

@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined, DownOutlined, EditOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons'
 import { Button, Dropdown, Tabs } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom';

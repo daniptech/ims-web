@@ -1,18 +1,10 @@
 import {
-    ArrowLeftOutlined,
-    DownOutlined,
-    InfoCircleOutlined,
-    SearchOutlined,
     SettingOutlined,
     UploadOutlined
 } from '@ant-design/icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Form, Input, Select, DatePicker, Tooltip, Dropdown, Upload, message, Divider, Checkbox } from 'antd';
+import { Button, Form, Input, Select, DatePicker, Upload, message, Divider, Checkbox } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 const PaymentModeTab = ({tab}) => {
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
     const uploadFile = {
@@ -147,7 +139,7 @@ const PaymentModeTab = ({tab}) => {
                 </div>
 
                 <div className='p-4 w-100'>
-                    {tab=='bill_payment'&&
+                    {tab==='bill_payment'&&
                     <div style={{ width: '80%' }} className='mb-2'>
                     <table className='w-100 custom-table-create'>
                         <thead className='w-100'>

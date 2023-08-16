@@ -5,11 +5,15 @@ import uploadImage from '../assets/images/uploadImg.png'
 import pagenotefoundimg from '../assets/images/pagenotfoundinmg.png'
 import pagenotefoundtext from '../assets/images/pagenotefoundtext.png'
 import gotohometext from '../assets/images/gotohometext.png'
+import offlineimg from '../assets/images/offlineimg.svg'
+import errorImage from '../assets/images/errorImage.mp4'
 export const Images = {
     uploadImage,
     pagenotefoundimg,
     pagenotefoundtext,
-    gotohometext
+    gotohometext,
+    offlineimg,
+    errorImage
 };
 export const Icons = {
     uTurn,

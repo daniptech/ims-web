@@ -1,13 +1,12 @@
-import { ArrowLeftOutlined, CaretDownOutlined, DeleteOutlined, DownOutlined, EditOutlined, MailOutlined, MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons'
-import { Button, Collapse, Divider, Dropdown, Image, Table } from 'antd'
+import { ArrowLeftOutlined, CaretDownOutlined, EditOutlined, MoreOutlined } from '@ant-design/icons'
+import { Button, Divider, Dropdown, Image, Table } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { routes } from '../../../controller/routes'
 import { reverse } from 'named-urls'
 import { Icons } from '../../../controller/Images'
-import { faBagShopping, faFileInvoice, faImage, faPencil } from '@fortawesome/free-solid-svg-icons'
+import { faBagShopping, faImage, faPencil } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { render } from '@testing-library/react'
 
 const BillView = () => {
     const navigate = useNavigate()

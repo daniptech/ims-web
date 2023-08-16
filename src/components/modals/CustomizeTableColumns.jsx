@@ -55,14 +55,12 @@ const CustomizeTableColumns = ({ columns, setcolumns, customizeColoumn, setCusto
     setSearchItem(updateSearch);
   };
   const handleSearch = (val) => {
-    const dataItem = [...dataList];
-    const filterData = dataItem?.filter((item) => {
-      if (!item.title?.toLowerCase().search(val?.toLowerCase())) {
-        return val;
-      }
+    const filterData = dataList?.filter((item) => {
+      return item.title?.toLowerCase().includes(val?.toLowerCase());
     });
     setSearchItem(filterData);
   };
+  
   const renderItem = (item, index) => {
     return (
       <div

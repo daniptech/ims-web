@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Dashboard/Home';
 import Sidebar from '../components/Sidebar';
@@ -56,15 +56,14 @@ import CreateAndEditPaymentMode from './Purchase/PaymentMode/CreateAndEditPaymen
 import VendorCreditList from './Purchase/VendorCredits/VendorCreditList';
 import VendorCreditView from './Purchase/VendorCredits/VendorCreditView';
 import CreateAndEditVendorCredit from './Purchase/VendorCredits/CreateAndEditVendorCredit';
-import PageNoteFound from './PageNoteFound';
 import { SalesReturns } from './Sales/SalesReturns/SalesReturns';
 import PaymentReceivedItemList from './Sales/PaymentReceived/PaymentReceivedItemList';
 import { PaymentReceivedView } from './Sales/PaymentReceived/PaymentReceivedView';
 import CreateAndEditPaymentReceived from './Sales/PaymentReceived/CreateAndEditPaymentReceived';
 import { ReportsItemsList } from './Reports/ReportsItemsList';
 
-const Main = ({items, selectKey, setSelectKey}) => {
-  
+const Main = ({ items, selectKey, setSelectKey }) => {
+
   return (
     <div className="d-flex w-100">
       <Sidebar items={items} selectKey={selectKey} setSelectKey={setSelectKey} />

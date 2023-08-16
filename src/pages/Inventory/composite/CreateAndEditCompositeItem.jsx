@@ -2,9 +2,8 @@ import {
   ArrowLeftOutlined,
   PlusOutlined,
   QuestionCircleOutlined,
-  DownOutlined
 } from '@ant-design/icons';
-import { Button, Checkbox, Divider, Form, Input, Select, Space, Tooltip, Dropdown } from 'antd';
+import { Button, Checkbox, Divider, Form, Input, Select, Space, Tooltip } from 'antd';
 import React, { useRef, useState } from 'react';
 import MultiImageUpload from '../../../components/MultiImageUpload';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -202,7 +201,7 @@ const CreateAndEditCompositeItem = () => {
                 <div style={{ width: '80%' }} className="mb-2">
                 <h6 className='text-danger'>Associate Items *</h6><br/>
                {Array.from({ length: tbodyCount }).map((_, index) => (
-                  <table key={index} className="w-100 custom-table-create" style={index==0?null:{marginTop:'15px'}}>
+                  <table key={index} className="w-100 custom-table-create" style={index===0?null:{marginTop:'15px'}}>
                     <thead className="w-100">
                       <tr>
                         <th style={{ width: '34%' }} className="border">

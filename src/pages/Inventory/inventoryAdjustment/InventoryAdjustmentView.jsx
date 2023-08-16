@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined, CaretDownOutlined, DownOutlined, EditOutlined, MoreOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, CaretDownOutlined, EditOutlined, MoreOutlined } from '@ant-design/icons'
 import { Button, Dropdown, Image, Table } from 'antd'
 import { reverse } from 'named-urls'
 import React from 'react'

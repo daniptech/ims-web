@@ -1,5 +1,5 @@
 import { BarChartOutlined, CaretDownOutlined, CloseOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Select, Table } from 'antd';
+import { Button, Dropdown, Table } from 'antd';
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

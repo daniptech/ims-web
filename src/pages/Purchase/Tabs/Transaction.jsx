@@ -109,7 +109,7 @@ const columns = [
     title: 'DATE',
     dataIndex: 'date',
     key: 'date',
-    render: (text) => <a>{text}</a>,
+    render: (text) => <span>{text}</span>,
   },
   {
     title: 'INVOICE NUMBER',
