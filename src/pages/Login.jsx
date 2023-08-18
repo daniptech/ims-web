@@ -5,17 +5,20 @@ import OtpPopup from '../components/modals/OtpPopup';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../controller/routes';
 import { enterOnlyNumber } from '../controller/enteronlynumber';
-import { loginData } from '../data/LoginData';
-
-const Login = ({setLoginUser,setSelectKey}) => {
+import { login } from '../controller/api/AuthServices';
+const Login = ({ setSelectKey }) => {
   const { Option } = Select;
   const navigate = useNavigate();
   const [loginWith, setLoginWith] = useState('phone');
+  const [otpValidTill, setotpValidTill] = useState({
+    otpTill: '',
+    OtpTotaltime: ''
+  })
+  const [user, setuser] = useState({})
   const [OpenOtpPopup, setOpenOtpPopup] = useState(false);
-  const [currentUser, setCurrentUser] = useState('')
   const selectBefore = (
     <Form.Item
-      name="country_code"
+      name="countryCode"
       rules={[
         {
           required: true,
@@ -24,7 +27,10 @@ const Login = ({setLoginUser,setSelectKey}) => {
       ]}
       noStyle
     >
-      <Select showSearch placeholder="country code" className="" style={{ width: 80 }}>
+      <Select showSearch
+        placeholder="country code"
+        className=""
+        style={{ width: 80 }}>
         {countryData.map((val, index) => {
           return (
             <Option value={val.code} key={index}>
@@ -36,27 +42,32 @@ const Login = ({setLoginUser,setSelectKey}) => {
     </Form.Item>
   );
   const onFinish = (value) => {
-    var minm = 1000;
-    var maxm = 9999;
-    const otp = Math.floor(Math.random() * (maxm - minm + 1)) + minm;
-    if (value['email']) {
-      const checkUser = loginData?.filter((val) => val.email == value.email)
-      if (checkUser?.length) {
-        setCurrentUser({ ...checkUser[0], otp: otp })
-        setOpenOtpPopup(true);
-      } else {
-        message.error("please enter Vaild credential")
-      }
-    } else {
-      const checkUser = loginData?.filter((val) => val.phone == value.phone && val.country_code == value.country_code)
-      if (checkUser?.length) {
-        setCurrentUser({ ...checkUser[0], otp: otp })
-        setOpenOtpPopup(true);
-      } else {
-        message.error("please enter Vaild credential")
+
+    loginCall(value)
+  };
+  const loginCall = (value) => {
+    if (value) {
+      try {
+        login(value).then(res => {
+          if (res) {
+            setotpValidTill({
+              OtpTotaltime: res.data.otpValidTill,
+              otpTill: res.data.otpValidTill
+            })
+            setuser({ ...value })
+            setOpenOtpPopup(true)
+            message.success(res.data.message)
+          }
+        }).catch(err => {
+          if (err.response) {
+            message.error(err.response.data.error.message)
+          }
+        })
+      } catch (error) {
+        console.log(error)
       }
     }
-  };
+  }
 
   return (
     <div className="w-100 d-flex justify-content-center align-items-center p-5 bg-light auth-page">
@@ -118,7 +129,7 @@ const Login = ({setLoginUser,setSelectKey}) => {
             ) : (
               <>
                 <Form.Item
-                  name="phone"
+                  name="phoneNumber"
                   className="form-item"
                   rules={[
                     {
@@ -174,9 +185,11 @@ const Login = ({setLoginUser,setSelectKey}) => {
           OpenOtpPopup={OpenOtpPopup}
           setOpenOtpPopup={setOpenOtpPopup}
           loginWith={loginWith}
-          currentUser={currentUser}
-          setLoginUser={(val)=>setLoginUser(val)}
-          setSelectKey={(val)=>setSelectKey(val)}
+          setSelectKey={(val) => setSelectKey(val)}
+          otpValidTill={otpValidTill}
+          setotpValidTill={(val) => setotpValidTill(val)}
+          user={user}
+          resend={(val) => loginCall(val)}
         />
       )}
     </div>

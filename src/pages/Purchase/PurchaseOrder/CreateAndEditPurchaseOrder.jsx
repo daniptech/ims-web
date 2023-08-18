@@ -19,7 +19,6 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 const CreateAndEditPurchaseOrder = () => {
   const navigate = useNavigate();
   const params = useParams();
-  const [value, setValue] = React.useState(1);
   const onSearch = (value) => console.log(value);
   const { Option } = Select;
   const onChange = (value) => {

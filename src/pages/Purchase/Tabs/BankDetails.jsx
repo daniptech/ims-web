@@ -1,4 +1,4 @@
-import { Divider, Form, Input, Select } from 'antd'
+import { Divider, Form, Input } from 'antd'
 import React from 'react'
 
 const BankDetails = () => {

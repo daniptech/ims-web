@@ -1,13 +1,11 @@
 import {
     ArrowLeftOutlined,
     DownOutlined,
-    InfoCircleOutlined,
     SearchOutlined,
-    SettingOutlined,
     UploadOutlined
 } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Form, Input, Select, DatePicker, Tooltip, Dropdown, Upload, message, Divider, Radio } from 'antd';
+import { Button, Form, Input, Select, DatePicker, Dropdown, Upload, message, Divider } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -19,7 +17,6 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 const CreateAndEditVendorCredit = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const [value, setValue] = React.useState(1);
     const onSearch = (value) => console.log(value);
     const { Option } = Select;
     const onChange = (value) => {

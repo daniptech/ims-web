@@ -1,27 +1,33 @@
-import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, MessageOutlined, MobileOutlined, MoreOutlined, PhoneOutlined, PlusCircleFilled, PlusCircleOutlined, SettingFilled, SkypeFilled } from '@ant-design/icons'
-import { Button, Col, Collapse, Dropdown, Image, Select, Table } from 'antd';
+import { CheckOutlined, CloseOutlined, DeleteOutlined, EditOutlined, MessageOutlined, MobileOutlined, MoreOutlined, PhoneOutlined, PlusCircleOutlined, SettingFilled, SkypeFilled } from '@ant-design/icons'
+import { Button, Collapse, Dropdown, Image, Select, Table } from 'antd';
 import React from 'react'
 import { useState } from 'react';
 import { Icons } from '../../../controller/Images';
 
 const OverView = () => {
     const [otherDetail, setOtherDetail] = useState({ defaultCurrency: 'view' })
-    let data=[
-        {date:'20/07/2023 05:10 PM',
-        title:'',
-        text:'rtgrt by veeresh'
-      },
-      {date:'20/07/2023 05:10 PM',
-        title:'Invoice added',
-        text:'Invoice INV-000002 of amount Rs.211.00 created by veeresh '
-      },
-      {date:'20/07/2023 05:10 PM',
-        title:'added 2',
-        text:'Delivery Challan Chllan of amount Rs.56.00 created by veeresh'},
-      {date:'20/07/2023 05:10 PM',
-       title:'added 3',
-       text:'Delivery Challan Tyu of amount Rs.165.00 created by veeresh'}
-      ]
+    let data = [
+        {
+            date: '20/07/2023 05:10 PM',
+            title: '',
+            text: 'rtgrt by veeresh'
+        },
+        {
+            date: '20/07/2023 05:10 PM',
+            title: 'Invoice added',
+            text: 'Invoice INV-000002 of amount Rs.211.00 created by veeresh '
+        },
+        {
+            date: '20/07/2023 05:10 PM',
+            title: 'added 2',
+            text: 'Delivery Challan Chllan of amount Rs.56.00 created by veeresh'
+        },
+        {
+            date: '20/07/2023 05:10 PM',
+            title: 'added 3',
+            text: 'Delivery Challan Tyu of amount Rs.165.00 created by veeresh'
+        }
+    ]
 
     const items = [
         {
@@ -239,10 +245,10 @@ const OverView = () => {
                     </div>
                     <div>
                         {data?.map((items, i) =>
-                            <div key={i} className={i == 0 ? 'd-flex mt-5' : 'd-flex'}>
+                            <div key={i} className={i === 0 ? 'd-flex mt-5' : 'd-flex'}>
                                 <h9 style={{ width: '150px', marginTop: '34px' }}>{items.date}</h9>
                                 <div className='border border-secondary' style={{ width: '0.5px', height: '110px' }} />
-                                <div className="border border-1 rounded-circle p-1 d-flex justify-content-center " style={{width:'25px',height:'25px',marginLeft:'-12px',background:'#f6fbff'}} ><MessageOutlined  /></div>
+                                <div className="border border-1 rounded-circle p-1 d-flex justify-content-center " style={{ width: '25px', height: '25px', marginLeft: '-12px', background: '#f6fbff' }} ><MessageOutlined /></div>
                                 <div className="container chat-container" style={{ marginLeft: '15px' }}>
                                     <div className="row">
                                         <div className="col-md-12 offset chat-box">

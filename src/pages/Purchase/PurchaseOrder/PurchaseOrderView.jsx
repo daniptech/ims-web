@@ -1,4 +1,4 @@
-import { ArrowLeftOutlined, CaretDownOutlined, DeleteOutlined, DownOutlined, EditOutlined, MailOutlined, MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined, CaretDownOutlined, DeleteOutlined, EditOutlined, MailOutlined, MoreOutlined, ShoppingCartOutlined } from '@ant-design/icons'
 import { Button, Collapse, Divider, Dropdown, Image, Table } from 'antd'
 import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -7,7 +7,6 @@ import { reverse } from 'named-urls'
 import { Icons } from '../../../controller/Images'
 import { faFileInvoice, faImage } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { render } from '@testing-library/react'
 
 const PurchaseOrderView = () => {
     const navigate = useNavigate()

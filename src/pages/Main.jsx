@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Dashboard/Home';
 import Sidebar from '../components/Sidebar';
@@ -56,15 +56,30 @@ import CreateAndEditPaymentMode from './Purchase/PaymentMode/CreateAndEditPaymen
 import VendorCreditList from './Purchase/VendorCredits/VendorCreditList';
 import VendorCreditView from './Purchase/VendorCredits/VendorCreditView';
 import CreateAndEditVendorCredit from './Purchase/VendorCredits/CreateAndEditVendorCredit';
-import PageNoteFound from './PageNoteFound';
 import { SalesReturns } from './Sales/SalesReturns/SalesReturns';
 import PaymentReceivedItemList from './Sales/PaymentReceived/PaymentReceivedItemList';
 import { PaymentReceivedView } from './Sales/PaymentReceived/PaymentReceivedView';
 import CreateAndEditPaymentReceived from './Sales/PaymentReceived/CreateAndEditPaymentReceived';
 import { ReportsItemsList } from './Reports/ReportsItemsList';
+import { user } from '../controller/api/AuthServices';
+import { isLoggedIn, setUserRole } from '../controller/localStorageHandler';
+import { setCurrentUser } from '../redux/slices/userSlice';
+import { useDispatch } from 'react-redux';
 
-const Main = ({items, selectKey, setSelectKey}) => {
-  
+const Main = ({ items, selectKey, setSelectKey }) => {
+  const dispatch = useDispatch()
+  useEffect(() => {
+  if(isLoggedIn()){
+    try {
+      user().then(res => {
+        setUserRole(res.data.role)
+        dispatch(setCurrentUser(res.data))
+      }).catch(err => console.log(err))
+    } catch (error) {
+      console.log('err=>', error)
+    }
+  }
+  }, [dispatch])
   return (
     <div className="d-flex w-100">
       <Sidebar items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
@@ -81,6 +96,10 @@ const Main = ({items, selectKey, setSelectKey}) => {
           <Route path={routes.inventory.compositeItem.view} element={<CompositeView />} />
           <Route
             path={routes.inventory.compositeItem.new}
+            element={<CreateAndEditCompositeItem />}
+          />
+          <Route
+            path={routes.inventory.compositeItem.edit}
             element={<CreateAndEditCompositeItem />}
           />
           <Route path={routes.inventory.itemGroups.self} element={<ItemGroupList />} />

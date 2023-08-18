@@ -1,10 +1,7 @@
-import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons'
-import { Button, Dropdown, Tabs } from 'antd'
+import { ArrowLeftOutlined } from '@ant-design/icons'
+import { Button, Tabs } from 'antd'
 import React, { useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
-import { Icons } from '../../../controller/Images'
-import { routes } from '../../../controller/routes'
-import { reverse } from 'named-urls'
 import PaymentModeTab from '../Tabs/PaymentModeTab'
 
 const CreateAndEditPaymentMode = () => {
@@ -12,24 +9,7 @@ const CreateAndEditPaymentMode = () => {
     const { TabPane } = Tabs;
     const navigate = useNavigate()
     const [tab, setTab] = useState("bill_payment")
-    const moreItems = [
-        {
-            key: '1',
-            label: "Clone Item",
-        },
-        {
-            key: '2',
-            label: "Mark as Inactive",
-        },
-        {
-            key: '3',
-            label: "Delete",
-        },
-        {
-            key: '4',
-            label: "Add to group",
-        }
-    ];
+    
 
     return (
         <div className='item-view-container w-100 bg-white'>

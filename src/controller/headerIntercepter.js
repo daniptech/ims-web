@@ -9,18 +9,18 @@ function header(requireAuth = true) {
   return headers;
 }
 
-export function Get(url, params,auth = true) {
-  return axios.get(url, { headers: header(), params: params });
+export function Get(url, auth = true, params = {}) {
+  return axios.get(url, { headers: header(auth), params: params });
 }
 
 export function Post(url, data, auth = true) {
   return axios.post(url, data, { headers: header(auth) });
 }
 
-export function Patch(url, data,auth = true) {
-  return axios.patch(url, data, { headers: header() });
+export function Patch(url, data, auth = true) {
+  return axios.patch(url, data, { headers: header(auth) });
 }
 
-export function Remove(url,auth = true) {
-  return axios.delete(url, { headers: header() });
+export function Remove(url, auth = true) {
+  return axios.delete(url, { headers: header(auth) });
 }

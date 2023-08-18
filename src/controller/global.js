@@ -3,8 +3,18 @@ import { include, reverse } from 'named-urls'
 
 const endpoint = {
     auth: include('/api/user', {
-        sendOTP: 'send-otp',
-        verifyOTP: 'authenticate'
+        login: 'login',
+        verifyOTP: 'authenticate',
+        user: '',
+        userAll: 'all'
+    }),
+    inventory: include('/api', {
+        item: include('item', {
+            get:'item',
+            create: 'add',
+            update: 'update/:id',
+            remove: 'delete/:id'
+        })
     })
 }
 
@@ -13,6 +23,5 @@ export function getAPIUrl(url, params = null) {
         url.split(".").reduce((o, i) => o[i], endpoint),
         params
     );
-    console.log(path, "path");
     return getEnvValue("REACT_APP_API_URL") + path;
 }

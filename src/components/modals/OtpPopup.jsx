@@ -1,15 +1,36 @@
-import { Button, Form, Modal, message } from 'antd';
+import { Button, Form, Modal, Progress, message } from 'antd';
 import { InputOTP } from 'antd-input-otp';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../controller/routes';
+import { verifyOTP } from '../../controller/api/AuthServices';
+import { setRefreshToken, setUserToken } from '../../controller/localStorageHandler';
 
-const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLoginUser,setSelectKey}) => {
+const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, setSelectKey, otpValidTill, setotpValidTill, user, resend }) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
+
+  useEffect(() => {
+    const timeout = setInterval(() => {
+      if (otpValidTill?.otpTill > 0) {
+        setotpValidTill({
+          ...otpValidTill,
+          otpTill: otpValidTill.otpTill - 1
+        })
+      } else {
+        message.info('Otp expire, please resend the otp')
+        clearInterval(timeout)
+      }
+    }, 1000);
+    return () => {
+      clearInterval(timeout);
+    };
+  }, [otpValidTill, setotpValidTill]);
+
+
+
+
   const handleFinish = (values) => {
-    // The value will be array of string
-    // Check the field if there is no value, or value is undefined/empty string
     const { otp } = values;
     if (!otp || otp.includes(undefined) || otp.includes(''))
       return form.setFields([
@@ -18,16 +39,35 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLo
           errors: ['OTP is invalid.']
         }
       ]);
-    console.log(otp)
     const formOtpText = otp.toString()
-    if (currentUser.otp == formOtpText.replaceAll(',', "")) {
-      localStorage.setItem("login", true)
-      setLoginUser(true)
-      setSelectKey('home')
-      navigate(routes.home.dashboard);
-    } else {
-      message.error('otp Not Match')
+    const payload = {
+      ...user,
+      otp: formOtpText.replaceAll(',', "")
     }
+    try {
+      verifyOTP(payload)
+        .then(res => {
+          setUserToken(res.data.token)
+          setRefreshToken(res.data.refreshToken)
+          setSelectKey('home')
+          navigate(routes.home.dashboard)
+        })
+        .catch(err => {
+          if (err.response) {
+            message.error(err.response.data.error.message)
+          }
+        })
+    } catch (error) {
+      console.log("error ====>> ", error)
+    }
+    // if (currentUser.otp == formOtpText.replaceAll(',', "")) {
+    //   localStorage.setItem("login", true)
+    //   setLoginUser(true)
+    //   setSelectKey('home')
+    //   navigate(routes.home.dashboard);
+    // } else {
+    //   message.error('otp Not Match')
+    // }
   };
 
   return (
@@ -46,7 +86,12 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, currentUser ,setLo
           >
             <InputOTP autoFocus inputType="numeric" length={4} />
           </Form.Item>
-          <span className='fw-semibold'><span className='fw-medium'>OTP :</span> {currentUser.otp}</span>
+          {otpValidTill?.otpTill > 0
+            ?
+            <Progress type="circle" size="small" percent={otpValidTill?.otpTill * 100 / otpValidTill?.OtpTotaltime} format={(percent) => otpValidTill?.otpTill} />
+            :
+            <Button type='primary' onClick={() => resend({ ...user })}>Resend</Button>
+          }
           <div className="row col-12 mt-5 gap-1 justify-content-center m-0">
             <div className="col-md-6 col-lg-5">
               <Form.Item noStyle>

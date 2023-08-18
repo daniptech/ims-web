@@ -1,7 +1,7 @@
-import { ArrowLeftOutlined, QuestionCircleOutlined } from '@ant-design/icons'
+import { ArrowLeftOutlined } from '@ant-design/icons'
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Checkbox, Form, Input, Radio, Select, Switch, Table, Tooltip } from 'antd'
+import { Button, Checkbox, Form, Input, Radio, Select, Switch, Table } from 'antd'
 import React from 'react'
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom'
@@ -182,7 +182,7 @@ const CreateAndEditPriceList = () => {
                                 </div>
                             </div>
                             {
-                                priceListType == "all_items" ?
+                                priceListType === "all_items" ?
                                     <>
                                         <div className='row col-12'>
                                             <div className='col-2'>
@@ -293,7 +293,7 @@ const CreateAndEditPriceList = () => {
 
                         </div>
                         {
-                            priceListType == "individual_items" &&
+                            priceListType === "individual_items" &&
                             <>
                                 <hr />
                                 <div>
@@ -306,7 +306,7 @@ const CreateAndEditPriceList = () => {
                                     <Table
                                         className='customise-rate-table'
                                         bordered
-                                        columns={transactionType =="sales" ? columns?.filter((val) => val.dataIndex !== "purchase_rates") : columns?.filter((val) => val.dataIndex !== "sales_rates")}
+                                        columns={transactionType ==="sales" ? columns?.filter((val) => val.dataIndex !== "purchase_rates") : columns?.filter((val) => val.dataIndex !== "sales_rates")}
                                         dataSource={data}
                                         pagination={false}
                                     />

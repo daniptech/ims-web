@@ -139,7 +139,7 @@ export const routes = {
       edit: ':id/edit'
     })
   }),
-  reports:include('reports',{
-    self:''
+  reports: include('reports', {
+    self: ''
   })
 };

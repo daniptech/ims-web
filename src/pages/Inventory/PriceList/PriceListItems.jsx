@@ -1,5 +1,5 @@
-import { CloseOutlined, DeleteOutlined, DownOutlined, LineOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Select, Table } from 'antd';
+import {  DeleteOutlined, LineOutlined } from '@ant-design/icons';
+import { Button, Select, Table } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../controller/routes';

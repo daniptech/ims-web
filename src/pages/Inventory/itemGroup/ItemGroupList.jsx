@@ -1,6 +1,6 @@
 
-import { CloseOutlined, DownOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Select, Table } from 'antd';
+import { CloseOutlined } from '@ant-design/icons';
+import { Button, Select, Table } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { reverse } from 'named-urls';

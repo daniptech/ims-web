@@ -3,7 +3,6 @@ import {
     DownOutlined,
     InfoCircleOutlined,
     SearchOutlined,
-    SettingOutlined,
     UploadOutlined
 } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -19,7 +18,6 @@ import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 const CreateAndEditBill = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const [value, setValue] = React.useState(1);
     const onSearch = (value) => console.log(value);
     const { Option } = Select;
     const onChange = (value) => {

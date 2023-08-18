@@ -18,6 +18,8 @@ const CalenderSelect = ({ calenderDropDown, setCalenderDropDown }) => {
         case 'today':
           val['date'] = [dayjs(), dayjs()];
           break;
+        default:
+          break;
       }
       setCalenderDropDown(val);
     }

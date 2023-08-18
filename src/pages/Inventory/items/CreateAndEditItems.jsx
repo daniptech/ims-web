@@ -1,14 +1,3 @@
-// import React from 'react'
-
-// const CreateAndEditItems = () => {
-//   return (
-//     <div>
-
-//     </div>
-//   )
-// }
-
-// export default CreateAndEditItems
 import { ArrowLeftOutlined, PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
 import {
     Button,
@@ -19,12 +8,13 @@ import {
     Radio,
     Select,
     Space,
-    Tooltip
+    Tooltip,
 } from 'antd';
 import React, { useRef, useState } from 'react'
 import MultiImageUpload from '../../../components/MultiImageUpload'
 import { useNavigate, useParams } from 'react-router-dom';
-import { routes } from '../../../controller/routes';
+import { item } from '../../../controller/constants'
+import { createItem } from '../../../controller/api/inventory/itemService';
 
 const CreateAndEditItems = () => {
     const params = useParams()
@@ -54,6 +44,80 @@ const CreateAndEditItems = () => {
             inputRef.current?.focus();
         }, 0);
     };
+    const handleSubmit = async (val) => {
+
+        await Object.keys(item)?.forEach((key) => {
+            if (key === "dimensions") {
+                item[key] = {
+                    length: val.dimension_length,
+                    width: val.dimension_width,
+                    height: val.dimension_height
+                }
+            } else if (key === "inventoryInfo") {
+                if (val.sales_information && val.purchase_information && val.inventory_track) {
+                    item[key] = {
+                        inventoryAccount: val.inventoryAccount,
+                        openingStock: val.openingStock,
+                        openingStockRatePerUnit: val.openingStockRatePerUnit,
+                        reorderPoint: val.reorderPoint
+                    }
+                } else {
+                    item[key] = null
+                }
+            } else if (key === "purchaseInfo") {
+                if (val.purchase_information) {
+                    item[key] = {
+                        costPrice: val.cost_price,
+                        account: val.purchase_account,
+                        description: val.purchase_description,
+                        preferredVendorId: val.preferred_vendor
+                    }
+                } else {
+                    item[key] = null
+                }
+            } else if (key === "sellingInfo") {
+                if (val.sales_information) {
+                    item[key] = {
+                        sellingPrice: val?.sellingPrice,
+                        account: val?.sales_account,
+                        description: val?.sales_description
+                    }
+                } else {
+                    item[key] = null
+                }
+            } else {
+                if (val.hasOwnProperty(key)) {
+                    item[key] = val[key]
+                }
+                if (key === 'organizationId') {
+                    item[key] = 0
+                }
+
+            }
+
+        })
+        if (params.id) {
+
+        } else {
+
+            try {
+                createItem(item).then(res => {
+                    if (res) {
+                        console.log(res, "jkjs")
+                    }
+                }).catch((err) => {
+                    if (err.response) {
+                        console.log(err)
+                        // message.error(err.response.data.error.message)
+                    }
+                })
+            } catch (err) {
+                console.log("err  ==> ", err)
+            }
+        }
+
+    }
+
     return (
         <div className='w-100'>
             <div className='w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between '>
@@ -83,13 +147,14 @@ const CreateAndEditItems = () => {
                     initialValues={{
                         type: 'good',
                         unit: 'kg',
-                        returnable_item: false,
+                        isReturnable: false,
                         purchase_information: true,
                         sales_information: true,
                         inventory_track: true,
-                        weight_type: "cm"
+                        weightUnit: "cm",
+                        dimensionUnit: 'cm'
                     }}
-                    onFinish={(val) => console.log(val)}
+                    onFinish={(val) => handleSubmit(val)}
                 >
                     <div>
                         <div className="row col-12 bg-light p-4 m-0">
@@ -195,7 +260,7 @@ const CreateAndEditItems = () => {
                                     <div className="col-lg-4 col-md-12"></div>
                                     <div className="col-lg-8 col-md-12">
                                         <Form.Item
-                                            name="returnable_item"
+                                            name="isReturnable"
                                             className="d-flex m-0 form-item"
                                             valuePropName="checked"
                                         >
@@ -247,7 +312,7 @@ const CreateAndEditItems = () => {
                                             X
                                             <Form.Item name="dimension_height" className="d-flex m-0 form-item w-50">
                                                 <Input className='border-0 dimensions-input' addonAfter={
-                                                    <Form.Item name="weight_type" noStyle>
+                                                    <Form.Item name="dimensionUnit" noStyle>
                                                         <Select
                                                             className='border-0 dimention_addonAfter'
                                                             options={[
@@ -325,7 +390,7 @@ const CreateAndEditItems = () => {
                                             <Input
                                                 className="w-100"
                                                 addonAfter={
-                                                    <Form.Item name="weight_type" noStyle>
+                                                    <Form.Item name="weightUnit" noStyle>
                                                         <Select
                                                             options={[
                                                                 { labal: 'kg', value: 'kg' },
@@ -428,7 +493,7 @@ const CreateAndEditItems = () => {
                                         </label>
                                     </div>
                                     <div className="col-lg-8 col-md-12">
-                                        <Form.Item name="isnb" className="d-flex m-0 form-item">
+                                        <Form.Item name="isbn" className="d-flex m-0 form-item">
                                             <Input className="w-100" />
                                         </Form.Item>
                                     </div>
@@ -463,7 +528,7 @@ const CreateAndEditItems = () => {
                                     </div>
                                     <div className="col-lg-8 col-md-12">
                                         <Form.Item
-                                            name="selling_price"
+                                            name="sellingPrice"
                                             className="d-flex m-0 form-item"
                                             rules={[
                                                 {
@@ -675,6 +740,7 @@ const CreateAndEditItems = () => {
                                         >
                                             <Checkbox
                                                 className="fs-5 fw-semibold"
+                                                checked={inventoryTrack}
                                                 onChange={(val) => setInventoryTrack(val.target.checked)}
                                             >
                                                 Track Inventory for this item{' '}
@@ -707,7 +773,7 @@ const CreateAndEditItems = () => {
                                                         </div>
                                                         <div className="col-lg-8 col-md-12">
                                                             <Form.Item
-                                                                name="inventory_account"
+                                                                name="inventoryAccount"
                                                                 className="d-flex m-0 form-item"
                                                                 rules={[
                                                                     {
@@ -762,7 +828,7 @@ const CreateAndEditItems = () => {
                                                                 </label>
                                                             </div>
                                                             <div className="col-lg-8 col-md-12">
-                                                                <Form.Item name="opening_stock" className="d-flex m-0 form-item">
+                                                                <Form.Item name="openingStock" className="d-flex m-0 form-item">
                                                                     <Input className="w-100" />
                                                                 </Form.Item>
                                                             </div>
@@ -791,7 +857,7 @@ const CreateAndEditItems = () => {
                                                             </div>
                                                             <div className="col-lg-8 col-md-12">
                                                                 <Form.Item
-                                                                    name="opening_stock_rate_per_unit"
+                                                                    name="openingStockRatePerUnit"
                                                                     className="d-flex m-0 form-item"
                                                                 >
                                                                     <Input className="w-100" />
@@ -822,7 +888,7 @@ const CreateAndEditItems = () => {
                                                             </label>
                                                         </div>
                                                         <div className="col-lg-8 col-md-12">
-                                                            <Form.Item name="reorder_point" className="d-flex m-0 form-item">
+                                                            <Form.Item name="reorderPoint" className="d-flex m-0 form-item">
                                                                 <Input className="w-100" />
                                                             </Form.Item>
                                                         </div>

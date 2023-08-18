@@ -11,7 +11,7 @@ import {
   PlusCircleOutlined,
   MessageOutlined
 } from '@ant-design/icons';
-import { Button, Dropdown,Space,Radio} from 'antd';
+import { Button, Dropdown,Space,Radio, Image} from 'antd';
 import { Link } from 'react-router-dom';
 import userIcon from '../../../../assets/images/Icons/userIcon.png';
 const items = [
@@ -82,7 +82,7 @@ export const Overview = () => {
    text:'Delivery Challan Tyu of amount Rs.165.00 created by veeresh'}
   ]
   return (
-    <div className=" container w-100 h-100">
+    <div className=" container w-100 h-100 m-0 p-0">
     <div class="row">
       <div class="col-4 bg-light h-100 p-4">
        <div class="border-bottom mt-2 pb-1">
@@ -93,11 +93,12 @@ export const Overview = () => {
             <div class="card-body p-4 pl-0">
               <div class="d-flex text-black">
                 <div class="flex-shrink-0">
-                  <img
+                  <Image
                     src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
                     alt="Generic placeholder image"
-                    class="img-fluid"
+                    className="img-fluid"
                     style={{ width: "100px", borderRadius: "10px" }}
+                    preview={false}
                   />
                 </div>
                 <div class="flex-grow-1 ms-3">
@@ -240,7 +241,7 @@ export const Overview = () => {
           </div>
           </Link>
           {data?.map((items,i)=>
-          <div key={i} className={i==0?'d-flex mt-5':'d-flex'}>
+          <div key={i} className={i===0?'d-flex mt-5':'d-flex'}>
           <h9 style={{width:'150px',marginTop:'34px'}}>{items.date}</h9>
           <div className='border border-secondary' style={{width:'0.5px',height:'110px'}}/>
           <div className="border border-1 rounded-circle p-1 d-flex justify-content-center mt-4" style={{width:'25px',height:'25px',marginLeft:'-12px',background:'#F6FBFF'}} ><MessageOutlined  /></div>

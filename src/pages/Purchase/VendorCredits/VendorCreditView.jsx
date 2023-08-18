@@ -1,7 +1,6 @@
 import { ArrowLeftOutlined, CaretDownOutlined, EditOutlined, MailOutlined, MoreOutlined } from '@ant-design/icons'
-import { faFileInvoice } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { Button, Divider, Dropdown, Image, Table } from 'antd'
+import { Button, Dropdown, Image, Table } from 'antd'
 import React from 'react'
 import { routes } from '../../../controller/routes'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -160,7 +159,6 @@ const VendorCreditView = () => {
                                 item_name: 'Botalsss',
                                 sku: 12,
                                 description: 'Best service',
-                                rate: 100.00,
                                 receive: 1,
                                 bill: 0,
                                 rate: "11,212.00",

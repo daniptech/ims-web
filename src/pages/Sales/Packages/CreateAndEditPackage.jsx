@@ -1,51 +1,17 @@
 import {
     ArrowLeftOutlined,
-    DownOutlined,
-    InfoCircleOutlined,
-    SearchOutlined,
     SettingOutlined,
-    UploadOutlined
 } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Form, Input, Select, DatePicker, Tooltip, Dropdown, Upload, message, Divider } from 'antd';
+import { Button, Form, Input, Select, DatePicker, Divider } from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
-import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 const CreateAndEditPackage = () => {
     const navigate = useNavigate();
     const params = useParams();
-    const [value, setValue] = React.useState(1);
-    const onSearch = (value) => console.log(value);
-    const { Option } = Select;
-    const onChange = (value) => {
-        console.log(`selected ${value}`);
-    };
     const dateFormatList = ['DD/MM/YYYY', 'DD/MM/YY', 'DD-MM-YYYY', 'DD-MM-YY'];
-    const uploadFile = {
-        name: 'file',
-        action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-        headers: {
-            authorization: 'authorization-text'
-        },
-        beforeUpload: (file) => {
-            const isFileTypeValid = file.type === 'image/jpeg' || file.type === 'image/png'; // Add the desired file types here
-            const isSizeValid = file.size / 1024 / 1024 <= 5; // Maximum file size of 5MB
-            if (!isFileTypeValid) {
-                message.error('You can only upload JPEG or PNG files!');
-            }
-            if (!isSizeValid) {
-                message.error('File size must be less than or equal to 5MB!');
-            }
-            return isFileTypeValid && isSizeValid;
-        },
-        onChange({ file, fileList }) {
-            if (file.status !== 'uploading') {
-                console.log(file, fileList);
-            }
-        }
-    };
     return (
         <div className="w-100">
             <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
