@@ -5,8 +5,16 @@ const endpoint = {
     auth: include('/api/user', {
         login: 'login',
         verifyOTP: 'authenticate',
-        user:'',
-        userAll:'all'
+        user: '',
+        userAll: 'all'
+    }),
+    inventory: include('/api', {
+        item: include('item', {
+            get:'item',
+            create: 'add',
+            update: 'update/:id',
+            remove: 'delete/:id'
+        })
     })
 }
 

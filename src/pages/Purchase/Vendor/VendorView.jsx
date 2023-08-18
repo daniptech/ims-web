@@ -81,7 +81,7 @@ const VendorView = () => {
                 <TabPane tab={<h6 className='m-0'>Transactions</h6>} className="" key="3">
                     <div className="w-100 p-3"
                         style={{
-                            maxHeight: '70vh',
+                            maxHeight: '100vh',
                             height: '100%',
                             overflow: 'scroll',
                             paddingBottom: '79px'

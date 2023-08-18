@@ -27,15 +27,17 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
     } else {
       setSelectKey(currentSelectKey)
     }
-    try {
-      user().then(res => {
-        setUserRole(res.data.role)
-        dispatch(setCurrentUser(res.data))
-      }).catch(err => console.log(err))
-    } catch (error) {
-      console.log('err=>', error)
-    }
   }, [setSelectKey])
+  // useEffect(() => {
+  //   try {
+  //     user().then(res => {
+  //       setUserRole(res.data.role)
+  //       dispatch(setCurrentUser(res.data))
+  //     }).catch(err => console.log(err))
+  //   } catch (error) {
+  //     console.log('err=>', error)
+  //   }
+  // }, [])
 
   const navigate = useNavigate();
   const [collapsed, setCollapsed] = useState(false);

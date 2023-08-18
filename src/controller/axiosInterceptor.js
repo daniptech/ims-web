@@ -3,6 +3,7 @@ import { getEnvValue } from "./Environment";
 import {
   getRefreshToken,
   getUserToken,
+  setRefreshToken,
   setUserToken,
 } from "./localStorageHandler";
 
@@ -19,16 +20,18 @@ axios.interceptors.response.use(
     const originalRequest = error.config;
 
 
-    if (error?.response?.status === 403 && !originalRequest._retry) {
+    if (error?.response && error?.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
       const refreshToken = getRefreshToken();
       return axios
-        .post("/api/token/refresh/", {
-          refresh: refreshToken,
+        .get("/api/user/refresh-token", {
+          params: { refreshToken: refreshToken }
         })
         .then(async (res) => {
+          debugger
           if (res.status === 200) {
-            await setUserToken(res.data.access);
+            await setUserToken(res.data.token);
+            await setRefreshToken(res.data.refreshToken)
             originalRequest.headers["Authorization"] =
               "Bearer " + getUserToken();
             return axios(originalRequest);
@@ -36,7 +39,7 @@ axios.interceptors.response.use(
         })
         .catch((e) => {
           console.log(e, "refresh error");
-        //   history.push(routes.logout);
+          //   history.push(routes.logout);
         });
     }
     return Promise.reject(error);

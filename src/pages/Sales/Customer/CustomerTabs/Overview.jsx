@@ -82,7 +82,7 @@ export const Overview = () => {
    text:'Delivery Challan Tyu of amount Rs.165.00 created by veeresh'}
   ]
   return (
-    <div className=" container w-100 h-100">
+    <div className=" container w-100 h-100 m-0 p-0">
     <div class="row">
       <div class="col-4 bg-light h-100 p-4">
        <div class="border-bottom mt-2 pb-1">

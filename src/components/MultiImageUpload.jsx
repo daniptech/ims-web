@@ -19,6 +19,7 @@ const MultiImageUpload = ({
   setFileList
 }) => {
   const handlePreview = async (file) => {
+    debugger
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -31,15 +32,15 @@ const MultiImageUpload = ({
         if (val.uid === checkPrimery[0].uid) {
           return val;
         } else {
-          val['primery'] = false;
+          val['primary'] = false;
           return val;
         }
       } else {
         if (index === 0) {
-          val['primery'] = true;
+          val['primary'] = true;
           return val;
         } else {
-          val['primery'] = false;
+          val['primary'] = false;
           return val;
         }
       }
@@ -129,7 +130,7 @@ const MultiImageUpload = ({
             {previewImage?.primery ? (
               <div className="d-flex align-items-center gap-1">
                 <span className="bg-light p-1 rounded-3" style={{ fontSize: 'small' }}>
-                  <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#11bc83' }} /> Primery
+                  <FontAwesomeIcon icon={faCircleCheck} style={{ color: '#11bc83' }} /> Primary
                 </span>
                 <Tooltip
                   placement="rightTop"
@@ -144,7 +145,7 @@ const MultiImageUpload = ({
                 style={{ cursor: 'pointer' }}
                 onClick={() => handleChangePrimery()}
               >
-                Make as a primery
+                Make as a primary
               </span>
             )}
             <DeleteOutlined style={{ cursor: 'pointer' }} onClick={() => handleDelete()} />
