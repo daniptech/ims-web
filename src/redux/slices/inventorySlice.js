@@ -7,7 +7,7 @@ const initialState = {
     inventoryAdjustments: []
 }
 const inventorySlice = createSlice({
-    name: "user",
+    name: "inventory",
     initialState,
     reducers: {
         setItem: (state, action) => {
