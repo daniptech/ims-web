@@ -1,10 +1,10 @@
-import { combineReducers } from "redux";
-import userReducer from "./slices/userSlice";
-import inventoryReducer from './slices/inventorySlice'
+import { combineReducers } from 'redux';
+import userReducer from './slices/userSlice';
+import inventoryReducer from './slices/inventorySlice';
 
 const rootReducer = combineReducers({
   user: userReducer,
-  inventory: inventoryReducer,
+  inventory: inventoryReducer
 });
 
 export default rootReducer;

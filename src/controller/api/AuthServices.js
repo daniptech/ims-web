@@ -1,19 +1,19 @@
-import { getAPIUrl } from "../global";
-import { Get, Post } from "../headerIntercepter";
+import { getAPIUrl } from '../global';
+import { Get, Post } from '../headerIntercepter';
 
 export const login = (data) => {
-    const url = getAPIUrl("auth.login");
-    return Post(url, data, false);
-}
+  const url = getAPIUrl('auth.login');
+  return Post(url, data, false);
+};
 export const verifyOTP = (data) => {
-    const url = getAPIUrl("auth.verifyOTP");
-    return Post(url, data, false);
-}
+  const url = getAPIUrl('auth.verifyOTP');
+  return Post(url, data, false);
+};
 export const user = () => {
-    const url = getAPIUrl('auth.user')
-    return Get(url, true);
-}
+  const url = getAPIUrl('auth.user');
+  return Get(url, true);
+};
 export const allUser = () => {
-    const url = getAPIUrl('auth.userAll')
-    return Get(url, true);
-}
+  const url = getAPIUrl('auth.userAll');
+  return Get(url, true);
+};

@@ -13,8 +13,8 @@ const Login = ({ setSelectKey }) => {
   const [otpValidTill, setotpValidTill] = useState({
     otpTill: '',
     OtpTotaltime: ''
-  })
-  const [user, setuser] = useState({})
+  });
+  const [user, setuser] = useState({});
   const [OpenOtpPopup, setOpenOtpPopup] = useState(false);
   const selectBefore = (
     <Form.Item
@@ -27,10 +27,7 @@ const Login = ({ setSelectKey }) => {
       ]}
       noStyle
     >
-      <Select showSearch
-        placeholder="country code"
-        className=""
-        style={{ width: 80 }}>
+      <Select showSearch placeholder="country code" className="" style={{ width: 80 }}>
         {countryData.map((val, index) => {
           return (
             <Option value={val.code} key={index}>
@@ -42,32 +39,33 @@ const Login = ({ setSelectKey }) => {
     </Form.Item>
   );
   const onFinish = (value) => {
-
-    loginCall(value)
+    loginCall(value);
   };
   const loginCall = (value) => {
     if (value) {
       try {
-        login(value).then(res => {
-          if (res) {
-            setotpValidTill({
-              OtpTotaltime: res.data.otpValidTill,
-              otpTill: res.data.otpValidTill
-            })
-            setuser({ ...value })
-            setOpenOtpPopup(true)
-            message.success(res.data.message)
-          }
-        }).catch(err => {
-          if (err.response) {
-            message.error(err.response.data.error.message)
-          }
-        })
+        login(value)
+          .then((res) => {
+            if (res) {
+              setotpValidTill({
+                OtpTotaltime: res.data.otpValidTill,
+                otpTill: res.data.otpValidTill
+              });
+              setuser({ ...value });
+              setOpenOtpPopup(true);
+              message.success(res.data.message);
+            }
+          })
+          .catch((err) => {
+            if (err.response) {
+              message.error(err.response.data.error.message);
+            }
+          });
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
     }
-  }
+  };
 
   return (
     <div className="w-100 d-flex justify-content-center align-items-center p-5 bg-light auth-page">

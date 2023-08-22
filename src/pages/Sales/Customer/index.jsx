@@ -1,6 +1,3 @@
-import CustomerItemsList from "./CustomerItemList";
-import CustomerView from "./CustomerView";
-export {
-    CustomerItemsList,
-    CustomerView
-}
+import CustomerItemsList from './CustomerItemList';
+import CustomerView from './CustomerView';
+export { CustomerItemsList, CustomerView };

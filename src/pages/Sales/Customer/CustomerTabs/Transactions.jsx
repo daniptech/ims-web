@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 import { Collapse, Select, Table } from 'antd';
 import { Link } from 'react-router-dom';
 export const Transactions = () => {
   return (
-    <div className='w-100 h-100'>
+    <div className="w-100 h-100">
       <Select
         defaultValue="Go to transactions"
         style={{ width: 200, marginTop: 20, backgroundColor: '#f5f5f5' }}
@@ -18,72 +18,137 @@ export const Transactions = () => {
           { value: 'creditNotes', label: 'Credit Notes' }
         ]}
       />
-      <Collapse className='mt-4'
-        items={[{ key: '1', label: ' Invoices', children: <Table columns={columns} dataSource={data} /> }]}
+      <Collapse
+        className="mt-4"
+        items={[
+          { key: '1', label: ' Invoices', children: <Table columns={columns} dataSource={data} /> }
+        ]}
       />
-      <Collapse className='mt-4' items={[{
-        key: '1', label: 'Customer Payments', children: <div className='d-flex align-item-center justify-content-center'>
-          <p class="mb-0">No payments have been received or recorded yet - </p>
-          <Link to=" " style={linkStyle}>
-            <p style={{ color: "#1677ff" }}>Add New</p>
-          </Link>
-        </div>
-      }]} />
-      <Collapse className='mt-4'
-        items={[{
-          key: '1', label: 'Sales Orders',
-          children: <Table columns={[
-            { title: 'SALES ORDER', dataIndex: 'salesOrder', key: 'salesOrder' },
-            { title: 'REFERENCE NUMBER', dataIndex: 'referenceNumber', key: 'referenceNumber' },
-            { title: 'DATE', dataIndex: 'date', key: 'date' },
-            { title: 'SHIPMENT DATE', dataIndex: 'shipmentDate', key: 'shipmentDate' },
-            { title: 'AMOUNT', dataIndex: 'amount', key: 'amount' },
-            { title: 'STATUS', dataIndex: 'status', key: 'status' },
-          ]}
-            dataSource={salesdata} />
-        }]}
+      <Collapse
+        className="mt-4"
+        items={[
+          {
+            key: '1',
+            label: 'Customer Payments',
+            children: (
+              <div className="d-flex align-item-center justify-content-center">
+                <p class="mb-0">No payments have been received or recorded yet - </p>
+                <Link to=" " style={linkStyle}>
+                  <p style={{ color: '#1677ff' }}>Add New</p>
+                </Link>
+              </div>
+            )
+          }
+        ]}
       />
-      <Collapse className='mt-4' items={[{
-        key: '1', label: ' Packages',
-        children: <div className='d-flex align-item-center justify-content-center'>
-          <p class="mb-0">No data to display  - </p>
-          <Link to=" " style={linkStyle}>
-            <p style={{ color: "#1677ff" }}>Add New</p>
-          </Link>
-        </div>
-      }]} />
-      <Collapse className='mt-4'
-        items={[{
-          key: '1', label: 'Delivery Challans',
-          children: <Table columns={[
-            { title: 'Delivery Challans', dataIndex: 'deliveryChallans', key: 'deliveryChallans' },
-            { title: 'REFERENCE NUMBER', dataIndex: 'referenceNumber', key: 'referenceNumber' },
-            { title: 'DATE', dataIndex: 'date', key: 'date' },
-            { title: 'AMOUNT', dataIndex: 'amount', key: 'amount' },
-            { title: 'STATUS', dataIndex: 'status', key: 'status' },
-          ]}
-            dataSource={challansData} />
-        }]} />
-      <Collapse className='mt-4' items={[{
-        key: '1', label: 'Bills',
-        children: <div className='d-flex align-item-center justify-content-center'>
-          <p class="mb-0">There are no Bills</p>
-        </div>
-      }]} />
-      <Collapse className='mt-4' items={[{
-        key: '1', label: 'Credit Notes',
-        children: <div className='d-flex align-item-center justify-content-center'>
-          <p class="mb-0">There are no credit notes  - </p>
-          <Link to=" " style={linkStyle}>
-            <p style={{ color: "#1677ff" }}>Add New</p>
-          </Link>
-        </div>
-      }]} />
+      <Collapse
+        className="mt-4"
+        items={[
+          {
+            key: '1',
+            label: 'Sales Orders',
+            children: (
+              <Table
+                columns={[
+                  { title: 'SALES ORDER', dataIndex: 'salesOrder', key: 'salesOrder' },
+                  {
+                    title: 'REFERENCE NUMBER',
+                    dataIndex: 'referenceNumber',
+                    key: 'referenceNumber'
+                  },
+                  { title: 'DATE', dataIndex: 'date', key: 'date' },
+                  { title: 'SHIPMENT DATE', dataIndex: 'shipmentDate', key: 'shipmentDate' },
+                  { title: 'AMOUNT', dataIndex: 'amount', key: 'amount' },
+                  { title: 'STATUS', dataIndex: 'status', key: 'status' }
+                ]}
+                dataSource={salesdata}
+              />
+            )
+          }
+        ]}
+      />
+      <Collapse
+        className="mt-4"
+        items={[
+          {
+            key: '1',
+            label: ' Packages',
+            children: (
+              <div className="d-flex align-item-center justify-content-center">
+                <p class="mb-0">No data to display - </p>
+                <Link to=" " style={linkStyle}>
+                  <p style={{ color: '#1677ff' }}>Add New</p>
+                </Link>
+              </div>
+            )
+          }
+        ]}
+      />
+      <Collapse
+        className="mt-4"
+        items={[
+          {
+            key: '1',
+            label: 'Delivery Challans',
+            children: (
+              <Table
+                columns={[
+                  {
+                    title: 'Delivery Challans',
+                    dataIndex: 'deliveryChallans',
+                    key: 'deliveryChallans'
+                  },
+                  {
+                    title: 'REFERENCE NUMBER',
+                    dataIndex: 'referenceNumber',
+                    key: 'referenceNumber'
+                  },
+                  { title: 'DATE', dataIndex: 'date', key: 'date' },
+                  { title: 'AMOUNT', dataIndex: 'amount', key: 'amount' },
+                  { title: 'STATUS', dataIndex: 'status', key: 'status' }
+                ]}
+                dataSource={challansData}
+              />
+            )
+          }
+        ]}
+      />
+      <Collapse
+        className="mt-4"
+        items={[
+          {
+            key: '1',
+            label: 'Bills',
+            children: (
+              <div className="d-flex align-item-center justify-content-center">
+                <p class="mb-0">There are no Bills</p>
+              </div>
+            )
+          }
+        ]}
+      />
+      <Collapse
+        className="mt-4"
+        items={[
+          {
+            key: '1',
+            label: 'Credit Notes',
+            children: (
+              <div className="d-flex align-item-center justify-content-center">
+                <p class="mb-0">There are no credit notes - </p>
+                <Link to=" " style={linkStyle}>
+                  <p style={{ color: '#1677ff' }}>Add New</p>
+                </Link>
+              </div>
+            )
+          }
+        ]}
+      />
     </div>
-  )
-}
+  );
+};
 const linkStyle = {
-  textDecoration: 'none',
+  textDecoration: 'none'
 };
 const data = [
   {
@@ -93,7 +158,7 @@ const data = [
     orderNumber: 'SO-00001',
     amount: 'Rs.216.00',
     balanceDue: 'Rs.216.00',
-    status: "Draft"
+    status: 'Draft'
   },
   {
     key: '2',
@@ -102,7 +167,7 @@ const data = [
     orderNumber: 'SO-00002',
     amount: 'Rs.215.00',
     balanceDue: 'Rs.215.00',
-    status: "Cancel"
+    status: 'Cancel'
   },
   {
     key: '3',
@@ -111,41 +176,41 @@ const data = [
     orderNumber: 'SO-00003',
     amount: 'Rs.214.00',
     balanceDue: 'Rs.214.00',
-    status: "Panding"
-  },
+    status: 'Panding'
+  }
 ];
 const columns = [
   {
     title: 'DATE',
     dataIndex: 'date',
     key: 'date',
-    render: (text) => <span>{text}</span>,
+    render: (text) => <span>{text}</span>
   },
   {
     title: 'INVOICE NUMBER',
     dataIndex: 'invoiceNumber',
-    key: 'invoiceNumber',
+    key: 'invoiceNumber'
   },
   {
     title: 'ORDER NUMBER',
     dataIndex: 'orderNumber',
-    key: 'orderNumber',
+    key: 'orderNumber'
   },
   {
     title: 'AMOUNT',
     key: 'amount',
-    dataIndex: 'amonut',
+    dataIndex: 'amonut'
   },
   {
     title: 'BALANCE DUE',
     key: 'balanceDue',
-    dataIndex: 'balanceDue',
+    dataIndex: 'balanceDue'
   },
   {
     title: 'Status',
     key: 'status',
-    dataIndex: 'status',
-  },
+    dataIndex: 'status'
+  }
 ];
 const salesdata = [
   {
@@ -157,7 +222,7 @@ const salesdata = [
     amount: 'Rs.211.00',
     status: 'Draft'
   }
-]
+];
 const challansData = [
   {
     key: '1',
@@ -168,4 +233,4 @@ const challansData = [
     amount: 'Rs.211.00',
     status: 'Draft'
   }
-]
+];

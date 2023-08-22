@@ -1,11 +1,11 @@
-import { axios } from "./axiosInterceptor";
-import { getUserToken } from "./localStorageHandler";
+import { axios } from './axiosInterceptor';
+import { getUserToken } from './localStorageHandler';
 
 function header(requireAuth = true) {
   let headers = {
-    "Content-Type": "application/json",
+    'Content-Type': 'application/json'
   };
-  if (requireAuth) headers["Authorization"] = `Bearer ${getUserToken()}`;
+  if (requireAuth) headers['Authorization'] = `Bearer ${getUserToken()}`;
   return headers;
 }
 

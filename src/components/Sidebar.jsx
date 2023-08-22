@@ -8,26 +8,25 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '../controller/routes';
 import { useEffect } from 'react';
 import { user } from '../controller/api/AuthServices';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import { setUserRole } from '../controller/localStorageHandler';
 import { setCurrentUser } from '../redux/slices/userSlice';
 const { Sider } = Layout;
 
-
 const Sidebar = ({ selectKey, setSelectKey, items }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const pathname = window.location.hash.split("/")
-    const currentSelectKey = pathname[2]
-    if (currentSelectKey === "inventoryDashboard") {
-      setSelectKey('home')
-    } else if (pathname[1] === "reports") {
-      setSelectKey('reports')
+    const pathname = window.location.hash.split('/');
+    const currentSelectKey = pathname[2];
+    if (currentSelectKey === 'inventoryDashboard') {
+      setSelectKey('home');
+    } else if (pathname[1] === 'reports') {
+      setSelectKey('reports');
     } else {
-      setSelectKey(currentSelectKey)
+      setSelectKey(currentSelectKey);
     }
-  }, [setSelectKey])
+  }, [setSelectKey]);
   // useEffect(() => {
   //   try {
   //     user().then(res => {
@@ -55,7 +54,8 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
     <div style={{ minHeight: '100vh' }}>
       <div
         className="demo-logo-vertical d-flex justify-content-center align-items-center text-white gap-2"
-        style={{ height: '40px', background: '#1677FF' }}>
+        style={{ height: '40px', background: '#1677FF' }}
+      >
         <FontAwesomeIcon icon={faCartFlatbed} />
         {!collapsed && <span>Inventory</span>}
       </div>
@@ -64,7 +64,8 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
         // style={{ mixHeight: '93vh' }}
         collapsible
         collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}>
+        onCollapse={(value) => setCollapsed(value)}
+      >
         {/* <div
           className="demo-logo-vertical d-flex justify-content-center align-items-center text-white gap-2"
           style={{ height: '40px', background: '#1677FF' }}

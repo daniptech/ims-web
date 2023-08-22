@@ -1,5 +1,5 @@
-import { Table } from 'antd'
-import React, { useState } from 'react'
+import { Table } from 'antd';
+import React, { useState } from 'react';
 
 const BuildingHistory = () => {
   const BuildingHistoryTableColumn = [
@@ -9,25 +9,25 @@ const BuildingHistory = () => {
       sorter: (a, b) => a.date.length - b.date.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: true,
-      lock: true,
+      lock: true
     },
     {
       title: 'BUNDLING#',
-      dataIndex: 'building',
+      dataIndex: 'building'
     },
     {
       title: 'CUSTOMER NAME',
-      dataIndex: 'customer_name',
+      dataIndex: 'customer_name'
     },
     {
       title: 'QUANTITY BUNDLED',
-      dataIndex: 'quantity_bundled',
+      dataIndex: 'quantity_bundled'
     },
     {
       title: 'TOTAL',
-      dataIndex: 'total',
+      dataIndex: 'total'
     }
-  ]
+  ];
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleChangePage = (page) => {
@@ -47,7 +47,7 @@ const BuildingHistory = () => {
         }}
       />
     </div>
-  )
-}
+  );
+};
 
-export default BuildingHistory
+export default BuildingHistory;

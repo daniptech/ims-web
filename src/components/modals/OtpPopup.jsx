@@ -6,7 +6,16 @@ import { routes } from '../../controller/routes';
 import { verifyOTP } from '../../controller/api/AuthServices';
 import { setRefreshToken, setUserToken } from '../../controller/localStorageHandler';
 
-const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, setSelectKey, otpValidTill, setotpValidTill, user, resend }) => {
+const OtpPopup = ({
+  OpenOtpPopup,
+  setOpenOtpPopup,
+  loginWith,
+  setSelectKey,
+  otpValidTill,
+  setotpValidTill,
+  user,
+  resend
+}) => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
 
@@ -16,19 +25,16 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, setSelectKey, otpV
         setotpValidTill({
           ...otpValidTill,
           otpTill: otpValidTill.otpTill - 1
-        })
+        });
       } else {
-        message.info('Otp expire, please resend the otp')
-        clearInterval(timeout)
+        message.info('Otp expire, please resend the otp');
+        clearInterval(timeout);
       }
     }, 1000);
     return () => {
       clearInterval(timeout);
     };
   }, [otpValidTill, setotpValidTill]);
-
-
-
 
   const handleFinish = (values) => {
     const { otp } = values;
@@ -39,26 +45,26 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, setSelectKey, otpV
           errors: ['OTP is invalid.']
         }
       ]);
-    const formOtpText = otp.toString()
+    const formOtpText = otp.toString();
     const payload = {
       ...user,
-      otp: formOtpText.replaceAll(',', "")
-    }
+      otp: formOtpText.replaceAll(',', '')
+    };
     try {
       verifyOTP(payload)
-        .then(res => {
-          setUserToken(res.data.token)
-          setRefreshToken(res.data.refreshToken)
-          setSelectKey('home')
-          navigate(routes.home.dashboard)
+        .then((res) => {
+          setUserToken(res.data.token);
+          setRefreshToken(res.data.refreshToken);
+          setSelectKey('home');
+          navigate(routes.home.dashboard);
         })
-        .catch(err => {
+        .catch((err) => {
           if (err.response) {
-            message.error(err.response.data.error.message)
+            message.error(err.response.data.error.message);
           }
-        })
+        });
     } catch (error) {
-      console.log("error ====>> ", error)
+      console.log('error ====>> ', error);
     }
     // if (currentUser.otp == formOtpText.replaceAll(',', "")) {
     //   localStorage.setItem("login", true)
@@ -86,12 +92,18 @@ const OtpPopup = ({ OpenOtpPopup, setOpenOtpPopup, loginWith, setSelectKey, otpV
           >
             <InputOTP autoFocus inputType="numeric" length={4} />
           </Form.Item>
-          {otpValidTill?.otpTill > 0
-            ?
-            <Progress type="circle" size="small" percent={otpValidTill?.otpTill * 100 / otpValidTill?.OtpTotaltime} format={(percent) => otpValidTill?.otpTill} />
-            :
-            <Button type='primary' onClick={() => resend({ ...user })}>Resend</Button>
-          }
+          {otpValidTill?.otpTill > 0 ? (
+            <Progress
+              type="circle"
+              size="small"
+              percent={(otpValidTill?.otpTill * 100) / otpValidTill?.OtpTotaltime}
+              format={(percent) => otpValidTill?.otpTill}
+            />
+          ) : (
+            <Button type="primary" onClick={() => resend({ ...user })}>
+              Resend
+            </Button>
+          )}
           <div className="row col-12 mt-5 gap-1 justify-content-center m-0">
             <div className="col-md-6 col-lg-5">
               <Form.Item noStyle>

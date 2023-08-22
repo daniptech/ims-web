@@ -11,29 +11,29 @@ const columns = [
     render: (text) => <span>{text}</span>,
     sorter: (a, b) => a.name.length - b.name.length,
     isVisible: true,
-    lock: true,
+    lock: true
   },
   {
     title: 'SKU',
     dataIndex: 'sku',
     sorter: (a, b) => a.sku - b.sku,
     isVisible: true,
-    lock: true,
+    lock: true
   },
   {
     title: 'STOCK IN HAND',
     dataIndex: 'stock_in_hand',
     sorter: (a, b) => a.stock_in_hand - b.stock_in_hand,
     isVisible: true,
-    lock: true,
+    lock: true
   },
   {
     title: 'REORDER POINT',
     dataIndex: 'reorder_point',
     sorter: (a, b) => a.reorder_point - b.reorder_point,
     isVisible: true,
-    lock: true,
-  },
+    lock: true
+  }
 ];
 const data = [
   {
@@ -105,16 +105,15 @@ const data = [
     sku: 32,
     stock_in_hand: 5,
     reorder_point: 100
-  },
-
+  }
 ];
 
 const CompositeItemsList = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   const [selectedRows, setSelectedRows] = useState({
     selectedRowKeys: '',
     selectedRows: []
-  })
+  });
   // rowSelection object indicates the need for row selection
   const rowSelection = {
     selectedRowKeys: selectedRows.selectedRowKeys,
@@ -122,9 +121,9 @@ const CompositeItemsList = () => {
       setSelectedRows({
         selectedRowKeys,
         selectedRows
-      })
+      });
       console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-    },
+    }
     // getCheckboxProps: (record) => ({
     //   disabled: record.name === 'Disabled User',
     //   // Column configuration not to be checked
@@ -134,24 +133,24 @@ const CompositeItemsList = () => {
   const items = [
     {
       key: '1',
-      label: "Mark as Active",
+      label: 'Mark as Active'
     },
     {
       key: '2',
-      label: "Mark as Inactive",
+      label: 'Mark as Inactive'
     },
     {
       key: '3',
-      label: "Delete",
+      label: 'Delete'
     },
     {
       key: '4',
-      label: "Add to Group",
+      label: 'Add to Group'
     },
     {
       key: '5',
-      label: "Mark as Returnable",
-    },
+      label: 'Mark as Returnable'
+    }
   ];
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -161,21 +160,22 @@ const CompositeItemsList = () => {
   return (
     <div className="w-100 h-100">
       <div className="w-100 p-3 d-flex justify-content-between align-items-center">
-        {selectedRows?.selectedRows?.length ?
+        {selectedRows?.selectedRows?.length ? (
           <>
             <Dropdown
-              trigger='click'
+              trigger="click"
               menu={{
-                items,
+                items
               }}
               placement="bottom"
             >
-              <Button type='primary' className='d-flex justify-content-center align-items-center'>Bulk Action <DownOutlined /></Button>
+              <Button type="primary" className="d-flex justify-content-center align-items-center">
+                Bulk Action <DownOutlined />
+              </Button>
             </Dropdown>
-            <CloseOutlined onClick={() => rowSelection.onChange("", [])} className='text-muted' />
+            <CloseOutlined onClick={() => rowSelection.onChange('', [])} className="text-muted" />
           </>
-
-          :
+        ) : (
           <>
             <Select
               className="item-table-filter"
@@ -188,13 +188,13 @@ const CompositeItemsList = () => {
               style={{
                 width: 'auto'
               }}
-              optionLabelProp='name'
+              optionLabelProp="name"
               onChange={(val) => console.log(val)}
               options={[
                 {
                   value: 'all_composite_items',
                   label: 'All',
-                  name:"All Composite Items"
+                  name: 'All Composite Items'
                 },
                 {
                   value: 'ungrouped_items',
@@ -204,40 +204,39 @@ const CompositeItemsList = () => {
                 {
                   value: 'active_items',
                   label: 'Active',
-                  name:'Active Composite Items'
+                  name: 'Active Composite Items'
                 },
                 {
                   value: 'low_stock_items',
                   label: 'Low Stock',
-                  name:'Low Stock Composite Items'
+                  name: 'Low Stock Composite Items'
                 },
                 {
                   value: 'inactive_items',
                   label: 'Inactive Items',
-                  name:'Inactive Composite Items  '
+                  name: 'Inactive Composite Items  '
                 }
               ]}
             />
             <Button
               type="primary"
               className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-              onClick={()=>navigate(routes.inventory.compositeItem.new)}
+              onClick={() => navigate(routes.inventory.compositeItem.new)}
             >
               + New
             </Button>
           </>
-        }
+        )}
       </div>
-      <div
-        className=" p-3"
-      >
+      <div className=" p-3">
         <Table
           rowSelection={{
             type: 'checkbox',
-            ...rowSelection,
+            ...rowSelection
           }}
           onRow={(record) => ({
-            onClick: () => navigate(reverse(routes.inventory.compositeItem.view, { id: record.key })),
+            onClick: () =>
+              navigate(reverse(routes.inventory.compositeItem.view, { id: record.key }))
           })}
           columns={columns}
           dataSource={data}
@@ -249,7 +248,7 @@ const CompositeItemsList = () => {
         />
       </div>
     </div>
-  )
+  );
 };
 
 export default CompositeItemsList;

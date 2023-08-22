@@ -9,7 +9,7 @@ import { reverse } from 'named-urls';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItem } from '../../../controller/api/inventory/itemService';
 import { setItem } from '../../../redux/slices/inventorySlice';
-import { Bars, Triangle } from 'react-loader-spinner';
+import { Bars } from 'react-loader-spinner';
 
 const ItemsList = () => {
   const dispatch = useDispatch();
@@ -54,7 +54,8 @@ const ItemsList = () => {
         style={{
           padding: 8
         }}
-        onKeyDown={(e) => e.stopPropagation()}>
+        onKeyDown={(e) => e.stopPropagation()}
+      >
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
@@ -74,7 +75,8 @@ const ItemsList = () => {
             size="small"
             style={{
               width: 90
-            }}>
+            }}
+          >
             Search
           </Button>
           <Button
@@ -85,7 +87,8 @@ const ItemsList = () => {
             size="small"
             style={{
               width: 90
-            }}>
+            }}
+          >
             Reset
           </Button>
           {/* <Button
@@ -106,7 +109,8 @@ const ItemsList = () => {
             size="small"
             onClick={() => {
               close();
-            }}>
+            }}
+          >
             close
           </Button>
         </Space>
@@ -335,19 +339,23 @@ const ItemsList = () => {
   };
   return (
     <div className="w-100 position-relative ">
-      {loader&&
-      <div className="d-flex justify-content-center align-items-center w-100 position-absolute" style={{height:"100vh", zIndex:'11111'}}>
-        <Bars
-          height="130"
-          width="130"
-          color="#1677ff"
-          ariaLabel="bars-loading"
-          wrapperStyle={{}}
-          wrapperClass=""
-          visible={loader}
-        />
-      </div>}
-      <div className={`w-100 h-100 ${loader &&' opacity-25'}`}>
+      {loader && (
+        <div
+          className="d-flex justify-content-center align-items-center w-100 position-absolute"
+          style={{ height: '100vh', zIndex: '11111' }}
+        >
+          <Bars
+            height="130"
+            width="130"
+            color="#1677ff"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={loader}
+          />
+        </div>
+      )}
+      <div className={`w-100 h-100 ${loader && ' opacity-25'}`}>
         <div className="w-100 p-3 d-flex justify-content-between align-items-center">
           <Select
             className="item-table-filter"
@@ -411,7 +419,8 @@ const ItemsList = () => {
           <Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-            onClick={() => navigate(routes.inventory.items.new)}>
+            onClick={() => navigate(routes.inventory.items.new)}
+          >
             + New
           </Button>
         </div>
@@ -419,7 +428,8 @@ const ItemsList = () => {
           className="m-3 p-3 border border-1 "
           style={{
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
-          }}>
+          }}
+        >
           <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
             <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
               Customize Columns

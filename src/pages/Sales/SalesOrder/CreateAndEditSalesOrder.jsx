@@ -66,7 +66,8 @@ export const CreateAndEditSalesOrder = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}>
+        }}
+      >
         <Form layout="vertical" name="conpositeForm">
           <div>
             <div className="row col-12 p-4 m-0">
@@ -77,7 +78,8 @@ export const CreateAndEditSalesOrder = () => {
                       <span>Customer Type</span>{' '}
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                      >
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -85,7 +87,8 @@ export const CreateAndEditSalesOrder = () => {
                   <div className="col-9">
                     <div
                       className="d-flex align-items-center rounded-start border-start border-top border-bottom"
-                      style={{ height: '34px' }}>
+                      style={{ height: '34px' }}
+                    >
                       <Select
                         style={{
                           width: '90%'
@@ -122,7 +125,8 @@ export const CreateAndEditSalesOrder = () => {
                           display: 'flex',
                           justifyContent: 'center',
                           alignItems: 'center'
-                        }}>
+                        }}
+                      >
                         <SearchOutlined
                           onClick={() => console.log('search')}
                           style={{ color: '#fff', fontSize: '20px' }}
@@ -191,7 +195,8 @@ export const CreateAndEditSalesOrder = () => {
                       Payment Terms
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                      >
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -242,7 +247,8 @@ export const CreateAndEditSalesOrder = () => {
                       Delivery Method
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                      >
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -277,7 +283,8 @@ export const CreateAndEditSalesOrder = () => {
                       Salesperson
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                      >
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -376,7 +383,8 @@ export const CreateAndEditSalesOrder = () => {
                           key: 2
                         }
                       ]
-                    }}>
+                    }}
+                  >
                     <div className="d-flex gap-2 align-items-center justify-content-center">
                       <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add
                       another line

@@ -7,14 +7,23 @@ import {
   UploadOutlined
 } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Button, Form, Input, Select, DatePicker, Tooltip, Dropdown, Upload, message, Divider } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  DatePicker,
+  Tooltip,
+  Dropdown,
+  Upload,
+  message,
+  Divider
+} from 'antd';
 import dayjs from 'dayjs';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-
-
 
 const CreateAndEditPurchaseOrder = () => {
   const navigate = useNavigate();
@@ -69,11 +78,12 @@ const CreateAndEditPurchaseOrder = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}>
+        }}
+      >
         <Form layout="vertical" name="conpositeForm">
           <div>
             <div className="w-100 row col-12 bg-light p-4">
-              <div className='col-6'>
+              <div className="col-6">
                 <div className="row col-12 d-flex  align-items-center ">
                   <div className="col-3">
                     <label className="d-flex align-items-center gap-1 text-danger">
@@ -83,7 +93,8 @@ const CreateAndEditPurchaseOrder = () => {
                   <div className="col-9">
                     <div
                       className="d-flex align-items-center rounded-start border-start border-top border-bottom"
-                      style={{ height: '34px' }}>
+                      style={{ height: '34px' }}
+                    >
                       <Select
                         style={{
                           width: '90%'
@@ -120,7 +131,8 @@ const CreateAndEditPurchaseOrder = () => {
                           display: 'flex',
                           justifyContent: 'center',
                           alignItems: 'center'
-                        }}>
+                        }}
+                      >
                         <SearchOutlined
                           onClick={() => console.log('search')}
                           style={{ color: '#fff', fontSize: '20px' }}
@@ -133,7 +145,6 @@ const CreateAndEditPurchaseOrder = () => {
             </div>
             <div className="row col-12 p-4 m-0">
               <div className="col-6 d-flex flex-column gap-3">
-
                 <div className="row col-12 d-flex  align-items-center">
                   <div className="col-3">
                     <label className="d-flex align-items-center gap-1 text-danger">
@@ -167,7 +178,7 @@ const CreateAndEditPurchaseOrder = () => {
                   <div className="col-6">
                     <Form.Item name="sales_order_date" className="d-flex m-0 form-item">
                       <DatePicker
-                        className='w-100'
+                        className="w-100"
                         defaultValue={dayjs('25/07/2023', dateFormatList[0])}
                         format={dateFormatList}
                       />
@@ -195,7 +206,8 @@ const CreateAndEditPurchaseOrder = () => {
                       Payment Terms
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                      >
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -242,9 +254,7 @@ const CreateAndEditPurchaseOrder = () => {
                 </div>
                 <div className="row col-12 d-flex  align-items-center">
                   <div className="col-3">
-                    <label className="d-flex align-items-center gap-1">
-                      Shipment Preference
-                    </label>
+                    <label className="d-flex align-items-center gap-1">Shipment Preference</label>
                   </div>
                   <div className="col-6">
                     <Form.Item name="delivery_method" className="d-flex m-0 form-item">
@@ -270,43 +280,70 @@ const CreateAndEditPurchaseOrder = () => {
                     </Form.Item>
                   </div>
                 </div>
-
               </div>
-              <Divider className='mt-4 mb-4' />
+              <Divider className="mt-4 mb-4" />
 
-              <div style={{ width: '80%' }} className='mb-2'>
-                <table className='w-100 custom-table-create'>
-                  <thead className='w-100'>
-                    <tr className='border-bottom border-top'>
-                      <th style={{ width: '34%' }} className='border-end' >ITEM DETAILS</th>
-                      <th style={{ width: '15%' }} className='border-end text-end' >ACCOUNT</th>
-                      <th style={{ width: '15%' }} className='border-end text-end' >QUANTITY</th>
-                      <th style={{ width: '15%' }} className='border-end text-end' >RATE</th>
-                      <th style={{ width: '15%' }} className=' text-end'>AMOUNT</th>
-                      <th style={{ width: '6%' }} className='text-end'></th>
+              <div style={{ width: '80%' }} className="mb-2">
+                <table className="w-100 custom-table-create">
+                  <thead className="w-100">
+                    <tr className="border-bottom border-top">
+                      <th style={{ width: '34%' }} className="border-end">
+                        ITEM DETAILS
+                      </th>
+                      <th style={{ width: '15%' }} className="border-end text-end">
+                        ACCOUNT
+                      </th>
+                      <th style={{ width: '15%' }} className="border-end text-end">
+                        QUANTITY
+                      </th>
+                      <th style={{ width: '15%' }} className="border-end text-end">
+                        RATE
+                      </th>
+                      <th style={{ width: '15%' }} className=" text-end">
+                        AMOUNT
+                      </th>
+                      <th style={{ width: '6%' }} className="text-end"></th>
                     </tr>
                   </thead>
-                  <tbody className='w-100'>
-                    <tr className='border-bottom'>
-                      <td style={{ width: '34%' }} className='border-end' ><div className='d-flex gap-2'>
-                        <div className='p-1 table-img'>
-                          <FontAwesomeIcon icon={faImage} style={{ color: "#c7c7c7", height: 25 }} />
+                  <tbody className="w-100">
+                    <tr className="border-bottom">
+                      <td style={{ width: '34%' }} className="border-end">
+                        <div className="d-flex gap-2">
+                          <div className="p-1 table-img">
+                            <FontAwesomeIcon
+                              icon={faImage}
+                              style={{ color: '#c7c7c7', height: 25 }}
+                            />
+                          </div>
+                          <Input
+                            className="item-detail"
+                            placeholder="Type or Click to select an item."
+                          />
                         </div>
-                        <Input className='item-detail' placeholder='Type or Click to select an item.' />
-                      </div></td>
-                      <td style={{ width: '15%' }} className='border-end' ><Select className='w-100' options={[]}/></td>
-                      <td style={{ width: '15%' }} className='border-end' ><Input className='input-field' placeholder='0.00' /></td>
-                      <td style={{ width: '15%' }} className='border-end' ><Input className='input-field' placeholder='0.00' /></td>
-                      <td style={{ width: '15%' }} className='text-end' >0.00</td>
-                      <td style={{ width: '6%' }} className='p-3'><FontAwesomeIcon icon={faCircleXmark} style={{ color: "#e26a6a", }} /></td>
+                      </td>
+                      <td style={{ width: '15%' }} className="border-end">
+                        <Select className="w-100" options={[]} />
+                      </td>
+                      <td style={{ width: '15%' }} className="border-end">
+                        <Input className="input-field" placeholder="0.00" />
+                      </td>
+                      <td style={{ width: '15%' }} className="border-end">
+                        <Input className="input-field" placeholder="0.00" />
+                      </td>
+                      <td style={{ width: '15%' }} className="text-end">
+                        0.00
+                      </td>
+                      <td style={{ width: '6%' }} className="p-3">
+                        <FontAwesomeIcon icon={faCircleXmark} style={{ color: '#e26a6a' }} />
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
-              <div style={{ width: "80%" }}>
-                <div className='row col-12'>
-                  <div className='col-4 d-flex flex-column justify-content-between'>
-                    <div >
+              <div style={{ width: '80%' }}>
+                <div className="row col-12">
+                  <div className="col-4 d-flex flex-column justify-content-between">
+                    <div>
                       <Dropdown.Button
                         icon={<DownOutlined />}
                         menu={{
@@ -322,79 +359,84 @@ const CreateAndEditPurchaseOrder = () => {
                           ]
                         }}
                       >
-                        <div className='d-flex gap-2 align-items-center justify-content-center'>
-                          <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#005eff", }} />  Add another line
+                        <div className="d-flex gap-2 align-items-center justify-content-center">
+                          <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add
+                          another line
                         </div>
                       </Dropdown.Button>
                     </div>
                     <div>
                       <span>Customer Notes</span>
                       <div>
-                        <Form.Item name='customer_notes'>
-                          <Input.TextArea placeholder='will be displayed on purchase order'/>
+                        <Form.Item name="customer_notes">
+                          <Input.TextArea placeholder="will be displayed on purchase order" />
                         </Form.Item>
                       </div>
                     </div>
                   </div>
-                  <div className='col-8'>
-                    <div className='w-100 row col-12 bg-light rounded-2 p-2 lh-lg'>
-                      <div className='col-6'>Sub Total</div>
-                      <div className='col-6 text-end text-muted'>0.00</div>
-                      <div className='col-4'>Discount</div>
-                      <div className='col-4'>
-                        <Form.Item name='discount'>
-                          <Input className='w-100'
+                  <div className="col-8">
+                    <div className="w-100 row col-12 bg-light rounded-2 p-2 lh-lg">
+                      <div className="col-6">Sub Total</div>
+                      <div className="col-6 text-end text-muted">0.00</div>
+                      <div className="col-4">Discount</div>
+                      <div className="col-4">
+                        <Form.Item name="discount">
+                          <Input
+                            className="w-100"
                             addonAfter={
-                              <Form.Item name='discount_type' noStyle>
-                                <Select >
+                              <Form.Item name="discount_type" noStyle>
+                                <Select>
                                   <Option value="%">%</Option>
                                   <Option value="rs">Rs</Option>
                                 </Select>
                               </Form.Item>
-                            } />
+                            }
+                          />
                         </Form.Item>
                       </div>
-                      <div className='col-4 text-end text-muted'>0.00</div>
-                      <div className='col-4'>
-                        <Form.Item name='adjustment'>
-                          <Input className='w-100' placeholder='Adjustment'/>
+                      <div className="col-4 text-end text-muted">0.00</div>
+                      <div className="col-4">
+                        <Form.Item name="adjustment">
+                          <Input className="w-100" placeholder="Adjustment" />
                         </Form.Item>
                       </div>
-                      <div className='col-4'>
-                        <Form.Item name='discount'>
-                          <Input className='w-100' />
+                      <div className="col-4">
+                        <Form.Item name="discount">
+                          <Input className="w-100" />
                         </Form.Item>
                       </div>
-                      <div className='col-4 text-end text-muted'>0.00</div>
-                      <div className='col-4'>
-                     <Form.Item></Form.Item>
+                      <div className="col-4 text-end text-muted">0.00</div>
+                      <div className="col-4">
+                        <Form.Item></Form.Item>
                       </div>
-                      <div className='col-4'>
-                        <Form.Item name='discount'>
-                          <Select options={[]} className='w-100' />
+                      <div className="col-4">
+                        <Form.Item name="discount">
+                          <Select options={[]} className="w-100" />
                         </Form.Item>
                       </div>
-                      <div className='col-4 text-end text-muted'>0.00</div>
-                      <div className='col-6 fw-medium'>Total</div>
-                      <div className='col-6 text-end fw-medium'>0.00</div>
+                      <div className="col-4 text-end text-muted">0.00</div>
+                      <div className="col-6 fw-medium">Total</div>
+                      <div className="col-6 text-end fw-medium">0.00</div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div className='row col-12 bg-light p-4 m-0'>
-              <div className='col-6 border-end'>
+            <div className="row col-12 bg-light p-4 m-0">
+              <div className="col-6 border-end">
                 <span>Terms & Conditions</span>
-                <Form.Item name='t&c'>
+                <Form.Item name="t&c">
                   <Input.TextArea style={{ minHeight: '70px' }} />
                 </Form.Item>
               </div>
-              <div className='col-4'>
-                <div className='d-flex flex-column'>
+              <div className="col-4">
+                <div className="d-flex flex-column">
                   <span>Attach File(s) to inventory adjustment</span>
-                  <span style={{ fontSize: '12px' }}>You can upload a maximum of 5 files, 5MB each</span>
+                  <span style={{ fontSize: '12px' }}>
+                    You can upload a maximum of 5 files, 5MB each
+                  </span>
                 </div>
-                <Form.Item name='inventory_file'>
+                <Form.Item name="inventory_file">
                   <Upload {...uploadFile} multiple maxCount={5}>
                     <Button icon={<UploadOutlined />}>Click to Upload</Button>
                   </Upload>
@@ -405,11 +447,7 @@ const CreateAndEditPurchaseOrder = () => {
         </Form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default CreateAndEditPurchaseOrder
-
-
-
-
+export default CreateAndEditPurchaseOrder;

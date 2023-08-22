@@ -60,7 +60,7 @@ const CustomizeTableColumns = ({ columns, setcolumns, customizeColoumn, setCusto
     });
     setSearchItem(filterData);
   };
-  
+
   const renderItem = (item, index) => {
     return (
       <div

@@ -1,5 +1,5 @@
 import { DownloadOutlined, MenuOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Col, Row} from 'antd';
+import { Button, Dropdown, Col, Row } from 'antd';
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { routes } from '../../../controller/routes';
@@ -12,7 +12,8 @@ const PackageItemList = () => {
         <Button
           type="primary"
           className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-          onClick={() => navigate(routes.sales.packages.new)}>
+          onClick={() => navigate(routes.sales.packages.new)}
+        >
           + New
         </Button>
       </div>
@@ -23,14 +24,14 @@ const PackageItemList = () => {
               <h7>Packages, Not Shipped</h7>
               <Dropdown
                 menu={{
-                items,
+                  items
                 }}
                 placement="bottomRight"
                 arrow
-                >
-              <Button type="text">
-                <MenuOutlined />
-              </Button>
+              >
+                <Button type="text">
+                  <MenuOutlined />
+                </Button>
               </Dropdown>
             </div>
             <div
@@ -41,7 +42,8 @@ const PackageItemList = () => {
                 marginLeft: '8px',
                 justifyContent: 'center',
                 display: 'flex'
-              }}>
+              }}
+            >
               <div
                 style={{
                   width: '300px',
@@ -52,7 +54,8 @@ const PackageItemList = () => {
                   justifyContent: 'center',
                   display: 'flex',
                   alignItems: 'center'
-                }}>
+                }}
+              >
                 No Records Found
               </div>
             </div>
@@ -62,14 +65,14 @@ const PackageItemList = () => {
               <h7>Shipped Packages</h7>
               <Dropdown
                 menu={{
-                items,
+                  items
                 }}
                 placement="bottomRight"
                 arrow
-                >
-              <Button type="text">
-                <MenuOutlined />
-              </Button>
+              >
+                <Button type="text">
+                  <MenuOutlined />
+                </Button>
               </Dropdown>
             </div>
             <div
@@ -80,7 +83,8 @@ const PackageItemList = () => {
                 marginLeft: '8px',
                 justifyContent: 'center',
                 display: 'flex'
-              }}>
+              }}
+            >
               <div
                 style={{
                   width: '300px',
@@ -91,7 +95,8 @@ const PackageItemList = () => {
                   justifyContent: 'center',
                   display: 'flex',
                   alignItems: 'center'
-                }}>
+                }}
+              >
                 No Records Found
               </div>
             </div>
@@ -101,14 +106,14 @@ const PackageItemList = () => {
               <h7>Delivered Packages</h7>
               <Dropdown
                 menu={{
-                items,
+                  items
                 }}
                 placement="bottomRight"
                 arrow
-                >
-              <Button type="text">
-                <MenuOutlined />
-              </Button>
+              >
+                <Button type="text">
+                  <MenuOutlined />
+                </Button>
               </Dropdown>
             </div>
             <div
@@ -119,7 +124,8 @@ const PackageItemList = () => {
                 marginLeft: '8px',
                 justifyContent: 'center',
                 display: 'flex'
-              }}>
+              }}
+            >
               <div
                 style={{
                   width: '300px',
@@ -130,7 +136,8 @@ const PackageItemList = () => {
                   justifyContent: 'center',
                   display: 'flex',
                   alignItems: 'center'
-                }}>
+                }}
+              >
                 No Records Found
               </div>
             </div>
@@ -141,100 +148,67 @@ const PackageItemList = () => {
   );
 };
 const linkStyle = {
-    textDecoration: 'none',
-  };
-  
+  textDecoration: 'none'
+};
+
 export default PackageItemList;
 const items = [
-    {
-      key: '1',
-      label: (
-        <Link style={linkStyle}>
-            Package Date
-        </Link>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <Link style={linkStyle}>
-          Package #
-    </Link>
-      ),
-    },
-    {
-      key: '3',
-      label: (
-        <Link style={linkStyle}>
-           Carrier
-        </Link>
-      ),
-    },
-    {
-        key: '4',
-        label: (
-          <Link style={linkStyle}>
-            Sales Order#
-          </Link>
-        ),
-      },
-      {
-        key: '5',
-        label: (
-          <Link style={linkStyle}>
-             Shipment Date
-          </Link>
-        ),
-      },
-      {
-        key: '6',
-        label: (
-          <Link style={linkStyle}>
-             Customer Name
-          </Link>
-        ),
-      },
-      {
-        key: '7',
-        label: (
-          <Link style={linkStyle}>
-             Quantity
-          </Link>
-        ),
-      },
-      {
-        key: '8',
-        label: (
-          <Link style={linkStyle}>
-             Create Time
-          </Link>
-        ),
-      },
-      {
-        key: '9',
-        label: (
-          <Link style={linkStyle}>
-             Last Modified Time
-          </Link>
-        ),
-      },
-      {
-        key: '10',
-        label: (
-          <Link style={linkStyle}>
-            <div className='d-flex justify-content-center align-items-center'><DownloadOutlined style={{color:'blue'}}/>
-            <h9 style={{marginLeft:'10px'}}>Import Packages</h9></div>
-          </Link>
-        ),
-      },
-      {
-        key: '10',
-        label: (
-          <Link style={linkStyle}>
-            <div className='d-flex justify-content-center align-items-center'><DownloadOutlined style={{color:'blue'}}/>
-            <h9 style={{marginLeft:'10px'}}>Export Package </h9></div>
-          </Link>
-        ),
-      },
-  ];
- 
+  {
+    key: '1',
+    label: <Link style={linkStyle}>Package Date</Link>
+  },
+  {
+    key: '2',
+    label: <Link style={linkStyle}>Package #</Link>
+  },
+  {
+    key: '3',
+    label: <Link style={linkStyle}>Carrier</Link>
+  },
+  {
+    key: '4',
+    label: <Link style={linkStyle}>Sales Order#</Link>
+  },
+  {
+    key: '5',
+    label: <Link style={linkStyle}>Shipment Date</Link>
+  },
+  {
+    key: '6',
+    label: <Link style={linkStyle}>Customer Name</Link>
+  },
+  {
+    key: '7',
+    label: <Link style={linkStyle}>Quantity</Link>
+  },
+  {
+    key: '8',
+    label: <Link style={linkStyle}>Create Time</Link>
+  },
+  {
+    key: '9',
+    label: <Link style={linkStyle}>Last Modified Time</Link>
+  },
+  {
+    key: '10',
+    label: (
+      <Link style={linkStyle}>
+        <div className="d-flex justify-content-center align-items-center">
+          <DownloadOutlined style={{ color: 'blue' }} />
+          <h9 style={{ marginLeft: '10px' }}>Import Packages</h9>
+        </div>
+      </Link>
+    )
+  },
+  {
+    key: '10',
+    label: (
+      <Link style={linkStyle}>
+        <div className="d-flex justify-content-center align-items-center">
+          <DownloadOutlined style={{ color: 'blue' }} />
+          <h9 style={{ marginLeft: '10px' }}>Export Package </h9>
+        </div>
+      </Link>
+    )
+  }
+];
