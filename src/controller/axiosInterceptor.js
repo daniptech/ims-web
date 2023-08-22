@@ -28,7 +28,6 @@ axios.interceptors.response.use(
           params: { refreshToken: refreshToken }
         })
         .then(async (res) => {
-          debugger
           if (res.status === 200) {
             await setUserToken(res.data.token);
             await setRefreshToken(res.data.refreshToken)

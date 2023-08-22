@@ -15,8 +15,11 @@ import MultiImageUpload from '../../../components/MultiImageUpload'
 import { useNavigate, useParams } from 'react-router-dom';
 import { item } from '../../../controller/constants'
 import { createItem } from '../../../controller/api/inventory/itemService';
+import { useSelector } from "react-redux";
+import { routes } from "../../../controller/routes";
 
 const CreateAndEditItems = () => {
+    const currentUserData=useSelector(state=>state.user.currentuser)
     const params = useParams()
     const navigate = useNavigate()
     const [form] = Form.useForm();
@@ -90,7 +93,7 @@ const CreateAndEditItems = () => {
                     item[key] = val[key]
                 }
                 if (key === 'organizationId') {
-                    item[key] = 0
+                    item[key] =currentUserData?.organizationId
                 }
 
             }
@@ -104,6 +107,7 @@ const CreateAndEditItems = () => {
                 createItem(item).then(res => {
                     if (res) {
                         console.log(res, "jkjs")
+                        navigate(routes.inventory.items.self)
                     }
                 }).catch((err) => {
                     if (err.response) {
@@ -145,7 +149,7 @@ const CreateAndEditItems = () => {
                     name="conpositeForm"
                     form={form}
                     initialValues={{
-                        type: 'good',
+                        type: 'goods',
                         unit: 'kg',
                         isReturnable: false,
                         purchase_information: true,
@@ -174,7 +178,7 @@ const CreateAndEditItems = () => {
                                     <div className="col-lg-8 col-md-12">
                                         <Form.Item name="type" className="d-flex m-0 form-item">
                                             <Radio.Group>
-                                                <Radio value="good">Good</Radio>
+                                                <Radio value="goods">Good</Radio>
                                                 <Radio value="services">Services</Radio>
                                             </Radio.Group>
                                         </Form.Item>
@@ -714,11 +718,11 @@ const CreateAndEditItems = () => {
                                                 options={[
                                                     {
                                                         label: 'Jack',
-                                                        value: 'jack'
+                                                        value: 0
                                                     },
                                                     {
                                                         label: 'Lucy',
-                                                        value: 'lucy'
+                                                        value: 1
                                                     }
                                                 ]}
                                                 showSearch

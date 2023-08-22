@@ -10,7 +10,7 @@ const endpoint = {
     }),
     inventory: include('/api', {
         item: include('item', {
-            get:'item',
+            get:'',
             create: 'add',
             update: 'update/:id',
             remove: 'delete/:id'

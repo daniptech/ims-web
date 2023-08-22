@@ -1,100 +1,44 @@
 import { SearchOutlined } from '@ant-design/icons';
 import { Button, Input, Select, Space, Table } from 'antd';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    address: 'New York No. 1 Lake Park'
-  },
-  {
-    key: '2',
-    name: 'Joe Black',
-    age: 42,
-    address: 'London No. 1 Lake Park'
-  },
-  {
-    key: '3',
-    name: 'Jim Green',
-    age: 32,
-    address: 'Sydney No. 1 Lake Park'
-  },
-  {
-    key: '4',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
-  {
-    key: '5',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
-  {
-    key: '6',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
-  {
-    key: '7',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
-  {
-    key: '8',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
-  {
-    key: '9',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
+import { useDispatch, useSelector } from 'react-redux';
+import { getItem } from '../../../controller/api/inventory/itemService';
+import { setItem } from '../../../redux/slices/inventorySlice';
+import { Bars, Triangle } from 'react-loader-spinner';
 
-  {
-    key: '10',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
-
-  {
-    key: '11',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
-  {
-    key: '12',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  },
-  {
-    key: '13',
-    name: 'Jim Red',
-    age: 32,
-    address: 'London No. 2 Lake Park'
-  }
-];
 const ItemsList = () => {
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const itemData = useSelector((state) => state.inventory.items);
+  const currentUserData = useSelector((state) => state.user.currentuser);
+  const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const [customizeColoumn, setCustomizeColoumn] = useState(false);
+  const [filterData, setFilterData] = useState([]);
+  const [loader, setloader] = useState(false);
   // const [openNewItem, setOpenNewItem] = useState(false);
+  useEffect(() => {
+    setFilterData(itemData);
+  }, [itemData]);
+
+  useEffect(() => {
+    setloader(true);
+    getItem({ organizationId: currentUserData?.organizationId })
+      .then((res) => {
+        dispatch(setItem(res.data));
+        setloader(false);
+      })
+      .catch((err) => {
+        setloader(false);
+      });
+  }, [dispatch, currentUserData]);
+
   const handleSearch = (selectedKeys, confirm, dataIndex) => {
     confirm();
     setSearchText(selectedKeys[0]);
@@ -110,8 +54,7 @@ const ItemsList = () => {
         style={{
           padding: 8
         }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
+        onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
@@ -131,8 +74,7 @@ const ItemsList = () => {
             size="small"
             style={{
               width: 90
-            }}
-          >
+            }}>
             Search
           </Button>
           <Button
@@ -143,8 +85,7 @@ const ItemsList = () => {
             size="small"
             style={{
               width: 90
-            }}
-          >
+            }}>
             Reset
           </Button>
           {/* <Button
@@ -165,8 +106,7 @@ const ItemsList = () => {
             size="small"
             onClick={() => {
               close();
-            }}
-          >
+            }}>
             close
           </Button>
         </Space>
@@ -211,7 +151,7 @@ const ItemsList = () => {
       ...getColumnSearchProps('name'),
       sorter: (a, b) => a.name.length - b.name.length,
       isVisible: true,
-      lock: true,
+      lock: true
     },
     {
       id: 2,
@@ -227,10 +167,11 @@ const ItemsList = () => {
     {
       id: 3,
       title: 'STOCK ON HAND',
-      dataIndex: 'stock',
+      dataIndex: 'inventoryInfo',
       key: 'stock',
-      ...getColumnSearchProps('stock'),
-      sorter: (a, b) => a.stock.length - b.stock.length,
+      render: (record) => record?.openingStock,
+      // ...getColumnSearchProps('stock'),
+      // sorter: (a, b) => a.stock.length - b.stock.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: false,
       lock: false
@@ -249,10 +190,10 @@ const ItemsList = () => {
     {
       id: 5,
       title: 'USAGE UNIT',
-      dataIndex: 'usage_unit',
+      dataIndex: 'unit',
       key: 'usage_unit',
-      ...getColumnSearchProps('usage_unit'),
-      sorter: (a, b) => a.usage_unit.length - b.usage_unit.length,
+      // ...getColumnSearchProps('usage_unit'),
+      // sorter: (a, b) => a.usage_unit.length - b.usage_unit.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: false,
       lock: false
@@ -260,10 +201,11 @@ const ItemsList = () => {
     {
       id: 6,
       title: 'REORDER LEVEL',
-      dataIndex: 'recorder_level',
+      dataIndex: 'inventoryInfo',
       key: 'recorder_level',
-      ...getColumnSearchProps('brrecorder_leveland'),
-      sorter: (a, b) => a.brand.length - b.brand.length,
+      render: (record) => record?.reorderPoint,
+      // ...getColumnSearchProps('brrecorder_leveland'),
+      // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: false,
       lock: false
@@ -271,10 +213,11 @@ const ItemsList = () => {
     {
       id: 7,
       title: 'ACCOUNT NAME',
-      dataIndex: 'account_name',
+      dataIndex: 'sellingInfo',
       key: 'account_name',
-      ...getColumnSearchProps('account_name'),
-      sorter: (a, b) => a.brand.length - b.brand.length,
+      render: (record) => record?.account,
+      // ...getColumnSearchProps('account_name'),
+      // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: true,
       lock: false
@@ -282,10 +225,11 @@ const ItemsList = () => {
     {
       id: 8,
       title: 'DESCRIPTION',
-      dataIndex: 'description',
+      dataIndex: 'sellingInfo',
       key: 'description',
-      ...getColumnSearchProps('description'),
-      sorter: (a, b) => a.brand.length - b.brand.length,
+      render: (record) => record?.description,
+      // ...getColumnSearchProps('description'),
+      // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: true,
       lock: false
@@ -304,10 +248,11 @@ const ItemsList = () => {
     {
       id: 10,
       title: 'PURCHASE ACCOUNT NAME',
-      dataIndex: 'purchase_account_name',
+      dataIndex: 'purchaseInfo',
       key: 'purchase_account_name',
-      ...getColumnSearchProps('purchase_account_name'),
-      sorter: (a, b) => a.brand.length - b.brand.length,
+      render: (record) => record?.account,
+      // ...getColumnSearchProps('purchase_account_name'),
+      // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: false,
       lock: false
@@ -315,10 +260,11 @@ const ItemsList = () => {
     {
       id: 11,
       title: 'PURCHASE DESCRIPTION',
-      dataIndex: 'purchase_description',
+      dataIndex: 'purchaseInfo',
       key: 'purchase_description',
-      ...getColumnSearchProps('purchase_description'),
-      sorter: (a, b) => a.brand.length - b.brand.length,
+      render: (record) => record?.description,
+      // ...getColumnSearchProps('purchase_description'),
+      // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: false,
       lock: false
@@ -326,10 +272,11 @@ const ItemsList = () => {
     {
       id: 12,
       title: 'PURCHASE RATE',
-      dataIndex: 'purchase_rate',
+      dataIndex: 'purchaseInfo',
       key: 'purchase_rate',
-      ...getColumnSearchProps('purchase_rate'),
-      sorter: (a, b) => a.brand.length - b.brand.length,
+      render: (record) => record?.costPrice,
+      // ...getColumnSearchProps('purchase_rate'),
+      // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: false,
       lock: false
@@ -337,10 +284,11 @@ const ItemsList = () => {
     {
       id: 13,
       title: 'RATE',
-      dataIndex: 'rate',
+      dataIndex: 'sellingInfo',
       key: 'rate',
-      ...getColumnSearchProps('rate'),
-      sorter: (a, b) => a.brand.length - b.brand.length,
+      render: (record) => record?.sellingPrice,
+      // ...getColumnSearchProps('rate'),
+      // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: false,
       lock: false
@@ -348,10 +296,11 @@ const ItemsList = () => {
     {
       id: 14,
       title: 'SHOW IN STORE',
-      dataIndex: 'show_in_store',
+      dataIndex: '',
       key: 'show_in_store',
-      ...getColumnSearchProps('show_in_store'),
-      sorter: (a, b) => a.brand.length - b.brand.length,
+      render: (record) => <span>false</span>,
+      // ...getColumnSearchProps('show_in_store'),
+      // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: false,
       lock: false
@@ -385,110 +334,122 @@ const ItemsList = () => {
     setCurrentPage(page);
   };
   return (
-    <div className="w-100 h-100">
-      <div className="w-100 p-3 d-flex justify-content-between align-items-center">
-        <Select
-          className="item-table-filter"
-          bordered={false}
-          labelInValue
-          defaultValue={{
-            value: 'all_items',
-            label: 'All Items'
-          }}
-          style={{
-            width: 'auto'
-          }}
-          // onChange={handleChange}
-          options={[
-            {
+    <div className="w-100 position-relative ">
+      {loader&&
+      <div className="d-flex justify-content-center align-items-center w-100 position-absolute" style={{height:"100vh", zIndex:'11111'}}>
+        <Bars
+          height="130"
+          width="130"
+          color="#1677ff"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={loader}
+        />
+      </div>}
+      <div className={`w-100 h-100 ${loader &&' opacity-25'}`}>
+        <div className="w-100 p-3 d-flex justify-content-between align-items-center">
+          <Select
+            className="item-table-filter"
+            bordered={false}
+            labelInValue
+            defaultValue={{
               value: 'all_items',
               label: 'All Items'
-            },
-            {
-              value: 'active_items',
-              label: 'Active Items'
-            },
-            {
-              value: 'ungrouped_items',
-              label: 'Ungrouped Items'
-            },
-            {
-              value: 'low_stock_items',
-              label: 'Low Stock Items'
-            },
-            {
-              value: 'sales',
-              label: 'Sales'
-            },
-            {
-              value: 'pirchases',
-              label: 'Purchases'
-            },
-            {
-              value: 'inventory_items',
-              label: 'Inventory Items'
-            },
-            {
-              value: 'non_inventory-items',
-              label: 'Non-Inventory Items'
-            },
-            {
-              value: 'services',
-              label: 'Services'
-            },
-            {
-              value: 'inactive_items',
-              label: 'Inactive Items'
-            },
-            {
-              value: 'non_returnable_items',
-              label: 'Non Returnable Items'
-            }
-          ]}
-        />
-        <Button
-          type="primary"
-          className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-          onClick={() => navigate(routes.inventory.items.new)}
-        >
-          + New
-        </Button>
-      </div>
-      <div
-        className="m-3 p-3 border border-1 "
-        style={{
-          boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
-        }}
-      >
-        <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
-          <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
-            Customize Columns
+            }}
+            style={{
+              width: 'auto'
+            }}
+            // onChange={handleChange}
+            options={[
+              {
+                value: 'all_items',
+                label: 'All Items'
+              },
+              {
+                value: 'active_items',
+                label: 'Active Items'
+              },
+              {
+                value: 'ungrouped_items',
+                label: 'Ungrouped Items'
+              },
+              {
+                value: 'low_stock_items',
+                label: 'Low Stock Items'
+              },
+              {
+                value: 'sales',
+                label: 'Sales'
+              },
+              {
+                value: 'pirchases',
+                label: 'Purchases'
+              },
+              {
+                value: 'inventory_items',
+                label: 'Inventory Items'
+              },
+              {
+                value: 'non_inventory-items',
+                label: 'Non-Inventory Items'
+              },
+              {
+                value: 'services',
+                label: 'Services'
+              },
+              {
+                value: 'inactive_items',
+                label: 'Inactive Items'
+              },
+              {
+                value: 'non_returnable_items',
+                label: 'Non Returnable Items'
+              }
+            ]}
+          />
+          <Button
+            type="primary"
+            className="fs-6 d-flex justify-content-center align-items-center fw-medium"
+            onClick={() => navigate(routes.inventory.items.new)}>
+            + New
           </Button>
         </div>
-        <Table
-          columns={columns.filter((val) => val.isVisible)}
-          dataSource={data}
-          onRow={(record) => ({
-            onClick: () => navigate(reverse(routes.inventory.items.view, { id: record.key })),
-          })}
-          scroll={{ x: 1000 }}
-          className=""
-          pagination={{
-            current: currentPage,
-            pageSize: 6,
-            onChange: handleChangePage
-          }}
-        />
+        <div
+          className="m-3 p-3 border border-1 "
+          style={{
+            boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
+          }}>
+          <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
+            <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
+              Customize Columns
+            </Button>
+          </div>
+          <Table
+            columns={columns.filter((val) => val.isVisible)}
+            dataSource={filterData}
+            onRow={(record) => ({
+              onClick: () => navigate(reverse(routes.inventory.items.view, { id: record.id }))
+            })}
+            scroll={{ x: 1000 }}
+            className=""
+            pagination={{
+              current: currentPage,
+              pageSize: 6,
+              onChange: handleChangePage
+            }}
+          />
+        </div>
+        {customizeColoumn && (
+          <CustomizeTableColumns
+            customizeColoumn={customizeColoumn}
+            setCustomizeColoumn={setCustomizeColoumn}
+            columns={columns}
+            setcolumns={setcolumns}
+          />
+        )}
+        {/* {openNewItem && <CreateNewItem openNewItem={openNewItem} setOpenNewItem={setOpenNewItem} />} */}
       </div>
-      {customizeColoumn && (
-        <CustomizeTableColumns
-          customizeColoumn={customizeColoumn}
-          setCustomizeColoumn={setCustomizeColoumn}
-          columns={columns}
-          setcolumns={setcolumns}
-        />
-      )}
-      {/* {openNewItem && <CreateNewItem openNewItem={openNewItem} setOpenNewItem={setOpenNewItem} />} */}
     </div>
   );
 };
