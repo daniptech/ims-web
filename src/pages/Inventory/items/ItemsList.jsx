@@ -9,7 +9,7 @@ import { reverse } from 'named-urls';
 import { useDispatch, useSelector } from 'react-redux';
 import { getItem } from '../../../controller/api/inventory/itemService';
 import { setItem } from '../../../redux/slices/inventorySlice';
-import { Bars, Triangle } from 'react-loader-spinner';
+import { Bars } from 'react-loader-spinner';
 
 const ItemsList = () => {
   const dispatch = useDispatch();
