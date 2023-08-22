@@ -316,8 +316,8 @@ const Home = () => {
                 </div>
               </div>
               <div className="w-100 p-4">
-            <ChartView/>
-            </div>
+                <ChartView />
+              </div>
             </div>
           </div>
         </TabPane>

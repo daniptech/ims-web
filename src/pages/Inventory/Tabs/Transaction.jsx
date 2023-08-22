@@ -1,6 +1,6 @@
-import { CaretDownOutlined } from '@ant-design/icons'
-import { Button, Dropdown, Empty, Table } from 'antd'
-import React, { useState } from 'react'
+import { CaretDownOutlined } from '@ant-design/icons';
+import { Button, Dropdown, Empty, Table } from 'antd';
+import React, { useState } from 'react';
 
 const Transaction = () => {
   const transactionTableColumn = [
@@ -10,80 +10,79 @@ const Transaction = () => {
       sorter: (a, b) => a.date.length - b.date.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: true,
-      lock: true,
+      lock: true
     },
     {
       title: 'SALES ORDER#',
-      dataIndex: 'sales_order',
+      dataIndex: 'sales_order'
     },
     {
       title: 'CUSTOMER NAME',
-      dataIndex: 'customer_name',
+      dataIndex: 'customer_name'
     },
     {
       title: 'QUANTITY SOLD',
-      dataIndex: 'quantity_sold',
+      dataIndex: 'quantity_sold'
     },
     {
       title: 'PRICE',
-      dataIndex: 'price',
+      dataIndex: 'price'
     },
     {
       title: 'TOTAL',
-      dataIndex: 'total',
+      dataIndex: 'total'
     },
     {
       title: 'STATUS',
-      dataIndex: 'status',
-    },
-
-  ]
+      dataIndex: 'status'
+    }
+  ];
   const FilterByitems = [
     {
       key: '1',
-      label: "Sales Order",
+      label: 'Sales Order'
     },
     {
       key: '2',
-      label: "Invoices",
+      label: 'Invoices'
     },
     {
       key: '3',
-      label: "Delivery Challans",
+      label: 'Delivery Challans'
     },
     {
       key: '4',
-      label: "Credit Notes",
+      label: 'Credit Notes'
     },
     {
       key: '5',
-      label: "Purchase Order",
+      label: 'Purchase Order'
     },
     {
       key: '6',
-      label: "Bills",
+      label: 'Bills'
     },
     {
       key: '7',
-      label: "Vendor Credit",
+      label: 'Vendor Credit'
     },
     {
       key: '8',
-      label: "Inventory Adjustments",
+      label: 'Inventory Adjustments'
     }
   ];
   const statusItems = [
     {
       key: '1',
-      label: "All",
+      label: 'All'
     },
     {
       key: '2',
-      label: "Adjusted",
+      label: 'Adjusted'
     },
     {
       key: '3',
-      label: "Draft",
+      label: 'Draft'
     }
   ];
 
@@ -94,26 +93,30 @@ const Transaction = () => {
   };
   return (
     <div>
-      <div className='d-flex gap-3'>
+      <div className="d-flex gap-3">
         <Dropdown
           menu={{
-            items: FilterByitems,
+            items: FilterByitems
           }}
           placement="bottom"
         >
-          <Button className='d-flex align-items-center justify-content-center'>Filter By: bottom <CaretDownOutlined /></Button>
+          <Button className="d-flex align-items-center justify-content-center">
+            Filter By: bottom <CaretDownOutlined />
+          </Button>
         </Dropdown>
         <Dropdown
           menu={{
-            items: statusItems,
+            items: statusItems
           }}
           placement="bottom"
         >
-          <Button className='d-flex align-items-center justify-content-center'>Status: bottom <CaretDownOutlined /></Button>
+          <Button className="d-flex align-items-center justify-content-center">
+            Status: bottom <CaretDownOutlined />
+          </Button>
         </Dropdown>
       </div>
-      <div className='mt-3'>
-        <div className='w-100'>
+      <div className="mt-3">
+        <div className="w-100">
           <Table
             // bordered
             dataSource={[]}
@@ -131,7 +134,7 @@ const Transaction = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Transaction
+export default Transaction;

@@ -159,7 +159,10 @@
   padding: 0;
 }
 
-.upload-image-container .ant-upload-list .ant-upload-list-item-container .upload-image-list-item-active {
+.upload-image-container
+  .ant-upload-list
+  .ant-upload-list-item-container
+  .upload-image-list-item-active {
   border-width: 1px;
   border-style: solid;
   border-color: rgb(22, 119, 255) !important;
@@ -306,7 +309,6 @@
   padding: 10px;
   background-color: #f9f9fb;
   border: 2px solid transparent;
-
 }
 
 .radio-field .radio-container .radio-item:hover {
@@ -320,7 +322,6 @@
 .chat-container {
   position: relative;
 }
-
 
 .custom-table-create thead tr th {
   padding: 5px;
@@ -349,7 +350,7 @@
 }
 
 .view-btn:hover {
-  color: #206ddc
+  color: #206ddc;
 }
 
 .custom-collapse .ant-collapse-header {
@@ -486,36 +487,36 @@
   border-right-width: 0;
   border-left-width: 0;
   border-bottom-color: #4096ff;
-  width:300px;
+  width: 300px;
   padding-bottom: 5px;
 }
-.header-container .notification-btn .ant-scroll-number{
-  top:8px
+.header-container .notification-btn .ant-scroll-number {
+  top: 8px;
 }
-.header-container .notification-btn .ant-avatar{
+.header-container .notification-btn .ant-avatar {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.notification-drawer .ant-drawer-body{
+.notification-drawer .ant-drawer-body {
   padding: 0;
 }
-.notification-drawer .ant-tabs-nav{
+.notification-drawer .ant-tabs-nav {
   margin: 0;
 }
-.notification-drawer .ant-tabs-nav .ant-tabs-nav-wrap{
+.notification-drawer .ant-tabs-nav .ant-tabs-nav-wrap {
   padding-left: 10px;
 }
-.user-btn-dropdown .ant-dropdown-arrow::before{
+.user-btn-dropdown .ant-dropdown-arrow::before {
   background-color: #f8f9fa !important;
 }
-.nav-option-dropdown{
+.nav-option-dropdown {
   min-width: 300px !important;
   max-height: 400px !important;
   overflow: scroll;
 }
 
-.chart-card{
+.chart-card {
   border: 1px solid #8cdff9;
   border-left: 3px solid #0caee0;
   padding: 6px 10px;

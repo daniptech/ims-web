@@ -67,19 +67,21 @@ import { setCurrentUser } from '../redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 
 const Main = ({ items, selectKey, setSelectKey }) => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
-  if(isLoggedIn()){
-    try {
-      user().then(res => {
-        setUserRole(res.data.role)
-        dispatch(setCurrentUser(res.data))
-      }).catch(err => console.log(err))
-    } catch (error) {
-      console.log('err=>', error)
+    if (isLoggedIn()) {
+      try {
+        user()
+          .then((res) => {
+            setUserRole(res.data.role);
+            dispatch(setCurrentUser(res.data));
+          })
+          .catch((err) => console.log(err));
+      } catch (error) {
+        console.log('err=>', error);
+      }
     }
-  }
-  }, [dispatch])
+  }, [dispatch]);
   return (
     <div className="d-flex w-100">
       <Sidebar items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
@@ -141,10 +143,7 @@ const Main = ({ items, selectKey, setSelectKey }) => {
           <Route path={routes.sales.shipment.self} element={<ShipmentItemsList />} />
           <Route path={routes.sales.shipment.new} element={<CreateAndEditShipment />} />
           <Route path={routes.sales.shipment.edit} element={<CreateAndEditShipment />} />
-          <Route
-            path={routes.sales.deliveryChallans.self}
-            element={<DeliveryChallansItemList />}
-          />
+          <Route path={routes.sales.deliveryChallans.self} element={<DeliveryChallansItemList />} />
           <Route
             path={routes.sales.deliveryChallans.new}
             element={<CreateAndEditDeliveryChallans />}

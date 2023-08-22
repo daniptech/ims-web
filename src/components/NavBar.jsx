@@ -11,12 +11,12 @@ import { useNavigate } from 'react-router-dom';
 import { logout } from '../controller/localStorageHandler';
 
 const NavBar = () => {
-  const navigate = useNavigate()
-  const [notificationdrawer, setNotificationDrawer] = useState(false)
+  const navigate = useNavigate();
+  const [notificationdrawer, setNotificationDrawer] = useState(false);
   const [searchType, setsearchType] = useState({
     key: 'customer',
     label: 'Customer'
-  })
+  });
   const searchTypeMenu = [
     {
       key: 'customer',
@@ -46,7 +46,8 @@ const NavBar = () => {
     {
       key: 'delivery_challans',
       label: 'Delivery Challans'
-    }, {
+    },
+    {
       key: 'credit Notes',
       label: 'Credit Notes'
     },
@@ -90,13 +91,12 @@ const NavBar = () => {
     {
       key: 'price_lists',
       label: 'Price Lists'
-    },
-
-  ]
+    }
+  ];
   const handleSearchMenuClick = (value) => {
-    const currentSerchType = searchTypeMenu?.filter(val => val.key === value.key)
-    setsearchType(currentSerchType[0])
-  }
+    const currentSerchType = searchTypeMenu?.filter((val) => val.key === value.key);
+    setsearchType(currentSerchType[0]);
+  };
 
   return (
     <>
@@ -113,69 +113,106 @@ const NavBar = () => {
             {/* <Input allowClear
               addonBefore={<div>kn</div>}
             /> */}
-            <div className='bg-light d-flex  align-items-center rounded-2' style={{ width: '300px', height: '30px' }}>
-              <div className='row col-12 m-0 p-0'>
+            <div
+              className="bg-light d-flex  align-items-center rounded-2"
+              style={{ width: '300px', height: '30px' }}
+            >
+              <div className="row col-12 m-0 p-0">
                 <Dropdown
-                  trigger='click'
-                  overlayClassName='nav-option-dropdown'
+                  trigger="click"
+                  overlayClassName="nav-option-dropdown"
                   overlay={
-                    <Menu onClick={handleSearchMenuClick} >
-                      {searchTypeMenu?.map(item => {
+                    <Menu onClick={handleSearchMenuClick}>
+                      {searchTypeMenu?.map((item) => {
                         return (
-                          <Menu.Item className={item.key === searchType.key && "bg-primary"} key={item.key}>
+                          <Menu.Item
+                            className={item.key === searchType.key && 'bg-primary'}
+                            key={item.key}
+                          >
                             {item.label}
                           </Menu.Item>
-                        )
+                        );
                       })}
                     </Menu>
                   }
-
                 >
-                  <div className='col-2 d-flex justify-content-center align-items-center m-0 p-0 text-primary'><SearchOutlined /><DownOutlined style={{ fontSize: '10px' }} /></div>
+                  <div className="col-2 d-flex justify-content-center align-items-center m-0 p-0 text-primary">
+                    <SearchOutlined />
+                    <DownOutlined style={{ fontSize: '10px' }} />
+                  </div>
                 </Dropdown>
-                <div className='col-10 m-0 p-0'><Input className=' bg-transparent border-0 w-100 border-start rounded-0' placeholder={`Search in ${searchType.label} ( / )`} /></div>
+                <div className="col-10 m-0 p-0">
+                  <Input
+                    className=" bg-transparent border-0 w-100 border-start rounded-0"
+                    placeholder={`Search in ${searchType.label} ( / )`}
+                  />
+                </div>
               </div>
             </div>
           </div>
           <div className="text-white d-flex align-items-center gap-3">
-            <Tooltip title="You are currently in the Free Plane"><span className='text-truncate' style={{ width: '150px' }}>You are currently in the Free Plane</span></Tooltip>
-            <Badge count={1} className='notification-btn'>
-              <Avatar shape="square" icon={<BellOutlined />} onClick={() => setNotificationDrawer(true)} />
+            <Tooltip title="You are currently in the Free Plane">
+              <span className="text-truncate" style={{ width: '150px' }}>
+                You are currently in the Free Plane
+              </span>
+            </Tooltip>
+            <Badge count={1} className="notification-btn">
+              <Avatar
+                shape="square"
+                icon={<BellOutlined />}
+                onClick={() => setNotificationDrawer(true)}
+              />
             </Badge>
             <Dropdown
-              overlayClassName='user-btn-dropdown'
+              overlayClassName="user-btn-dropdown"
               arrow
-              dropdownRender={() => <div className=''>
-                <div className='bg-light p-3 border-bottom rounded-2'>
-                  <div className='border-bottom pb-3'>
-                    <div className='d-flex justify-content-between'>
-                      <div className='d-flex gap-3'>
-                        <Avatar shape="square" size='large' src={''} icon={<UserOutlined />} />
-                        <div className='d-flex flex-column'>
-                          <span className=''>demo</span>
-                          <span className='text-muted'>demo@mail.com</span>
+              dropdownRender={() => (
+                <div className="">
+                  <div className="bg-light p-3 border-bottom rounded-2">
+                    <div className="border-bottom pb-3">
+                      <div className="d-flex justify-content-between">
+                        <div className="d-flex gap-3">
+                          <Avatar shape="square" size="large" src={''} icon={<UserOutlined />} />
+                          <div className="d-flex flex-column">
+                            <span className="">demo</span>
+                            <span className="text-muted">demo@mail.com</span>
+                          </div>
                         </div>
                       </div>
+                      <div className="mt-1">
+                        <span>User ID: 60022275245 </span>•{' '}
+                        <span>Organization ID: 60022272371</span>
+                      </div>
                     </div>
-                    <div className='mt-1'><span>User ID: 60022275245 </span>• <span>Organization ID: 60022272371</span></div>
-                  </div>
-                  <div className='d-flex justify-content-between align-items-center mt-3'>
-                    <span>My Account</span>
-                    <span className='text-danger d-flex align-items-center gap-2' style={{ cursor: 'pointer' }} onClick={() => {
-                      logout()
-                      navigate(routes.login.self)
-                    }} ><FontAwesomeIcon icon={faArrowRightFromBracket} accordion
-                      />Sign Out</span>
+                    <div className="d-flex justify-content-between align-items-center mt-3">
+                      <span>My Account</span>
+                      <span
+                        className="text-danger d-flex align-items-center gap-2"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          logout();
+                          navigate(routes.login.self);
+                        }}
+                      >
+                        <FontAwesomeIcon icon={faArrowRightFromBracket} accordion />
+                        Sign Out
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>}
+              )}
             >
               <Avatar icon={<UserOutlined />} />
             </Dropdown>
           </div>
         </div>
       </Header>
-      {notificationdrawer && <NotificationDrawer notificationdrawer={notificationdrawer} setNotificationDrawer={setNotificationDrawer} />}
+      {notificationdrawer && (
+        <NotificationDrawer
+          notificationdrawer={notificationdrawer}
+          setNotificationDrawer={setNotificationDrawer}
+        />
+      )}
     </>
   );
 };

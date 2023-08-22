@@ -19,7 +19,7 @@ const MultiImageUpload = ({
   setFileList
 }) => {
   const handlePreview = async (file) => {
-    debugger
+    debugger;
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -158,8 +158,9 @@ const MultiImageUpload = ({
         onPreview={handlePreview}
         onChange={handleChange}
         multiple
-        className={`upload-image-container ${fileList?.length ? 'customize-upload-button' : 'upload-image-box'
-          }`}
+        className={`upload-image-container ${
+          fileList?.length ? 'customize-upload-button' : 'upload-image-box'
+        }`}
         itemRender={(file, fileList) => (
           <img
             className={fileList.uid === previewImage.uid && 'upload-image-list-item-active'}
@@ -168,7 +169,7 @@ const MultiImageUpload = ({
             style={{ cursor: 'pointer' }}
             width={25}
             height={25}
-            alt=''
+            alt=""
           />
         )}
       >

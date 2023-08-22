@@ -13,21 +13,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isLoggedIn } from './controller/localStorageHandler';
 
 function App() {
-  const [loginuser, setLoginUser] = useState(false)
+  const [loginuser, setLoginUser] = useState(false);
   useEffect(() => {
     if (loginuser) {
-      window.location.reload()
+      window.location.reload();
     }
-  }, [loginuser])
-  const loginCheck = localStorage.getItem('login')
+  }, [loginuser]);
+  const loginCheck = localStorage.getItem('login');
   const checkLogin = () => {
-    const check = window.location.hash?.split('/')[1]
+    const check = window.location.hash?.split('/')[1];
     if (check == 'login' || check == 'register') {
-      return false
+      return false;
     } else if (loginCheck) {
-      return true
+      return true;
     }
-  }
+  };
   const [selectKey, setSelectKey] = useState('1');
   function getItem(label, key, icon, children) {
     return {
@@ -71,12 +71,18 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/" element={<Navigate to={routes.login.self} />} />
-        <Route path={routes.login.self} element={<Login setLoginUser={(val) => setLoginUser(val)} setSelectKey={(val) => setSelectKey(val)} />} />
+        <Route
+          path={routes.login.self}
+          element={
+            <Login
+              setLoginUser={(val) => setLoginUser(val)}
+              setSelectKey={(val) => setSelectKey(val)}
+            />
+          }
+        />
         <Route path={routes.register.self} element={<Register />} />
       </Routes>
-      {
-        isLoggedIn() && <Main items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
-      }
+      {isLoggedIn() && <Main items={items} selectKey={selectKey} setSelectKey={setSelectKey} />}
     </div>
   );
 }

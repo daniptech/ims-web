@@ -1,5 +1,16 @@
 import { ArrowLeftOutlined, SettingOutlined, UploadOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, DatePicker, Upload, message, Divider, Checkbox, Radio } from 'antd';
+import {
+  Button,
+  Form,
+  Input,
+  Select,
+  DatePicker,
+  Upload,
+  message,
+  Divider,
+  Checkbox,
+  Radio
+} from 'antd';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -55,7 +66,8 @@ const CreateAndEditPaymentReceived = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}>
+        }}
+      >
         <Form layout="vertical" name="conpositeForm">
           <div>
             <div className="w-100 row col-12 bg-light p-4 m-0">
@@ -178,10 +190,10 @@ const CreateAndEditPaymentReceived = () => {
                   </div>
                   <div className="col-6">
                     <Form.Item name="tax_deducted" className="d-flex m-0 form-item">
-                    <Radio.Group  onChange={onChange} value={value}>
+                      <Radio.Group onChange={onChange} value={value}>
                         <Radio value={1}>No Tax deducted</Radio>
                         <Radio value={2}>Yes, TDS (Income Tax)</Radio>
-                    </Radio.Group>
+                      </Radio.Group>
                     </Form.Item>
                   </div>
                 </div>
@@ -197,15 +209,15 @@ const CreateAndEditPaymentReceived = () => {
                         Date
                       </th>
                       <th style={{ width: '18%' }} className=" ">
-                      Invoice Number#
+                        Invoice Number#
                       </th>
                       <th style={{ width: '18%' }} className=" ">
-                      Invoice Amount
+                        Invoice Amount
                       </th>
                       <th style={{ width: '18%' }} className=" ">
                         Amount Due
                       </th>
-                      <th style={{ width: '18%',textAlign:'right'}} className="">
+                      <th style={{ width: '18%', textAlign: 'right' }} className="">
                         Payment
                       </th>
                     </tr>
@@ -224,10 +236,10 @@ const CreateAndEditPaymentReceived = () => {
                       <td style={{ width: '18%' }} className="">
                         100
                       </td>
-                      <td style={{ width: '10%' }} >
-                        <Input className="input-field" placeholder="0.00"/>
+                      <td style={{ width: '10%' }}>
+                        <Input className="input-field" placeholder="0.00" />
                       </td>
-                      <td style={{ width: '18%',textAlign:'right'}} className="">
+                      <td style={{ width: '18%', textAlign: 'right' }} className="">
                         100
                       </td>
                     </tr>

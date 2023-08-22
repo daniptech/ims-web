@@ -10,7 +10,7 @@ import {
   InteractionOutlined,
   ShopOutlined
 } from '@ant-design/icons';
-import { Button, Col, Row, Select, Tabs} from 'antd';
+import { Button, Col, Row, Select, Tabs } from 'antd';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../controller/routes';
@@ -37,7 +37,8 @@ export const ReportsItemsList = () => {
             onChange={(val) => console.log(val)}
             filterOption={(input, option) =>
               (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-            }>
+            }
+          >
             <OptGroup label="Sales">
               <Option value="sales_by_customer" label="Sales by Customer">
                 Sales by Customer
@@ -165,128 +166,134 @@ export const ReportsItemsList = () => {
           <Button
             type="text"
             className="fs-6 d-flex justify-content-center align-items-center fw-small text-primary"
-            onClick={() => navigate(routes.sales.salesOrder.new)}>
+            onClick={() => navigate(routes.sales.salesOrder.new)}
+          >
             Configure Reports Layout
           </Button>
         </div>
       </div>
-         <Tabs defaultActiveKey="1" className="item-view-tabs">
-         <TabPane tab={<h6 style={{marginLeft:'15px'}}>General Reports</h6>} className="" key="bill_payment">
-      <div
-        style={{
-          maxHeight: '100vh',
-          height: '100%',
-          overflow: 'scroll',
-          paddingBottom: '150px'
-        }}>
-        <div className="w-100 p-3 position-relative justify-content-center align-items-center">
-        <Row>
-          <Col span={8} className="justify-content-center align-items-center">
-            <div className="d-flex align-items-center fs-5 gap-2">
-              {' '}
-              <ShoppingCartOutlined /> <h4 className="text-muted">Sales</h4>
-            </div>
-            {sales.map((item, i) => (
-              <div key={i} className=" text-primary mt-3 dotted-border">
-                <Button type="text" className="d-flex align-items-center text-primary p-0">
-                  <StarOutlined className="me-2" />
-                  <h8>{item.name}</h8>
-                </Button>
-              </div>
-            ))}
-          </Col>
-          <Col span={8} className="justify-content-center align-items-center">
-            <div className="d-flex align-items-center fs-5 gap-2">
-              {' '}
-              <ShopOutlined /> <h4 className="text-muted">Inventory</h4>
-            </div>
-            {inventory.map((item, i) => (
-              <div key={i} className="text-primary mt-3 dotted-border">
-                <Button type="text" className="d-flex align-items-center text-primary p-0">
-                  <StarOutlined className="me-2" />
-                  <h8>{item.name}</h8>
-                </Button>
-              </div>
-            ))}
-          </Col>
-          <Col span={8} className="justify-content-center align-items-center">
-            <div className="d-flex align-items-center fs-5 gap-2">
-              {' '}
-              <DollarOutlined /> <h4 className="text-muted">Receivables</h4>
-            </div>
-            {receivables.map((item, i) => (
-              <div key={i} className="text-primary mt-3 dotted-border">
-                <Button type="text" className="d-flex align-items-center text-primary p-0">
-                  <StarOutlined className="me-2" />
-                  <h8>{item.name}</h8>
-                </Button>
-              </div>
-            ))}
-          </Col>
-        </Row>
+      <Tabs defaultActiveKey="1" className="item-view-tabs">
+        <TabPane
+          tab={<h6 style={{ marginLeft: '15px' }}>General Reports</h6>}
+          className=""
+          key="bill_payment"
+        >
+          <div
+            style={{
+              maxHeight: '100vh',
+              height: '100%',
+              overflow: 'scroll',
+              paddingBottom: '150px'
+            }}
+          >
+            <div className="w-100 p-3 position-relative justify-content-center align-items-center">
+              <Row>
+                <Col span={8} className="justify-content-center align-items-center">
+                  <div className="d-flex align-items-center fs-5 gap-2">
+                    {' '}
+                    <ShoppingCartOutlined /> <h4 className="text-muted">Sales</h4>
+                  </div>
+                  {sales.map((item, i) => (
+                    <div key={i} className=" text-primary mt-3 dotted-border">
+                      <Button type="text" className="d-flex align-items-center text-primary p-0">
+                        <StarOutlined className="me-2" />
+                        <h8>{item.name}</h8>
+                      </Button>
+                    </div>
+                  ))}
+                </Col>
+                <Col span={8} className="justify-content-center align-items-center">
+                  <div className="d-flex align-items-center fs-5 gap-2">
+                    {' '}
+                    <ShopOutlined /> <h4 className="text-muted">Inventory</h4>
+                  </div>
+                  {inventory.map((item, i) => (
+                    <div key={i} className="text-primary mt-3 dotted-border">
+                      <Button type="text" className="d-flex align-items-center text-primary p-0">
+                        <StarOutlined className="me-2" />
+                        <h8>{item.name}</h8>
+                      </Button>
+                    </div>
+                  ))}
+                </Col>
+                <Col span={8} className="justify-content-center align-items-center">
+                  <div className="d-flex align-items-center fs-5 gap-2">
+                    {' '}
+                    <DollarOutlined /> <h4 className="text-muted">Receivables</h4>
+                  </div>
+                  {receivables.map((item, i) => (
+                    <div key={i} className="text-primary mt-3 dotted-border">
+                      <Button type="text" className="d-flex align-items-center text-primary p-0">
+                        <StarOutlined className="me-2" />
+                        <h8>{item.name}</h8>
+                      </Button>
+                    </div>
+                  ))}
+                </Col>
+              </Row>
 
-        <Row className="mt-5">
-          <Col span={8} className="justify-content-center align-items-center">
-            <div className="d-flex align-items-center fs-5 gap-2">
-              <CreditCardOutlined />
-              <h4 className="text-muted">Payments Received</h4>
+              <Row className="mt-5">
+                <Col span={8} className="justify-content-center align-items-center">
+                  <div className="d-flex align-items-center fs-5 gap-2">
+                    <CreditCardOutlined />
+                    <h4 className="text-muted">Payments Received</h4>
+                  </div>
+                  {paymentReceived.map((item, i) => (
+                    <div key={i} className="text-primary mt-3 dotted-border">
+                      <Button type="text" className="d-flex align-items-center text-primary p-0">
+                        <StarOutlined className="me-2" />
+                        <h8>{item.name}</h8>
+                      </Button>
+                    </div>
+                  ))}
+                </Col>
+                <Col span={8} className="justify-content-center align-items-center">
+                  <div className="d-flex align-items-center fs-5 gap-2">
+                    <PayCircleOutlined /> <h4 className="text-muted">Payables</h4>
+                  </div>
+                  {payables.map((item, i) => (
+                    <div key={i} className="text-primary mt-3 dotted-border">
+                      <Button type="text" className="d-flex align-items-center text-primary p-0">
+                        <StarOutlined className="me-2" />
+                        <h8>{item.name}</h8>
+                      </Button>
+                    </div>
+                  ))}
+                </Col>
+                <Col span={8} className="justify-content-center align-items-center">
+                  <div className="d-flex align-items-center fs-5 gap-2">
+                    <ShoppingOutlined /> <h4 className="text-muted">Purchases and Expenses</h4>
+                  </div>
+                  {purchaseExpenses.map((item, i) => (
+                    <div key={i} className="text-primary mt-3 dotted-border">
+                      <Button type="text" className="d-flex align-items-center text-primary p-0">
+                        <StarOutlined className="me-2" />
+                        <h8>{item.name}</h8>
+                      </Button>
+                    </div>
+                  ))}
+                </Col>
+              </Row>
+              <Row className="mt-5">
+                <Col span={8} className="justify-content-center align-items-center">
+                  <div className="d-flex align-items-center fs-5 gap-2">
+                    {' '}
+                    <InteractionOutlined /> <h4 className="text-muted">Activity</h4>
+                  </div>
+                  {activity.map((item, i) => (
+                    <div key={i} className="text-primary mt-3 dotted-border">
+                      <Button type="text" className="d-flex align-items-center text-primary p-0">
+                        <StarOutlined className="me-2" />
+                        <h8>{item.name}</h8>
+                      </Button>
+                    </div>
+                  ))}
+                </Col>
+              </Row>
             </div>
-            {paymentReceived.map((item, i) => (
-              <div key={i} className="text-primary mt-3 dotted-border">
-                <Button type="text" className="d-flex align-items-center text-primary p-0">
-                  <StarOutlined className="me-2" />
-                  <h8>{item.name}</h8>
-                </Button>
-              </div>
-            ))}
-          </Col>
-          <Col span={8} className="justify-content-center align-items-center">
-            <div className="d-flex align-items-center fs-5 gap-2">
-              <PayCircleOutlined /> <h4 className="text-muted">Payables</h4>
-            </div>
-            {payables.map((item, i) => (
-              <div key={i} className="text-primary mt-3 dotted-border">
-                <Button type="text" className="d-flex align-items-center text-primary p-0">
-                  <StarOutlined className="me-2" />
-                  <h8>{item.name}</h8>
-                </Button>
-              </div>
-            ))}
-          </Col>
-          <Col span={8} className="justify-content-center align-items-center">
-            <div className="d-flex align-items-center fs-5 gap-2">
-              <ShoppingOutlined /> <h4 className="text-muted">Purchases and Expenses</h4>
-            </div>
-            {purchaseExpenses.map((item, i) => (
-              <div key={i} className="text-primary mt-3 dotted-border">
-                <Button type="text" className="d-flex align-items-center text-primary p-0">
-                  <StarOutlined className="me-2" />
-                  <h8>{item.name}</h8>
-                </Button>
-              </div>
-            ))}
-          </Col>
-        </Row>
-        <Row className="mt-5">
-          <Col span={8} className="justify-content-center align-items-center">
-            <div className="d-flex align-items-center fs-5 gap-2">
-              {' '}
-              <InteractionOutlined /> <h4 className="text-muted">Activity</h4>
-            </div>
-            {activity.map((item, i) => (
-              <div key={i} className="text-primary mt-3 dotted-border">
-                <Button type="text" className="d-flex align-items-center text-primary p-0">
-                  <StarOutlined className="me-2" />
-                  <h8>{item.name}</h8>
-                </Button>
-              </div>
-            ))}
-          </Col>
-        </Row>
-        </div>
-      </div>
-      </TabPane>
-     </Tabs>
+          </div>
+        </TabPane>
+      </Tabs>
     </div>
   );
 };
