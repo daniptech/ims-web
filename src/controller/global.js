@@ -11,6 +11,7 @@ const endpoint = {
   inventory: include('/api', {
     item: include('item', {
       get: '',
+      getSingleItem:':id',
       create: 'add',
       update: 'update/:id',
       remove: 'delete/:id'

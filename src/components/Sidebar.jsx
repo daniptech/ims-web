@@ -7,14 +7,9 @@ import { faCartFlatbed } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../controller/routes';
 import { useEffect } from 'react';
-import { user } from '../controller/api/AuthServices';
-import { useDispatch } from 'react-redux';
-import { setUserRole } from '../controller/localStorageHandler';
-import { setCurrentUser } from '../redux/slices/userSlice';
 const { Sider } = Layout;
 
 const Sidebar = ({ selectKey, setSelectKey, items }) => {
-  const dispatch = useDispatch();
 
   useEffect(() => {
     const pathname = window.location.hash.split('/');

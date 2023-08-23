@@ -84,7 +84,7 @@ const CompositeView = () => {
               paddingBottom: '79px'
             }}
           >
-            <OverView />
+            <OverView inventoryitem={'composite'} />
           </div>
         </TabPane>
         <TabPane tab={<h6 className="m-0">Transactions</h6>} className="" key="2">

@@ -1,6 +1,6 @@
 import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Tabs } from 'antd';
-import React, { useState } from 'react';
+import { Button, Dropdown, Tabs, message } from 'antd';
+import React, { useEffect, useState } from 'react';
 import { Icons } from '../../../controller/Images';
 import { useNavigate, useParams } from 'react-router-dom';
 import AdjustStock from '../../../components/modals/AdjustStock';
@@ -9,12 +9,28 @@ import Transaction from '../Tabs/Transaction';
 import History from '../Tabs/History';
 import { reverse } from 'named-urls';
 import { routes } from '../../../controller/routes';
+import { getSingleItem, removeItem } from '../../../controller/api/inventory/itemService';
+import { useSelector } from 'react-redux';
 const { TabPane } = Tabs;
 
 const ItemView = () => {
   const params = useParams();
   const navigate = useNavigate();
   const [openAdjustment, setOpenAdjustment] = useState(false);
+  const [itemData, setItemData] = useState();
+  const currentUserData = useSelector((state) => state.user.currentuser);
+  useEffect(() => {
+    getItem();
+  }, [currentUserData]);
+  const getItem = () => {
+    getSingleItem({ id: params.id }, { organizationId: currentUserData?.organizationId })
+      .then((res) => {
+        setItemData(res?.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   const moreItem = [
     {
       key: '1',
@@ -26,7 +42,15 @@ const ItemView = () => {
     },
     {
       key: '3',
-      label: 'Delete'
+      label: 'Delete',
+      onClick: () => {
+        removeItem({ id: params.id })
+          .then((res) => {
+            message.success('Item sucessfully deleted');
+            navigate(routes.inventory.items.self);
+          })
+          .catch((err) => console.log('err ===>', err));
+      }
     },
     {
       key: '4',
@@ -38,18 +62,19 @@ const ItemView = () => {
       <div className="d-flex justify-content-between align-items-center pt-4 px-3">
         <div className="d-flex  align-items-center gap-2 fs-5 ">
           <ArrowLeftOutlined onClick={() => navigate(-1)} className="custom-back-button" />
-          <span className="fw-medium">Burger</span>
+          <span className="fw-medium">{itemData?.name}</span>
         </div>
         <div className="d-flex justify-content-center align-items-center gap-2 ">
           <Button
             className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
-            onClick={() => navigate(reverse(routes.inventory.items.edit, { id: params.id }))}
-          >
+            onClick={() => navigate(reverse(routes.inventory.items.edit, { id: params.id }))}>
             <EditOutlined />
           </Button>
-          <Button type="primary" onClick={() => setOpenAdjustment(true)}>
-            Adjust Stock
-          </Button>
+          {itemData?.inventoryInfo !== null && (
+            <Button type="primary" onClick={() => setOpenAdjustment(true)}>
+              Adjust Stock
+            </Button>
+          )}
           <Dropdown
             menu={{
               items: moreItem
@@ -58,8 +83,7 @@ const ItemView = () => {
             arrow={{
               pointAtCenter: true
             }}
-            trigger="click"
-          >
+            trigger="click">
             <Button type="primary" className="d-flex justify-content-center align-items-center">
               More <DownOutlined />
             </Button>
@@ -67,10 +91,14 @@ const ItemView = () => {
         </div>
       </div>
       <div className="fs-6 d-flex align-items-center " style={{ marginLeft: '40px' }}>
-        <span>dd</span>&nbsp;&nbsp;
-        <div className="rounded-circle bg-danger" style={{ height: '5px', width: '5px' }}></div>{' '}
-        &nbsp;&nbsp; <img src={Icons.uTurn} width={15} alt="" />
-        &nbsp;Returnable Item
+        <span>{itemData?.sku}</span>&nbsp;&nbsp;
+        {itemData?.isReturnable && (
+          <>
+            <div className="rounded-circle bg-danger" style={{ height: '5px', width: '5px' }}></div>{' '}
+            &nbsp;&nbsp; <img src={Icons.uTurn} width={15} alt="" />
+            &nbsp;Returnable Item
+          </>
+        )}
       </div>
       <Tabs defaultActiveKey="1" className="item-view-tabs">
         <TabPane tab={<h6 className="m-0">Overview</h6>} className="" key="1">
@@ -81,9 +109,8 @@ const ItemView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}
-          >
-            <OverView />
+            }}>
+            <OverView inventoryitem={'item'} itemData={itemData} />
           </div>
         </TabPane>
         <TabPane tab={<h6 className="m-0">Transactions</h6>} className="" key="2">
@@ -94,8 +121,7 @@ const ItemView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}
-          >
+            }}>
             <Transaction />
           </div>
         </TabPane>
@@ -107,8 +133,7 @@ const ItemView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}
-          >
+            }}>
             <History />
           </div>
         </TabPane>

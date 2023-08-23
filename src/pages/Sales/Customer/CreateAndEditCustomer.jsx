@@ -7,13 +7,14 @@ import OtherDetail from './Tabs/OtherDetails';
 import Address from './Tabs/Address';
 const { TabPane } = Tabs;
 const CreateAndEditCustomer = () => {
+  const [form] = Form.useForm();
   const navigate = useNavigate();
   const params = useParams();
-  const [value, setValue] = React.useState(1);
-  const onChange = (e) => {
-    console.log('radio checked', e.target.value);
-    setValue(e.target.value);
-  };
+  // const [value, setValue] = React.useState(1);
+  // const onChange = (e) => {
+  //   console.log('radio checked', e.target.value);
+  //   setValue(e.target.value);
+  // };
   return (
     <div className="w-100">
       <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
@@ -35,9 +36,12 @@ const CreateAndEditCustomer = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
+        }}>
+        <Form layout="vertical" form={form} name="conpositeForm"
+        initialValues={{
+          enablePortal:false
         }}
-      >
-        <Form layout="vertical" name="conpositeForm">
+        onFinish={(value)=>{console.log(form,value)}}>
           <div>
             <div className="row col-12 p-4 m-0">
               <div className="col-6 d-flex flex-column gap-3">
@@ -47,17 +51,18 @@ const CreateAndEditCustomer = () => {
                       <span>Customer Type</span>{' '}
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
                   </div>
                   <div className="col-6">
-                    <Radio.Group onChange={onChange} value={value} className="d-flex m-0 form-item">
-                      <Radio value={1}>Business</Radio>
-                      <Radio value={2}>Individual</Radio>
-                    </Radio.Group>
+                    <Form.Item name="type">
+                      <Radio.Group className="d-flex m-0 form-item">
+                        <Radio value="business">Business</Radio>
+                        <Radio value="individual">Individual</Radio>
+                      </Radio.Group>
+                    </Form.Item>
                   </div>
                 </div>
                 <div className="row col-12 d-flex  align-items-center">
@@ -66,8 +71,7 @@ const CreateAndEditCustomer = () => {
                       <span>Primary Contact</span>{' '}
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -75,7 +79,7 @@ const CreateAndEditCustomer = () => {
                   <div className="col-9">
                     <div className="row col-12">
                       <div className="col-4">
-                        <Form.Item name="type" className="d-flex m-0 form-item">
+                        <Form.Item name="salutation" className="d-flex m-0 form-item">
                           <Select
                             placeholder="Salutation"
                             options={[
@@ -104,12 +108,12 @@ const CreateAndEditCustomer = () => {
                         </Form.Item>
                       </div>
                       <div className="col-4">
-                        <Form.Item name="fname" className="d-flex m-0 form-item ">
+                        <Form.Item name="firstName" className="d-flex m-0 form-item ">
                           <Input placeholder="First Name" />
                         </Form.Item>
                       </div>
                       <div className="col-4">
-                        <Form.Item name="lname" className="d-flex m-0 form-item">
+                        <Form.Item name="lastName" className="d-flex m-0 form-item">
                           <Input placeholder="Last Name" />
                         </Form.Item>
                       </div>
@@ -123,7 +127,7 @@ const CreateAndEditCustomer = () => {
                     </label>
                   </div>
                   <div className="col-6">
-                    <Form.Item name="company_name" className="d-flex m-0 form-item">
+                    <Form.Item name="companyName" className="d-flex m-0 form-item">
                       <Input />
                     </Form.Item>
                   </div>
@@ -134,14 +138,13 @@ const CreateAndEditCustomer = () => {
                       Customer Display Name *
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
                   </div>
                   <div className="col-6">
-                    <Form.Item name="vendor_display_name" className="d-flex m-0 form-item">
+                    <Form.Item name="customerDisplayName" className="d-flex m-0 form-item">
                       <Input />
                     </Form.Item>
                   </div>
@@ -152,14 +155,24 @@ const CreateAndEditCustomer = () => {
                       Customer Email
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
                   </div>
                   <div className="col-6">
-                    <Form.Item name="vendor_email" className="d-flex m-0 form-item">
+                    <Form.Item name="customerEmail" className="d-flex m-0 form-item"
+                    rules={[
+                      ({ getFieldValue }) => ({
+                        validator(_, value) {
+                          if (getFieldValue('enablePortal') && !value) {
+                            return Promise.reject('Customer portal can be enabled only when email id is available for the customer');
+                          }
+                          return Promise.resolve();
+                        },
+                      }),
+                    ]}
+                    >
                       <Input />
                     </Form.Item>
                   </div>
@@ -170,8 +183,7 @@ const CreateAndEditCustomer = () => {
                       Customer Phone
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -179,7 +191,7 @@ const CreateAndEditCustomer = () => {
                   <div className="col-6">
                     <div className="row col-12 m-0 p-0">
                       <div className="col-5 p-0 m-0">
-                        <Form.Item name="work_Phone" className="d-flex m-0 form-item">
+                        <Form.Item name="workPhone" className="d-flex m-0 form-item">
                           <Input placeholder="Work Phone" />
                         </Form.Item>
                       </div>
@@ -197,7 +209,7 @@ const CreateAndEditCustomer = () => {
             <div className="p-4">
               <Tabs defaultActiveKey="1">
                 <TabPane tab="Other Details" className="" key="1">
-                  <OtherDetail />
+                  <OtherDetail form={form}/>
                 </TabPane>
                 <TabPane tab="Address" className="" key="2">
                   <Address />
