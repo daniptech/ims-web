@@ -20,6 +20,9 @@ export function Post(url, data, auth = true) {
 export function Patch(url, data, auth = true) {
   return axios.patch(url, data, { headers: header(auth) });
 }
+export function Put(url, data, auth = true) {
+  return axios.put(url, data, { headers: header(auth) });
+}
 
 export function Remove(url, auth = true) {
   return axios.delete(url, { headers: header(auth) });

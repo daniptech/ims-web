@@ -19,15 +19,15 @@ function App() {
       window.location.reload();
     }
   }, [loginuser]);
-  const loginCheck = localStorage.getItem('login');
-  const checkLogin = () => {
-    const check = window.location.hash?.split('/')[1];
-    if (check == 'login' || check == 'register') {
-      return false;
-    } else if (loginCheck) {
-      return true;
-    }
-  };
+  // const loginCheck = localStorage.getItem('login');
+  // const checkLogin = () => {
+  //   const check = window.location.hash?.split('/')[1];
+  //   if (check == 'login' || check == 'register') {
+  //     return false;
+  //   } else if (loginCheck) {
+  //     return true;
+  //   }
+  // };
   const [selectKey, setSelectKey] = useState('1');
   function getItem(label, key, icon, children) {
     return {

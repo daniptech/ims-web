@@ -4,11 +4,14 @@ import {
   SkypeOutlined,
   TwitterOutlined
 } from '@ant-design/icons';
-import { Form, Input, Select, Tooltip } from 'antd';
+import { Checkbox, Form, Input, Select, Tooltip } from 'antd';
 import React from 'react';
 import { useState } from 'react';
-const OtherDetail = () => {
+import currencyData from '../../../../data/Common-Currency.json'
+const OtherDetail = ({ form }) => {
+  const { Option } = Select;
   const [addmore, setAddMore] = useState(false);
+  const [checked, setchecked] = useState(form.getFieldValue('enablePortal'));
   return (
     <div className="row col-12 p-4 m-0">
       <div className="col-6 d-flex flex-column gap-3">
@@ -18,8 +21,7 @@ const OtherDetail = () => {
               <span>PAN </span>{' '}
               <Tooltip
                 placement="rightTop"
-                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-              >
+                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                 <InfoCircleOutlined className="text-muted" />
               </Tooltip>{' '}
             </label>
@@ -38,7 +40,11 @@ const OtherDetail = () => {
           </div>
           <div className="col-7">
             <Form.Item name="currency" className="d-flex m-0 form-item">
-              <Select options={[]} />
+              <Select>
+                {Object.keys(currencyData)?.map((key,index)=>{
+                  return <Option key={index} value={currencyData[key]?.code}>{currencyData[key]?.code+"- "+currencyData[key]?.name}</Option>
+                })}
+              </Select>
             </Form.Item>
           </div>
         </div>
@@ -49,19 +55,7 @@ const OtherDetail = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="payment_terms" className="d-flex m-0 form-item">
-              <Select options={[]} />
-            </Form.Item>
-          </div>
-        </div>
-        <div className="row col-12 d-flex  align-items-center">
-          <div className="col-3">
-            <label className="d-flex align-items-center gap-1">
-              <span>TDS </span>
-            </label>
-          </div>
-          <div className="col-7">
-            <Form.Item name="tds" className="d-flex m-0 form-item">
+            <Form.Item name="paymentTerms" className="d-flex m-0 form-item">
               <Select options={[]} />
             </Form.Item>
           </div>
@@ -73,8 +67,54 @@ const OtherDetail = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="price_list" className="d-flex m-0 form-item">
+            <Form.Item name="priceList" className="d-flex m-0 form-item">
               <Select options={[]} />
+            </Form.Item>
+          </div>
+        </div>
+        <div className="row col-12 d-flex  align-items-center">
+          <div className="col-3">
+            <div className="col-3">
+              <label className="d-flex align-items-center gap-1">
+                <span>Enable Portal? </span>{' '}
+                <Tooltip
+                  placement="rightTop"
+                  title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                  <InfoCircleOutlined className="text-muted" />
+                </Tooltip>{' '}
+              </label>
+            </div>
+          </div>
+          <div className="col-7">
+            <Form.Item name="enablePortal" className="d-flex m-0 form-item" valuePropName="checked">
+              <Checkbox onChange={(value) => setchecked(value.target.checked)}>
+                Allow portal access for this customer{' '}
+                {checked && <span className="text-muted">( Email address is mandatory )</span>}
+              </Checkbox>
+            </Form.Item>
+          </div>
+        </div>
+        <div className="row col-12 d-flex  align-items-center">
+          <div className="col-3">
+            <label className="d-flex align-items-center gap-1">
+              <span>Portal Language?</span>{' '}
+              <Tooltip
+                placement="rightTop"
+                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                <InfoCircleOutlined className="text-muted" />
+              </Tooltip>{' '}
+            </label>
+          </div>
+          <div className="col-7">
+            <Form.Item name="portalLanguage" className="d-flex m-0 form-item">
+              <Select
+                options={[
+                  {
+                    label: 'English',
+                    value: 'en'
+                  }
+                ]}
+              />
             </Form.Item>
           </div>
         </div>
@@ -82,8 +122,7 @@ const OtherDetail = () => {
           <span
             className="text-primary"
             style={{ cursor: 'pointer' }}
-            onClick={() => setAddMore(true)}
-          >
+            onClick={() => setAddMore(true)}>
             Add more details
           </span>
         )}
@@ -108,7 +147,7 @@ const OtherDetail = () => {
                 </label>
               </div>
               <div className="col-7">
-                <Form.Item name="website" className="d-flex m-0 form-item">
+                <Form.Item name="department" className="d-flex m-0 form-item">
                   <Input />
                 </Form.Item>
               </div>
@@ -145,7 +184,7 @@ const OtherDetail = () => {
                 </label>
               </div>
               <div className="col-7">
-                <Form.Item name="skype_name" className="d-flex m-0 form-item">
+                <Form.Item name="skypeNameNumber" className="d-flex m-0 form-item">
                   <Input addonBefore={<SkypeOutlined className="text-primary" />} />
                 </Form.Item>
               </div>
