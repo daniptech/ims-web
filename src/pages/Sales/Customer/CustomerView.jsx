@@ -1,15 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
-import { Overview } from './CustomerTabs/Overview';
+import Overview from './CustomerTabs/Overview';
 import { Mail } from './CustomerTabs/Mail';
 import { Transactions } from './CustomerTabs/Transactions';
 import { Comment } from './CustomerTabs/Comment';
 import { BackHeader } from '../../../components/BackHeader';
 import { TopTaps } from '../../../components/TopTaps';
+import { getSingleCustomer } from '../../../controller/api/sales/customerServices';
 const CustomerView = () => {
+  const [singlecustomer, setSinglecustomer] = useState();
   const params = useParams();
+
+  useEffect(() => {
+    getsinglecustomerData(params.id);
+  }, [params]);
+  const getsinglecustomerData = (id) => {
+    getSingleCustomer({id})
+      .then((res) => setSinglecustomer(res.data))
+      .catch((err) => console.log('err ====>', err));
+  };
   const moreItems = [
     {
       key: '1',
@@ -31,7 +42,7 @@ const CustomerView = () => {
   let tabList = [
     {
       title: 'OverView',
-      component: <Overview />
+      component: <Overview singlecustomer={singlecustomer} />
     },
     {
       title: 'Comments',

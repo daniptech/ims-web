@@ -40,3 +40,39 @@ export const item = {
   },
   organizationId: null
 };
+
+export const customerItem = {
+  salutation: '',
+  type: '',
+  firstName: '',
+  lastName: '',
+  companyName: '',
+  customerDisplayName: '',
+  customerEmail: '',
+  remarks: '',
+  pan: '',
+  currency: '',
+  paymentTerms: '',
+  priceList: '',
+  enablePortal: true,
+  portalLanguage: '',
+  website: '',
+  department: '',
+  designation: '',
+  twitter: '',
+  skypeNameNumber: '',
+  facebook: '',
+  workPhone: '',
+  mobile: '',
+  addresses: [],
+  contactPersons: [
+    // {
+    //   salutation: '',
+    //   firstName: '',
+    //   lastName: '',
+    //   email: '',
+    //   workPhone: '',
+    //   mobile: ''
+    // }
+  ]
+};
