@@ -66,7 +66,7 @@ const OtherDetail = ({ form }) => {
           </div>
           <div className="col-7">
             <Form.Item name="currency" className="d-flex m-0 form-item">
-              <Select>
+              <Select showSearch={true}>
                 {Object.keys(currencyData)?.map((key, index) => {
                   return (
                     <Option key={index} value={currencyData[key]?.code}>

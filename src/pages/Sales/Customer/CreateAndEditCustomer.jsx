@@ -1,18 +1,27 @@
 import { ArrowLeftOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, Tabs, Tooltip, Radio } from 'antd';
+import { Button, Form, Input, Select, Tabs, Tooltip, Radio, message } from 'antd';
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ContactPerson } from './Tabs/ContactPerson';
 import OtherDetail from './Tabs/OtherDetails';
 import Address from './Tabs/Address';
 import { customerItem } from '../../../controller/constants';
-import { createCustomer } from "../../../controller/api/sales/customerServices";
-import { routes } from "../../../controller/routes";
+import {
+  createCustomer,
+  getSingleCustomer,
+  updateCustomer
+} from '../../../controller/api/sales/customerServices';
+import { routes } from '../../../controller/routes';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Bars } from "react-loader-spinner";
 const { TabPane } = Tabs;
 const CreateAndEditCustomer = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const params = useParams();
+  const [loader, setloader] = useState(false);
+  const currentUserData = useSelector((state) => state.user.currentuser);
   const [contectPerson, setContectPerson] = useState([
     {
       salutation: '',
@@ -31,6 +40,47 @@ const CreateAndEditCustomer = () => {
   //   console.log('radio checked', e.target.value);
   //   setValue(e.target.value);
   // };
+
+  useEffect(() => {
+    if (params.id) {
+      setloader(true);
+      getSingleCustomer({ id: params.id }, { organizationId: currentUserData?.organizationId })
+        .then((res) => {
+          const billingdata = res?.data?.addresses?.filter((val) => val?.type == 'Billing');
+          const shippingdata = res?.data?.addresses?.filter((val) => val?.type == 'Shipping');
+          if (res?.data?.contactPersons?.length) {
+            setContectPerson(res?.data?.contactPersons);
+          }
+          form.setFieldsValue({
+            ...res.data,
+            billingattention: billingdata?.length && billingdata[0]?.attention,
+            billingcountry: billingdata?.length && billingdata[0]?.country,
+            billingaddress1: billingdata?.length && billingdata[0]?.addressLine1,
+            billingaddress2: billingdata?.length && billingdata[0]?.addressLine2,
+            billingcity: billingdata?.length && billingdata[0]?.city,
+            billingstate: billingdata?.length && billingdata[0]?.state,
+            billing_zip_code: billingdata?.length && billingdata[0]?.zipCode,
+            billingphone: billingdata?.length && billingdata[0]?.phone,
+            billingfax: billingdata?.length && billingdata[0]?.fax,
+
+            shippingattention: shippingdata?.length && shippingdata[0]?.attention,
+            shippingcountry: shippingdata?.length && shippingdata[0]?.country,
+            shippingaddress1: shippingdata?.length && shippingdata[0]?.addressLine1,
+            shippingaddress2: shippingdata?.length && shippingdata[0]?.addressLine2,
+            shippingcity: shippingdata?.length && shippingdata[0]?.city,
+            shippingstate: shippingdata?.length && shippingdata[0]?.state,
+            shipping_zip_code: shippingdata?.length && shippingdata[0]?.zipCode,
+            shippingphone: shippingdata?.length && shippingdata[0]?.phone,
+            shippingfax: shippingdata?.length && shippingdata[0]?.fax
+          });
+          setloader(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setloader(false);
+        });
+    }
+  }, [params, currentUserData]);
   const handleSubmit = (value) => {
     console.log(value);
     const billingAddress = {
@@ -66,7 +116,7 @@ const CreateAndEditCustomer = () => {
         case 'contactPersons':
           customerItem[val] = contectPerson;
           break;
-          case 'paymentTerms':
+        case 'paymentTerms':
           customerItem[val] = value[val].toString();
           break;
         default:
@@ -74,18 +124,41 @@ const CreateAndEditCustomer = () => {
           break;
       }
     });
-    if(params?.id){
+    if (params?.id) {
+      updateCustomer(customerItem, { id: params?.id })
+        .then((res) => {
 
-    }else{
+          message.success("Customer SucessFully Updated")
+          navigate(-1)
+        })
+        .catch((err) => {
+          console.log('err =====>', err);
+        });
+    } else {
       createCustomer(customerItem)
-      .then(res=>
-        navigate(routes.sales.customers.self)
-        )
-      .catch(err=>console.log("errr =====>",err))
+        .then((res) => navigate(routes.sales.customers.self))
+        .catch((err) => console.log('errr =====>', err));
     }
   };
   return (
-    <div className="w-100">
+    <div className="w-100 position-relative">
+       {loader && (
+        <div
+          className="d-flex justify-content-center align-items-center w-100 position-absolute"
+          style={{ height: '100vh', zIndex: '11111' }}
+        >
+          <Bars
+            height="130"
+            width="130"
+            color="#1677ff"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={loader}
+          />
+        </div>
+      )}
+        <div className={`w-100 ${loader && ' opacity-25'}`}>
       <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
         <div className="d-flex align-items-center gap-4 fs-5">
           <ArrowLeftOutlined className="custom-back-button" onClick={() => navigate(-1)} />
@@ -315,6 +388,7 @@ const CreateAndEditCustomer = () => {
           </div>
         </Form>
       </div>
+    </div>
     </div>
   );
 };

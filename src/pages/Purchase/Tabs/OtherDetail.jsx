@@ -50,7 +50,7 @@ const OtherDetail = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="payment_terms" className="d-flex m-0 form-item">
+            <Form.Item name="paymentTerms" className="d-flex m-0 form-item">
               <Select options={[]} />
             </Form.Item>
           </div>
@@ -74,7 +74,7 @@ const OtherDetail = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="price_list" className="d-flex m-0 form-item">
+            <Form.Item name="priceList" className="d-flex m-0 form-item">
               <Select options={[]} />
             </Form.Item>
           </div>
@@ -109,7 +109,7 @@ const OtherDetail = () => {
                 </label>
               </div>
               <div className="col-7">
-                <Form.Item name="website" className="d-flex m-0 form-item">
+                <Form.Item name="department" className="d-flex m-0 form-item">
                   <Input />
                 </Form.Item>
               </div>
@@ -146,7 +146,7 @@ const OtherDetail = () => {
                 </label>
               </div>
               <div className="col-7">
-                <Form.Item name="skype_name" className="d-flex m-0 form-item">
+                <Form.Item name="skypeNameNumber" className="d-flex m-0 form-item">
                   <Input addonBefore={<SkypeOutlined className="text-primary" />} />
                 </Form.Item>
               </div>

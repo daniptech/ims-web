@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
 import Overview from './CustomerTabs/Overview';
@@ -8,18 +8,25 @@ import { Transactions } from './CustomerTabs/Transactions';
 import { Comment } from './CustomerTabs/Comment';
 import { BackHeader } from '../../../components/BackHeader';
 import { TopTaps } from '../../../components/TopTaps';
-import { getSingleCustomer } from '../../../controller/api/sales/customerServices';
+import { getSingleCustomer, removeCustomer } from '../../../controller/api/sales/customerServices';
+import { Bars } from 'react-loader-spinner';
+import { Button, Dropdown, message } from 'antd';
+import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
 const CustomerView = () => {
+  const navigate = useNavigate();
   const [singlecustomer, setSinglecustomer] = useState();
   const params = useParams();
+  const [loader, setloader] = useState(false);
 
   useEffect(() => {
     getsinglecustomerData(params.id);
   }, [params]);
   const getsinglecustomerData = (id) => {
-    getSingleCustomer({id})
+    setloader(true);
+    getSingleCustomer({ id })
       .then((res) => setSinglecustomer(res.data))
-      .catch((err) => console.log('err ====>', err));
+      .catch((err) => console.log('err ====>', err))
+      .finally(() => setloader(false));
   };
   const moreItems = [
     {
@@ -32,7 +39,15 @@ const CustomerView = () => {
     },
     {
       key: '3',
-      label: 'Delete'
+      label: 'Delete',
+      onClick: () => {
+        removeCustomer({ id: params?.id })
+          .then((res) => {
+            message.success('Customer Sucessfully Deleted');
+            navigate(routes.sales.customers.self);
+          })
+          .catch((err) => console.log('err ====>', err));
+      }
     },
     {
       key: '4',
@@ -58,13 +73,38 @@ const CustomerView = () => {
     }
   ];
   return (
-    <div className="item-view-container w-100 bg-white">
-      <BackHeader
-        headerTitle={'Mr.Test'}
-        items={moreItems}
-        editScreen={reverse(routes.sales.customers.edit, { id: params.id })}
-      />
-      <TopTaps tapItem={tabList} />
+    <div className="w-100 position-relative ">
+      {loader && (
+        <div
+          className="d-flex justify-content-center align-items-center w-100 position-absolute"
+          style={{ height: '100vh', zIndex: '11111' }}>
+          <Bars
+            height="130"
+            width="130"
+            color="#1677ff"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={loader}
+          />
+        </div>
+      )}
+      <div className={`w-100 h-100 ${loader && ' opacity-25'}`}>
+        <div className="item-view-container w-100 bg-white">
+          <BackHeader
+            headerTitle={
+              singlecustomer?.salutation +
+              ' ' +
+              singlecustomer?.firstName +
+              ' ' +
+              singlecustomer?.lastName
+            }
+            items={moreItems}
+            editScreen={reverse(routes.sales.customers.edit, { id: params.id })}
+          />
+          <TopTaps tapItem={tabList} />
+        </div>
+      </div>
     </div>
   );
 };

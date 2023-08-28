@@ -9,14 +9,11 @@ import {
   MobileOutlined,
   MoreOutlined,
   PhoneOutlined,
-  PlusCircleOutlined,
-  SettingFilled,
   SkypeFilled,
   TwitterOutlined
 } from '@ant-design/icons';
 import { Button, Collapse, Dropdown, Image, Select, Table } from 'antd';
 import React from 'react';
-import { useState } from 'react';
 import { Icons, Images } from '../../../../controller/Images';
 
 const Overview = ({ singlecustomer }) => {
@@ -94,23 +91,31 @@ const Overview = ({ singlecustomer }) => {
         <div className="w-100">
           <div className="row col-12">
             <div className="col-5 text-muted">Customer Type</div>
-            <div className="col-7">Due on Receipt</div>
+            <div className="col-7">{singlecustomer?.type}</div>
             <div className="col-5 text-muted">Default Currency</div>
-            <div className="col-7">Due on Receipt</div>
+            <div className="col-7">{singlecustomer?.currency}</div>
             <div className="col-5 text-muted">Price List</div>
-            <div className="col-7">Due on Receipt</div>
+            <div className="col-7">{singlecustomer?.priceList}</div>
             <div className="col-5 text-muted">Payment Terms</div>
-            <div className="col-7">Due on Receipt</div>
+            <div className="col-7">{singlecustomer?.paymentTerms}</div>
             <div className="col-5 text-muted">PAN</div>
-            <div className="col-7">Due on Receipt</div>
+            <div className="col-7">{singlecustomer?.pan}</div>
             <div className="col-5 text-muted">Portal Status</div>
             <div className="col-7">Due on Receipt</div>
             <div className="col-5 text-muted">Portal Language</div>
-            <div className="col-7">Due on Receipt</div>
+            <div className="col-7">{singlecustomer?.portalLanguage}</div>
             <div className="col-5 text-muted">Social Networks</div>
-            <div className="col-7">Due on Receipt</div>
+            <div className="col-7 gap-2 d-flex">
+              <a href={singlecustomer?.twitter} rel="noreferrer" target="_blank">
+                {' '}
+                <TwitterOutlined style={{ color: '#408dfb' }} />
+              </a>
+              <a href={singlecustomer?.facebook} rel="noreferrer" target="_blank">
+                <FacebookFilled style={{ color: '#505ca4' }} />
+              </a>
+            </div>
             <div className="col-5 text-muted">Website</div>
-            <div className="col-7">Due on Receipt</div>
+            <div className="col-7">{singlecustomer?.website}</div>
           </div>
         </div>
       )
@@ -122,54 +127,43 @@ const Overview = ({ singlecustomer }) => {
         <div className="w-100">
           {/* <div className='text-muted d-flex justify-content-center'>No contact persons found.</div> */}
 
-          <div className=" d-flex justify-content-between">
-            <div className="d-flex gap-3">
-              <span>image</span>
-              <div className="d-flex flex-column">
-                <strong className="">Mrs. demo test</strong>
-                <span className="fw-normal">demo@mail.com</span>
-                <span>developer</span>
-                <span>IT</span>
-                <span className="d-flex align-items-center gap-2">
-                  <PhoneOutlined rotate={90} /> 32665959849
-                </span>
-                <span className="d-flex align-items-center gap-2">
-                  <MobileOutlined /> 32665959849
-                </span>
-                <span className="d-flex align-items-center gap-2">
-                  <SkypeFilled style={{ color: '#2a4d89' }} /> live:cid20y92ybskf9t
-                </span>
-              </div>
-            </div>
-            <div>
-              <Dropdown
-                menu={{
-                  items: [
-                    {
-                      label: 'Edit',
-                      key: 1
-                    },
-                    {
-                      label: 'Mark as Primary',
-                      key: 2
-                    },
-                    {
-                      label: 'Send Email',
-                      key: 3
-                    },
-                    {
-                      label: 'Delete',
-                      key: 4
-                    }
-                  ]
-                }}>
-                <SettingFilled />
-              </Dropdown>
-            </div>
+          <div className=" d-flex flex-column gap-2">
+            {singlecustomer?.contactPersons?.length
+              ? singlecustomer?.contactPersons?.map((val) => {
+                  return (
+                    <div className="d-flex gap-2">
+                      <Image
+                        src={Images.pagenotefoundimg}
+                        width={50}
+                        style={{ boxShadow: 'rgba(0, 0, 0, 0.24) 0px 1px 3px' }}
+                        height={50}
+                        alt=""
+                        preview={false}
+                      />
+                      <div className="d-flex flex-column">
+                        <strong className="">
+                          {val?.salutation + ' ' + val?.firstName + ' ' + val?.lastName}
+                        </strong>
+                        <span className="fw-normal">{val?.email}</span>
+                        <span>{val?.designation}</span>
+                        <span>{val?.department}</span>
+                        <span className="d-flex align-items-center gap-2">
+                          <PhoneOutlined rotate={90} /> {val?.mobile}
+                        </span>
+                        <span className="d-flex align-items-center gap-2">
+                          <MobileOutlined /> {val?.skypeNameNumber}
+                        </span>
+                        <span className="d-flex align-items-center gap-2">
+                          <SkypeFilled style={{ color: '#2a4d89' }} /> {val?.skypeNameNumber}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              : ''}
           </div>
         </div>
-      ),
-      extra: <PlusCircleOutlined className="text-primary" />
+      )
     },
     {
       key: '5',
@@ -177,10 +171,10 @@ const Overview = ({ singlecustomer }) => {
       children: (
         <div className="w-100">
           <div className="row col-12">
-            <div className="col-5">Vendor ID</div>
-            <div className="col-7">1367875000000020001</div>
+            <div className="col-5">Customer ID</div>
+            <div className="col-7">{singlecustomer?.id}</div>
             <div className="col-5">Created on</div>
-            <div className="col-7">30/06/2023</div>
+            <div className="col-7">{singlecustomer?.createdAt}</div>
             <div className="col-5">Created By</div>
             <div className="col-7">veeresh</div>
           </div>
@@ -216,14 +210,14 @@ const Overview = ({ singlecustomer }) => {
               <SkypeFilled style={{ color: '#408dfb' }} />
               {singlecustomer?.skypeNameNumber}
             </span>
-            <span className="d-flex align-items-center gap-2">
+            {/* <span className="d-flex align-items-center gap-2">
               <TwitterOutlined style={{ color: '#408dfb' }} />
               {singlecustomer?.twitter || '-'}
             </span>
             <span className="d-flex align-items-center gap-2">
               <FacebookFilled style={{ color: '#505ca4' }} />
               {singlecustomer?.facebook || '-'}
-            </span>
+            </span> */}
           </div>
         </div>
         <Collapse

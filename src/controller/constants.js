@@ -76,3 +76,30 @@ export const customerItem = {
     // }
   ]
 };
+
+export const vendorItem = {
+  salutation: '',
+  firstName: '',
+  lastName: '',
+  vendorDisplayName: '',
+  vendorEmail: '',
+  companyName: '',
+  workPhone: '',
+  mobile: '',
+  remarks: '',
+  pan: '',
+  currency: '',
+  paymentTerms: '',
+  tds: '',
+  priceList: '',
+  website: '',
+  department: '',
+  designation: '',
+  twitter: '',
+  skypeNameNumber: '',
+  facebook: '',
+  createdBy: '',
+  addresses: [],
+  contactPersons: [],
+  bankDetails: []
+};
