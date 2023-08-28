@@ -116,7 +116,7 @@ const CreateAndEditItems = () => {
             costPrice: val.cost_price,
             account: val.purchase_account,
             description: val.purchase_description,
-            preferredVendorId: val.preferred_vendor
+            preferredVendorId: null
           };
         } else {
           item[key] = null;
@@ -217,7 +217,7 @@ const CreateAndEditItems = () => {
             name="conpositeForm"
             form={form}
             initialValues={{
-              type: 'goods',
+              type: 'Goods',
               unit: 'kg',
               isReturnable: false,
               purchase_information: true,

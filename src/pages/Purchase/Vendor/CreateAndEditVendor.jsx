@@ -6,10 +6,75 @@ import OtherDetail from '../Tabs/OtherDetail';
 import Address from '../Tabs/Address';
 import BankDetails from '../Tabs/BankDetails';
 import { ContactPerson } from '../Tabs/ContactPerson';
+import { useState } from 'react';
+import { vendorItem } from '../../../controller/constants';
 const { TabPane } = Tabs;
 const CreateAndEditVendor = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const [bankdetail, setBankDetail] = useState([]);
+  const [contectPerson, setContectPerson] = useState([
+    {
+      salutation: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      workPhone: '',
+      mobile: '',
+      skypeNameNumber: '',
+      designation: '',
+      department: ''
+    }
+  ]);
+
+  const handleSubmit = (value) => {
+    console.log(value,"vender form")
+    // const billingAddress = {
+    //   type: 'billing',
+    //   attention: value.billingattention,
+    //   country: value.billingcountry,
+    //   addressLine1: value.billingaddress1,
+    //   addressLine2: value.billingaddress2,
+    //   city: value.billingcity,
+    //   state: value.billingstate,
+    //   zipCode: value.billing_zip_code,
+    //   phone: value.billingphone,
+    //   fax: value.billingfax
+    // };
+    // const shippingAddress = {
+    //   type: 'shipping',
+    //   attention: value.shippingattention,
+    //   country: value.shippingcountry,
+    //   addressLine1: value.shippingaddress1,
+    //   addressLine2: value.shippingaddress2,
+    //   city: value.shippingcity,
+    //   state: value.shippingstate,
+    //   zipCode: value.shipping_zip_code,
+    //   phone: value.shippingphone,
+    //   fax: value.shippingfax
+    // };
+
+
+    // Object.keys(vendorItem)?.forEach((val) => {
+    //   switch (val) {
+    //     case 'addresses':
+    //       vendorItem[val] = [{ ...billingAddress }, { ...shippingAddress }];
+    //       break;
+    //     case 'contactPersons':
+    //       vendorItem[val] = contectPerson;
+    //       break;
+    //     case 'paymentTerms':
+    //       vendorItem[val] = value[val].toString();
+    //       break;
+    //     case 'bankDetails':
+    //       vendorItem[val] = bankdetail;
+    //       break;
+    //     default:
+    //       vendorItem[val] = value[val];
+    //       break;
+    //   }
+    // });
+  };
   return (
     <div className="w-100">
       <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
@@ -19,7 +84,7 @@ const CreateAndEditVendor = () => {
         </div>
         <div className="d-flex align-items-center gap-4 fs-5">
           <Button onClick={() => navigate(-1)}>Cancel</Button>
-          <Button type="primary" htmlType="submit" form="conpositeForm">
+          <Button type="primary" htmlType="submit" form="vendorForm">
             Submit
           </Button>
         </div>
@@ -31,9 +96,8 @@ const CreateAndEditVendor = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}
-      >
-        <Form layout="vertical" name="conpositeForm">
+        }}>
+        <Form layout="vertical" name="vendorForm" onFinish={(val) => handleSubmit(val)}>
           <div>
             <div className="row col-12 p-4 m-0">
               <div className="col-6 d-flex flex-column gap-3">
@@ -43,8 +107,7 @@ const CreateAndEditVendor = () => {
                       <span>Primary Contact</span>{' '}
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -52,7 +115,7 @@ const CreateAndEditVendor = () => {
                   <div className="col-9">
                     <div className="row col-12">
                       <div className="col-4">
-                        <Form.Item name="type" className="d-flex m-0 form-item">
+                        <Form.Item name="salutation" className="d-flex m-0 form-item">
                           <Select
                             placeholder="Salutation"
                             options={[
@@ -81,12 +144,12 @@ const CreateAndEditVendor = () => {
                         </Form.Item>
                       </div>
                       <div className="col-4">
-                        <Form.Item name="fname" className="d-flex m-0 form-item ">
+                        <Form.Item name="firstName" className="d-flex m-0 form-item ">
                           <Input placeholder="First Name" />
                         </Form.Item>
                       </div>
                       <div className="col-4">
-                        <Form.Item name="lname" className="d-flex m-0 form-item">
+                        <Form.Item name="lastName" className="d-flex m-0 form-item">
                           <Input placeholder="Last Name" />
                         </Form.Item>
                       </div>
@@ -101,7 +164,7 @@ const CreateAndEditVendor = () => {
                     </label>
                   </div>
                   <div className="col-6">
-                    <Form.Item name="company_name" className="d-flex m-0 form-item">
+                    <Form.Item name="companyName" className="d-flex m-0 form-item">
                       <Input />
                     </Form.Item>
                   </div>
@@ -113,14 +176,21 @@ const CreateAndEditVendor = () => {
                       Vendor Display Name *
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
                   </div>
                   <div className="col-6">
-                    <Form.Item name="vendor_display_name" className="d-flex m-0 form-item">
+                    <Form.Item name="vendorDisplayName" className="d-flex m-0 form-item"
+                    
+                    rules={[
+                      {
+                        required:true,
+                        message:'Please Enter Vendor Display Name'
+                      }
+                    ]}
+                    >
                       <Input />
                     </Form.Item>
                   </div>
@@ -131,14 +201,13 @@ const CreateAndEditVendor = () => {
                       Vendor Email
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
                   </div>
                   <div className="col-6">
-                    <Form.Item name="vendor_email" className="d-flex m-0 form-item">
+                    <Form.Item name="vendorEmail" className="d-flex m-0 form-item">
                       <Input />
                     </Form.Item>
                   </div>
@@ -149,8 +218,7 @@ const CreateAndEditVendor = () => {
                       Vendor Phone
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -158,7 +226,7 @@ const CreateAndEditVendor = () => {
                   <div className="col-6">
                     <div className="row col-12 m-0 p-0">
                       <div className="col-5 p-0 m-0">
-                        <Form.Item name="work_Phone" className="d-flex m-0 form-item">
+                        <Form.Item name="workPhone" className="d-flex m-0 form-item">
                           <Input placeholder="Work Phone" />
                         </Form.Item>
                       </div>
@@ -182,10 +250,13 @@ const CreateAndEditVendor = () => {
                   <Address />
                 </TabPane>
                 <TabPane tab="Contact Persons" className="" key="3">
-                  <ContactPerson />
+                  <ContactPerson
+                    contectPerson={contectPerson}
+                    setContectPerson={(value) => setContectPerson(value)}
+                  />
                 </TabPane>
                 <TabPane tab="Bank Details" className="" key="4">
-                  <BankDetails />
+                  <BankDetails bankdetail={bankdetail} setBankDetail={setBankDetail} />
                 </TabPane>
                 <TabPane tab="Remarks" className="" key="5">
                   <div className="row col-12 p-4 m-0">
@@ -193,7 +264,7 @@ const CreateAndEditVendor = () => {
                       <div>
                         Remarks<span className="text-muted"> (For Internal Use)</span>
                       </div>
-                      <Form.Item name="remark">
+                      <Form.Item name="remarks">
                         <Input.TextArea />
                       </Form.Item>
                     </div>

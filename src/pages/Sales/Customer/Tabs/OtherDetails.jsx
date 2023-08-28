@@ -1,17 +1,36 @@
 import {
   FacebookOutlined,
   InfoCircleOutlined,
+  PlusOutlined,
   SkypeOutlined,
   TwitterOutlined
 } from '@ant-design/icons';
-import { Checkbox, Form, Input, Select, Tooltip } from 'antd';
+import { Button, Checkbox, Divider, Form, Input, Select, Space, Tooltip } from 'antd';
 import React from 'react';
 import { useState } from 'react';
-import currencyData from '../../../../data/Common-Currency.json'
+import currencyData from '../../../../data/Common-Currency.json';
+import { addPaymentTerm, getPaymentTerm } from '../../../../controller/api/FieldsDataServices';
+import { pan } from "../../../../controller/regex";
 const OtherDetail = ({ form }) => {
   const { Option } = Select;
   const [addmore, setAddMore] = useState(false);
   const [checked, setchecked] = useState(form.getFieldValue('enablePortal'));
+  const [paymentTerm, setPaymentTerm] = useState([]);
+
+  const getPaymentData = () => {
+    getPaymentTerm()
+      .then((res) => setPaymentTerm(res.data))
+      .catch((err) => console.log('err ====>', err));
+  };
+  const addPaymentData = (value) => {
+    addPaymentTerm({ ...value, isDefault: false })
+      .then((res) => {
+        getPaymentData();
+      })
+      .catch((err) => {
+        console.log('err ======>', err);
+      });
+  };
   return (
     <div className="row col-12 p-4 m-0">
       <div className="col-6 d-flex flex-column gap-3">
@@ -27,8 +46,15 @@ const OtherDetail = ({ form }) => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="pan" className="d-flex m-0 form-item">
-              <Input />
+            <Form.Item name="pan" className="d-flex m-0 form-item"
+            rules={[
+              {
+                pattern:pan,
+                message:"Enter vaild PAN Number"
+              }
+            ]}
+            >
+              <Input className="text-uppercase" />
             </Form.Item>
           </div>
         </div>
@@ -40,9 +66,13 @@ const OtherDetail = ({ form }) => {
           </div>
           <div className="col-7">
             <Form.Item name="currency" className="d-flex m-0 form-item">
-              <Select>
-                {Object.keys(currencyData)?.map((key,index)=>{
-                  return <Option key={index} value={currencyData[key]?.code}>{currencyData[key]?.code+"- "+currencyData[key]?.name}</Option>
+              <Select showSearch={true}>
+                {Object.keys(currencyData)?.map((key, index) => {
+                  return (
+                    <Option key={index} value={currencyData[key]?.code}>
+                      {currencyData[key]?.code + '- ' + currencyData[key]?.name}
+                    </Option>
+                  );
                 })}
               </Select>
             </Form.Item>
@@ -56,7 +86,58 @@ const OtherDetail = ({ form }) => {
           </div>
           <div className="col-7">
             <Form.Item name="paymentTerms" className="d-flex m-0 form-item">
-              <Select options={[]} />
+              <Select
+                options={
+                  paymentTerm?.length
+                    ? paymentTerm?.map((val) => {
+                        return {
+                          label: val?.termName,
+                          value: val.termName
+                        };
+                      })
+                    : []
+                }
+                showSearch={true}
+                onClick={() => {
+                  getPaymentData();
+                }}
+                dropdownRender={(menu) => (
+                  <>
+                    {menu}
+                    <Divider
+                      style={{
+                        margin: '8px 0'
+                      }}
+                    />
+                    <Space
+                      style={{
+                        padding: '0 18px 4px'
+                      }}
+                      className="w-100 d-flex justify-content-between align-item-center ">
+                      <Form onFinish={(value) => addPaymentData(value)}>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <div className="row col-12 w-100 d-flex justify-content-between ml-5">
+                            <div className="col-6 ">
+                              <Form.Item className="paymentTeam" name="termName">
+                                <Input placeholder="TERM NAME" />
+                              </Form.Item>
+                            </div>
+                            <div className="col-6 ">
+                              <Form.Item className="paymentTeam" name="numberOfDays">
+                                <Input placeholder="NUMBER OF DAYS" />
+                              </Form.Item>
+                            </div>
+                          </div>
+                          <Button type="text" htmlType="submit">
+                            <PlusOutlined />
+                          </Button>
+                        </div>
+                      </Form>
+                    </Space>
+                  </>
+                )}>
+                <Input />
+              </Select>
             </Form.Item>
           </div>
         </div>

@@ -522,3 +522,15 @@
   padding: 6px 10px;
   background-color: #edfafe;
 }
+
+.custom-table .ant-table-cell{
+padding: 8px 8px !important;
+}
+
+.paymentTeam .ant-form-item-row{
+  display: flex;
+  flex-direction: column;
+}
+.paymentTeam .ant-form-item-label{
+  font-size: 5px;
+}

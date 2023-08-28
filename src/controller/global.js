@@ -16,6 +16,19 @@ const endpoint = {
       update: 'update/:id',
       remove: 'delete/:id'
     })
+  }),
+  sales:include('/api',{
+   customer:include("customer",{
+    get: 'all',
+    getSingleCustomer:':id',
+    create: 'add',
+    update: 'update/:id',
+    remove: 'delete/:id'
+   }) 
+  }),
+  paymentTerm:include('/api/PaymentTerm',{
+    all:"all",
+    add:'add'
   })
 };
 

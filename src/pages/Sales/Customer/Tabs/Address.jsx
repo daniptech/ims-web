@@ -12,7 +12,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="attention" className="d-flex m-0 form-item">
+            <Form.Item name="billingattention" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
@@ -24,7 +24,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="country" className="d-flex m-0 form-item">
+            <Form.Item name="billingcountry" className="d-flex m-0 form-item">
               <Select options={[]} />
             </Form.Item>
           </div>
@@ -36,7 +36,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="address1" className="d-flex m-0 form-item">
+            <Form.Item name="billingaddress1" className="d-flex m-0 form-item">
               <Input.TextArea style={{ minHeight: '50px' }} placeholder="street 1" />
             </Form.Item>
           </div>
@@ -44,7 +44,7 @@ const Address = () => {
         <div className="row col-12 d-flex  align-items-center">
           <div className="col-3"></div>
           <div className="col-7">
-            <Form.Item name="address2" className="d-flex m-0 form-item">
+            <Form.Item name="billingaddress2" className="d-flex m-0 form-item">
               <Input.TextArea style={{ minHeight: '50px' }} placeholder="street 2" />
             </Form.Item>
           </div>
@@ -56,7 +56,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="city" className="d-flex m-0 form-item">
+            <Form.Item name="billingcity" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
@@ -68,7 +68,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="state" className="d-flex m-0 form-item">
+            <Form.Item name="billingstate" className="d-flex m-0 form-item">
               <Select options={[]} />
             </Form.Item>
           </div>
@@ -80,7 +80,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="zip_code" className="d-flex m-0 form-item">
+            <Form.Item name="billing_zip_code" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
@@ -92,7 +92,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="phone" className="d-flex m-0 form-item">
+            <Form.Item name="billingphone" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
@@ -104,14 +104,14 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="fax" className="d-flex m-0 form-item">
+            <Form.Item name="billingfax" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
         </div>
       </div>
       <div className="col-6 d-flex flex-column gap-3">
-        <span className="text-muted fw-medium">BILLING ADDRESS</span>
+        <span className="text-muted fw-medium">SHIPPING ADDRESS</span>
         <div className="row col-12 d-flex  align-items-center">
           <div className="col-3">
             <label className="d-flex align-items-center gap-1">
@@ -119,7 +119,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="attention" className="d-flex m-0 form-item">
+            <Form.Item name="shippingattention" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
@@ -131,7 +131,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="country" className="d-flex m-0 form-item">
+            <Form.Item name="shippingcountry" className="d-flex m-0 form-item">
               <Select options={[]} />
             </Form.Item>
           </div>
@@ -143,7 +143,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="address1" className="d-flex m-0 form-item">
+            <Form.Item name="shippingaddress1" className="d-flex m-0 form-item">
               <Input.TextArea style={{ minHeight: '50px' }} placeholder="street 1" />
             </Form.Item>
           </div>
@@ -151,7 +151,7 @@ const Address = () => {
         <div className="row col-12 d-flex  align-items-center">
           <div className="col-3"></div>
           <div className="col-7">
-            <Form.Item name="address2" className="d-flex m-0 form-item">
+            <Form.Item name="shippingaddress2" className="d-flex m-0 form-item">
               <Input.TextArea style={{ minHeight: '50px' }} placeholder="street 2" />
             </Form.Item>
           </div>
@@ -163,7 +163,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="city" className="d-flex m-0 form-item">
+            <Form.Item name="shippingcity" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
@@ -175,7 +175,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="state" className="d-flex m-0 form-item">
+            <Form.Item name="shippingstate" className="d-flex m-0 form-item">
               <Select options={[]} />
             </Form.Item>
           </div>
@@ -187,7 +187,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="zip_code" className="d-flex m-0 form-item">
+            <Form.Item name="shipping_zip_code" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
@@ -199,7 +199,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="phone" className="d-flex m-0 form-item">
+            <Form.Item name="shippingphone" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
@@ -211,7 +211,7 @@ const Address = () => {
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="fax" className="d-flex m-0 form-item">
+            <Form.Item name="shippingfax" className="d-flex m-0 form-item">
               <Input />
             </Form.Item>
           </div>
