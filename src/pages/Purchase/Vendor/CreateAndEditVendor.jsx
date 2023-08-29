@@ -29,51 +29,52 @@ const CreateAndEditVendor = () => {
 
   const handleSubmit = (value) => {
     console.log(value,"vender form")
-    // const billingAddress = {
-    //   type: 'billing',
-    //   attention: value.billingattention,
-    //   country: value.billingcountry,
-    //   addressLine1: value.billingaddress1,
-    //   addressLine2: value.billingaddress2,
-    //   city: value.billingcity,
-    //   state: value.billingstate,
-    //   zipCode: value.billing_zip_code,
-    //   phone: value.billingphone,
-    //   fax: value.billingfax
-    // };
-    // const shippingAddress = {
-    //   type: 'shipping',
-    //   attention: value.shippingattention,
-    //   country: value.shippingcountry,
-    //   addressLine1: value.shippingaddress1,
-    //   addressLine2: value.shippingaddress2,
-    //   city: value.shippingcity,
-    //   state: value.shippingstate,
-    //   zipCode: value.shipping_zip_code,
-    //   phone: value.shippingphone,
-    //   fax: value.shippingfax
-    // };
+    const billingAddress = {
+      type: 'billing',
+      attention: value.billingattention,
+      country: value.billingcountry,
+      addressLine1: value.billingaddressLine1,
+      addressLine2: value.billingaddressLine2,
+      city: value.billingcity,
+      state: value.billingstate,
+      zipCode: value.billing_zip_code,
+      phone: value.billingphone,
+      fax: value.billingfax
+    };
+    const shippingAddress = {
+      type: 'shipping',
+      attention: value.shippingattention,
+      country: value.shippingcountry,
+      addressLine1: value.shippingaddress1,
+      addressLine2: value.shippingaddress2,
+      city: value.shippingcity,
+      state: value.shippingstate,
+      zipCode: value.shipping_zip_code,
+      phone: value.shippingphone,
+      fax: value.shippingfax
+    };
 
 
-    // Object.keys(vendorItem)?.forEach((val) => {
-    //   switch (val) {
-    //     case 'addresses':
-    //       vendorItem[val] = [{ ...billingAddress }, { ...shippingAddress }];
-    //       break;
-    //     case 'contactPersons':
-    //       vendorItem[val] = contectPerson;
-    //       break;
-    //     case 'paymentTerms':
-    //       vendorItem[val] = value[val].toString();
-    //       break;
-    //     case 'bankDetails':
-    //       vendorItem[val] = bankdetail;
-    //       break;
-    //     default:
-    //       vendorItem[val] = value[val];
-    //       break;
-    //   }
-    // });
+    Object.keys(vendorItem)?.forEach((val) => {
+      switch (val) {
+        case 'addresses':
+          vendorItem[val] = [{ ...billingAddress }, { ...shippingAddress }];
+          break;
+        case 'contactPersons':
+          vendorItem[val] = contectPerson;
+          break;
+        case 'paymentTerms':
+          vendorItem[val] = value[val];
+          break;
+        case 'bankDetails':
+          vendorItem[val] = bankdetail;
+          break;
+        default:
+          vendorItem[val] = value[val];
+          break;
+      }
+    });
+    console.log(vendorItem,"bankdetails")
   };
   return (
     <div className="w-100">
@@ -100,7 +101,7 @@ const CreateAndEditVendor = () => {
         <Form layout="vertical" name="vendorForm" onFinish={(val) => handleSubmit(val)}>
           <div>
             <div className="row col-12 p-4 m-0">
-              <div className="col-6 d-flex flex-column gap-3">
+              <div className="col-md-6 col-lg-6 d-flex flex-column gap-3">
                 <div className="row col-12 d-flex  align-items-center">
                   <div className="col-3">
                     <label className="d-flex align-items-center gap-1">
