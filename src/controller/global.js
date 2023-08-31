@@ -35,6 +35,12 @@ const endpoint = {
     add:'add',
     update:"update/:id",
     remove:'delete/:id'
+  }),
+  manufacturer:include('/api/manufacturer',{
+    all:'all',
+    add:'add',
+    update:"update/:id",
+    remove:'delete/:id'
   })
 };
 
