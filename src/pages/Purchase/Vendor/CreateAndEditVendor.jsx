@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, InfoCircleOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Select, Tabs, Tooltip } from 'antd';
+import { Button, Form, Input, Select, Tabs, Tooltip, message } from 'antd';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import OtherDetail from '../Tabs/OtherDetail';
@@ -8,11 +8,19 @@ import BankDetails from '../Tabs/BankDetails';
 import { ContactPerson } from '../Tabs/ContactPerson';
 import { useState } from 'react';
 import { vendorItem } from '../../../controller/constants';
+import { createVendor, getSingleVendor, updateVendor } from '../../../controller/api/purchase/vendorServices';
+import { routes } from '../../../controller/routes';
+import { reverse } from 'named-urls';
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 const { TabPane } = Tabs;
 const CreateAndEditVendor = () => {
+  const [form]=Form.useForm()
   const navigate = useNavigate();
   const params = useParams();
   const [bankdetail, setBankDetail] = useState([]);
+  const[loader,setloader]=useState(false)
+  const currentUserData = useSelector((state) => state.user.currentuser);
   const [contectPerson, setContectPerson] = useState([
     {
       salutation: '',
@@ -26,9 +34,52 @@ const CreateAndEditVendor = () => {
       department: ''
     }
   ]);
+  useEffect(() => {
+    if (params.id) {
+      setloader(true);
+      getSingleVendor({ id: params.id }, { organizationId: currentUserData?.organizationId })
+        .then((res) => {
+          const billingdata = res?.data?.addresses?.filter((val) => val?.type === 'Billing');
+          const shippingdata = res?.data?.addresses?.filter((val) => val?.type === 'Shipping');
+          if (res?.data?.contactPersons?.length) {
+            setContectPerson(res?.data?.contactPersons);
+          }
+          setBankDetail(res?.data?.bankDetails)
+          form.setFieldsValue({
+            ...res.data,
+            billingattention: billingdata?.length && billingdata[0]?.attention,
+            billingcountry: billingdata?.length && billingdata[0]?.country,
+            billingaddressLine1: billingdata?.length && billingdata[0]?.addressLine1,
+            billingaddressLine2: billingdata?.length && billingdata[0]?.addressLine2,
+            billingcity: billingdata?.length && billingdata[0]?.city,
+            billingstate: billingdata?.length && billingdata[0]?.state,
+            billing_zip_code: billingdata?.length && billingdata[0]?.zipCode,
+            billingphone: billingdata?.length && billingdata[0]?.phone,
+            billingfax: billingdata?.length && billingdata[0]?.fax,
+
+            shippingattention: shippingdata?.length && shippingdata[0]?.attention,
+            shippingcountry: shippingdata?.length && shippingdata[0]?.country,
+            shippingaddress1: shippingdata?.length && shippingdata[0]?.addressLine1,
+            shippingaddress2: shippingdata?.length && shippingdata[0]?.addressLine2,
+            shippingcity: shippingdata?.length && shippingdata[0]?.city,
+            shippingstate: shippingdata?.length && shippingdata[0]?.state,
+            shipping_zip_code: shippingdata?.length && shippingdata[0]?.zipCode,
+            shippingphone: shippingdata?.length && shippingdata[0]?.phone,
+            shippingfax: shippingdata?.length && shippingdata[0]?.fax
+          });
+          setloader(false);
+        })
+        .catch((err) => {
+          console.log(err);
+          setloader(false);
+        });
+    }
+  }, [params, currentUserData]);
+
+
 
   const handleSubmit = (value) => {
-    console.log(value,"vender form")
+    console.log(value, 'vender form');
     const billingAddress = {
       type: 'billing',
       attention: value.billingattention,
@@ -54,7 +105,6 @@ const CreateAndEditVendor = () => {
       fax: value.shippingfax
     };
 
-
     Object.keys(vendorItem)?.forEach((val) => {
       switch (val) {
         case 'addresses':
@@ -74,7 +124,23 @@ const CreateAndEditVendor = () => {
           break;
       }
     });
-    console.log(vendorItem,"bankdetails")
+    if (params?.id) {
+      updateVendor(vendorItem, { id: params?.id }).then((res) => {
+        if (res) {
+          navigate(reverse(routes.purchase.vendor.view, { id: params.id }));
+          message.success('Vendor sucessfully Updated');
+        }
+      });
+    } else {
+      createVendor(vendorItem)
+        .then((res) => {
+          if (res) {
+            navigate(routes.purchase.vendor.self);
+            message.success('Vendor sucessfully created');
+          }
+        })
+        .catch((err) => {});
+    }
   };
   return (
     <div className="w-100">
@@ -98,7 +164,7 @@ const CreateAndEditVendor = () => {
           overflow: 'scroll',
           paddingBottom: '100px'
         }}>
-        <Form layout="vertical" name="vendorForm" onFinish={(val) => handleSubmit(val)}>
+        <Form layout="vertical" form={form} name="vendorForm" onFinish={(val) => handleSubmit(val)}>
           <div>
             <div className="row col-12 p-4 m-0">
               <div className="col-md-6 col-lg-6 d-flex flex-column gap-3">
@@ -183,15 +249,15 @@ const CreateAndEditVendor = () => {
                     </label>
                   </div>
                   <div className="col-6">
-                    <Form.Item name="vendorDisplayName" className="d-flex m-0 form-item"
-                    
-                    rules={[
-                      {
-                        required:true,
-                        message:'Please Enter Vendor Display Name'
-                      }
-                    ]}
-                    >
+                    <Form.Item
+                      name="vendorDisplayName"
+                      className="d-flex m-0 form-item"
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please Enter Vendor Display Name'
+                        }
+                      ]}>
                       <Input />
                     </Form.Item>
                   </div>
@@ -257,7 +323,7 @@ const CreateAndEditVendor = () => {
                   />
                 </TabPane>
                 <TabPane tab="Bank Details" className="" key="4">
-                  <BankDetails bankdetail={bankdetail} setBankDetail={setBankDetail} />
+                  {params?.id?<div className="w-100 text-center text-muted fw-semibold">At the moment, you can add or edit the bank details only from the Contact Overview page.</div>:<BankDetails bankdetail={bankdetail} setBankDetail={setBankDetail} />}
                 </TabPane>
                 <TabPane tab="Remarks" className="" key="5">
                   <div className="row col-12 p-4 m-0">

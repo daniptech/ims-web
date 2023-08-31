@@ -690,15 +690,35 @@ const CreateAndEditItems = () => {
                           className="text-black"
                           options={[
                             {
-                              label: <span className="fw-bolder text-black">Manager</span>,
+                              label: <span className="fw-bolder text-black">Income</span>,
                               options: [
                                 {
-                                  label: 'Jack',
-                                  value: 'jack'
+                                  label: 'Discount',
+                                  value: 'discount'
                                 },
                                 {
-                                  label: 'Lucy',
-                                  value: 'lucy'
+                                  label: 'General Income',
+                                  value: 'General Income'
+                                },
+                                {
+                                  label: 'Interest Income',
+                                  value: 'Interest Income'
+                                },
+                                {
+                                  label: 'Late Fee Income',
+                                  value: 'Late Fee Income'
+                                },
+                                {
+                                  label: 'Other Charges',
+                                  value: 'Other Charges'
+                                },
+                                {
+                                  label: 'Sales',
+                                  value: 'Sales'
+                                },
+                                {
+                                  label: 'Shipping charge',
+                                  value: 'Shipping charge'
                                 }
                               ]
                             }
@@ -905,16 +925,20 @@ const CreateAndEditItems = () => {
                                     options={[
                                       {
                                         label: (
-                                          <span className="fw-bolder text-black">Manager</span>
+                                          <span className="fw-bolder text-black">Stock</span>
                                         ),
                                         options: [
                                           {
-                                            label: 'Jack',
-                                            value: 'jack'
+                                            label: 'Finished Goods',
+                                            value: 'Finished Goods'
                                           },
                                           {
-                                            label: 'Lucy',
-                                            value: 'lucy'
+                                            label: 'Inventory Asset',
+                                            value: 'Inventory Asset'
+                                          },
+                                          {
+                                            label: 'Work In Progress',
+                                            value: 'Work In Progress'
                                           }
                                         ]
                                       }

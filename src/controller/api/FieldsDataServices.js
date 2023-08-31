@@ -10,7 +10,14 @@ export const addPaymentTerm = (data) => {
   const url = getAPIUrl('paymentTerm.add');
   return Post(url, data, true);
 };
-
+export const updatePaymentTerm = (data, params = {}) => {
+  const url = getAPIUrl('paymentTerm.update', params);
+  return Put(url, data, true);
+};
+export const removePaymentTerm = (params = {}) => {
+  const url = getAPIUrl('paymentTerm.remove', params);
+  return Remove(url, true);
+};
 export const getBrand = () => {
   const url = getAPIUrl('brand.all');
   return Get(url, true);

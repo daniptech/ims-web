@@ -3,7 +3,7 @@ import { Collapse, Select, Table } from 'antd';
 import { Link } from 'react-router-dom';
 export const Transaction = () => {
   return (
-    <div className="w-100 h-100">
+    <div className="w-100 h-100 p-3">
       <Select
         defaultValue="Go to transactions"
         style={{ width: 200, marginTop: 20, backgroundColor: '#F5F5F5' }}

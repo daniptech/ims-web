@@ -14,9 +14,10 @@ import {
 import { Button, Collapse, Dropdown, Image, Select, Table } from 'antd';
 import React from 'react';
 import { useState } from 'react';
-import { Icons } from '../../../controller/Images';
+import { Icons, Images } from '../../../controller/Images';
+import dayjs from 'dayjs';
 
-const OverView = () => {
+const OverView = ({ vendorData }) => {
   const [otherDetail, setOtherDetail] = useState({ defaultCurrency: 'view' });
   let data = [
     {
@@ -44,150 +45,181 @@ const OverView = () => {
   const items = [
     {
       key: '1',
+      label: 'REMARKS',
+      children: <span>{vendorData?.remarks}</span>
+    },
+    {
+      key: '2',
       label: 'ADDRESS',
       children: (
         <div className="w-100 d-flex flex-column gap-3">
           <div className="d-flex flex-column">
             <strong>Billing Address</strong>
-            <span className="text-muted">
-              No Billing Address - <span className="view-btn text-primary">Add new address</span>
-            </span>
+            {vendorData?.addresses?.length && vendorData?.addresses[0]?.type === 'Billing' ? (
+              <>
+                <span>{vendorData?.addresses[0]?.attention}</span>
+                <span>{vendorData?.addresses[0]?.addressLine1}</span>
+                <span>{vendorData?.addresses[0]?.addressLine2}</span>
+                <span>{vendorData?.addresses[0]?.city}</span>
+                <span>
+                  {vendorData?.addresses[0]?.state + ' ' + vendorData?.addresses[0]?.zipCode}
+                </span>
+                <span>{vendorData?.addresses[0]?.country}</span>
+                <span>Phone: {vendorData?.addresses[0]?.phone}</span>
+                <span>fax: {vendorData?.addresses[0]?.phone}</span>
+              </>
+            ) : (
+              <span className="text-muted">
+                No Billing Address - <span className="view-btn text-primary">Add new address</span>
+              </span>
+            )}
           </div>
           <div className="d-flex flex-column">
             <strong>Shipping Address</strong>
-            <span className="text-muted">
-              No Shipping Address - <span className="view-btn text-primary">Add new address</span>
-            </span>
+            {vendorData?.addresses?.length && vendorData?.addresses[1]?.type === 'Shipping' ? (
+              <>
+                <span>{vendorData?.addresses[1]?.attention}</span>
+                <span>{vendorData?.addresses[1]?.addressLine1}</span>
+                <span>{vendorData?.addresses[1]?.addressLine2}</span>
+                <span>{vendorData?.addresses[1]?.city}</span>
+                <span>
+                  {vendorData?.addresses[1]?.state + ' ' + vendorData?.addresses[1]?.zipCode}
+                </span>
+                <span>{vendorData?.addresses[1]?.country}</span>
+                <span>Phone: {vendorData?.addresses[1]?.phone}</span>
+                <span>fax: {vendorData?.addresses[1]?.phone}</span>
+              </>
+            ) : (
+              <span className="text-muted">
+                No Shipping Address - <span className="view-btn text-primary">Add new address</span>
+              </span>
+            )}
           </div>
-          <span className="view-btn text-primary">Add additional address</span>
         </div>
+        // <div className="w-100 d-flex flex-column gap-3">
+        //   <div className="d-flex flex-column">
+        //     <strong>Billing Address</strong>
+        // <span className="text-muted">
+        //   No Billing Address - <span className="view-btn text-primary">Add new address</span>
+        // </span>
+        //   </div>
+        //   <div className="d-flex flex-column">
+        //     <strong>Shipping Address</strong>
+        // <span className="text-muted">
+        //   No Shipping Address - <span className="view-btn text-primary">Add new address</span>
+        // </span>
+        //   </div>
+        //   <span className="view-btn text-primary">Add additional address</span>
+        // </div>
       )
     },
     {
-      key: '2',
+      key: '3',
       label: 'OTHER DETAILS',
       children: (
         <div className="w-100">
           <div className="row col-12">
             <div className="col-5 text-muted">Default Currency</div>
             <div className="col-7">
-              {otherDetail.defaultCurrency === 'edit' ? (
-                <div className="d-flex justify-content-between gap-1">
-                  <Select className="w-75" options={[]} />
-                  <div className="rounded-2 d-flex">
-                    <div className="bg-success rounded-start-2 d-flex justify-content-center align-items-center p-2">
-                      <CheckOutlined />
-                    </div>
-                    <div
-                      className=" bg-danger rounded-end-2  d-flex justify-content-center align-items-center p-2"
-                      onClick={() => setOtherDetail({ defaultCurrency: 'view' })}
-                    >
-                      <CloseOutlined />
-                    </div>
-                  </div>
-                </div>
-              ) : (
-                <div className="d-flex justify-content-between currency-value p-1 rounded-1 align-items-center text-muted">
-                  INR{' '}
-                  <EditOutlined
-                    className="other-detail-edit-icon"
-                    onClick={() => setOtherDetail({ defaultCurrency: 'edit' })}
-                  />
-                </div>
-              )}
+              <div className="d-flex justify-content-between currency-value p-1 rounded-1 align-items-center text-muted">
+                {vendorData?.currency}
+              </div>
             </div>
             <div className="col-5 text-muted">Payment Terms</div>
-            <div className="col-7">Due on Receipt</div>
-            <div className="col-5 text-muted">Source</div>
-            <div className="col-7"></div>
+            <div className="col-7">{vendorData?.paymentTerms || '-'}</div>
+            <div className="col-5 text-muted">Price List</div>
+            <div className="col-7">{vendorData?.priceList || '-'}</div>
+            <div className="col-5 text-muted">PAN</div>
+            <div className="col-7">{vendorData?.pan || '-'}</div>
+            <div className="col-5 text-muted">Website</div>
+            <a className="col-7" href={vendorData?.website} rel="noreferrer" style={{textDecoration:'none'}} target="_blank">
+              {vendorData?.website || '-'}
+            </a>
           </div>
         </div>
       )
     },
     {
-      key: '3',
+      key: '4',
       label: 'CONTACT PERSONS',
       children: (
         <div className="w-100">
           {/* <div className='text-muted d-flex justify-content-center'>No contact persons found.</div> */}
 
-          <div className=" d-flex justify-content-between">
-            <div className="d-flex gap-3">
-              <span>image</span>
-              <div className="d-flex flex-column">
-                <strong className="">Mrs. demo test</strong>
-                <span className="fw-normal">demo@mail.com</span>
-                <span>developer</span>
-                <span>IT</span>
-                <span className="d-flex align-items-center gap-2">
-                  <PhoneOutlined rotate={90} /> 32665959849
-                </span>
-                <span className="d-flex align-items-center gap-2">
-                  <MobileOutlined /> 32665959849
-                </span>
-                <span className="d-flex align-items-center gap-2">
-                  <SkypeFilled style={{ color: '#2a4d89' }} /> live:cid20y92ybskf9t
-                </span>
-              </div>
-            </div>
-            <div>
-              <Dropdown
-                menu={{
-                  items: [
-                    {
-                      label: 'Edit',
-                      key: 1
-                    },
-                    {
-                      label: 'Mark as Primary',
-                      key: 2
-                    },
-                    {
-                      label: 'Send Email',
-                      key: 3
-                    },
-                    {
-                      label: 'Delete',
-                      key: 4
-                    }
-                  ]
-                }}
-              >
-                <SettingFilled />
-              </Dropdown>
-            </div>
+          <div className=" d-flex flex-column gap-2">
+            {vendorData?.contactPersons?.length
+              ? vendorData?.contactPersons?.map((val) => {
+                  return (
+                    <div className="d-flex gap-2">
+                      <Image
+                        src={Images.pagenotefoundimg}
+                        width={50}
+                        style={{ boxShadow: 'rgba(0, 0, 0, 0.24) 0px 1px 3px' }}
+                        height={50}
+                        alt=""
+                        preview={false}
+                      />
+                      <div className="d-flex flex-column">
+                        <strong className="">
+                          {val?.salutation + ' ' + val?.firstName + ' ' + val?.lastName}
+                        </strong>
+                        <span className="fw-normal">{val?.email}</span>
+                        <span>{val?.designation}</span>
+                        <span>{val?.department}</span>
+                        <span className="d-flex align-items-center gap-2">
+                          <PhoneOutlined rotate={90} /> {val?.mobile}
+                        </span>
+                        <span className="d-flex align-items-center gap-2">
+                          <MobileOutlined /> {val?.skypeNameNumber}
+                        </span>
+                        <span className="d-flex align-items-center gap-2">
+                          <SkypeFilled style={{ color: '#2a4d89' }} /> {val?.skypeNameNumber}
+                        </span>
+                      </div>
+                    </div>
+                  );
+                })
+              : ''}
           </div>
         </div>
-      ),
-      extra: <PlusCircleOutlined className="text-primary" />
+      )
+      // extra: <PlusCircleOutlined className="text-primary" />
     },
     {
-      key: '4',
+      key: '5',
       label: 'BANK ACCOUNT DETAILS',
       children: (
         <div className="w-100">
           {/* <div className='text-muted d-flex justify-content-center'>No bank account added yet</div> */}
-          <div className="d-flex justify-content-between">
-            <span>Account ending with 3456</span>
-            <div className="d-flex gap-3 align-items-center">
-              <span className="text-primary">Edit</span>
-              <DeleteOutlined />
-            </div>
-          </div>
+          {vendorData?.bankDetails?.length?
+          (vendorData?.bankDetails?.map((val, index) => {
+            return (
+              <div className="d-flex justify-content-between">
+                <span>Account ending with {val.accountNumber}</span>
+                <div className="d-flex gap-3 align-items-center">
+                  <span className="text-primary">Edit</span>
+                  <DeleteOutlined />
+                </div>
+              </div>
+            );
+          }))
+          :
+          <div className='text-muted d-flex justify-content-center'>No bank account added yet</div>
+          }
         </div>
       ),
       extra: <PlusCircleOutlined className="text-primary" />
     },
     {
-      key: '5',
+      key: '6',
       label: 'RECORD INFO',
       children: (
         <div className="w-100">
           <div className="row col-12">
-            <div className="col-5">Vendor ID</div>
-            <div className="col-7">1367875000000020001</div>
+            <div className="col-5">Customer ID</div>
+            <div className="col-7">{vendorData?.id}</div>
             <div className="col-5">Created on</div>
-            <div className="col-7">30/06/2023</div>
+            <div className="col-7">{dayjs(vendorData?.createdAt)?.format('DD/MM/YYYY')}</div>
             <div className="col-5">Created By</div>
             <div className="col-7">veeresh</div>
           </div>
@@ -199,23 +231,39 @@ const OverView = () => {
   return (
     <div className="w-100 row col-12 h-100 p-0 m-0">
       <div className="col-4 bg-light h-100 p-4">
-        <span>Best India</span>
+        <span>{vendorData?.companyName}</span>
         <hr />
         <div className="d-flex gap-3">
-          <span>image</span>
+          <Image
+            src={Images.pagenotefoundimg}
+            width={50}
+            style={{ boxShadow: 'rgba(0, 0, 0, 0.24) 0px 1px 3px' }}
+            height={50}
+            alt=""
+            preview={false}
+          />
           <div className="d-flex flex-column">
-            <strong className="">Mrs. Ritu Kumar</strong>
-            <span className="fw-normal">retu@gmail.com</span>
+            <strong className="">{vendorData?.customerDisplayName}</strong>
+            <span className="fw-normal">{vendorData?.customerEmail}</span>
+            <span className="fw-normal">{vendorData?.designation}</span>
+            <span className="fw-normal">{vendorData?.department}</span>
             <span className="d-flex align-items-center gap-2">
-              <MobileOutlined /> 32665959849
+              <PhoneOutlined style={{ transform: 'rotate(103deg)' }} /> {vendorData?.mobile}
             </span>
-            <span
+            <span className="d-flex align-items-center gap-2">
+              <MobileOutlined /> {vendorData?.workPhone}
+            </span>
+            <span className="d-flex align-items-center gap-2">
+              <SkypeFilled style={{ color: '#408dfb' }} />
+              {vendorData?.skypeNameNumber}
+            </span>
+            {/* <span
               className="d-flex align-items-center gap-2 text-primary"
               style={{ fontSize: '12px' }}
             >
               <span className="view-btn">Edit</span>
               <span className="view-btn">Send Email</span> <span className="view-btn">Delete</span>
-            </span>
+            </span> */}
           </div>
         </div>
         <Collapse
@@ -245,8 +293,7 @@ const OverView = () => {
                       key: 1
                     }
                   ]
-                }}
-              >
+                }}>
                 <MoreOutlined className="text-muted" style={{ fontSize: '22px' }} />
               </Dropdown>
             </div>
@@ -313,8 +360,7 @@ const OverView = () => {
                     height: '25px',
                     marginLeft: '-12px',
                     background: '#f6fbff'
-                  }}
-                >
+                  }}>
                   <MessageOutlined />
                 </div>
                 <div className="container chat-container" style={{ marginLeft: '15px' }}>

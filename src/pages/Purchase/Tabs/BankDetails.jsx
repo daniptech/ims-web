@@ -7,7 +7,7 @@ import { useRef } from 'react';
 
 const BankDetails = ({ bankdetail, setBankDetail }) => {
   const [editID, setEditID] = useState();
-  const [form] = Form.useForm();
+  const [form1] = Form.useForm();
   const removeBank = (removeItem) => {
     if (removeItem == editID) {
       setEditID();
@@ -17,7 +17,7 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
   };
   const rowEdit = (id, val) => {
     setEditID(id);
-    form.setFieldsValue({ ...val });
+    form1.setFieldsValue({ ...val });
   };
   const handleSubmit = (value) => {
     if(editID!==undefined){
@@ -28,13 +28,13 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
     }else{
       setBankDetail([...bankdetail, value]);
     }
-    form.resetFields();
+    form1.resetFields();
   };
   return (
     <div className="w-100">
       <Form
         layout="vertical"
-        form={form}
+        form={form1}
         name="bankForm"
         onFinish={(value) => {
           handleSubmit(value);
@@ -153,7 +153,7 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
                   type="primary"
                   form="bankForm"
                   htmlType="submit"
-                  onClick={() => form.submit()}>
+                  onClick={() => form1.submit()}>
                   {editID !== undefined ? 'UPDATE' : 'ADD'}
                 </Button>
               </div>

@@ -2,6 +2,7 @@ import {
   FacebookOutlined,
   InfoCircleOutlined,
   PlusOutlined,
+  SettingTwoTone,
   SkypeOutlined,
   TwitterOutlined
 } from '@ant-design/icons';
@@ -11,11 +12,13 @@ import { useState } from 'react';
 import currencyData from '../../../../data/Common-Currency.json';
 import { addPaymentTerm, getPaymentTerm } from '../../../../controller/api/FieldsDataServices';
 import { pan } from "../../../../controller/regex";
+import PaymentTerms from "../../../../components/modals/PaymentTerms";
 const OtherDetail = ({ form }) => {
   const { Option } = Select;
   const [addmore, setAddMore] = useState(false);
   const [checked, setchecked] = useState(form.getFieldValue('enablePortal'));
   const [paymentTerm, setPaymentTerm] = useState([]);
+  const [paymentTermsModalOpen, setPaymentTermsModalOpen]=useState(false)
 
   const getPaymentData = () => {
     getPaymentTerm()
@@ -86,7 +89,7 @@ const OtherDetail = ({ form }) => {
           </div>
           <div className="col-7">
             <Form.Item name="paymentTerms" className="d-flex m-0 form-item">
-              <Select
+            <Select
                 options={
                   paymentTerm?.length
                     ? paymentTerm?.map((val) => {
@@ -112,27 +115,14 @@ const OtherDetail = ({ form }) => {
                     <Space
                       style={{
                         padding: '0 18px 4px'
-                      }}
-                      className="w-100 d-flex justify-content-between align-item-center ">
-                      <Form onFinish={(value) => addPaymentData(value)}>
-                        <div className="d-flex justify-content-between align-items-center">
-                          <div className="row col-12 w-100 d-flex justify-content-between ml-5">
-                            <div className="col-6 ">
-                              <Form.Item className="paymentTeam" name="termName">
-                                <Input placeholder="TERM NAME" />
-                              </Form.Item>
-                            </div>
-                            <div className="col-6 ">
-                              <Form.Item className="paymentTeam" name="numberOfDays">
-                                <Input placeholder="NUMBER OF DAYS" />
-                              </Form.Item>
-                            </div>
-                          </div>
-                          <Button type="text" htmlType="submit">
-                            <PlusOutlined />
-                          </Button>
-                        </div>
-                      </Form>
+                      }}>
+                         <span
+                                  className="d-flex align-items-center gap-3 text-primary"
+                                  style={{ cursor: 'pointer' }}
+                                  onClick={() => setPaymentTermsModalOpen(true)}>
+                                  {' '}
+                                  <SettingTwoTone /> Manage Payment Terms
+                                </span>
                     </Space>
                   </>
                 )}>
@@ -286,6 +276,7 @@ const OtherDetail = ({ form }) => {
           </>
         )}
       </div>
+      {paymentTermsModalOpen&&<PaymentTerms paymentTermsModalOpen={paymentTermsModalOpen} setPaymentTermsModalOpen={setPaymentTermsModalOpen}/>}
     </div>
   );
 };

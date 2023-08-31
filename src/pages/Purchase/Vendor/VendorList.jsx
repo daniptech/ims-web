@@ -6,19 +6,44 @@ import { useNavigate } from 'react-router-dom';
 import { reverse } from 'named-urls';
 import { routes } from '../../../controller/routes';
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getVendor } from '../../../controller/api/purchase/vendorServices';
+import { setVendor } from '../../../redux/slices/purchaseSlice';
+import { Bars } from "react-loader-spinner";
 
 const VendorList = () => {
+  const dispatch = useDispatch();
+  const vendorData = useSelector((state) => state.purchase.vendor);
+  const currentUserData = useSelector((state) => state.user.currentuser);
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const [customizeColoumn, setCustomizeColoumn] = useState(false);
-  // const [openNewItem, setOpenNewItem] = useState(false);
+  const [filterVendorData, setFilterVendorData] = useState([]);
+  const [loader, setLoader] = useState(false);
   const [selectedRows, setSelectedRows] = useState({
     selectedRowKeys: '',
     selectedRows: []
   });
-  // rowSelection object indicates the need for row selection
+
+  useEffect(() => {
+    setFilterVendorData(vendorData);
+  }, [vendorData]);
+
+  useEffect(() => {
+    setLoader(true);
+    getVendor({ organizationId: currentUserData?.organizationId })
+      .then((res) => {
+        dispatch(setVendor(res.data));
+        setLoader(false);
+      })
+      .catch((err) => {
+        setLoader(false);
+      });
+  }, [dispatch, currentUserData]);
+
   const rowSelection = {
     selectedRowKeys: selectedRows.selectedRowKeys,
     onChange: (selectedRowKeys, selectedRows) => {
@@ -49,8 +74,7 @@ const VendorList = () => {
         style={{
           padding: 8
         }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
+        onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
@@ -70,8 +94,7 @@ const VendorList = () => {
             size="small"
             style={{
               width: 90
-            }}
-          >
+            }}>
             Search
           </Button>
           <Button
@@ -82,8 +105,7 @@ const VendorList = () => {
             size="small"
             style={{
               width: 90
-            }}
-          >
+            }}>
             Reset
           </Button>
           {/* <Button
@@ -104,8 +126,7 @@ const VendorList = () => {
             size="small"
             onClick={() => {
               close();
-            }}
-          >
+            }}>
             close
           </Button>
         </Space>
@@ -144,29 +165,25 @@ const VendorList = () => {
     {
       id: 1,
       title: 'NAME',
-      dataIndex: 'name',
+      dataIndex: 'firstName',
       key: 'name',
       width: '20%',
-      ...getColumnSearchProps('name'),
-      sorter: (a, b) => a.name.length - b.name.length,
       isVisible: true,
       lock: true
     },
     {
       id: 2,
       title: 'COMPANY NAME',
-      dataIndex: 'company_name',
-      key: 'company_name',
+      dataIndex: 'companyName',
+      key: 'companyName',
       width: '20%',
-      ...getColumnSearchProps('company_name'),
-      sorter: (a, b) => a.company_name.length - b.company_name.length,
       isVisible: true,
       lock: false
     },
     {
       id: 3,
       title: 'EMAIL',
-      dataIndex: 'email',
+      dataIndex: 'vendorEmail',
       key: 'email',
       isVisible: true,
       lock: false
@@ -174,8 +191,8 @@ const VendorList = () => {
     {
       id: 4,
       title: 'WORK PHONE',
-      dataIndex: 'work_phone',
-      key: 'work_phone',
+      dataIndex: 'workPhone',
+      key: 'workPhone',
       isVisible: true,
       lock: false
     },
@@ -214,32 +231,32 @@ const VendorList = () => {
     {
       id: 9,
       title: 'FIRST NAME',
-      dataIndex: 'first_name',
-      key: 'first_name',
+      dataIndex: 'firstName',
+      key: 'firstName',
       isVisible: false,
       lock: false
     },
     {
       id: 10,
       title: 'LAST NAME',
-      dataIndex: 'last_name',
-      key: 'last_name',
+      dataIndex: 'lastName',
+      key: 'lastName',
       isVisible: false,
       lock: false
     },
     {
       id: 11,
       title: 'MOBILE PHONE',
-      dataIndex: 'mobile_phone',
-      key: 'mobile_phone',
+      dataIndex: 'mobile',
+      key: 'mobile',
       isVisible: false,
       lock: false
     },
     {
       id: 12,
       title: 'PAYMENT TERMS',
-      dataIndex: 'payment_terms',
-      key: 'payment_terms',
+      dataIndex: 'paymentTerms',
+      key: 'paymentTerms',
       isVisible: false,
       lock: false
     },
@@ -261,32 +278,30 @@ const VendorList = () => {
     }
   ]);
 
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      company_name: 'demo',
-      email: 'demo@mail.com',
-      work_phone: '1234567890',
-      payables_bcy: 50,
-      unused_credit_bcy: 40,
-      payables: 30,
-      unused_credit: 100,
-      first_name: 'dow',
-      last_name: 'jones',
-      mobile_phone: '2121212121',
-      payment_terms: 'demo text',
-      status: 'active',
-      website: ''
-    }
-  ];
   const [currentPage, setCurrentPage] = useState(1);
 
   const handleChangePage = (page) => {
     setCurrentPage(page);
   };
   return (
-    <div className="w-100 h-100">
+    <div className="w-100 position-relative ">
+    {loader && (
+      <div
+        className="d-flex justify-content-center align-items-center w-100 position-absolute"
+        style={{ height: '100vh', zIndex: '11111' }}
+      >
+        <Bars
+          height="130"
+          width="130"
+          color="#1677ff"
+          ariaLabel="bars-loading"
+          wrapperStyle={{}}
+          wrapperClass=""
+          visible={loader}
+        />
+      </div>
+    )}
+    <div className={`w-100 h-100 ${loader && ' opacity-25'}`}>
       <div className="w-100 p-3 d-flex justify-content-between align-items-center">
         {selectedRows?.selectedRows?.length ? (
           <>
@@ -313,8 +328,7 @@ const VendorList = () => {
                       key: 4
                     }
                   ]
-                }}
-              >
+                }}>
                 <Button className="d-flex justify-content-center align-items-center p-2">
                   {' '}
                   <MoreOutlined rotate={90} className="m-0" />
@@ -372,8 +386,7 @@ const VendorList = () => {
             <Button
               type="primary"
               className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-              onClick={() => navigate(routes.purchase.vendor.new)}
-            >
+              onClick={() => navigate(routes.purchase.vendor.new)}>
               + New
             </Button>
           </>
@@ -383,8 +396,7 @@ const VendorList = () => {
         className="m-3 p-3 border border-1 "
         style={{
           boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
-        }}
-      >
+        }}>
         {!selectedRows?.selectedRows?.length && (
           <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
             <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
@@ -398,9 +410,9 @@ const VendorList = () => {
             ...rowSelection
           }}
           columns={columns.filter((val) => val.isVisible)}
-          dataSource={data}
+          dataSource={filterVendorData}
           onRow={(record) => ({
-            onClick: () => navigate(reverse(routes.purchase.vendor.view, { id: record.key }))
+            onClick: () => navigate(reverse(routes.purchase.vendor.view, { id: record.id }))
           })}
           scroll={{ x: 1000 }}
           className=""
@@ -419,6 +431,7 @@ const VendorList = () => {
           setcolumns={setcolumns}
         />
       )}
+    </div>
     </div>
   );
 };
