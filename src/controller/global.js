@@ -29,6 +29,12 @@ const endpoint = {
   paymentTerm:include('/api/PaymentTerm',{
     all:"all",
     add:'add'
+  }),
+  brand:include('/api/brand',{
+    all:'all',
+    add:'add',
+    update:"update/:id",
+    remove:'delete/:id'
   })
 };
 
