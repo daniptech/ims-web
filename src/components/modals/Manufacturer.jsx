@@ -58,7 +58,7 @@ const Manufacturer = ({ manufacturerModalOpen, setManufacturerModalOpen }) => {
   };
   return (
     <Modal
-      className="brand-modal"
+      className="manufacturer-modal"
       title="Manage Manufacturer"
       maskClosable={false}
       open={manufacturerModalOpen}
@@ -75,7 +75,7 @@ const Manufacturer = ({ manufacturerModalOpen, setManufacturerModalOpen }) => {
                 rules={[
                   {
                     required: true,
-                    message: 'Please Enter Brand Name'
+                    message: 'Please Enter Manufacturer Name'
                   }
                 ]}>
                 <Input />
@@ -97,12 +97,12 @@ const Manufacturer = ({ manufacturerModalOpen, setManufacturerModalOpen }) => {
           <tbody>
             {manufacturer?.map((val) => {
               return (
-                <tr className="border-bottom">
+                <tr className="border-bottom table-row">
                   <td style={{ width: '70%' }} className="">
                     {val.name}
                   </td>
                   <td>
-                    <div className="d-flex justify-content-center align-items-center gap-3 text-primary">
+                    <div className="d-flex justify-content-center align-items-center gap-3 text-primary action-btn">
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}

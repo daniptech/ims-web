@@ -8,11 +8,32 @@ import OverView from '../Tabs/OverView';
 import Comment from '../Tabs/Comment';
 import Mail from '../Tabs/Mail';
 import { Transaction } from '../Tabs/Transaction';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getSingleVendor } from '../../../controller/api/purchase/vendorServices';
 const { TabPane } = Tabs;
 
 const VendorView = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const [vendorData, setVendorData] = useState();
+  const currentUserData = useSelector((state) => state.user.currentuser);
+  useEffect(() => {
+    if (currentUserData?.organizationId) {
+      getItem(currentUserData?.organizationId);
+    }
+  }, [currentUserData]);
+  const getItem = (organizationId) => {
+    getSingleVendor({ id: params.id }, { organizationId: organizationId })
+      .then((res) => {
+        setVendorData(res?.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   const moreItem = [
     {
       key: '1',
@@ -36,13 +57,12 @@ const VendorView = () => {
       <div className="d-flex justify-content-between align-items-center pt-4 px-3">
         <div className="d-flex  align-items-center gap-2 fs-5 ">
           <ArrowLeftOutlined onClick={() => navigate(-1)} className="custom-back-button" />
-          <span className="fw-medium">Ritu Kumar</span>
+          <span className="fw-medium">{vendorData?.firstName+" "+vendorData?.lastName}</span>
         </div>
         <div className="d-flex justify-content-center align-items-center gap-2 ">
           <Button
             className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
-            onClick={() => navigate(reverse(routes.purchase.vendor.edit, { id: params.id }))}
-          >
+            onClick={() => navigate(reverse(routes.purchase.vendor.edit, { id: params.id }))}>
             <EditOutlined />
           </Button>
           <Dropdown
@@ -53,8 +73,7 @@ const VendorView = () => {
             arrow={{
               pointAtCenter: true
             }}
-            trigger="click"
-          >
+            trigger="click">
             <Button type="primary" className="d-flex justify-content-center align-items-center">
               More <DownOutlined />
             </Button>
@@ -69,9 +88,8 @@ const VendorView = () => {
               maxHeight: '80vh',
               height: '100%',
               overflow: 'scroll'
-            }}
-          >
-            <OverView />
+            }}>
+            <OverView vendorData={vendorData} />
           </div>
         </TabPane>
         <TabPane tab={<h6 className="m-0">Comment</h6>} className="" key="2">
@@ -82,21 +100,19 @@ const VendorView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}
-          >
+            }}>
             <Comment />
           </div>
         </TabPane>
         <TabPane tab={<h6 className="m-0">Transactions</h6>} className="" key="3">
           <div
-            className="w-100 p-3"
+            className="w-100"
             style={{
               maxHeight: '100vh',
               height: '100%',
               overflow: 'scroll',
-              paddingBottom: '79px'
-            }}
-          >
+              paddingBottom: '149px'
+            }}>
             <Transaction />
           </div>
         </TabPane>
@@ -108,8 +124,7 @@ const VendorView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}
-          >
+            }}>
             <Mail />
           </div>
         </TabPane>

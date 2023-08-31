@@ -15,6 +15,12 @@ const endpoint = {
       create: 'add',
       update: 'update/:id',
       remove: 'delete/:id'
+    }),
+    priceList:include('priceList',{
+      all:"all",
+      add:'add',
+      update:"update/:id",
+      remove:'delete/:id'
     })
   }),
   sales:include('/api',{
@@ -26,9 +32,20 @@ const endpoint = {
     remove: 'delete/:id'
    }) 
   }),
+  purchase:include('/api',{
+    vendor:include("vendor",{
+     get: 'all',
+     getSingleVendor:':id',
+     create: 'add',
+     update: 'update/:id',
+     remove: 'delete/:id'
+    }) 
+   }),
   paymentTerm:include('/api/PaymentTerm',{
     all:"all",
-    add:'add'
+    add:'add',
+    update:"update/:id",
+    remove:'delete/:id'
   }),
   brand:include('/api/brand',{
     all:'all',

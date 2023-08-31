@@ -2,86 +2,105 @@ import { Button, Form, Input, Modal } from 'antd';
 import React from 'react';
 import {
   addBrand,
+  addPaymentTerm,
   getBrand,
+  getPaymentTerm,
   removeBrand,
-  updateBrand
+  removePaymentTerm,
+  updateBrand,
+  updatePaymentTerm
 } from '../../controller/api/FieldsDataServices';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { DeleteFilled, EditOutlined } from '@ant-design/icons';
 
-const Brands = ({ brandModalOpen, setBrandModalOpen }) => {
+const PaymentTerms = ({ paymentTermsModalOpen, setPaymentTermsModalOpen }) => {
   const [form] = Form.useForm();
-  const [editBrandID, setEditBrandID] = useState();
-  const [brand, seBrand] = useState([]);
+  const [editPaymentTermsID, setEditPaymentTermsID] = useState();
+  const [paymentTerm, setPaymentTerms] = useState([]);
   useEffect(() => {
-    getAllBrand();
+    getAllPaymentTerms();
   }, []);
-  const getAllBrand = () => {
-    getBrand()
+  const getAllPaymentTerms = () => {
+    getPaymentTerm()
       .then((res) => {
-        seBrand(res.data);
+        const data=res?.data?.filter((val)=>val.isDefault)
+        setPaymentTerms(data);
       })
       .catch((err) => console.log('err =====>', err));
   };
   const handleSubmit = (value) => {
-    if (editBrandID === undefined) {
-      addBrand(value)
+    if (editPaymentTermsID === undefined) {
+      addPaymentTerm({...value,isDefault:true})
         .then((res) => {
-          getAllBrand();
+          getAllPaymentTerms();
         })
         .catch((err) => console.log('err =====>', err));
     } else {
-      updateBrand(value, {id: editBrandID })
+      updatePaymentTerm({...value,isDefault:true}, { id: editPaymentTermsID })
         .then((res) => {
-            setEditBrandID()
-            getAllBrand()
+          setEditPaymentTermsID();
+          getAllPaymentTerms();
         })
         .catch((err) => console.log('err =====>', err));
     }
-    form.resetFields()
+    form.resetFields();
   };
   const handleDelete = (val) => {
-    removeBrand({id:val.id})
+    removePaymentTerm({ id: val.id })
       .then((res) => {
-        if(brand.length===1){
-            setEditBrandID()
+        if (paymentTerm.length === 1) {
+          setEditPaymentTermsID();
         }
-        getAllBrand()
+        getAllPaymentTerms();
       })
       .catch((err) => console.log('err =====>', err));
   };
   const handleEdit = (val) => {
-    console.log(val, 'brand val');
-    setEditBrandID(val?.id);
+    setEditPaymentTermsID(val?.id);
     form.setFieldsValue({ ...val });
   };
   return (
     <Modal
-      className="brand-modal"
-      title="Manage Brands"
+      className="payment-term-modal"
+      title="Manage Payment Terms"
       maskClosable={false}
-      open={brandModalOpen}
+      open={paymentTermsModalOpen}
       onOk={''}
       footer={false}
-      onCancel={() => setBrandModalOpen(false)}>
+      onCancel={() => setPaymentTermsModalOpen(false)}>
       <div className="w-100">
         <Form name="brand" form={form} onFinish={(value) => handleSubmit(value)}>
           <div className="row col-12">
             <div className="col-6">
-              <label className="text-danger">Brand Name *</label>
+              <label className="text-danger">Term Name *</label>
               <Form.Item
-                name="name"
+                name="termName"
                 rules={[
                   {
                     required: true,
-                    message: 'Please Enter Brand Name'
+                    message: 'Please Enter Term Name'
                   }
                 ]}>
                 <Input />
               </Form.Item>
-              <Button type="primary" htmlType="submit">
-                {editBrandID !== undefined&&brand?.length ? 'Update' : 'Save'}
+            </div>
+            <div className="col-6">
+              <label className="text-danger">Number of Days *</label>
+              <Form.Item
+                name="numberOfDays"
+                rules={[
+                  {
+                    required: true,
+                    message: 'Please Enter Number of Days'
+                  }
+                ]}>
+                <Input />
+              </Form.Item>
+            </div>
+            <div className="col-6">
+            <Button type="primary" htmlType="submit">
+                {editPaymentTermsID !== undefined && paymentTerm?.length ? 'Update' : 'Save'}
               </Button>
             </div>
           </div>
@@ -90,16 +109,22 @@ const Brands = ({ brandModalOpen, setBrandModalOpen }) => {
           <thead className="w-100">
             <tr className="border-bottom border-top">
               <th style={{ width: '10%' }} className="">
-                Brands
+                Payment Term Name
+              </th>
+              <th style={{ width: '10%' }} className="">
+                Number of Days
               </th>
             </tr>
           </thead>
           <tbody>
-            {brand?.map((val) => {
+            {paymentTerm?.map((val) => {
               return (
                 <tr className="border-bottom table-row">
-                  <td style={{ width: '70%' }} className="">
-                    {val.name}
+                  <td style={{ width: '40%' }} className="">
+                    {val.termName}
+                  </td>
+                  <td style={{ width: '30%' }} className="">
+                    {val.numberOfDays}
                   </td>
                   <td>
                     <div className="d-flex justify-content-center align-items-center gap-3 text-primary action-btn">
@@ -127,4 +152,4 @@ const Brands = ({ brandModalOpen, setBrandModalOpen }) => {
   );
 };
 
-export default Brands;
+export default PaymentTerms;
