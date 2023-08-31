@@ -31,7 +31,8 @@ import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
 import { Bars } from 'react-loader-spinner';
 import Brands from '../../../components/modals/Brands';
-import { getBrand } from '../../../controller/api/FieldsDataServices';
+import { getBrand, getManufacturer } from '../../../controller/api/FieldsDataServices';
+import Manufacturer from "../../../components/modals/Manufacturer";
 
 const CreateAndEditItems = () => {
   const currentUserData = useSelector((state) => state.user.currentuser);
@@ -49,6 +50,8 @@ const CreateAndEditItems = () => {
   const [inventoryTrack, setInventoryTrack] = useState(true);
   const [loader, setloader] = useState(false);
   const [brandModalOpen, setBrandModalOpen] = useState(false);
+  const [manufacturerModalOpen, setManufacturerModalOpen] = useState(false);
+  const [manufacturerList, setManufacturerList] = useState([]);
   const inputRef = useRef(null);
   // const onBrandNameInputChange = (event) => {
   //   setBrandName(event.target.value);
@@ -65,6 +68,11 @@ const CreateAndEditItems = () => {
   //     inputRef.current?.focus();
   //   }, 0);
   // };
+  const getAllManufacturer = () => {
+    getManufacturer()
+      .then((res) => setManufacturerList(res.data))
+      .catch((err) => console.log(err));
+  };
   const getAllBrand = () => {
     getBrand()
       .then((res) => setBrandList(res.data))
@@ -420,7 +428,41 @@ const CreateAndEditItems = () => {
                     </div>
                     <div className="col-lg-8 col-md-12">
                       <Form.Item name="manufacturer" className="d-flex m-0 form-item">
-                        <Input className="w-100" />
+                        <Select
+                          onClick={() => getAllManufacturer()}
+                          options={
+                            manufacturerList?.length
+                              ? manufacturerList?.map((item) => ({
+                                  label: item.name,
+                                  value: item.name
+                                }))
+                              : []
+                          }
+                          showSearch={true}
+                          dropdownRender={(menu) => (
+                            <>
+                              {menu}
+                              <Divider
+                                style={{
+                                  margin: '8px 0'
+                                }}
+                              />
+                              <Space
+                                style={{
+                                  padding: '0 8px 4px'
+                                }}>
+                                <span
+                                  className="d-flex align-items-center gap-3 text-primary"
+                                  style={{ cursor: 'pointer' }}
+                                  onClick={() => setManufacturerModalOpen(true)}>
+                                  {' '}
+                                  <SettingTwoTone /> Manage Manufacturer
+                                </span>
+                              </Space>
+                            </>
+                          )}>
+                          <Input />
+                        </Select>
                       </Form.Item>
                     </div>
                   </div>
@@ -980,6 +1022,9 @@ const CreateAndEditItems = () => {
       </div>
       {brandModalOpen && (
         <Brands brandModalOpen={brandModalOpen} setBrandModalOpen={setBrandModalOpen} />
+      )}
+      {manufacturerModalOpen && (
+        <Manufacturer manufacturerModalOpen={manufacturerModalOpen} setManufacturerModalOpen={setManufacturerModalOpen} />
       )}
     </div>
   );

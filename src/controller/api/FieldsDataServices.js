@@ -27,3 +27,20 @@ export const removeBrand = (params = {}) => {
   const url = getAPIUrl('brand.remove', params);
   return Remove(url, true);
 };
+
+export const getManufacturer = () => {
+  const url = getAPIUrl('manufacturer.all');
+  return Get(url, true);
+};
+export const addManufacturer = (data) => {
+  const url = getAPIUrl('manufacturer.add');
+  return Post(url, data, true);
+};
+export const updateManufacturer = (data, params = {}) => {
+  const url = getAPIUrl('manufacturer.update', params);
+  return Put(url, data, true);
+};
+export const removeManufacturer = (params = {}) => {
+  const url = getAPIUrl('manufacturer.remove', params);
+  return Remove(url, true);
+};
