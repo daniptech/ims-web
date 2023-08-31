@@ -1,4 +1,10 @@
-import { ArrowLeftOutlined, PlusOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  PlusOutlined,
+  QuestionCircleOutlined,
+  SettingFilled,
+  SettingTwoTone
+} from '@ant-design/icons';
 import {
   Button,
   Checkbox,
@@ -23,7 +29,9 @@ import {
 import { useSelector } from 'react-redux';
 import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
-import { Bars } from "react-loader-spinner";
+import { Bars } from 'react-loader-spinner';
+import Brands from '../../../components/modals/Brands';
+import { getBrand } from '../../../controller/api/FieldsDataServices';
 
 const CreateAndEditItems = () => {
   const currentUserData = useSelector((state) => state.user.currentuser);
@@ -33,31 +41,38 @@ const CreateAndEditItems = () => {
   const [previewImageUrl, setPreviewImageUrl] = useState('');
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState([]);
-  const [items, setItems] = useState();
-  const [brandName, setBrandName] = useState('');
+  // const [items, setItems] = useState();
+  // const [brandName, setBrandName] = useState('');
+  const [brandList, setBrandList] = useState([]);
   const [salesInformation, setSalesInformation] = useState(true);
   const [purchaseInformation, setPurchaseInformation] = useState(true);
   const [inventoryTrack, setInventoryTrack] = useState(true);
-  const [loader,setloader]=useState(false)
+  const [loader, setloader] = useState(false);
+  const [brandModalOpen, setBrandModalOpen] = useState(false);
   const inputRef = useRef(null);
-  const onBrandNameInputChange = (event) => {
-    setBrandName(event.target.value);
-  };
-  const addBrandItem = (e) => {
-    e.preventDefault();
-    if (items?.length) {
-      setItems([...items, brandName]);
-    } else {
-      setItems([brandName]);
-    }
-    setBrandName('');
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
+  // const onBrandNameInputChange = (event) => {
+  //   setBrandName(event.target.value);
+  // };
+  // const addBrandItem = (e) => {
+  //   e.preventDefault();
+  //   if (items?.length) {
+  //     setItems([...items, brandName]);
+  //   } else {
+  //     setItems([brandName]);
+  //   }
+  //   setBrandName('');
+  //   setTimeout(() => {
+  //     inputRef.current?.focus();
+  //   }, 0);
+  // };
+  const getAllBrand = () => {
+    getBrand()
+      .then((res) => setBrandList(res.data))
+      .catch((err) => console.log('err =====> ', err));
   };
   useEffect(() => {
     if (params.id) {
-      setloader(true)
+      setloader(true);
       getSingleItem({ id: params.id }, { organizationId: currentUserData?.organizationId })
         .then((res) => {
           if (res?.data?.inventoryInfo == null) {
@@ -83,11 +98,11 @@ const CreateAndEditItems = () => {
             sales_account: res?.data?.sellingInfo?.account,
             sales_description: res?.data?.sellingInfo?.description
           });
-          setloader(false)
+          setloader(false);
         })
         .catch((err) => {
           console.log(err);
-          setloader(false)
+          setloader(false);
         });
     }
   }, [params, currentUserData]);
@@ -178,8 +193,7 @@ const CreateAndEditItems = () => {
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
-          style={{ height: '100vh', zIndex: '11111' }}
-        >
+          style={{ height: '100vh', zIndex: '11111' }}>
           <Bars
             height="130"
             width="130"
@@ -483,11 +497,12 @@ const CreateAndEditItems = () => {
                     <div className="col-lg-8 col-md-12">
                       <Form.Item name="brand" className="d-flex m-0 form-item">
                         <Select
+                          onClick={() => getAllBrand()}
                           options={
-                            items?.length
-                              ? items?.map((item) => ({
-                                  label: item,
-                                  value: item
+                            brandList?.length
+                              ? brandList?.map((item) => ({
+                                  label: item.name,
+                                  value: item.name
                                 }))
                               : []
                           }
@@ -504,7 +519,14 @@ const CreateAndEditItems = () => {
                                 style={{
                                   padding: '0 8px 4px'
                                 }}>
-                                <Input
+                                <span
+                                  className="d-flex align-items-center gap-3 text-primary"
+                                  style={{ cursor: 'pointer' }}
+                                  onClick={() => setBrandModalOpen(true)}>
+                                  {' '}
+                                  <SettingTwoTone /> Manage Brands
+                                </span>
+                                {/* <Input
                                   placeholder="Please enter item"
                                   ref={inputRef}
                                   onChange={onBrandNameInputChange}
@@ -516,7 +538,7 @@ const CreateAndEditItems = () => {
                                   onClick={addBrandItem}
                                   disabled={!brandName}>
                                   Add item
-                                </Button>
+                                </Button> */}
                               </Space>
                             </>
                           )}>
@@ -956,6 +978,9 @@ const CreateAndEditItems = () => {
           </Form>
         </div>
       </div>
+      {brandModalOpen && (
+        <Brands brandModalOpen={brandModalOpen} setBrandModalOpen={setBrandModalOpen} />
+      )}
     </div>
   );
 };
