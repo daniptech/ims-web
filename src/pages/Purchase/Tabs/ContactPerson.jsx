@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Select, Button, Input } from 'antd';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { faCircleXmark } from '@fortawesome/free-regular-svg-icons';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 export const ContactPerson = ({ contectPerson, setContectPerson }) => {
@@ -31,7 +31,7 @@ export const ContactPerson = ({ contectPerson, setContectPerson }) => {
       const filterContectPerson = contectPerson?.filter((val, index) => index !== delindex);
       setContectPerson(filterContectPerson);
     } else {
-      Object.keys(contectPerson[0])?.map((key) => {
+      Object.keys(contectPerson[0])?.forEach((key) => {
         contectPerson[0][key] = '';
       });
     }

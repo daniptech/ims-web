@@ -10,7 +10,6 @@ import { useEffect } from 'react';
 const { Sider } = Layout;
 
 const Sidebar = ({ selectKey, setSelectKey, items }) => {
-
   useEffect(() => {
     const pathname = window.location.hash.split('/');
     const currentSelectKey = pathname[2];

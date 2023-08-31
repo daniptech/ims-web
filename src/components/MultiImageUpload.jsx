@@ -2,7 +2,7 @@ import { DeleteOutlined, InfoCircleOutlined, PlusOutlined } from '@ant-design/ic
 import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Image, Tooltip, Upload } from 'antd';
-
+import React from 'react';
 const getBase64 = (file) =>
   new Promise((resolve, reject) => {
     const reader = new FileReader();

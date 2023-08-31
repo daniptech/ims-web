@@ -18,19 +18,7 @@ import {
 } from '@ant-design/icons';
 import MultiImageUpload from '../../../components/MultiImageUpload';
 import ChartView from '../../../components/ChartView';
-import { routes } from '../../../controller/routes';
-import { reverse } from 'named-urls';
-import { useParams } from 'react-router-dom';
-const EditableCell = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  record,
-  index,
-  children,
-  ...restProps
-}) => {
+const EditableCell = ({ editing, dataIndex, title, inputType, children, ...restProps }) => {
   const inputNode = inputType === 'number' ? <InputNumber /> : <Input />;
   return (
     <td {...restProps}>
@@ -45,7 +33,8 @@ const EditableCell = ({
               required: true,
               message: `Please Input ${title}!`
             }
-          ]}>
+          ]}
+        >
           {inputNode}
         </Form.Item>
       ) : (
@@ -55,23 +44,13 @@ const EditableCell = ({
   );
 };
 const OverView = ({ inventoryitem, itemData }) => {
-  const params = useParams();
   const [associatedPriceList, setAssociatedPriceList] = useState({ open: false, table: 'sales' });
   const [previewImageUrl, setPreviewImageUrl] = useState('');
   const [previewImage, setPreviewImage] = useState('');
   const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
-  const [data, setData] = useState(
-    Array.from({ length: 5 }, (_, i) => {
-      return {
-        key: i.toString(),
-        name: `hello${i}`,
-        price: 32.3,
-        discount: 10
-      };
-    })
-  );
+
   const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
     form.setFieldsValue({
@@ -82,7 +61,7 @@ const OverView = ({ inventoryitem, itemData }) => {
   const cancel = () => {
     setEditingKey('');
   };
-  const save = async (key) => {
+  const save = async () => {
     setEditingKey('');
   };
   const salescolumns = [
@@ -112,7 +91,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8
-              }}>
+              }}
+            >
               Save
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
@@ -123,7 +103,8 @@ const OverView = ({ inventoryitem, itemData }) => {
           <Typography.Link
             disabled={editingKey !== ''}
             className="d-flex justify-content-center align-items-center"
-            onClick={() => edit(record)}>
+            onClick={() => edit(record)}
+          >
             <EditOutlined /> Edit
           </Typography.Link>
         );
@@ -152,7 +133,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8
-              }}>
+              }}
+            >
               Save
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
@@ -163,7 +145,8 @@ const OverView = ({ inventoryitem, itemData }) => {
           <Typography.Link
             disabled={editingKey !== ''}
             className="d-flex justify-content-center align-items-center"
-            onClick={() => edit(record)}>
+            onClick={() => edit(record)}
+          >
             <EditOutlined /> Edit
           </Typography.Link>
         );
@@ -389,7 +372,8 @@ const OverView = ({ inventoryitem, itemData }) => {
                     ...associatedPriceList,
                     open: !associatedPriceList.open
                   })
-                }>
+                }
+              >
                 Associated Price Lists{' '}
                 {associatedPriceList.open ? <CaretDownOutlined /> : <CaretRightOutlined />}
               </Button>
@@ -425,7 +409,7 @@ const OverView = ({ inventoryitem, itemData }) => {
                       }
                     }}
                     // bordered
-                    dataSource={data}
+                    dataSource={[]}
                     columns={mergedColumns()}
                     rowClassName="editable-row"
                     pagination={{
@@ -441,7 +425,7 @@ const OverView = ({ inventoryitem, itemData }) => {
           {inventoryitem === 'composite' && (
             <div>
               <h6 className="fw-medium">Associated Items</h6>
-              <table class="table table-bordered">
+              <table className="table table-bordered">
                 <thead>
                   <tr>
                     <th scope="col" className="w-75 text-muted">
@@ -494,7 +478,8 @@ const OverView = ({ inventoryitem, itemData }) => {
                         <div className="d-flex flex-column text-muted">
                           <span
                             className=" d-flex justify-content-center bg-success text-white fw-medium"
-                            style={{ fontSize: '10px', width: '40px' }}>
+                            style={{ fontSize: '10px', width: '40px' }}
+                          >
                             services
                           </span>
                           <span className="text-primary">Botalsss </span>
@@ -550,7 +535,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
+                >
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Shipped</span>
@@ -559,7 +545,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
+                >
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Received</span>
@@ -568,7 +555,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
+                >
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Invoiced</span>
@@ -577,7 +565,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
+                >
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Billed</span>

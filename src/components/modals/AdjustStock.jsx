@@ -2,7 +2,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, DatePicker, Divider, Drawer, Form, Input, Radio, Select, Space } from 'antd';
 import React, { useRef, useState } from 'react';
 
-const AdjustStock = ({ openAdjustment, setOpenAdjustment }) => {
+const AdjustStock = ({ setOpenAdjustment }) => {
   const [form] = Form.useForm();
   const [adjustmentValue, setAdjustmentValue] = useState('quantity_ajustment');
   const inputRef = useRef(null);
@@ -44,7 +44,7 @@ const AdjustStock = ({ openAdjustment, setOpenAdjustment }) => {
           className="adjustment-from"
           form={form}
           name="adjustemtForm"
-          onFinish={(values) => setOpenAdjustment(false)}
+          onFinish={() => setOpenAdjustment(false)}
           initialValues={{
             adjustment: 'quantity_ajustment',
             quentity_available: 16

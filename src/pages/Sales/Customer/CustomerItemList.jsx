@@ -1,7 +1,5 @@
-import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Select, Space, Table } from 'antd';
-import { useEffect, useRef, useState } from 'react';
-import Highlighter from 'react-highlight-words';
+import { Button, Select, Table } from 'antd';
+import { useEffect, useState } from 'react';
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../controller/routes';
@@ -10,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCustomer } from '../../../controller/api/sales/customerServices';
 import { setCustomer } from '../../../redux/slices/salesSlice';
 import { Bars } from 'react-loader-spinner';
+import React from 'react';
 
 const CustomerItemsList = () => {
   const dispatch = useDispatch();
@@ -181,7 +180,8 @@ const CustomerItemsList = () => {
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
-          style={{ height: '100vh', zIndex: '11111' }}>
+          style={{ height: '100vh', zIndex: '11111' }}
+        >
           <Bars
             height="130"
             width="130"
@@ -257,7 +257,8 @@ const CustomerItemsList = () => {
           <Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-            onClick={() => navigate(routes.sales.customers.new)}>
+            onClick={() => navigate(routes.sales.customers.new)}
+          >
             + New
           </Button>
         </div>
@@ -265,7 +266,8 @@ const CustomerItemsList = () => {
           className="m-3 p-3 border border-1 "
           style={{
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
-          }}>
+          }}
+        >
           <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
             <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
               Customize Columns

@@ -63,7 +63,7 @@ const CreateAndEditPriceList = () => {
     {
       title: 'CUSTOM RATE',
       dataIndex: 'custom_rate',
-      render: (record) => {
+      render: () => {
         return (
           <>
             <Input addonAfter="RS." />

@@ -57,12 +57,13 @@ const VendorView = () => {
       <div className="d-flex justify-content-between align-items-center pt-4 px-3">
         <div className="d-flex  align-items-center gap-2 fs-5 ">
           <ArrowLeftOutlined onClick={() => navigate(-1)} className="custom-back-button" />
-          <span className="fw-medium">{vendorData?.firstName+" "+vendorData?.lastName}</span>
+          <span className="fw-medium">{vendorData?.firstName + ' ' + vendorData?.lastName}</span>
         </div>
         <div className="d-flex justify-content-center align-items-center gap-2 ">
           <Button
             className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
-            onClick={() => navigate(reverse(routes.purchase.vendor.edit, { id: params.id }))}>
+            onClick={() => navigate(reverse(routes.purchase.vendor.edit, { id: params.id }))}
+          >
             <EditOutlined />
           </Button>
           <Dropdown
@@ -73,7 +74,8 @@ const VendorView = () => {
             arrow={{
               pointAtCenter: true
             }}
-            trigger="click">
+            trigger="click"
+          >
             <Button type="primary" className="d-flex justify-content-center align-items-center">
               More <DownOutlined />
             </Button>
@@ -88,7 +90,8 @@ const VendorView = () => {
               maxHeight: '80vh',
               height: '100%',
               overflow: 'scroll'
-            }}>
+            }}
+          >
             <OverView vendorData={vendorData} />
           </div>
         </TabPane>
@@ -100,7 +103,8 @@ const VendorView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <Comment />
           </div>
         </TabPane>
@@ -112,7 +116,8 @@ const VendorView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '149px'
-            }}>
+            }}
+          >
             <Transaction />
           </div>
         </TabPane>
@@ -124,7 +129,8 @@ const VendorView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <Mail />
           </div>
         </TabPane>

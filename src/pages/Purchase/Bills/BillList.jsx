@@ -4,7 +4,7 @@ import Highlighter from 'react-highlight-words';
 import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
 import { Images } from '../../../controller/Images';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { SearchOutlined, MoreOutlined, CloseOutlined } from '@ant-design/icons';
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';
 const { Dragger } = Upload;

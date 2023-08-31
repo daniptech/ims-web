@@ -32,7 +32,7 @@ export const Transactions = () => {
             label: 'Customer Payments',
             children: (
               <div className="d-flex align-item-center justify-content-center">
-                <p class="mb-0">No payments have been received or recorded yet - </p>
+                <p className="mb-0">No payments have been received or recorded yet - </p>
                 <Link to=" " style={linkStyle}>
                   <p style={{ color: '#1677ff' }}>Add New</p>
                 </Link>
@@ -75,7 +75,7 @@ export const Transactions = () => {
             label: ' Packages',
             children: (
               <div className="d-flex align-item-center justify-content-center">
-                <p class="mb-0">No data to display - </p>
+                <p className="mb-0">No data to display - </p>
                 <Link to=" " style={linkStyle}>
                   <p style={{ color: '#1677ff' }}>Add New</p>
                 </Link>
@@ -121,7 +121,7 @@ export const Transactions = () => {
             label: 'Bills',
             children: (
               <div className="d-flex align-item-center justify-content-center">
-                <p class="mb-0">There are no Bills</p>
+                <p className="mb-0">There are no Bills</p>
               </div>
             )
           }
@@ -135,7 +135,7 @@ export const Transactions = () => {
             label: 'Credit Notes',
             children: (
               <div className="d-flex align-item-center justify-content-center">
-                <p class="mb-0">There are no credit notes - </p>
+                <p className="mb-0">There are no credit notes - </p>
                 <Link to=" " style={linkStyle}>
                   <p style={{ color: '#1677ff' }}>Add New</p>
                 </Link>

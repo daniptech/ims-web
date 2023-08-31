@@ -27,27 +27,27 @@ const Brands = ({ brandModalOpen, setBrandModalOpen }) => {
   const handleSubmit = (value) => {
     if (editBrandID === undefined) {
       addBrand(value)
-        .then((res) => {
+        .then(() => {
           getAllBrand();
         })
         .catch((err) => console.log('err =====>', err));
     } else {
-      updateBrand(value, {id: editBrandID })
-        .then((res) => {
-            setEditBrandID()
-            getAllBrand()
+      updateBrand(value, { id: editBrandID })
+        .then(() => {
+          setEditBrandID();
+          getAllBrand();
         })
         .catch((err) => console.log('err =====>', err));
     }
-    form.resetFields()
+    form.resetFields();
   };
   const handleDelete = (val) => {
-    removeBrand({id:val.id})
-      .then((res) => {
-        if(brand.length===1){
-            setEditBrandID()
+    removeBrand({ id: val.id })
+      .then(() => {
+        if (brand.length === 1) {
+          setEditBrandID();
         }
-        getAllBrand()
+        getAllBrand();
       })
       .catch((err) => console.log('err =====>', err));
   };
@@ -64,7 +64,8 @@ const Brands = ({ brandModalOpen, setBrandModalOpen }) => {
       open={brandModalOpen}
       onOk={''}
       footer={false}
-      onCancel={() => setBrandModalOpen(false)}>
+      onCancel={() => setBrandModalOpen(false)}
+    >
       <div className="w-100">
         <Form name="brand" form={form} onFinish={(value) => handleSubmit(value)}>
           <div className="row col-12">
@@ -77,11 +78,12 @@ const Brands = ({ brandModalOpen, setBrandModalOpen }) => {
                     required: true,
                     message: 'Please Enter Brand Name'
                   }
-                ]}>
+                ]}
+              >
                 <Input />
               </Form.Item>
               <Button type="primary" htmlType="submit">
-                {editBrandID !== undefined&&brand?.length ? 'Update' : 'Save'}
+                {editBrandID !== undefined && brand?.length ? 'Update' : 'Save'}
               </Button>
             </div>
           </div>
@@ -95,9 +97,9 @@ const Brands = ({ brandModalOpen, setBrandModalOpen }) => {
             </tr>
           </thead>
           <tbody>
-            {brand?.map((val) => {
+            {brand?.map((val, index) => {
               return (
-                <tr className="border-bottom table-row">
+                <tr key={index} className="border-bottom table-row">
                   <td style={{ width: '70%' }} className="">
                     {val.name}
                   </td>
@@ -106,13 +108,15 @@ const Brands = ({ brandModalOpen, setBrandModalOpen }) => {
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleEdit(val)}>
+                        onClick={() => handleEdit(val)}
+                      >
                         <EditOutlined /> Edit
                       </span>
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleDelete(val)}>
+                        onClick={() => handleDelete(val)}
+                      >
                         <DeleteFilled /> Delete
                       </span>
                     </div>

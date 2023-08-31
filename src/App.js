@@ -6,7 +6,7 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import Register from './pages/Register';
 import Main from './pages/Main';
 import { routes } from './controller/routes';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 import { faBagShopping, faCartFlatbed, faChartSimple } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

@@ -6,7 +6,7 @@ import CustomizeTableColumns from '../../../components/modals/CustomizeTableColu
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useDispatch, useSelector } from 'react-redux';
 import { getItem } from '../../../controller/api/inventory/itemService';
 import { setItem } from '../../../redux/slices/inventorySlice';
 import { Bars } from 'react-loader-spinner';
@@ -35,6 +35,7 @@ const ItemsList = () => {
         setloader(false);
       })
       .catch((err) => {
+        console.log('err ====>', err);
         setloader(false);
       });
   }, [dispatch, currentUserData]);
@@ -302,7 +303,7 @@ const ItemsList = () => {
       title: 'SHOW IN STORE',
       dataIndex: '',
       key: 'show_in_store',
-      render: (record) => <span>false</span>,
+      render: () => <span>false</span>,
       // ...getColumnSearchProps('show_in_store'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],

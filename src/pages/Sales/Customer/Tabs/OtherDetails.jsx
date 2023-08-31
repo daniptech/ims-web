@@ -1,38 +1,28 @@
 import {
   FacebookOutlined,
   InfoCircleOutlined,
-  PlusOutlined,
   SettingTwoTone,
   SkypeOutlined,
   TwitterOutlined
 } from '@ant-design/icons';
-import { Button, Checkbox, Divider, Form, Input, Select, Space, Tooltip } from 'antd';
+import { Checkbox, Divider, Form, Input, Select, Space, Tooltip } from 'antd';
 import React from 'react';
 import { useState } from 'react';
 import currencyData from '../../../../data/Common-Currency.json';
-import { addPaymentTerm, getPaymentTerm } from '../../../../controller/api/FieldsDataServices';
-import { pan } from "../../../../controller/regex";
-import PaymentTerms from "../../../../components/modals/PaymentTerms";
+import { getPaymentTerm } from '../../../../controller/api/FieldsDataServices';
+import { pan } from '../../../../controller/regex';
+import PaymentTerms from '../../../../components/modals/PaymentTerms';
 const OtherDetail = ({ form }) => {
   const { Option } = Select;
   const [addmore, setAddMore] = useState(false);
   const [checked, setchecked] = useState(form.getFieldValue('enablePortal'));
   const [paymentTerm, setPaymentTerm] = useState([]);
-  const [paymentTermsModalOpen, setPaymentTermsModalOpen]=useState(false)
+  const [paymentTermsModalOpen, setPaymentTermsModalOpen] = useState(false);
 
   const getPaymentData = () => {
     getPaymentTerm()
       .then((res) => setPaymentTerm(res.data))
       .catch((err) => console.log('err ====>', err));
-  };
-  const addPaymentData = (value) => {
-    addPaymentTerm({ ...value, isDefault: false })
-      .then((res) => {
-        getPaymentData();
-      })
-      .catch((err) => {
-        console.log('err ======>', err);
-      });
   };
   return (
     <div className="row col-12 p-4 m-0">
@@ -43,19 +33,22 @@ const OtherDetail = ({ form }) => {
               <span>PAN </span>{' '}
               <Tooltip
                 placement="rightTop"
-                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+              >
                 <InfoCircleOutlined className="text-muted" />
               </Tooltip>{' '}
             </label>
           </div>
           <div className="col-7">
-            <Form.Item name="pan" className="d-flex m-0 form-item"
-            rules={[
-              {
-                pattern:pan,
-                message:"Enter vaild PAN Number"
-              }
-            ]}
+            <Form.Item
+              name="pan"
+              className="d-flex m-0 form-item"
+              rules={[
+                {
+                  pattern: pan,
+                  message: 'Enter vaild PAN Number'
+                }
+              ]}
             >
               <Input className="text-uppercase" />
             </Form.Item>
@@ -89,7 +82,7 @@ const OtherDetail = ({ form }) => {
           </div>
           <div className="col-7">
             <Form.Item name="paymentTerms" className="d-flex m-0 form-item">
-            <Select
+              <Select
                 options={
                   paymentTerm?.length
                     ? paymentTerm?.map((val) => {
@@ -115,17 +108,20 @@ const OtherDetail = ({ form }) => {
                     <Space
                       style={{
                         padding: '0 18px 4px'
-                      }}>
-                         <span
-                                  className="d-flex align-items-center gap-3 text-primary"
-                                  style={{ cursor: 'pointer' }}
-                                  onClick={() => setPaymentTermsModalOpen(true)}>
-                                  {' '}
-                                  <SettingTwoTone /> Manage Payment Terms
-                                </span>
+                      }}
+                    >
+                      <span
+                        className="d-flex align-items-center gap-3 text-primary"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => setPaymentTermsModalOpen(true)}
+                      >
+                        {' '}
+                        <SettingTwoTone /> Manage Payment Terms
+                      </span>
                     </Space>
                   </>
-                )}>
+                )}
+              >
                 <Input />
               </Select>
             </Form.Item>
@@ -150,7 +146,8 @@ const OtherDetail = ({ form }) => {
                 <span>Enable Portal? </span>{' '}
                 <Tooltip
                   placement="rightTop"
-                  title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                  title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                >
                   <InfoCircleOutlined className="text-muted" />
                 </Tooltip>{' '}
               </label>
@@ -171,7 +168,8 @@ const OtherDetail = ({ form }) => {
               <span>Portal Language?</span>{' '}
               <Tooltip
                 placement="rightTop"
-                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+              >
                 <InfoCircleOutlined className="text-muted" />
               </Tooltip>{' '}
             </label>
@@ -193,7 +191,8 @@ const OtherDetail = ({ form }) => {
           <span
             className="text-primary"
             style={{ cursor: 'pointer' }}
-            onClick={() => setAddMore(true)}>
+            onClick={() => setAddMore(true)}
+          >
             Add more details
           </span>
         )}
@@ -276,7 +275,12 @@ const OtherDetail = ({ form }) => {
           </>
         )}
       </div>
-      {paymentTermsModalOpen&&<PaymentTerms paymentTermsModalOpen={paymentTermsModalOpen} setPaymentTermsModalOpen={setPaymentTermsModalOpen}/>}
+      {paymentTermsModalOpen && (
+        <PaymentTerms
+          paymentTermsModalOpen={paymentTermsModalOpen}
+          setPaymentTermsModalOpen={setPaymentTermsModalOpen}
+        />
+      )}
     </div>
   );
 };

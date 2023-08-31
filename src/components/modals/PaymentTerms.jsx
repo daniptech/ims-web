@@ -1,13 +1,9 @@
 import { Button, Form, Input, Modal } from 'antd';
 import React from 'react';
 import {
-  addBrand,
   addPaymentTerm,
-  getBrand,
   getPaymentTerm,
-  removeBrand,
   removePaymentTerm,
-  updateBrand,
   updatePaymentTerm
 } from '../../controller/api/FieldsDataServices';
 import { useState } from 'react';
@@ -24,21 +20,21 @@ const PaymentTerms = ({ paymentTermsModalOpen, setPaymentTermsModalOpen }) => {
   const getAllPaymentTerms = () => {
     getPaymentTerm()
       .then((res) => {
-        const data=res?.data?.filter((val)=>val.isDefault)
+        const data = res?.data?.filter((val) => val.isDefault);
         setPaymentTerms(data);
       })
       .catch((err) => console.log('err =====>', err));
   };
   const handleSubmit = (value) => {
     if (editPaymentTermsID === undefined) {
-      addPaymentTerm({...value,isDefault:true})
-        .then((res) => {
+      addPaymentTerm({ ...value, isDefault: true })
+        .then(() => {
           getAllPaymentTerms();
         })
         .catch((err) => console.log('err =====>', err));
     } else {
-      updatePaymentTerm({...value,isDefault:true}, { id: editPaymentTermsID })
-        .then((res) => {
+      updatePaymentTerm({ ...value, isDefault: true }, { id: editPaymentTermsID })
+        .then(() => {
           setEditPaymentTermsID();
           getAllPaymentTerms();
         })
@@ -48,7 +44,7 @@ const PaymentTerms = ({ paymentTermsModalOpen, setPaymentTermsModalOpen }) => {
   };
   const handleDelete = (val) => {
     removePaymentTerm({ id: val.id })
-      .then((res) => {
+      .then(() => {
         if (paymentTerm.length === 1) {
           setEditPaymentTermsID();
         }
@@ -68,7 +64,8 @@ const PaymentTerms = ({ paymentTermsModalOpen, setPaymentTermsModalOpen }) => {
       open={paymentTermsModalOpen}
       onOk={''}
       footer={false}
-      onCancel={() => setPaymentTermsModalOpen(false)}>
+      onCancel={() => setPaymentTermsModalOpen(false)}
+    >
       <div className="w-100">
         <Form name="brand" form={form} onFinish={(value) => handleSubmit(value)}>
           <div className="row col-12">
@@ -81,7 +78,8 @@ const PaymentTerms = ({ paymentTermsModalOpen, setPaymentTermsModalOpen }) => {
                     required: true,
                     message: 'Please Enter Term Name'
                   }
-                ]}>
+                ]}
+              >
                 <Input />
               </Form.Item>
             </div>
@@ -94,12 +92,13 @@ const PaymentTerms = ({ paymentTermsModalOpen, setPaymentTermsModalOpen }) => {
                     required: true,
                     message: 'Please Enter Number of Days'
                   }
-                ]}>
+                ]}
+              >
                 <Input />
               </Form.Item>
             </div>
             <div className="col-6">
-            <Button type="primary" htmlType="submit">
+              <Button type="primary" htmlType="submit">
                 {editPaymentTermsID !== undefined && paymentTerm?.length ? 'Update' : 'Save'}
               </Button>
             </div>
@@ -117,9 +116,9 @@ const PaymentTerms = ({ paymentTermsModalOpen, setPaymentTermsModalOpen }) => {
             </tr>
           </thead>
           <tbody>
-            {paymentTerm?.map((val) => {
+            {paymentTerm?.map((val, index) => {
               return (
-                <tr className="border-bottom table-row">
+                <tr key={index} className="border-bottom table-row">
                   <td style={{ width: '40%' }} className="">
                     {val.termName}
                   </td>
@@ -131,13 +130,15 @@ const PaymentTerms = ({ paymentTermsModalOpen, setPaymentTermsModalOpen }) => {
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleEdit(val)}>
+                        onClick={() => handleEdit(val)}
+                      >
                         <EditOutlined /> Edit
                       </span>
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleDelete(val)}>
+                        onClick={() => handleDelete(val)}
+                      >
                         <DeleteFilled /> Delete
                       </span>
                     </div>

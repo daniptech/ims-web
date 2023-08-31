@@ -7,8 +7,8 @@ import purchaseReducer from './slices/purchaseSlice';
 const rootReducer = combineReducers({
   user: userReducer,
   inventory: inventoryReducer,
-  sales:salesReducer,
-  purchase:purchaseReducer,
+  sales: salesReducer,
+  purchase: purchaseReducer
 });
 
 export default rootReducer;

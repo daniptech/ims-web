@@ -97,7 +97,7 @@ const OtpPopup = ({
               type="circle"
               size="small"
               percent={(otpValidTill?.otpTill * 100) / otpValidTill?.OtpTotaltime}
-              format={(percent) => otpValidTill?.otpTill}
+              format={() => otpValidTill?.otpTill}
             />
           ) : (
             <Button type="primary" onClick={() => resend({ ...user })}>

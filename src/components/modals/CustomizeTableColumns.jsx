@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Checkbox, Input, List, Modal } from 'antd';
 import React, { useState } from 'react';
 
-const CustomizeTableColumns = ({ columns, setcolumns, customizeColoumn, setCustomizeColoumn }) => {
+const CustomizeTableColumns = ({ columns, setcolumns, setCustomizeColoumn }) => {
   const [draggedIndex, setDraggedIndex] = useState(null);
   const [draggedOverIndex, setDraggedOverIndex] = useState(null);
   const [dataList, setDataList] = useState(columns);

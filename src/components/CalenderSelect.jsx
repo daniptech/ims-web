@@ -74,7 +74,7 @@ const CalenderSelect = ({ calenderDropDown, setCalenderDropDown }) => {
         placement="bottom"
         open={dropDownOpen}
         onClick={() => setDropDownOpen(true)}
-        dropdownRender={(menu) => (
+        dropdownRender={() => (
           <div style={contentStyle} className="d-flex" onMouseLeave={() => setDropDownOpen(false)}>
             {openRangePicker ? (
               <div className="p-2 border-end">

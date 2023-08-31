@@ -10,8 +10,8 @@ import { BackHeader } from '../../../components/BackHeader';
 import { TopTaps } from '../../../components/TopTaps';
 import { getSingleCustomer, removeCustomer } from '../../../controller/api/sales/customerServices';
 import { Bars } from 'react-loader-spinner';
-import { Button, Dropdown, message } from 'antd';
-import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
+import { message } from 'antd';
+
 const CustomerView = () => {
   const navigate = useNavigate();
   const [singlecustomer, setSinglecustomer] = useState();
@@ -43,8 +43,10 @@ const CustomerView = () => {
       onClick: () => {
         removeCustomer({ id: params?.id })
           .then((res) => {
-            message.success('Customer Sucessfully Deleted');
-            navigate(routes.sales.customers.self);
+            if (res) {
+              message.success('Customer Sucessfully Deleted');
+              navigate(routes.sales.customers.self);
+            }
           })
           .catch((err) => console.log('err ====>', err));
       }
@@ -77,7 +79,8 @@ const CustomerView = () => {
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
-          style={{ height: '100vh', zIndex: '11111' }}>
+          style={{ height: '100vh', zIndex: '11111' }}
+        >
           <Bars
             height="130"
             width="130"

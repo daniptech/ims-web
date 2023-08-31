@@ -11,15 +11,15 @@ export const getItem = (params = {}) => {
   return Get(url, true, params);
 };
 
-export const getSingleItem = (urldata,params = {}) => {
-  const url = getAPIUrl('inventory.item.getSingleItem',urldata);
+export const getSingleItem = (urldata, params = {}) => {
+  const url = getAPIUrl('inventory.item.getSingleItem', urldata);
   return Get(url, true, params);
 };
-export const updateItem = (data,params = {}) => {
-  const url = getAPIUrl('inventory.item.update',params);
-  return Put(url,data, true);
+export const updateItem = (data, params = {}) => {
+  const url = getAPIUrl('inventory.item.update', params);
+  return Put(url, data, true);
 };
 export const removeItem = (params = {}) => {
-  const url = getAPIUrl('inventory.item.remove',params);
-  return Remove(url,true);
+  const url = getAPIUrl('inventory.item.remove', params);
+  return Remove(url, true);
 };

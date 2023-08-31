@@ -267,7 +267,7 @@ const SalesOrderView = () => {
                     title: 'ORDERED',
                     dataIndex: 'order',
                     key: 'order',
-                    render: (text, record) => (
+                    render: () => (
                       <div className="d-flex flex-column">
                         <span>1</span>
                         <span>g</span>

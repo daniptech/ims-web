@@ -33,7 +33,7 @@ const Register = () => {
       </Select>
     </Form.Item>
   );
-  const onFinish = (values) => {
+  const onFinish = () => {
     navigate(routes.login.self);
     message.success('Register Sucessfully');
   };

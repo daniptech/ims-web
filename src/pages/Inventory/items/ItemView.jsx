@@ -46,8 +46,10 @@ const ItemView = () => {
       onClick: () => {
         removeItem({ id: params.id })
           .then((res) => {
-            message.success('Item sucessfully deleted');
-            navigate(routes.inventory.items.self);
+            if (res) {
+              message.success('Item sucessfully deleted');
+              navigate(routes.inventory.items.self);
+            }
           })
           .catch((err) => console.log('err ===>', err));
       }
@@ -67,7 +69,8 @@ const ItemView = () => {
         <div className="d-flex justify-content-center align-items-center gap-2 ">
           <Button
             className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
-            onClick={() => navigate(reverse(routes.inventory.items.edit, { id: params.id }))}>
+            onClick={() => navigate(reverse(routes.inventory.items.edit, { id: params.id }))}
+          >
             <EditOutlined />
           </Button>
           {itemData?.inventoryInfo !== null && (
@@ -83,7 +86,8 @@ const ItemView = () => {
             arrow={{
               pointAtCenter: true
             }}
-            trigger="click">
+            trigger="click"
+          >
             <Button type="primary" className="d-flex justify-content-center align-items-center">
               More <DownOutlined />
             </Button>
@@ -109,7 +113,8 @@ const ItemView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <OverView inventoryitem={'item'} itemData={itemData} />
           </div>
         </TabPane>
@@ -121,7 +126,8 @@ const ItemView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <Transaction />
           </div>
         </TabPane>
@@ -133,7 +139,8 @@ const ItemView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <History />
           </div>
         </TabPane>

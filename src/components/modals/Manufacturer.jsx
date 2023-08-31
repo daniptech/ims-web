@@ -1,10 +1,10 @@
 import { Button, Form, Input, Modal } from 'antd';
 import React from 'react';
 import {
-    addManufacturer,
+  addManufacturer,
   getManufacturer,
   removeManufacturer,
-  updateManufacturer,
+  updateManufacturer
 } from '../../controller/api/FieldsDataServices';
 import { useState } from 'react';
 import { useEffect } from 'react';
@@ -27,27 +27,27 @@ const Manufacturer = ({ manufacturerModalOpen, setManufacturerModalOpen }) => {
   const handleSubmit = (value) => {
     if (editManufacturerID === undefined) {
       addManufacturer(value)
-        .then((res) => {
+        .then(() => {
           getAllManufacturer();
         })
         .catch((err) => console.log('err =====>', err));
     } else {
-      updateManufacturer(value, {id: editManufacturerID })
-        .then((res) => {
-            setEditManufacturerID()
-            getAllManufacturer()
+      updateManufacturer(value, { id: editManufacturerID })
+        .then(() => {
+          setEditManufacturerID();
+          getAllManufacturer();
         })
         .catch((err) => console.log('err =====>', err));
     }
-    form.resetFields()
+    form.resetFields();
   };
   const handleDelete = (val) => {
-    removeManufacturer({id:val.id})
-      .then((res) => {
-        if(Manufacturer.length===1){
-            setEditManufacturerID()
+    removeManufacturer({ id: val.id })
+      .then(() => {
+        if (Manufacturer.length === 1) {
+          setEditManufacturerID();
         }
-        getAllManufacturer()
+        getAllManufacturer();
       })
       .catch((err) => console.log('err =====>', err));
   };
@@ -64,7 +64,8 @@ const Manufacturer = ({ manufacturerModalOpen, setManufacturerModalOpen }) => {
       open={manufacturerModalOpen}
       onOk={''}
       footer={false}
-      onCancel={() => setManufacturerModalOpen(false)}>
+      onCancel={() => setManufacturerModalOpen(false)}
+    >
       <div className="w-100">
         <Form name="brand" form={form} onFinish={(value) => handleSubmit(value)}>
           <div className="row col-12">
@@ -77,11 +78,12 @@ const Manufacturer = ({ manufacturerModalOpen, setManufacturerModalOpen }) => {
                     required: true,
                     message: 'Please Enter Manufacturer Name'
                   }
-                ]}>
+                ]}
+              >
                 <Input />
               </Form.Item>
               <Button type="primary" htmlType="submit">
-                {editManufacturerID !== undefined&&manufacturer?.length ? 'Update' : 'Save'}
+                {editManufacturerID !== undefined && manufacturer?.length ? 'Update' : 'Save'}
               </Button>
             </div>
           </div>
@@ -90,14 +92,14 @@ const Manufacturer = ({ manufacturerModalOpen, setManufacturerModalOpen }) => {
           <thead className="w-100">
             <tr className="border-bottom border-top">
               <th style={{ width: '10%' }} className="">
-              Manufacturer
+                Manufacturer
               </th>
             </tr>
           </thead>
           <tbody>
-            {manufacturer?.map((val) => {
+            {manufacturer?.map((val, index) => {
               return (
-                <tr className="border-bottom table-row">
+                <tr key={index} className="border-bottom table-row">
                   <td style={{ width: '70%' }} className="">
                     {val.name}
                   </td>
@@ -106,13 +108,15 @@ const Manufacturer = ({ manufacturerModalOpen, setManufacturerModalOpen }) => {
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleEdit(val)}>
+                        onClick={() => handleEdit(val)}
+                      >
                         <EditOutlined /> Edit
                       </span>
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleDelete(val)}>
+                        onClick={() => handleDelete(val)}
+                      >
                         <DeleteFilled /> Delete
                       </span>
                     </div>

@@ -1,24 +1,18 @@
 import {
-  CheckOutlined,
-  CloseOutlined,
   DeleteOutlined,
-  EditOutlined,
   MessageOutlined,
   MobileOutlined,
   MoreOutlined,
   PhoneOutlined,
   PlusCircleOutlined,
-  SettingFilled,
   SkypeFilled
 } from '@ant-design/icons';
-import { Button, Collapse, Dropdown, Image, Select, Table } from 'antd';
+import { Button, Collapse, Dropdown, Image, Table } from 'antd';
 import React from 'react';
-import { useState } from 'react';
 import { Icons, Images } from '../../../controller/Images';
 import dayjs from 'dayjs';
 
 const OverView = ({ vendorData }) => {
-  const [otherDetail, setOtherDetail] = useState({ defaultCurrency: 'view' });
   let data = [
     {
       date: '20/07/2023 05:10 PM',
@@ -132,7 +126,13 @@ const OverView = ({ vendorData }) => {
             <div className="col-5 text-muted">PAN</div>
             <div className="col-7">{vendorData?.pan || '-'}</div>
             <div className="col-5 text-muted">Website</div>
-            <a className="col-7" href={vendorData?.website} rel="noreferrer" style={{textDecoration:'none'}} target="_blank">
+            <a
+              className="col-7"
+              href={vendorData?.website}
+              rel="noreferrer"
+              style={{ textDecoration: 'none' }}
+              target="_blank"
+            >
               {vendorData?.website || '-'}
             </a>
           </div>
@@ -148,9 +148,9 @@ const OverView = ({ vendorData }) => {
 
           <div className=" d-flex flex-column gap-2">
             {vendorData?.contactPersons?.length
-              ? vendorData?.contactPersons?.map((val) => {
+              ? vendorData?.contactPersons?.map((val, index) => {
                   return (
-                    <div className="d-flex gap-2">
+                    <div key={index} className="d-flex gap-2">
                       <Image
                         src={Images.pagenotefoundimg}
                         width={50}
@@ -191,21 +191,23 @@ const OverView = ({ vendorData }) => {
       children: (
         <div className="w-100">
           {/* <div className='text-muted d-flex justify-content-center'>No bank account added yet</div> */}
-          {vendorData?.bankDetails?.length?
-          (vendorData?.bankDetails?.map((val, index) => {
-            return (
-              <div className="d-flex justify-content-between">
-                <span>Account ending with {val.accountNumber}</span>
-                <div className="d-flex gap-3 align-items-center">
-                  <span className="text-primary">Edit</span>
-                  <DeleteOutlined />
+          {vendorData?.bankDetails?.length ? (
+            vendorData?.bankDetails?.map((val, index) => {
+              return (
+                <div key={index} className="d-flex justify-content-between">
+                  <span>Account ending with {val.accountNumber}</span>
+                  <div className="d-flex gap-3 align-items-center">
+                    <span className="text-primary">Edit</span>
+                    <DeleteOutlined />
+                  </div>
                 </div>
-              </div>
-            );
-          }))
-          :
-          <div className='text-muted d-flex justify-content-center'>No bank account added yet</div>
-          }
+              );
+            })
+          ) : (
+            <div className="text-muted d-flex justify-content-center">
+              No bank account added yet
+            </div>
+          )}
         </div>
       ),
       extra: <PlusCircleOutlined className="text-primary" />
@@ -276,7 +278,7 @@ const OverView = ({ vendorData }) => {
         <div className="d-flex gap-3 p-4" style={{ background: '#f7faff' }}>
           <Image src={Icons.arrowIcon} alt="" className="pt-3" preview={false} height={100} />
           <div className="pt-4">
-            <strong className="fs-6">What's Next for Your Vendor?</strong>
+            <strong className="fs-6">What&apos;s Next for Your Vendor?</strong>
             <p className="text-muted">
               Your vendor has been added. Create a purchase order or record a bill for the items you
               buy from your vendor.
@@ -293,7 +295,8 @@ const OverView = ({ vendorData }) => {
                       key: 1
                     }
                   ]
-                }}>
+                }}
+              >
                 <MoreOutlined className="text-muted" style={{ fontSize: '22px' }} />
               </Dropdown>
             </div>
@@ -360,7 +363,8 @@ const OverView = ({ vendorData }) => {
                     height: '25px',
                     marginLeft: '-12px',
                     background: '#f6fbff'
-                  }}>
+                  }}
+                >
                   <MessageOutlined />
                 </div>
                 <div className="container chat-container" style={{ marginLeft: '15px' }}>

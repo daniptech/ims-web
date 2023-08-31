@@ -303,10 +303,10 @@
 .price_list_Tale tbody tr:hover .action-btn {
   visibility: visible;
 }
-.table-row:hover{
+.table-row:hover {
   background-color: rgb(249, 249, 251);
 }
-.table-row:hover .action-btn{
+.table-row:hover .action-btn {
   visibility: visible;
 }
 
@@ -529,27 +529,32 @@
   background-color: #edfafe;
 }
 
-.custom-table .ant-table-cell{
-padding: 8px 8px !important;
+.custom-table .ant-table-cell {
+  padding: 8px 8px !important;
 }
 
-.paymentTeam .ant-form-item-row{
+.paymentTeam .ant-form-item-row {
   display: flex;
   flex-direction: column;
 }
-.paymentTeam .ant-form-item-label{
+.paymentTeam .ant-form-item-label {
   font-size: 5px;
 }
 
-.brand-modal .ant-modal-content,.manufacturer-modal .ant-modal-content,.payment-term-modal .ant-modal-content{
+.brand-modal .ant-modal-content,
+.manufacturer-modal .ant-modal-content,
+.payment-term-modal .ant-modal-content {
   padding: 0;
-
 }
-.brand-modal .ant-modal-content .ant-modal-header,.manufacturer-modal .ant-modal-content .ant-modal-header,.payment-term-modal .ant-modal-content .ant-modal-header{
-background: #1F66FF;
-padding: 12px 20px;
+.brand-modal .ant-modal-content .ant-modal-header,
+.manufacturer-modal .ant-modal-content .ant-modal-header,
+.payment-term-modal .ant-modal-content .ant-modal-header {
+  background: #1f66ff;
+  padding: 12px 20px;
 }
 
-.brand-modal .ant-modal-content .ant-modal-body,.manufacturer-modal .ant-modal-content .ant-modal-body,.payment-term-modal .ant-modal-content .ant-modal-body{
+.brand-modal .ant-modal-content .ant-modal-body,
+.manufacturer-modal .ant-modal-content .ant-modal-body,
+.payment-term-modal .ant-modal-content .ant-modal-body {
   padding: 26px;
 }

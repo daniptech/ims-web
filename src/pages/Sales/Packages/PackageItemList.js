@@ -20,7 +20,7 @@ const PackageItemList = () => {
       <div className=" p-2 row">
         <Row>
           <Col span={8}>
-            <div class="packages-Not">
+            <div className="packages-Not">
               <h7>Packages, Not Shipped</h7>
               <Dropdown
                 menu={{
@@ -61,7 +61,7 @@ const PackageItemList = () => {
             </div>
           </Col>
           <Col span={8}>
-            <div class="shipped-Not">
+            <div className="shipped-Not">
               <h7>Shipped Packages</h7>
               <Dropdown
                 menu={{
@@ -102,7 +102,7 @@ const PackageItemList = () => {
             </div>
           </Col>
           <Col>
-            <div class="delivery-Not">
+            <div className="delivery-Not">
               <h7>Delivered Packages</h7>
               <Dropdown
                 menu={{

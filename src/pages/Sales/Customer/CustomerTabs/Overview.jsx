@@ -1,10 +1,5 @@
 import {
-  CheckOutlined,
-  CloseOutlined,
-  DeleteOutlined,
-  EditOutlined,
   FacebookFilled,
-  FacebookOutlined,
   MessageOutlined,
   MobileOutlined,
   MoreOutlined,
@@ -12,7 +7,7 @@ import {
   SkypeFilled,
   TwitterOutlined
 } from '@ant-design/icons';
-import { Button, Collapse, Dropdown, Image, Select, Table } from 'antd';
+import { Button, Collapse, Dropdown, Image, Table } from 'antd';
 import React from 'react';
 import { Icons, Images } from '../../../../controller/Images';
 
@@ -129,9 +124,9 @@ const Overview = ({ singlecustomer }) => {
 
           <div className=" d-flex flex-column gap-2">
             {singlecustomer?.contactPersons?.length
-              ? singlecustomer?.contactPersons?.map((val) => {
+              ? singlecustomer?.contactPersons?.map((val, index) => {
                   return (
-                    <div className="d-flex gap-2">
+                    <div key={index} className="d-flex gap-2">
                       <Image
                         src={Images.pagenotefoundimg}
                         width={50}
@@ -230,7 +225,7 @@ const Overview = ({ singlecustomer }) => {
         <div className="d-flex gap-3 p-4" style={{ background: '#f7faff' }}>
           <Image src={Icons.arrowIcon} alt="" className="pt-3" preview={false} height={100} />
           <div className="pt-4">
-            <strong className="fs-6">What's Next for Your Vendor?</strong>
+            <strong className="fs-6">What&apos;s Next for Your Vendor?</strong>
             <p className="text-muted">
               Your vendor has been added. Create a purchase order or record a bill for the items you
               buy from your vendor.
@@ -247,7 +242,8 @@ const Overview = ({ singlecustomer }) => {
                       key: 1
                     }
                   ]
-                }}>
+                }}
+              >
                 <MoreOutlined className="text-muted" style={{ fontSize: '22px' }} />
               </Dropdown>
             </div>
@@ -314,7 +310,8 @@ const Overview = ({ singlecustomer }) => {
                     height: '25px',
                     marginLeft: '-12px',
                     background: '#f6fbff'
-                  }}>
+                  }}
+                >
                   <MessageOutlined />
                 </div>
                 <div className="container chat-container" style={{ marginLeft: '15px' }}>
