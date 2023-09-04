@@ -807,15 +807,107 @@ const CreateAndEditItems = () => {
                           className="text-black"
                           options={[
                             {
-                              label: <span className="fw-bolder text-black">Manager</span>,
+                              label: <span className="fw-bolder text-black">Expance</span>,
                               options: [
                                 {
-                                  label: 'Jack',
-                                  value: 'jack'
+                                  label: 'Advertising and Marketing',
+                                  value: 'Advertising and Marketing'
                                 },
                                 {
-                                  label: 'Lucy',
-                                  value: 'lucy'
+                                  label: 'Automobile Expense',
+                                  value: 'Automobile Expense'
+                                },
+                                {
+                                  label: 'Bad Debt',
+                                  value: 'Bad Debt'
+                                },
+                                {
+                                  label: 'Bank Fees and charges',
+                                  value: 'Bank Fees and charges'
+                                },
+                                {
+                                  label: 'Consultant Expense',
+                                  value: 'Consultant Expense'
+                                },
+                                {
+                                  label: 'Contract Assets',
+                                  value: 'Contract Assets'
+                                },
+                                {
+                                  label: 'Credit Card Charges',
+                                  value: 'Credit Card Charges'
+                                },
+                                {
+                                  label: 'Depereciation Expense',
+                                  value: 'Depereciation Expense'
+                                },
+                                {
+                                  label: 'IT and Internet Expense',
+                                  value: 'IT and Internet Expense'
+                                },
+                                {
+                                  label: 'Janitorial Expense',
+                                  value: 'Janitorial Expense'
+                                },
+                                {
+                                  label: 'Lodging',
+                                  value: 'Lodging'
+                                },
+                                {
+                                  label: 'Meals and Entertainment',
+                                  value: 'Meals and Entertainment'
+                                },
+                                {
+                                  label: 'Merchandise',
+                                  value: 'Merchandise'
+                                },
+                                {
+                                  label: 'Offices Supplies',
+                                  value: 'Offices Supplies'
+                                },
+                                {
+                                  label: 'Other Expense',
+                                  value: 'Other Expense'
+                                },
+                                {
+                                  label: 'Postage',
+                                  value: 'Postage'
+                                },
+                                {
+                                  label: 'Printing and Stationery',
+                                  value: 'Printing and Stationery'
+                                },
+                                {
+                                  label: 'Purchase Discounts',
+                                  value: 'Purchase Discounts'
+                                },
+                                {
+                                  label: 'Raw Expense',
+                                  value: 'Raw Expense'
+                                },
+                                {
+                                  label: 'Repaire and Maintanance',
+                                  value: 'Repaire and Maintanance'
+                                },
+                                {
+                                  label: 'Salaries and Employee Wayes',
+                                  value: 'Salaries and Employee Wayes'
+                                },
+                                {
+                                  label: 'Telephone Expense',
+                                  value: 'Telephone Expense'
+                                },
+                                {
+                                  label: 'Transportation Expense',
+                                  value: 'Transportation Expense'
+                                },
+                                {
+                                  label: 'Travel Expense',
+                                  value: 'Travel Expense'
+                                },
+                                {
+                                  label: 'Uncategorized',
+                                  value: 'Uncategorized'
                                 }
                               ]
                             }
