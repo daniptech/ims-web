@@ -349,6 +349,7 @@
 
 .custom-table-create tbody tr td .input-field {
   text-align: right !important;
+  width: 100%;
 }
 
 .view-btn {
@@ -557,4 +558,8 @@
 .manufacturer-modal .ant-modal-content .ant-modal-body,
 .payment-term-modal .ant-modal-content .ant-modal-body {
   padding: 26px;
+}
+
+.custom-dropdown{
+  width: 400px;
 }
