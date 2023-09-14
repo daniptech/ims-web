@@ -8,7 +8,7 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
   const [editID, setEditID] = useState();
   const [form1] = Form.useForm();
   const removeBank = (removeItem) => {
-    if (removeItem == editID) {
+    if (removeItem === editID) {
       setEditID();
     }
     const data = bankdetail?.filter((val, index) => index !== removeItem);
@@ -19,12 +19,12 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
     form1.setFieldsValue({ ...val });
   };
   const handleSubmit = (value) => {
-    if (editID !== undefined) {
-      const data = [...bankdetail];
-      data[editID] = value;
-      setBankDetail(data);
-      setEditID();
-    } else {
+    if(editID!==undefined){
+      const data=[...bankdetail]
+      data[editID]=value
+      setBankDetail(data)
+      setEditID()
+    }else{
       setBankDetail([...bankdetail, value]);
     }
     form1.resetFields();
@@ -37,8 +37,7 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
         name="bankForm"
         onFinish={(value) => {
           handleSubmit(value);
-        }}
-      >
+        }}>
         <div className="row col-12 p-4 m-0">
           <div className="col-4 d-flex flex-column gap-3">
             <div className="row col-12 d-flex  align-items-center">
@@ -84,8 +83,7 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
                       required: 'true',
                       message: 'please enter account number'
                     }
-                  ]}
-                >
+                  ]}>
                   <Input.Password />
                 </Form.Item>
               </div>
@@ -119,8 +117,7 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
                         );
                       }
                     })
-                  ]}
-                >
+                  ]}>
                   <Input.Password />
                 </Form.Item>
               </div>
@@ -142,8 +139,7 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
                       required: true,
                       message: 'Please Enter IFSC CODE'
                     }
-                  ]}
-                >
+                  ]}>
                   <Input />
                 </Form.Item>
               </div>
@@ -156,8 +152,7 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
                   type="primary"
                   form="bankForm"
                   htmlType="submit"
-                  onClick={() => form1.submit()}
-                >
+                  onClick={() => form1.submit()}>
                   {editID !== undefined ? 'UPDATE' : 'ADD'}
                 </Button>
               </div>
@@ -171,26 +166,22 @@ const BankDetails = ({ bankdetail, setBankDetail }) => {
             <tr className="">
               <th
                 style={{ width: '18%' }}
-                className="border-end border-top border-bottom text-center"
-              >
+                className="border-end border-top border-bottom text-center">
                 Beneficiary Name
               </th>
               <th
                 style={{ width: '18%' }}
-                className="border-end border-top border-bottom text-center"
-              >
+                className="border-end border-top border-bottom text-center">
                 Bank Name
               </th>
               <th
                 style={{ width: '18%' }}
-                className="border-end border-top border-bottom text-center"
-              >
+                className="border-end border-top border-bottom text-center">
                 Account Number
               </th>
               <th
                 style={{ width: '18%' }}
-                className="border-end border-top border-bottom text-center"
-              >
+                className="border-end border-top border-bottom text-center">
                 Re-enter Account Number
               </th>
               <th style={{ width: '18%' }} className=" border-top border-bottom text-center">

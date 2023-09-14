@@ -24,7 +24,7 @@ export const routes = {
       new: 'new',
       edit: ':id/edit'
     }),
-    compositeItem: include('compositeItems', {
+    compositeItem: include('compositeItem', {
       self: '',
       view: ':id',
       new: 'new',

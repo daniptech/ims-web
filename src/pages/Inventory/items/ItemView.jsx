@@ -28,7 +28,10 @@ const ItemView = () => {
         setItemData(res?.data);
       })
       .catch((err) => {
-        console.log(err);
+        if(err?.response?.data?.error?.code==500){
+          message.error(err?.response?.data?.error?.message)
+          navigate(routes?.inventory?.items?.self)
+        }
       });
   };
   const moreItem = [

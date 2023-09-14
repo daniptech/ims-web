@@ -51,7 +51,6 @@ const data = [
     reorder_point: 56,
     children: [
       {
-        key: 11,
         name: 'John Brown',
         sku: 32,
         stock_in_hand: 10,
@@ -65,7 +64,16 @@ const data = [
     name: 'Jim Green',
     sku: 42,
     stock_in_hand: 12,
-    reorder_point: 50
+    reorder_point: 50,
+    children: [
+      {
+        name: 'John Brown',
+        sku: 32,
+        stock_in_hand: 10,
+        reorder_point: 56,
+        ischild: true
+      }
+    ]
   },
   {
     key: '3',
@@ -174,8 +182,7 @@ const ItemGroupList = () => {
             <Button
               type="primary"
               className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-              onClick={() => navigate(routes.inventory.itemGroups.new)}
-            >
+              onClick={() => navigate(routes.inventory.itemGroups.new)}>
               + New
             </Button>
           </>

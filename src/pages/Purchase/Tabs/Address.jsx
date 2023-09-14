@@ -26,7 +26,7 @@ const Address = () => {
           </div>
           <div className="col-7">
             <Form.Item name="billingcountry" className="d-flex m-0 form-item">
-              <Select options={[]} />
+              <Input/>
             </Form.Item>
           </div>
         </div>
@@ -70,7 +70,7 @@ const Address = () => {
           </div>
           <div className="col-7">
             <Form.Item name="billingstate" className="d-flex m-0 form-item">
-              <Select options={[]} />
+              <Input/>
             </Form.Item>
           </div>
         </div>
@@ -133,7 +133,7 @@ const Address = () => {
           </div>
           <div className="col-7">
             <Form.Item name="shippingcountry" className="d-flex m-0 form-item">
-              <Select options={[]} />
+              <Input />
             </Form.Item>
           </div>
         </div>
@@ -177,7 +177,7 @@ const Address = () => {
           </div>
           <div className="col-7">
             <Form.Item name="shippingstate" className="d-flex m-0 form-item">
-              <Select options={[]} />
+              <Input />
             </Form.Item>
           </div>
         </div>

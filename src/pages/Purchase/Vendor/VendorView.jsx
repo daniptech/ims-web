@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Tabs } from 'antd';
+import { Button, Dropdown, Tabs,message } from 'antd';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { reverse } from 'named-urls';
@@ -11,7 +11,7 @@ import { Transaction } from '../Tabs/Transaction';
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { getSingleVendor } from '../../../controller/api/purchase/vendorServices';
+import { getSingleVendor, removeVendor } from '../../../controller/api/purchase/vendorServices';
 const { TabPane } = Tabs;
 
 const VendorView = () => {
@@ -45,7 +45,17 @@ const VendorView = () => {
     },
     {
       key: '3',
-      label: 'Delete'
+      label: 'Delete',
+      onClick: () => {
+        removeVendor({ id: params?.id })
+          .then((res) => {
+            if (res) {
+              message.success('Vendor Sucessfully Deleted');
+              navigate(routes.purchase.vendor.self);
+            }
+          })
+          .catch((err) => console.log('err ====>', err));
+      }
     },
     {
       key: '4',

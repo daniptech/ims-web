@@ -19,7 +19,6 @@ const MultiImageUpload = ({
   setFileList
 }) => {
   const handlePreview = async (file) => {
-    debugger;
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }

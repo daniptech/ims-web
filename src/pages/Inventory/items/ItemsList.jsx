@@ -1,5 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Select, Space, Table } from 'antd';
+import { Button, Image, Input, Select, Space, Table, Tooltip } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';
@@ -10,6 +10,7 @@ import React, { useDispatch, useSelector } from 'react-redux';
 import { getItem } from '../../../controller/api/inventory/itemService';
 import { setItem } from '../../../redux/slices/inventorySlice';
 import { Bars } from 'react-loader-spinner';
+import { Icons } from '../../../controller/Images';
 
 const ItemsList = () => {
   const dispatch = useDispatch();
@@ -55,8 +56,7 @@ const ItemsList = () => {
         style={{
           padding: 8
         }}
-        onKeyDown={(e) => e.stopPropagation()}
-      >
+        onKeyDown={(e) => e.stopPropagation()}>
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
@@ -76,8 +76,7 @@ const ItemsList = () => {
             size="small"
             style={{
               width: 90
-            }}
-          >
+            }}>
             Search
           </Button>
           <Button
@@ -88,8 +87,7 @@ const ItemsList = () => {
             size="small"
             style={{
               width: 90
-            }}
-          >
+            }}>
             Reset
           </Button>
           {/* <Button
@@ -110,8 +108,7 @@ const ItemsList = () => {
             size="small"
             onClick={() => {
               close();
-            }}
-          >
+            }}>
             close
           </Button>
         </Space>
@@ -152,8 +149,18 @@ const ItemsList = () => {
       title: 'NAME',
       dataIndex: 'name',
       key: 'name',
-      width: '20%',
+      width: '10%', 
       ...getColumnSearchProps('name'),
+      render: (item, record) => (
+        <span className="d-flex justify-content-start align-items-center text-primary gap-2 text-start">
+          {item}
+          <Tooltip title="Composite Item">
+            <span>
+              {record?.isComposite && <Image src={Icons.begIcon} alt="" preview={false} />}
+            </span>
+          </Tooltip>
+        </span>
+      ),
       sorter: (a, b) => a.name.length - b.name.length,
       isVisible: true,
       lock: true
@@ -163,7 +170,7 @@ const ItemsList = () => {
       title: 'SKU',
       dataIndex: 'sku',
       key: 'sku',
-      width: '20%',
+      width: '10%', 
       ...getColumnSearchProps('sku'),
       sorter: (a, b) => a.sku.length - b.sku.length,
       isVisible: true,
@@ -175,6 +182,7 @@ const ItemsList = () => {
       dataIndex: 'inventoryInfo',
       key: 'stock',
       render: (record) => record?.openingStock,
+      width: '10%', 
       // ...getColumnSearchProps('stock'),
       // sorter: (a, b) => a.stock.length - b.stock.length,
       sortDirections: ['descend', 'ascend'],
@@ -186,6 +194,7 @@ const ItemsList = () => {
       title: 'BRAND',
       dataIndex: 'brand',
       key: 'brand',
+      width: '10%',  
       ...getColumnSearchProps('brand'),
       sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -197,6 +206,7 @@ const ItemsList = () => {
       title: 'USAGE UNIT',
       dataIndex: 'unit',
       key: 'usage_unit',
+      width: '10%', 
       // ...getColumnSearchProps('usage_unit'),
       // sorter: (a, b) => a.usage_unit.length - b.usage_unit.length,
       sortDirections: ['descend', 'ascend'],
@@ -209,6 +219,7 @@ const ItemsList = () => {
       dataIndex: 'inventoryInfo',
       key: 'recorder_level',
       render: (record) => record?.reorderPoint,
+      width: '10%', 
       // ...getColumnSearchProps('brrecorder_leveland'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -220,7 +231,8 @@ const ItemsList = () => {
       title: 'ACCOUNT NAME',
       dataIndex: 'sellingInfo',
       key: 'account_name',
-      render: (record) => record?.account,
+      render: (record) => <span className="d-inline-block text-truncate" style={{maxWidth:'150px'}}>{record?.account}</span>,
+      width: '10%', 
       // ...getColumnSearchProps('account_name'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -232,7 +244,12 @@ const ItemsList = () => {
       title: 'DESCRIPTION',
       dataIndex: 'sellingInfo',
       key: 'description',
-      render: (record) => record?.description,
+      render: (record) => (
+        <span className="d-inline-block text-truncate" style={{maxWidth:'150px'}}>
+          {record?.description}
+        </span>
+      ),
+      width: '10%', 
       // ...getColumnSearchProps('description'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -244,6 +261,7 @@ const ItemsList = () => {
       title: 'MANUFACTURER',
       dataIndex: 'manufacturer',
       key: 'manufacturer',
+      width: '10%',  
       ...getColumnSearchProps('manufacturer'),
       sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -255,7 +273,8 @@ const ItemsList = () => {
       title: 'PURCHASE ACCOUNT NAME',
       dataIndex: 'purchaseInfo',
       key: 'purchase_account_name',
-      render: (record) => record?.account,
+      render: (record) => <span className="d-inline-block text-truncate" style={{maxWidth:'150px'}}>{record?.account}</span>,
+       width: '10%', 
       // ...getColumnSearchProps('purchase_account_name'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -267,7 +286,12 @@ const ItemsList = () => {
       title: 'PURCHASE DESCRIPTION',
       dataIndex: 'purchaseInfo',
       key: 'purchase_description',
-      render: (record) => record?.description,
+      render: (record) => (
+        <span className="d-inline-block text-truncate" style={{maxWidth:'150px'}}>
+          {record?.description}
+        </span>
+      ),
+      width: '10%', 
       // ...getColumnSearchProps('purchase_description'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -280,6 +304,7 @@ const ItemsList = () => {
       dataIndex: 'purchaseInfo',
       key: 'purchase_rate',
       render: (record) => record?.costPrice,
+      width: 'auto', 
       // ...getColumnSearchProps('purchase_rate'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -292,6 +317,7 @@ const ItemsList = () => {
       dataIndex: 'sellingInfo',
       key: 'rate',
       render: (record) => record?.sellingPrice,
+      width: 'auto', 
       // ...getColumnSearchProps('rate'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -304,6 +330,7 @@ const ItemsList = () => {
       dataIndex: '',
       key: 'show_in_store',
       render: () => <span>false</span>,
+      width: 'auto', 
       // ...getColumnSearchProps('show_in_store'),
       // sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -315,6 +342,7 @@ const ItemsList = () => {
       title: 'TYPE',
       dataIndex: 'type',
       key: 'type',
+      width: '10%', 
       ...getColumnSearchProps('type'),
       sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -326,6 +354,7 @@ const ItemsList = () => {
       title: 'UPC',
       dataIndex: 'upc',
       key: 'upc',
+      width: 'auto', 
       ...getColumnSearchProps('upc'),
       sorter: (a, b) => a.brand.length - b.brand.length,
       sortDirections: ['descend', 'ascend'],
@@ -343,8 +372,7 @@ const ItemsList = () => {
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
-          style={{ height: '100vh', zIndex: '11111' }}
-        >
+          style={{ height: '100vh', zIndex: '11111' }}>
           <Bars
             height="130"
             width="130"
@@ -420,8 +448,7 @@ const ItemsList = () => {
           <Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-            onClick={() => navigate(routes.inventory.items.new)}
-          >
+            onClick={() => navigate(routes.inventory.items.new)}>
             + New
           </Button>
         </div>
@@ -429,8 +456,7 @@ const ItemsList = () => {
           className="m-3 p-3 border border-1 "
           style={{
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
-          }}
-        >
+          }}>
           <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
             <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
               Customize Columns
@@ -440,13 +466,16 @@ const ItemsList = () => {
             columns={columns.filter((val) => val.isVisible)}
             dataSource={filterData}
             onRow={(record) => ({
-              onClick: () => navigate(reverse(routes.inventory.items.view, { id: record.id }))
+              onClick: () =>
+                record?.isComposite
+                  ? navigate(reverse(routes.inventory.compositeItem.view, { id: record.id }))
+                  : navigate(reverse(routes.inventory.items.view, { id: record.id }))
             })}
-            scroll={{ x: 1000 }}
+            scroll={{ x:2400 }}
             className=""
             pagination={{
               current: currentPage,
-              pageSize: 6,
+              pageSize: 5,
               onChange: handleChangePage
             }}
           />

@@ -8,6 +8,7 @@ export const item = {
   isReturnable: false,
   isComposite: false,
   associatedItems: [],
+  associatedServices:[],
   dimensions: {
     length: null,
     width: null,

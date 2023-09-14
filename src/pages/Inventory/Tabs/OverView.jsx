@@ -1,5 +1,6 @@
 import {
   Button,
+  Empty,
   Form,
   Image,
   Input,
@@ -9,7 +10,7 @@ import {
   Table,
   Typography
 } from 'antd';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   CaretDownOutlined,
   CaretRightOutlined,
@@ -33,8 +34,7 @@ const EditableCell = ({ editing, dataIndex, title, inputType, children, ...restP
               required: true,
               message: `Please Input ${title}!`
             }
-          ]}
-        >
+          ]}>
           {inputNode}
         </Form.Item>
       ) : (
@@ -50,6 +50,17 @@ const OverView = ({ inventoryitem, itemData }) => {
   const [fileList, setFileList] = useState([]);
   const [form] = Form.useForm();
   const [editingKey, setEditingKey] = useState('');
+  const [associatedItemData, setAssociatedItemData] = useState([]);
+  useEffect(() => {
+    if (itemData?.associatedItems) {
+      const filterAssciatedItem = itemData?.associatedItems?.filter((val) => {
+        if (val?.item) {
+          return val;
+        }
+      });
+      setAssociatedItemData([...filterAssciatedItem]);
+    }
+  }, [itemData]);
 
   const isEditing = (record) => record.key === editingKey;
   const edit = (record) => {
@@ -91,8 +102,7 @@ const OverView = ({ inventoryitem, itemData }) => {
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8
-              }}
-            >
+              }}>
               Save
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
@@ -103,8 +113,7 @@ const OverView = ({ inventoryitem, itemData }) => {
           <Typography.Link
             disabled={editingKey !== ''}
             className="d-flex justify-content-center align-items-center"
-            onClick={() => edit(record)}
-          >
+            onClick={() => edit(record)}>
             <EditOutlined /> Edit
           </Typography.Link>
         );
@@ -133,8 +142,7 @@ const OverView = ({ inventoryitem, itemData }) => {
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8
-              }}
-            >
+              }}>
               Save
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
@@ -145,8 +153,7 @@ const OverView = ({ inventoryitem, itemData }) => {
           <Typography.Link
             disabled={editingKey !== ''}
             className="d-flex justify-content-center align-items-center"
-            onClick={() => edit(record)}
-          >
+            onClick={() => edit(record)}>
             <EditOutlined /> Edit
           </Typography.Link>
         );
@@ -372,8 +379,7 @@ const OverView = ({ inventoryitem, itemData }) => {
                     ...associatedPriceList,
                     open: !associatedPriceList.open
                   })
-                }
-              >
+                }>
                 Associated Price Lists{' '}
                 {associatedPriceList.open ? <CaretDownOutlined /> : <CaretRightOutlined />}
               </Button>
@@ -436,60 +442,46 @@ const OverView = ({ inventoryitem, itemData }) => {
                     </th>
                   </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <td className="w-75">
-                      <div className="d-flex gap-2">
-                        <div className="border p-1" style={{ width: '50px', height: '50px' }}>
-                          <Image
-                            className="w-100"
-                            style={{ height: '40px' }}
-                            src={
-                              'https://img.freepik.com/free-vector/app-development-illustration_52683-47743.jpg?w=740&t=st=1689154509~exp=1689155109~hmac=dfcebc3143f20558da62710837c499b62196196327394aa6abb8984e57c01103'
-                            }
-                            alt=""
-                            preview={false}
-                          />
-                        </div>
-                        <div className="d-flex flex-column text-muted">
-                          <span className="text-primary">Botalsss</span>
-                          <span>[dd]</span>
-                          <span>Accounting Stock: 16.00</span>
-                          <span>Physical Stock: 16.00</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="w-25 text-muted text-end">1</td>
-                  </tr>
-                  <tr>
-                    <td className="w-75">
-                      <div className="d-flex gap-2">
-                        <div className="border p-1" style={{ width: '50px', height: '50px' }}>
-                          <Image
-                            className="w-100"
-                            style={{ height: '40px' }}
-                            src={
-                              'https://img.freepik.com/free-vector/app-development-illustration_52683-47743.jpg?w=740&t=st=1689154509~exp=1689155109~hmac=dfcebc3143f20558da62710837c499b62196196327394aa6abb8984e57c01103'
-                            }
-                            alt=""
-                            preview={false}
-                          />
-                        </div>
-                        <div className="d-flex flex-column text-muted">
-                          <span
-                            className=" d-flex justify-content-center bg-success text-white fw-medium"
-                            style={{ fontSize: '10px', width: '40px' }}
-                          >
-                            services
-                          </span>
-                          <span className="text-primary">Botalsss </span>
-                          <span>[dd]</span>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="w-25 text-muted text-end">1</td>
-                  </tr>
-                </tbody>
+                {associatedItemData?.length ? (
+                  <tbody>
+                    {associatedItemData?.map((val, index) => {
+                      return (
+                        <tr key={index}>
+                          <td className="w-75">
+                            <div className="d-flex gap-2">
+                              <div className="border p-1" style={{ width: '50px', height: '50px' }}>
+                                <Image
+                                  className="w-100"
+                                  style={{ height: '40px' }}
+                                  src={
+                                    'https://img.freepik.com/free-vector/app-development-illustration_52683-47743.jpg?w=740&t=st=1689154509~exp=1689155109~hmac=dfcebc3143f20558da62710837c499b62196196327394aa6abb8984e57c01103'
+                                  }
+                                  alt=""
+                                  preview={false}
+                                />
+                              </div>
+                              <div className="d-flex flex-column text-muted">
+                                <span className="text-primary">{val?.item?.name}</span>
+                                <span>[{val?.item?.sku}]</span>
+                                <span>Accounting Stock: -</span>
+                                <span>Physical Stock: -</span>
+                              </div>
+                            </div>
+                          </td>
+                          <td className="w-25 text-muted text-end">{val?.quantity}</td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                ) : (
+                  <tbody className=" position-relative">
+                    <tr
+                      className="border position-absolute d-flex justify-content-center align-items-center"
+                      style={{ height: '150px', width: '100%' }}>
+                      <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No data" />
+                    </tr>
+                  </tbody>
+                )}
               </table>
             </div>
           )}
@@ -535,8 +527,7 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
-                >
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Shipped</span>
@@ -545,8 +536,7 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
-                >
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Received</span>
@@ -555,8 +545,7 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
-                >
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Invoiced</span>
@@ -565,8 +554,7 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
-                >
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Billed</span>

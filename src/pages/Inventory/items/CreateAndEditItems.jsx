@@ -27,6 +27,7 @@ import { Bars } from 'react-loader-spinner';
 import Brands from '../../../components/modals/Brands';
 import { getBrand, getManufacturer } from '../../../controller/api/FieldsDataServices';
 import Manufacturer from '../../../components/modals/Manufacturer';
+import { getVendor } from '../../../controller/api/purchase/vendorServices';
 
 const CreateAndEditItems = () => {
   const currentUserData = useSelector((state) => state.user.currentuser);
@@ -46,7 +47,12 @@ const CreateAndEditItems = () => {
   const [brandModalOpen, setBrandModalOpen] = useState(false);
   const [manufacturerModalOpen, setManufacturerModalOpen] = useState(false);
   const [manufacturerList, setManufacturerList] = useState([]);
-
+  const [vendor, setVendor] = useState([]);
+  const handleVendor = () => {
+    getVendor({ organizationId: currentUserData?.organizationId })
+      .then((res) => setVendor(res.data))
+      .catch((err) => console.log('err ======>', err));
+  };
   const getAllManufacturer = () => {
     getManufacturer()
       .then((res) => setManufacturerList(res.data))
@@ -182,8 +188,7 @@ const CreateAndEditItems = () => {
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
-          style={{ height: '100vh', zIndex: '11111' }}
-        >
+          style={{ height: '100vh', zIndex: '11111' }}>
           <Bars
             height="130"
             width="130"
@@ -215,8 +220,7 @@ const CreateAndEditItems = () => {
             height: '100%',
             overflow: 'scroll',
             paddingBottom: '100px'
-          }}
-        >
+          }}>
           <Form
             layout="vertical"
             name="conpositeForm"
@@ -231,8 +235,7 @@ const CreateAndEditItems = () => {
               weightUnit: 'cm',
               dimensionUnit: 'cm'
             }}
-            onFinish={(val) => handleSubmit(val)}
-          >
+            onFinish={(val) => handleSubmit(val)}>
             <div>
               <div className="row col-12 bg-light p-4 m-0">
                 <div className="col-md-6 col-lg-8 d-flex flex-column gap-3">
@@ -242,8 +245,7 @@ const CreateAndEditItems = () => {
                         <span>Type</span>{' '}
                         <Tooltip
                           placement="rightTop"
-                          title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                        >
+                          title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                           <QuestionCircleOutlined className="text-muted" />
                         </Tooltip>{' '}
                       </label>
@@ -271,8 +273,7 @@ const CreateAndEditItems = () => {
                             required: true,
                             message: 'Please input Name!'
                           }
-                        ]}
-                      >
+                        ]}>
                         <Input className="w-100" />
                       </Form.Item>
                     </div>
@@ -300,8 +301,7 @@ const CreateAndEditItems = () => {
                         <span>Unit*</span>{' '}
                         <Tooltip
                           placement="rightTop"
-                          title="This item will be measured in terms of this unit. (e.g.: kg,dozon)"
-                        >
+                          title="This item will be measured in terms of this unit. (e.g.: kg,dozon)">
                           <QuestionCircleOutlined className="text-muted" />
                         </Tooltip>{' '}
                       </label>
@@ -315,8 +315,7 @@ const CreateAndEditItems = () => {
                             required: true,
                             message: 'Please Select unit!'
                           }
-                        ]}
-                      >
+                        ]}>
                         <Select
                           options={[
                             { value: 'dz', label: 'dz' },
@@ -339,14 +338,12 @@ const CreateAndEditItems = () => {
                       <Form.Item
                         name="isReturnable"
                         className="d-flex m-0 form-item"
-                        valuePropName="checked"
-                      >
+                        valuePropName="checked">
                         <Checkbox>
                           <span>Returnable Item</span>
                           <Tooltip
                             placement="rightTop"
-                            title="Enable this option if the item  is eligible for sales return"
-                          >
+                            title="Enable this option if the item  is eligible for sales return">
                             <QuestionCircleOutlined className="text-muted" />
                           </Tooltip>{' '}
                         </Checkbox>
@@ -401,8 +398,7 @@ const CreateAndEditItems = () => {
                                   options={[
                                     { labal: 'cm', value: 'cm' },
                                     { labal: 'in', value: 'in' }
-                                  ]}
-                                ></Select>
+                                  ]}></Select>
                               </Form.Item>
                             }
                           />
@@ -441,20 +437,17 @@ const CreateAndEditItems = () => {
                               <Space
                                 style={{
                                   padding: '0 8px 4px'
-                                }}
-                              >
+                                }}>
                                 <span
                                   className="d-flex align-items-center gap-3 text-primary"
                                   style={{ cursor: 'pointer' }}
-                                  onClick={() => setManufacturerModalOpen(true)}
-                                >
+                                  onClick={() => setManufacturerModalOpen(true)}>
                                   {' '}
                                   <SettingTwoTone /> Manage Manufacturer
                                 </span>
                               </Space>
                             </>
-                          )}
-                        >
+                          )}>
                           <Input />
                         </Select>
                       </Form.Item>
@@ -467,8 +460,7 @@ const CreateAndEditItems = () => {
                         <span>UPC</span>
                         <Tooltip
                           placement="rightTop"
-                          title="Twelve digit unique number associated with the bar code (Universal Product Code)"
-                        >
+                          title="Twelve digit unique number associated with the bar code (Universal Product Code)">
                           <QuestionCircleOutlined className="text-muted" />
                         </Tooltip>
                       </label>
@@ -486,8 +478,7 @@ const CreateAndEditItems = () => {
                         <span>EAN</span>
                         <Tooltip
                           placement="rightTop"
-                          title="Thirteen digit unique number (International Article Number)"
-                        >
+                          title="Thirteen digit unique number (International Article Number)">
                           <QuestionCircleOutlined className="text-muted" />
                         </Tooltip>
                       </label>
@@ -518,8 +509,7 @@ const CreateAndEditItems = () => {
                                   { labal: 'g', value: 'g' },
                                   { labal: 'lb', value: 'lb' },
                                   { labal: 'oz', value: 'oz' }
-                                ]}
-                              ></Select>
+                                ]}></Select>
                             </Form.Item>
                           }
                         />
@@ -557,20 +547,17 @@ const CreateAndEditItems = () => {
                               <Space
                                 style={{
                                   padding: '0 8px 4px'
-                                }}
-                              >
+                                }}>
                                 <span
                                   className="d-flex align-items-center gap-3 text-primary"
                                   style={{ cursor: 'pointer' }}
-                                  onClick={() => setBrandModalOpen(true)}
-                                >
+                                  onClick={() => setBrandModalOpen(true)}>
                                   {' '}
                                   <SettingTwoTone /> Manage Brands
                                 </span>
                               </Space>
                             </>
-                          )}
-                        >
+                          )}>
                           <Input />
                         </Select>
                       </Form.Item>
@@ -583,8 +570,7 @@ const CreateAndEditItems = () => {
                         <span>MPN </span>
                         <Tooltip
                           placement="rightTop"
-                          title="Menufacturing Part Number  unabbiguously identifies a part design"
-                        >
+                          title="Menufacturing Part Number  unabbiguously identifies a part design">
                           <QuestionCircleOutlined className="text-muted" />
                         </Tooltip>
                       </label>
@@ -602,8 +588,7 @@ const CreateAndEditItems = () => {
                         <span>ISBN </span>
                         <Tooltip
                           placement="rightTop"
-                          title="Thirteen digit unique commercial  Book identifier (International Standard Book Number)"
-                        >
+                          title="Thirteen digit unique commercial  Book identifier (International Standard Book Number)">
                           <QuestionCircleOutlined className="text-muted" />
                         </Tooltip>
                       </label>
@@ -622,12 +607,10 @@ const CreateAndEditItems = () => {
                   <Form.Item
                     name="sales_information"
                     className="d-flex m-0 form-item"
-                    valuePropName="checked"
-                  >
+                    valuePropName="checked">
                     <Checkbox
                       className="fs-5 fw-semibold"
-                      onChange={(val) => setSalesInformation(val.target.checked)}
-                    >
+                      onChange={(val) => setSalesInformation(val.target.checked)}>
                       Sales Information
                     </Checkbox>
                   </Form.Item>
@@ -636,8 +619,7 @@ const CreateAndEditItems = () => {
                       <label className={`gap-1 ${salesInformation && 'text-danger'}`}>
                         <Tooltip
                           placement="rightTop"
-                          title="The rate at which you're going to sell this item"
-                        >
+                          title="The rate at which you're going to sell this item">
                           <span>Selling Price {salesInformation && '*'}</span>
                         </Tooltip>
                       </label>
@@ -651,8 +633,7 @@ const CreateAndEditItems = () => {
                             required: true,
                             message: 'please add selling price'
                           }
-                        ]}
-                      >
+                        ]}>
                         <Input className="w-100" addonBefore={'INR'} disabled={!salesInformation} />
                       </Form.Item>
                     </div>
@@ -663,8 +644,7 @@ const CreateAndEditItems = () => {
                       <label className={`gap-1 ${salesInformation && 'text-danger'}`}>
                         <Tooltip
                           placement="rightTop"
-                          title="All sales transaction for this item will be tracked under this account"
-                        >
+                          title="All sales transaction for this item will be tracked under this account">
                           Account {salesInformation && '*'}
                         </Tooltip>
                       </label>
@@ -678,8 +658,7 @@ const CreateAndEditItems = () => {
                             required: true,
                             message: 'please add Account'
                           }
-                        ]}
-                      >
+                        ]}>
                         <Select
                           disabled={!salesInformation}
                           className="text-black"
@@ -740,12 +719,10 @@ const CreateAndEditItems = () => {
                   <Form.Item
                     name="purchase_information"
                     className="d-flex m-0 form-item"
-                    valuePropName="checked"
-                  >
+                    valuePropName="checked">
                     <Checkbox
                       className="fs-5 fw-semibold"
-                      onChange={(val) => setPurchaseInformation(val.target.checked)}
-                    >
+                      onChange={(val) => setPurchaseInformation(val.target.checked)}>
                       Purchase Information
                     </Checkbox>
                   </Form.Item>
@@ -754,8 +731,7 @@ const CreateAndEditItems = () => {
                       <label className={`gap-1 ${purchaseInformation && 'text-danger'}`}>
                         <Tooltip
                           placement="rightTop"
-                          title="The rate at which you purchased this item"
-                        >
+                          title="The rate at which you purchased this item">
                           <span>Cost Price {purchaseInformation && '*'}</span>
                         </Tooltip>
                       </label>
@@ -769,8 +745,7 @@ const CreateAndEditItems = () => {
                             required: true,
                             message: 'please add selling price'
                           }
-                        ]}
-                      >
+                        ]}>
                         <Input
                           className="w-100"
                           addonBefore={'INR'}
@@ -785,8 +760,7 @@ const CreateAndEditItems = () => {
                       <label className={`gap-1 ${purchaseInformation && 'text-danger'}`}>
                         <Tooltip
                           placement="rightTop"
-                          title="All purchase transaction for this item will be tracked under this account"
-                        >
+                          title="All purchase transaction for this item will be tracked under this account">
                           Account {purchaseInformation && '*'}
                         </Tooltip>
                       </label>
@@ -800,8 +774,7 @@ const CreateAndEditItems = () => {
                             required: true,
                             message: 'please add Account'
                           }
-                        ]}
-                      >
+                        ]}>
                         <Select
                           disabled={!purchaseInformation}
                           className="text-black"
@@ -935,8 +908,7 @@ const CreateAndEditItems = () => {
                       <label className="gap-1">
                         <Tooltip
                           placement="rightTop"
-                          title="All sales transaction for this item will be tracked under this account"
-                        >
+                          title="All sales transaction for this item will be tracked under this account">
                           Preferred Vendor
                         </Tooltip>
                       </label>
@@ -946,16 +918,13 @@ const CreateAndEditItems = () => {
                         <Select
                           disabled={!purchaseInformation}
                           className="text-black"
-                          options={[
-                            {
-                              label: 'Jack',
-                              value: 0
-                            },
-                            {
-                              label: 'Lucy',
-                              value: 1
-                            }
-                          ]}
+                          onClick={() => handleVendor()}
+                          options={vendor?.map((val) => {
+                            return {
+                              label: val?.vendorDisplayName,
+                              value: val.id
+                            };
+                          })}
                           showSearch
                         />
                       </Form.Item>
@@ -970,19 +939,16 @@ const CreateAndEditItems = () => {
                       <Form.Item
                         name="inventory_track"
                         className="d-flex m-0 form-item"
-                        valuePropName="checked"
-                      >
+                        valuePropName="checked">
                         <Checkbox
                           className="fs-5 fw-semibold"
                           checked={inventoryTrack}
-                          onChange={(val) => setInventoryTrack(val.target.checked)}
-                        >
+                          onChange={(val) => setInventoryTrack(val.target.checked)}>
                           Track Inventory for this item{' '}
                         </Checkbox>
                         <div
                           className="text-muted"
-                          style={{ marginLeft: '23px', marginTop: '-8px' }}
-                        >
+                          style={{ marginLeft: '23px', marginTop: '-8px' }}>
                           You cannot enable/disable inventory tracking once you&apos;ve created
                           transactions for this item{' '}
                         </div>
@@ -995,14 +961,12 @@ const CreateAndEditItems = () => {
                                 <label className="gap-1 text-danger">
                                   <Tooltip
                                     placement="rightTop"
-                                    title="The account which tracks the inventory of this item"
-                                  >
+                                    title="The account which tracks the inventory of this item">
                                     <span
                                       style={{
                                         borderBottomStyle: 'dashed',
                                         borderBottomColor: '#969696'
-                                      }}
-                                    >
+                                      }}>
                                       Inventory Account *
                                     </span>
                                   </Tooltip>
@@ -1017,8 +981,7 @@ const CreateAndEditItems = () => {
                                       required: true,
                                       message: 'please add Account'
                                     }
-                                  ]}
-                                >
+                                  ]}>
                                   <Select
                                     allowClear
                                     className="text-black"
@@ -1054,14 +1017,12 @@ const CreateAndEditItems = () => {
                                     <label className="gap-1">
                                       <Tooltip
                                         placement="rightTop"
-                                        title="The stock available for sale at the beginning of the accounting period"
-                                      >
+                                        title="The stock available for sale at the beginning of the accounting period">
                                         <span
                                           style={{
                                             borderBottomStyle: 'dashed',
                                             borderBottomColor: '#969696'
-                                          }}
-                                        >
+                                          }}>
                                           Opening Stock
                                         </span>
                                       </Tooltip>
@@ -1082,14 +1043,12 @@ const CreateAndEditItems = () => {
                                     <label className="gap-1">
                                       <Tooltip
                                         placement="rightTop"
-                                        title="The rate at which you bought each unit of the opening stock"
-                                      >
+                                        title="The rate at which you bought each unit of the opening stock">
                                         <span
                                           style={{
                                             borderBottomStyle: 'dashed',
                                             borderBottomColor: '#969696'
-                                          }}
-                                        >
+                                          }}>
                                           Opening Stock Rate per Unit
                                         </span>
                                       </Tooltip>
@@ -1099,8 +1058,7 @@ const CreateAndEditItems = () => {
                                 <div className="col-lg-8 col-md-12">
                                   <Form.Item
                                     name="openingStockRatePerUnit"
-                                    className="d-flex m-0 form-item"
-                                  >
+                                    className="d-flex m-0 form-item">
                                     <Input className="w-100" />
                                   </Form.Item>
                                 </div>
@@ -1114,14 +1072,12 @@ const CreateAndEditItems = () => {
                                   <label className="gap-1">
                                     <Tooltip
                                       placement="rightTop"
-                                      title="When the stock reaches the reorder point, a notification will be sent to you"
-                                    >
+                                      title="When the stock reaches the reorder point, a notification will be sent to you">
                                       <span
                                         style={{
                                           borderBottomStyle: 'dashed',
                                           borderBottomColor: '#969696'
-                                        }}
-                                      >
+                                        }}>
                                         Reorder Point
                                       </span>
                                     </Tooltip>
