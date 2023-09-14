@@ -563,3 +563,7 @@
 .custom-dropdown{
   width: 400px;
 }
+
+.ant-table-row-level-1 .ant-checkbox-wrapper{
+  display: none;
+}

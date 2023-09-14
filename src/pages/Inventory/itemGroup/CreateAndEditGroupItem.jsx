@@ -8,7 +8,7 @@ import {
   QuestionCircleOutlined
 } from '@ant-design/icons';
 import { Button, Checkbox, Divider, Form, Input, Radio, Select, Space, Tooltip, Table } from 'antd';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import MultiImageUpload from '../../../components/MultiImageUpload';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -27,6 +27,8 @@ const CreateAndEditGroupItem = () => {
   const [configureAccount, setConfigureAccount] = useState(false);
   const [optionName, setOptionName] = useState('');
   const [optionItems, setOptionItems] = useState();
+
+
   const onBrandNameInputChange = (event) => {
     setBrandName(event.target.value);
   };
