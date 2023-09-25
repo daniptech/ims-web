@@ -58,6 +58,17 @@ const endpoint = {
     add: 'add',
     update: 'update/:id',
     remove: 'delete/:id'
+  }),
+  salesperson: include('/api/salesPerson', {
+    all: 'all',
+    add: 'add',
+    update: 'update/:id',
+    remove: 'delete/:id'
+  }),
+  reason: include('/api/reason', {
+    all: 'all',
+    add: 'add',
+    remove: 'delete/:id'
   })
 };
 

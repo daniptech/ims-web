@@ -1,4 +1,10 @@
-import { ArrowLeftOutlined, DownOutlined, PlusOutlined, UploadOutlined } from '@ant-design/icons';
+import {
+  ArrowLeftOutlined,
+  DownOutlined,
+  PlusOutlined,
+  SettingTwoTone,
+  UploadOutlined
+} from '@ant-design/icons';
 import {
   Button,
   DatePicker,
@@ -19,29 +25,23 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import { getReason } from '../../../controller/api/FieldsDataServices';
+import Reason from '../../../components/modals/Reason';
 
 const CreateAndEditInventoryAdjustment = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const params = useParams();
   const inputRef = useRef(null);
-  const [reasonItems, setReasonItems] = useState();
-  const [reasonName, setReasonName] = useState('');
-  const onReasonNameInputChange = (event) => {
-    setReasonName(event.target.value);
+  const [reason, setReason] = useState([]);
+  const [reasonModalOpen, setReasonModalOpen] = useState(false);
+
+  const getReasonData = () => {
+    getReason()
+      .then((res) => setReason(res.data))
+      .catch((err) => console.log('err ====>', err));
   };
-  const addReasonItem = (e) => {
-    e.preventDefault();
-    if (reasonItems?.length) {
-      setReasonItems([...reasonItems, reasonName]);
-    } else {
-      setReasonItems([reasonName]);
-    }
-    setReasonName('');
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
-  };
+
   const uploadFile = {
     name: 'file',
     action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
@@ -89,8 +89,7 @@ const CreateAndEditInventoryAdjustment = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}
-      >
+        }}>
         <Form
           layout="vertical"
           name="adjustmentForm"
@@ -98,8 +97,7 @@ const CreateAndEditInventoryAdjustment = () => {
           initialValues={{
             mode_of_adjustment: 'quantity_adjustment'
           }}
-          onFinish={(val) => console.log(val)}
-        >
+          onFinish={(val) => console.log(val)}>
           <div className="row col-12 p-4">
             <div className="col-6">
               <div className="row col-12">
@@ -175,7 +173,20 @@ const CreateAndEditInventoryAdjustment = () => {
                 <div className="col-8">
                   <Form.Item name="reason">
                     <Select
-                      placeholder="custom dropdown render"
+                      options={
+                        reason?.length
+                          ? reason?.map((val) => {
+                              return {
+                                label: val?.name,
+                                value: val.name
+                              };
+                            })
+                          : []
+                      }
+                      showSearch={true}
+                      onClick={() => {
+                        getReasonData();
+                      }}
                       dropdownRender={(menu) => (
                         <>
                           {menu}
@@ -186,26 +197,22 @@ const CreateAndEditInventoryAdjustment = () => {
                           />
                           <Space
                             style={{
-                              padding: '0 8px 4px'
-                            }}
-                          >
-                            <Input
-                              placeholder="Please enter item"
-                              ref={inputRef}
-                              value={reasonName}
-                              onChange={onReasonNameInputChange}
-                            />
-                            <Button type="text" icon={<PlusOutlined />} onClick={addReasonItem}>
-                              Add item
-                            </Button>
+                              padding: '0 18px 4px'
+                            }}>
+                            <span
+                              className="d-flex align-items-center gap-3 text-primary"
+                              style={{ cursor: 'pointer' }}
+                              onClick={() => {
+                                setReasonModalOpen(true);
+                              }}>
+                              {' '}
+                              <SettingTwoTone /> Manage Reason
+                            </span>
                           </Space>
                         </>
-                      )}
-                      options={reasonItems?.map((item) => ({
-                        label: item,
-                        value: item
-                      }))}
-                    />
+                      )}>
+                      <Input />
+                    </Select>
                   </Form.Item>
                 </div>
               </div>
@@ -284,8 +291,7 @@ const CreateAndEditInventoryAdjustment = () => {
                       key: 2
                     }
                   ]
-                }}
-              >
+                }}>
                 <div className="d-flex gap-2 align-items-center justify-content-center">
                   <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add another
                   line
@@ -310,6 +316,9 @@ const CreateAndEditInventoryAdjustment = () => {
           </div>
         </Form>
       </div>
+      {reasonModalOpen && (
+        <Reason reasonModalOpen={reasonModalOpen} setReasonModalOpen={setReasonModalOpen} />
+      )}
     </div>
   );
 };

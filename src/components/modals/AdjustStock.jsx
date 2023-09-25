@@ -1,31 +1,26 @@
-import { PlusOutlined } from '@ant-design/icons';
+import { PlusOutlined, SettingTwoTone } from '@ant-design/icons';
 import { Button, DatePicker, Divider, Drawer, Form, Input, Radio, Select, Space } from 'antd';
 import React, { useRef, useState } from 'react';
+import Reason from './Reason';
+import { getReason } from '../../controller/api/FieldsDataServices';
 
-const AdjustStock = ({ setOpenAdjustment }) => {
+const AdjustStock = ({ setOpenAdjustment,itemData }) => {
   const [form] = Form.useForm();
   const [adjustmentValue, setAdjustmentValue] = useState('quantity_ajustment');
   const inputRef = useRef(null);
   const [items, setItems] = useState();
-  const [reasonName, setReasonName] = useState('');
-  const onReasonNameInputChange = (event) => {
-    setReasonName(event.target.value);
+  const [reason, setReason] = useState([]);
+  const [reasonModalOpen, setReasonModalOpen] = useState(false);
+
+  const getReasonData = () => {
+    getReason()
+      .then((res) => setReason(res.data))
+      .catch((err) => console.log('err ====>', err));
   };
-  const addReasonItem = (e) => {
-    e.preventDefault();
-    if (items?.length) {
-      setItems([...items, reasonName]);
-    } else {
-      setItems([reasonName]);
-    }
-    setReasonName('');
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 0);
-  };
+
   return (
     <Drawer
-      title="Adjust Stock - ss"
+      title={`Adjust Stock - ${itemData?.name}`}
       placement="right"
       width={500}
       onClose={() => setOpenAdjustment(false)}
@@ -37,8 +32,7 @@ const AdjustStock = ({ setOpenAdjustment }) => {
             Submit
           </Button>
         </Space>
-      }
-    >
+      }>
       <div>
         <Form
           className="adjustment-from"
@@ -48,8 +42,7 @@ const AdjustStock = ({ setOpenAdjustment }) => {
           initialValues={{
             adjustment: 'quantity_ajustment',
             quentity_available: 16
-          }}
-        >
+          }}>
           <Form.Item name="adjustment">
             <Radio.Group>
               <Space direction="vertical" onChange={(e) => setAdjustmentValue(e.target.value)}>
@@ -66,8 +59,7 @@ const AdjustStock = ({ setOpenAdjustment }) => {
               {
                 required: true
               }
-            ]}
-          >
+            ]}>
             <DatePicker />
           </Form.Item>
           <Form.Item
@@ -78,8 +70,7 @@ const AdjustStock = ({ setOpenAdjustment }) => {
               {
                 required: true
               }
-            ]}
-          >
+            ]}>
             <Select
               options={[
                 {
@@ -116,18 +107,16 @@ const AdjustStock = ({ setOpenAdjustment }) => {
                 <Form.Item
                   name="quentity_available"
                   label="Quantity Available"
-                  className="adjust-input-items mb-0"
-                >
+                  className="adjust-input-items mb-0">
                   <Input disabled={true} />
                 </Form.Item>
-                <div className="w-100 text-end">1</div>
+                <div className="w-100 text-end">{itemData?.unit}</div>
               </div>
               <div className="col-md-6 col-md-12 col-lg-12 border border-bottom-0 p-2">
                 <Form.Item
                   name="new_quantity_on_hand"
                   label="New Quantity on hand"
-                  className="adjust-input-items mb-0"
-                >
+                  className="adjust-input-items mb-0">
                   <Input placeholder="0.00" />
                 </Form.Item>
               </div>
@@ -140,8 +129,7 @@ const AdjustStock = ({ setOpenAdjustment }) => {
                     {
                       required: true
                     }
-                  ]}
-                >
+                  ]}>
                   <Input placeholder="Eg. +10,-10" />
                 </Form.Item>
               </div>
@@ -163,8 +151,7 @@ const AdjustStock = ({ setOpenAdjustment }) => {
                 <Form.Item
                   name="current_value"
                   label="Current Value"
-                  className="adjust-input-items mb-0"
-                >
+                  className="adjust-input-items mb-0">
                   <Input disabled={true} />
                 </Form.Item>
               </div>
@@ -172,8 +159,7 @@ const AdjustStock = ({ setOpenAdjustment }) => {
                 <Form.Item
                   name="changed_value"
                   label="Changed Value"
-                  className="adjust-input-items mb-0"
-                >
+                  className="adjust-input-items mb-0">
                   <Input placeholder="0.00" />
                 </Form.Item>
               </div>
@@ -186,8 +172,7 @@ const AdjustStock = ({ setOpenAdjustment }) => {
                     {
                       required: true
                     }
-                  ]}
-                >
+                  ]}>
                   <Input placeholder="Eg. +10,-10" />
                 </Form.Item>
               </div>
@@ -202,20 +187,22 @@ const AdjustStock = ({ setOpenAdjustment }) => {
                 {
                   required: true
                 }
-              ]}
-            >
+              ]}>
               <Select
-                allowClear={true}
-                onDropdownVisibleChange={(val) => val === false && setReasonName('')}
                 options={
-                  items?.length
-                    ? items?.map((item) => ({
-                        label: item,
-                        value: item
-                      }))
+                  reason?.length
+                    ? reason?.map((val) => {
+                        return {
+                          label: val?.name,
+                          value: val.name
+                        };
+                      })
                     : []
                 }
                 showSearch={true}
+                onClick={() => {
+                  getReasonData();
+                }}
                 dropdownRender={(menu) => (
                   <>
                     {menu}
@@ -226,29 +213,20 @@ const AdjustStock = ({ setOpenAdjustment }) => {
                     />
                     <Space
                       style={{
-                        padding: '0 8px 4px'
-                      }}
-                      className="d-flex justify-content-between"
-                    >
-                      <Input
-                        placeholder="Please enter item"
-                        ref={inputRef}
-                        onChange={onReasonNameInputChange}
-                        value={reasonName}
-                      />
-                      <Button
-                        type="text"
-                        className="d-flex justify-content-center align-items-center"
-                        icon={<PlusOutlined />}
-                        onClick={addReasonItem}
-                        disabled={!reasonName}
-                      >
-                        Add New Reason
-                      </Button>
+                        padding: '0 18px 4px'
+                      }}>
+                      <span
+                        className="d-flex align-items-center gap-3 text-primary"
+                        style={{ cursor: 'pointer' }}
+                        onClick={() => {
+                          setReasonModalOpen(true);
+                        }}>
+                        {' '}
+                        <SettingTwoTone /> Manage Reason
+                      </span>
                     </Space>
                   </>
-                )}
-              >
+                )}>
                 <Input />
               </Select>
             </Form.Item>
@@ -260,13 +238,15 @@ const AdjustStock = ({ setOpenAdjustment }) => {
                 {
                   required: true
                 }
-              ]}
-            >
+              ]}>
               <Input.TextArea />
             </Form.Item>
           </div>
         </Form>
       </div>
+      {reasonModalOpen && (
+        <Reason reasonModalOpen={reasonModalOpen} setReasonModalOpen={setReasonModalOpen} />
+      )}
     </Drawer>
   );
 };
