@@ -149,7 +149,7 @@ const ItemView = () => {
         </TabPane>
       </Tabs>
       {openAdjustment && (
-        <AdjustStock openAdjustment={openAdjustment} setOpenAdjustment={setOpenAdjustment} />
+        <AdjustStock openAdjustment={openAdjustment} setOpenAdjustment={setOpenAdjustment} itemData={itemData} />
       )}
     </div>
   );

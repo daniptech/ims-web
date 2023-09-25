@@ -3,6 +3,7 @@ import {
   DownOutlined,
   InfoCircleOutlined,
   SearchOutlined,
+  SettingTwoTone,
   UploadOutlined
 } from '@ant-design/icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -17,17 +18,28 @@ import {
   Upload,
   message,
   Divider,
-  Radio
+  Radio,
+  Space
 } from 'antd';
 import dayjs from 'dayjs';
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
+import PaymentTerms from '../../../components/modals/PaymentTerms';
+import { getPaymentTerm } from '../../../controller/api/FieldsDataServices';
 
 const CreateAndEditBill = () => {
   const navigate = useNavigate();
   const params = useParams();
+  const [paymentTerm, setPaymentTerm] = useState([]);
+  const [paymentTermsModalOpen, setPaymentTermsModalOpen] = useState(false);
+
+  const getPaymentData = () => {
+    getPaymentTerm()
+      .then((res) => setPaymentTerm(res.data))
+      .catch((err) => console.log('err ====>', err));
+  };
   const onSearch = (value) => console.log(value);
   const { Option } = Select;
   const onChange = (value) => {
@@ -78,15 +90,13 @@ const CreateAndEditBill = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}
-      >
+        }}>
         <Form
           layout="vertical"
           initialValues={{
             type: 'tds'
           }}
-          name="conpositeForm"
-        >
+          name="conpositeForm">
           <div>
             <div className="w-100 row col-12 bg-light p-4">
               <div className="col-6">
@@ -99,8 +109,7 @@ const CreateAndEditBill = () => {
                   <div className="col-9">
                     <div
                       className="d-flex align-items-center rounded-start border-start border-top border-bottom"
-                      style={{ height: '34px' }}
-                    >
+                      style={{ height: '34px' }}>
                       <Select
                         style={{
                           width: '90%'
@@ -137,8 +146,7 @@ const CreateAndEditBill = () => {
                           display: 'flex',
                           justifyContent: 'center',
                           alignItems: 'center'
-                        }}
-                      >
+                        }}>
                         <SearchOutlined
                           onClick={() => console.log('search')}
                           style={{ color: '#fff', fontSize: '20px' }}
@@ -213,49 +221,52 @@ const CreateAndEditBill = () => {
                       Payment Terms
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
                   </div>
                   <div className="col-6">
-                    <Form.Item name="payment_terms" className="d-flex m-0 form-item">
+                    <Form.Item name="paymentTerms" className="d-flex m-0 form-item">
                       <Select
-                        style={{
-                          width: '100%'
-                        }}
-                        showSearch
-                        placeholder="Select or add customer"
-                        optionFilterProp="children"
-                        onChange={onChange}
-                        onSearch={onSearch}
-                        filterOption={(input, option) =>
-                          (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+                        options={
+                          paymentTerm?.length
+                            ? paymentTerm?.map((val) => {
+                                return {
+                                  label: val?.termName,
+                                  value: val.termName
+                                };
+                              })
+                            : []
                         }
-                        options={[
-                          {
-                            value: 'net15',
-                            label: 'Net 15'
-                          },
-                          {
-                            value: 'net30',
-                            label: 'Net 30'
-                          },
-                          {
-                            value: 'net25',
-                            label: 'Net 25'
-                          },
-                          {
-                            value: 'due_end_the_month',
-                            label: 'Due end of the month'
-                          },
-                          {
-                            value: 'due_on_receipt',
-                            label: 'Due on Receipt'
-                          }
-                        ]}
-                      />
+                        showSearch={true}
+                        onClick={() => {
+                          getPaymentData();
+                        }}
+                        dropdownRender={(menu) => (
+                          <>
+                            {menu}
+                            <Divider
+                              style={{
+                                margin: '8px 0'
+                              }}
+                            />
+                            <Space
+                              style={{
+                                padding: '0 18px 4px'
+                              }}>
+                              <span
+                                className="d-flex align-items-center gap-3 text-primary"
+                                style={{ cursor: 'pointer' }}
+                                onClick={() => setPaymentTermsModalOpen(true)}>
+                                {' '}
+                                <SettingTwoTone /> Manage Payment Terms
+                              </span>
+                            </Space>
+                          </>
+                        )}>
+                        <Input />
+                      </Select>
                     </Form.Item>
                   </div>
                 </div>
@@ -342,8 +353,7 @@ const CreateAndEditBill = () => {
                               key: 2
                             }
                           ]
-                        }}
-                      >
+                        }}>
                         <div className="d-flex gap-2 align-items-center justify-content-center">
                           <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add
                           another line
@@ -428,6 +438,12 @@ const CreateAndEditBill = () => {
           </div>
         </Form>
       </div>
+      {paymentTermsModalOpen && (
+        <PaymentTerms
+          paymentTermsModalOpen={paymentTermsModalOpen}
+          setPaymentTermsModalOpen={setPaymentTermsModalOpen}
+        />
+      )}
     </div>
   );
 };

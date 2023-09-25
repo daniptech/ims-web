@@ -51,3 +51,35 @@ export const removeManufacturer = (params = {}) => {
   const url = getAPIUrl('manufacturer.remove', params);
   return Remove(url, true);
 };
+
+export const getSalesPerson = () => {
+  const url = getAPIUrl('salesperson.all');
+  return Get(url, true);
+};
+
+export const addSalesPerson = (data) => {
+  const url = getAPIUrl('salesperson.add');
+  return Post(url, data, true);
+};
+export const updateSalesPerson = (data, params = {}) => {
+  const url = getAPIUrl('salesperson.update', params);
+  return Put(url, data, true);
+};
+export const removeSalesPerson = (params = {}) => {
+  const url = getAPIUrl('salesperson.remove', params);
+  return Remove(url, true);
+};
+
+export const getReason = () => {
+  const url = getAPIUrl('reason.all');
+  return Get(url, true);
+};
+
+export const addReason = (data) => {
+  const url = getAPIUrl('reason.add');
+  return Post(url, data, true);
+};
+export const removeReason = (params = {}) => {
+  const url = getAPIUrl('reason.remove', params);
+  return Remove(url, true);
+};
