@@ -5,6 +5,7 @@ import { Button, Checkbox, Form, Input, Radio, Select, Switch, Table } from 'ant
 import React from 'react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { currenctData } from '../../../data/Currency';
 const { Option } = Select;
 
 const CreateAndEditPriceList = () => {
@@ -12,6 +13,7 @@ const CreateAndEditPriceList = () => {
   const navigate = useNavigate();
   const params = useParams();
   const [priceListType, setPriceListType] = useState('all_items');
+  const [priceSchemeType, setPriceSchemeType] = useState('unit_price');
   const [transactionType, setTransactionType] = useState('sales');
   const [discount, setDiscount] = useState(false);
   const selectBefore = (
@@ -22,7 +24,7 @@ const CreateAndEditPriceList = () => {
       </Select>
     </Form.Item>
   );
-  const columns = [
+  const [columns, setColumns] = useState([
     {
       title: 'ITEM DETAILS',
       dataIndex: '',
@@ -71,7 +73,7 @@ const CreateAndEditPriceList = () => {
         );
       }
     }
-  ];
+  ]);
   const data = [
     {
       name: 'Burger',
@@ -101,8 +103,7 @@ const CreateAndEditPriceList = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}
-      >
+        }}>
         <Form
           layout="vertical"
           name="conpositeForm"
@@ -111,10 +112,10 @@ const CreateAndEditPriceList = () => {
             transaction_type: 'sales',
             percentage_type: 'markup',
             price_list_type: 'all_items',
-            discount: false
+            discount: false,
+            pricing_scheme: 'unit_price'
           }}
-          onFinish={(val) => console.log(val)}
-        >
+          onFinish={(val) => console.log(val)}>
           <div className="row col-12 p-4 m-0">
             <div className="col-8">
               <div className="row col-12">
@@ -135,8 +136,13 @@ const CreateAndEditPriceList = () => {
                   <Form.Item name="transaction_type">
                     <Radio.Group
                       name="radiogroup"
-                      onChange={(e) => setTransactionType(e.target.value)}
-                    >
+                      onChange={(e) => {
+                        e.target.value === 'sales'
+                          ? setColumns(columns?.filter((val) => val.dataIndex !== 'purchase_rates'))
+                          : setColumns(columns?.filter((val) => val.dataIndex !== 'sales_rates'));
+
+                        setTransactionType(e.target.value);
+                      }}>
                       <Radio value="sales">Sales</Radio>
                       <Radio value="purchase">Purchase</Radio>
                     </Radio.Group>
@@ -152,8 +158,7 @@ const CreateAndEditPriceList = () => {
                     <Radio.Group
                       name="radiogroup"
                       className="radio-container w-100 d-flex"
-                      onChange={(e) => setPriceListType(e.target.value)}
-                    >
+                      onChange={(e) => setPriceListType(e.target.value)}>
                       <Radio value="all_items" className="radio-item rounded-3">
                         <div className="d-flex flex-column">
                           <span className="fw-medium">All Items</span>
@@ -245,8 +250,8 @@ const CreateAndEditPriceList = () => {
                         <Radio.Group
                           name="radiogroup"
                           className="radio-container w-100 d-flex"
-                          onChange={(e) => setPriceListType(e.target.value)}
-                        >
+                          value={priceSchemeType}
+                          onChange={(e) => setPriceSchemeType(e.target.value)}>
                           <Radio value="unit_price" className="radio-item rounded-3">
                             Unit Price
                           </Radio>
@@ -264,37 +269,61 @@ const CreateAndEditPriceList = () => {
                     <div className="col-5">
                       <Form.Item name="currency">
                         <Select
-                          options={[
-                            {
-                              label: 'INR- India Rupee',
-                              value: 'inr'
-                            }
-                          ]}
+                          showSearch={true}
+                          options={currenctData?.map((val) => {
+                            return {
+                              label: `${val?.code}- ${val?.name}`,
+                              value: val?.code
+                            };
+                          })}
                         />
                       </Form.Item>
                     </div>
                   </div>
-                  <div className="row col-12">
-                    <div className="col-2">
-                      <label className="">Discount</label>
+                  {transactionType == 'sales' && (
+                    <div className="row col-12">
+                      <div className="col-2">
+                        <label className="">Discount</label>
+                      </div>
+                      <div className="col-6">
+                        <Form.Item name="discount">
+                          <Checkbox
+                            onChange={(e) => {
+                            if(e.target.checked){
+                              setColumns([
+                                ...columns,
+                                {
+                                  title: 'DISCOUNT',
+                                  dataIndex: 'discount',
+                                  render: () => {
+                                    return (
+                                      <>
+                                        <Input />
+                                      </>
+                                    );
+                                  }
+                                }
+                              ]);
+                            }else{
+                              setColumns(columns?.filter((val)=>val.dataIndex!=='discount'))
+                            }
+                              setDiscount(e.target.checked);
+                            }}>
+                            I want to include discount percentage for the items
+                          </Checkbox>
+                        </Form.Item>
+                      </div>
+                      {discount ? (
+                        <span className="d-flex gap-2 align-items-center mt-0">
+                          <FontAwesomeIcon icon={faCircleInfo} style={{ color: '#1162ee' }} />
+                          When a price list is applied, the discount percentage will be applied only
+                          if discount is enabled at the line-item level
+                        </span>
+                      ) : (
+                        '   '
+                      )}
                     </div>
-                    <div className="col-6">
-                      <Form.Item name="discount">
-                        <Checkbox onChange={(e) => setDiscount(e.target.checked)}>
-                          I want to include discount percentage for the items
-                        </Checkbox>
-                      </Form.Item>
-                    </div>
-                    {discount ? (
-                      <span className="d-flex gap-2 align-items-center mt-0">
-                        <FontAwesomeIcon icon={faCircleInfo} style={{ color: '#1162ee' }} />
-                        When a price list is applied, the discount percentage will be applied only
-                        if discount is enabled at the line-item level
-                      </span>
-                    ) : (
-                      '   '
-                    )}
-                  </div>
+                  )}
                 </>
               )}
             </div>

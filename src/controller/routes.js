@@ -141,5 +141,9 @@ export const routes = {
   }),
   reports: include('reports', {
     self: ''
+  }),
+  user: include('', {
+    self: 'user',
+    createUser:'user/createUser'
   })
 };

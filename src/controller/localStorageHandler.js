@@ -1,6 +1,6 @@
 export const USER_TOKEN = 'user_token';
 export const USER_ROLE = 'user_role';
-export const REFRESH_TOKEN = 'refresh_role';
+export const REFRESH_TOKEN = 'refresh_token';
 export function logout() {
   clearUserToken();
 }

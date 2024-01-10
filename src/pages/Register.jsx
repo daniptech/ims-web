@@ -1,7 +1,7 @@
 import { Button, Card, Form, Input, Select, message } from 'antd';
 import React from 'react';
 import { countryData } from '../data/CountryData';
-import { GlobalOutlined } from '@ant-design/icons';
+import { ArrowLeftOutlined, GlobalOutlined } from '@ant-design/icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
@@ -20,8 +20,7 @@ const Register = () => {
           message: 'Please input your Country code!'
         }
       ]}
-      noStyle
-    >
+      noStyle>
       <Select placeholder="country code" className="heehjj" style={{ width: 80 }}>
         {countryData.map((val, index) => {
           return (
@@ -38,41 +37,187 @@ const Register = () => {
     message.success('Register Sucessfully');
   };
   return (
-    <div className="w-100 d-flex justify-content-center align-items-center p-5 bg-light auth-page">
-      <Card
-        className="auth-page-register"
-        style={{
-          width: '30%',
-          borderBottomColor: '#1677ff',
-          borderWidth: '3px'
-        }}
-      >
-        <div className="d-flex flex-column gap-5">
-          <div className="text-center">
-            {/* <Image src={Images.logo} preview={false} width={100} height={100} /> */}
-            <h3 className="text-muted fw-semibold">Register</h3>
-          </div>
+    // <div className="w-100 d-flex justify-content-center align-items-center p-5 bg-light auth-page">
+    //   <Card
+    //     className="auth-page-register"
+    //     style={{
+    //       width: '30%',
+    //       borderBottomColor: '#1677ff',
+    //       borderWidth: '3px'
+    //     }}
+    //   >
+    //     <div className="d-flex flex-column gap-5">
+    //       <div className="text-center">
+    //         {/* <Image src={Images.logo} preview={false} width={100} height={100} /> */}
+    //         <h3 className="text-muted fw-semibold">Register</h3>
+    //       </div>
 
-          <Form
-            name="register-form"
-            className="auth-form text-start"
-            wrapperCol={{
-              span: 24
-            }}
-            style={{
-              maxWidth: '100%'
-            }}
-            onFinish={onFinish}
-            // onFinishFailed={onFinishFailed}
-            autoComplete="off"
-          >
-            <div className="row col-12 m-0 p-0">
-              <div className="col-12">
-                <Form.Item name="company_name" className="form-item">
-                  <Input placeholder="Company Name" />
+    // <Form
+    //   name="register-form"
+    //   className="auth-form text-start"
+    //   wrapperCol={{
+    //     span: 24
+    //   }}
+    //   style={{
+    //     maxWidth: '100%'
+    //   }}
+    //   onFinish={onFinish}
+    //   // onFinishFailed={onFinishFailed}
+    //   autoComplete="off"
+    // >
+    //   <div className="row col-12 m-0 p-0">
+    //     <div className="col-12">
+    //       <Form.Item name="company_name" className="form-item">
+    //         <Input placeholder="Company Name" />
+    //       </Form.Item>
+    //     </div>
+    //     <div className="col-12">
+    // <Form.Item
+    //   name="number"
+    //   className="form-item"
+    //   rules={[
+    //     {
+    //       required: true,
+    //       message: 'Please input your Phone Number!'
+    //     }
+    //   ]}
+    // >
+    //   <Input
+    //     placeholder="Phone Number"
+    //     minLength={10}
+    //     maxLength={10}
+    //     addonBefore={selectBefore}
+    //     onKeyPress={(e) => enterOnlyNumber(e)}
+    //   />
+    // </Form.Item>
+    //     </div>
+    //     <div className="col-12">
+    // <Form.Item
+    //   name="email"
+    //   className="form-item"
+    //   rules={[
+    //     {
+    //       required: true,
+    //       message: 'Please input your Email!'
+    //     }
+    //   ]}
+    // >
+    //   <Input placeholder="Email" />
+    // </Form.Item>
+    //     </div>
+    //     <div className="col-12">
+    // <Form.Item
+    //   name="country"
+    //   className="form-item"
+    //   rules={[
+    //     {
+    //       required: true,
+    //       message: 'Please input your Country!'
+    //     }
+    //   ]}
+    // >
+    //   <Input placeholder="Country" prefix={<GlobalOutlined />} />
+    // </Form.Item>
+    //     </div>
+    //     <div className="col-12">
+    // <Form.Item
+    //   name="city"
+    //   className="form-item"
+    //   rules={[
+    //     {
+    //       required: true,
+    //       message: 'Please input your City!'
+    //     }
+    //   ]}
+    // >
+    //   <Input placeholder="City" prefix={<FontAwesomeIcon icon={faLocationDot} />} />
+    // </Form.Item>
+    //     </div>
+    //   </div>
+
+    //   <Form.Item className="mt-2">
+    //     <Button
+    //       type="primary"
+    //       shape="round"
+    //       htmlType="submit"
+    //       className="w-100 text-uppercase d-flex justify-content-center align-items-center p-3 auth-custom-btn"
+    //     >
+    //       Register
+    //     </Button>
+    //   </Form.Item>
+    //   <div className="text-center text-muted">
+    //     Do you have an account?{' '}
+    //     <span
+    //       className="text-primary navigate-auth"
+    //       onClick={() => navigate(routes.login.self)}
+    //     >
+    //       Login.
+    //     </span>
+    //   </div>
+    // </Form>
+    //     </div>
+    //   </Card>
+    // </div>
+    <div className="w-100">
+      <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
+        <div className="d-flex align-items-center gap-4 fs-5">
+          <span className="fw-medium">Create User</span>
+        </div>
+        <div className="d-flex align-items-center gap-4 fs-5">
+          <Button onClick={() => navigate(-1)}>Cancel</Button>
+          <Button type="primary" htmlType="submit" form="conpositeForm">
+            Submit
+          </Button>
+        </div>
+      </div>
+      <Form layout="vertical" name="createUser">
+        <div className="row col-12 bg-light p-4 m-0">
+          <div className="col-md-6 col-lg-6 d-flex flex-column gap-3 mb-3">
+            <div className="row col-12 d-flex  align-items-center">
+              <div className="col-lg-4 col-md-12">
+                <label className="text-danger">First Name*</label>
+              </div>
+              <div className="col-lg-8 col-md-12">
+                <Form.Item
+                  name="fname"
+                  className="d-flex m-0 w-100 form-item"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input First Name!'
+                    }
+                  ]}>
+                  <Input className="w-100" />
                 </Form.Item>
               </div>
-              <div className="col-12">
+            </div>
+          </div>
+          <div className="col-md-6 col-lg-6 d-flex flex-column gap-3 mb-3">
+            <div className="row col-12 d-flex  align-items-center">
+              <div className="col-lg-4 col-md-12">
+                <label className="text-danger">Last Name*</label>
+              </div>
+              <div className="col-lg-8 col-md-12">
+                <Form.Item
+                  name="lname"
+                  className="d-flex m-0 w-100 form-item"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input Last Name!'
+                    }
+                  ]}>
+                  <Input className="w-100" />
+                </Form.Item>
+              </div>
+            </div>
+          </div>
+          <div className="col-md-6 col-lg-6 d-flex flex-column gap-3">
+            <div className="row col-12 d-flex  align-items-center">
+              <div className="col-lg-4 col-md-12">
+                <label className="text-danger">Phone Number*</label>
+              </div>
+              <div className="col-lg-8 col-md-12">
                 <Form.Item
                   name="number"
                   className="form-item"
@@ -81,8 +226,7 @@ const Register = () => {
                       required: true,
                       message: 'Please input your Phone Number!'
                     }
-                  ]}
-                >
+                  ]}>
                   <Input
                     placeholder="Phone Number"
                     minLength={10}
@@ -92,7 +236,15 @@ const Register = () => {
                   />
                 </Form.Item>
               </div>
-              <div className="col-12">
+            </div>
+          </div>
+
+          <div className="col-md-6 col-lg-6 d-flex flex-column gap-3">
+            <div className="row col-12 d-flex  align-items-center">
+              <div className="col-lg-4 col-md-12">
+                <label className="text-danger">Email*</label>
+              </div>
+              <div className="col-lg-8 col-md-12">
                 <Form.Item
                   name="email"
                   className="form-item"
@@ -101,12 +253,19 @@ const Register = () => {
                       required: true,
                       message: 'Please input your Email!'
                     }
-                  ]}
-                >
+                  ]}>
                   <Input placeholder="Email" />
                 </Form.Item>
               </div>
-              <div className="col-12">
+            </div>
+          </div>
+
+          <div className="col-md-6 col-lg-6 d-flex flex-column gap-3">
+            <div className="row col-12 d-flex  align-items-center">
+              <div className="col-lg-4 col-md-12">
+                <label className="text-danger">Country*</label>
+              </div>
+              <div className="col-lg-8 col-md-12">
                 <Form.Item
                   name="country"
                   className="form-item"
@@ -115,12 +274,19 @@ const Register = () => {
                       required: true,
                       message: 'Please input your Country!'
                     }
-                  ]}
-                >
+                  ]}>
                   <Input placeholder="Country" prefix={<GlobalOutlined />} />
                 </Form.Item>
               </div>
-              <div className="col-12">
+            </div>
+          </div>
+
+          <div className="col-md-6 col-lg-6 d-flex flex-column gap-3">
+            <div className="row col-12 d-flex  align-items-center">
+              <div className="col-lg-4 col-md-12">
+                <label className="text-danger">City*</label>
+              </div>
+              <div className="col-lg-8 col-md-12">
                 <Form.Item
                   name="city"
                   className="form-item"
@@ -129,35 +295,37 @@ const Register = () => {
                       required: true,
                       message: 'Please input your City!'
                     }
-                  ]}
-                >
+                  ]}>
                   <Input placeholder="City" prefix={<FontAwesomeIcon icon={faLocationDot} />} />
                 </Form.Item>
               </div>
             </div>
+          </div>
 
-            <Form.Item className="mt-2">
-              <Button
-                type="primary"
-                shape="round"
-                htmlType="submit"
-                className="w-100 text-uppercase d-flex justify-content-center align-items-center p-3 auth-custom-btn"
-              >
-                Register
-              </Button>
-            </Form.Item>
-            <div className="text-center text-muted">
-              Do you have an account?{' '}
-              <span
-                className="text-primary navigate-auth"
-                onClick={() => navigate(routes.login.self)}
-              >
-                Login.
-              </span>
+          <div className="col-md-6 col-lg-6 d-flex flex-column gap-3">
+            <div className="row col-12 d-flex  align-items-center">
+              <div className="col-lg-4 col-md-12">
+                <label className="text-danger">Role*</label>
+              </div>
+              <div className="col-lg-8 col-md-12">
+                <Form.Item
+                  name="role"
+                  className="form-item"
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please input User Role!'
+                    }
+                  ]}>
+                  <Select>
+                    <Option value={"admin"}>Admin</Option>
+                  </Select>
+                </Form.Item>
+              </div>
             </div>
-          </Form>
+          </div>
         </div>
-      </Card>
+      </Form>
     </div>
   );
 };

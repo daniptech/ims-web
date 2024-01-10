@@ -18,7 +18,7 @@ import {
   Upload,
   message
 } from 'antd';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useRef } from 'react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -27,6 +27,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { getReason } from '../../../controller/api/FieldsDataServices';
 import Reason from '../../../components/modals/Reason';
+import { useSelector } from 'react-redux';
+import { getItem } from '../../../controller/api/inventory/itemService';
 
 const CreateAndEditInventoryAdjustment = () => {
   const [form] = Form.useForm();
@@ -35,6 +37,67 @@ const CreateAndEditInventoryAdjustment = () => {
   const inputRef = useRef(null);
   const [reason, setReason] = useState([]);
   const [reasonModalOpen, setReasonModalOpen] = useState(false);
+  const currentUserData = useSelector((state) => state.user.currentuser);
+  const [items, setItems] = useState([]);
+  const [adjustmentValue, setAdjustmentValue] = useState('quantity_adjustment');
+  const [associatedItemlist, setAssociatedlist] = useState([
+    {
+      itemDetail: '',
+      Avlquantity: 0,
+      newquantity: 0,
+      quantityadjusted: 0,
+      currentVAl: 1,
+      changeval: 0,
+      adjustedval: 0,
+      isFilled: false
+    }
+  ]);
+
+  useEffect(() => {
+    if (currentUserData?.organizationId) {
+      getItem({ organizationId: currentUserData?.organizationId }).then((res) => {
+        if (res?.data) {
+          setItems(res?.data);
+        }
+      });
+    }
+  }, [currentUserData]);
+
+  const handleItem = (e, index) => {
+    if (e.key == params.id) {
+      message.info('Same Assembly Item cannot be a component on its own Inventory Assembly');
+    } else {
+      const data = [...items];
+      const itemList = [...associatedItemlist];
+      const itemData = data?.filter((val, index) => e.key == val.id);
+      const getFilledData = itemList?.filter((val) => val.isFilled);
+      if (getFilledData.length) {
+        const checkRepectedField = getFilledData?.filter((val) => {
+          if (val?.itemDetail?.id == e.key) {
+            return val;
+          }
+        });
+        if (checkRepectedField?.length) {
+          message.info('This item already Selected. Choose another Item.');
+        } else {
+          if (itemData?.length) {
+            itemList[index].itemDetail = itemData[0];
+            itemList[index].Avlquantity = '';
+            itemList[index].currentVAl = '';
+            itemList[index].isFilled = true;
+          }
+        }
+      } else {
+        if (itemData?.length) {
+          itemList[index].itemDetail = itemData[0];
+          itemList[index].Avlquantity = '';
+          itemList[index].currentVAl = '';
+          itemList[index].isFilled = true;
+        }
+      }
+      setAssociatedlist([...itemList]);
+    }
+  };
 
   const getReasonData = () => {
     getReason()
@@ -104,7 +167,9 @@ const CreateAndEditInventoryAdjustment = () => {
                 <div className="col-4">Mode of adjustment</div>
                 <div className="col-8">
                   <Form.Item name="mode_of_adjustment">
-                    <Radio.Group>
+                    <Radio.Group
+                      value={adjustmentValue}
+                      onChange={(e) => setAdjustmentValue(e?.target?.value)}>
                       <Space direction="vertical">
                         <Radio value="quantity_adjustment">Quantity Adjustment</Radio>
                         <Radio value="value_adjustment">Value Adjustment</Radio>
@@ -236,67 +301,127 @@ const CreateAndEditInventoryAdjustment = () => {
                       ITEM DETAILS
                     </th>
                     <th style={{ width: '20%' }} className="border-end text-end">
-                      QUANTITY AVAILABLE
+                      {adjustmentValue == 'quantity_adjustment'
+                        ? 'QUANTITY AVAILABLE'
+                        : 'CURRENT VALUE'}
                     </th>
                     <th style={{ width: '20%' }} className="border-end text-end">
-                      NEW QUANTITY ON HAND
+                      {adjustmentValue == 'quantity_adjustment'
+                        ? 'NEW QUANTITY ON HAND'
+                        : 'CHANGED VALUE'}
                     </th>
                     <th style={{ width: '20%' }} className="text-end">
-                      QUANTITY ADJUSTED
+                      {adjustmentValue == 'quantity_adjustment'
+                        ? 'QUANTITY ADJUSTED'
+                        : 'ADJUSTED VALUE'}
                     </th>
                   </tr>
                 </thead>
                 <tbody className="w-100">
-                  <tr className="border-bottom">
-                    <td style={{ width: '40%' }} className="border-end">
-                      <div className="d-flex gap-2">
-                        <div className="p-1 table-img">
-                          <FontAwesomeIcon
-                            icon={faImage}
-                            style={{ color: '#c7c7c7', height: 25 }}
-                          />
-                        </div>
-                        <Input
-                          className="item-detail"
-                          placeholder="Type or Click to select an item."
-                        />
-                      </div>
-                    </td>
-                    <td style={{ width: '18%' }} className="border-end"></td>
-                    <td style={{ width: '18%' }} className="border-end">
-                      <Input className="input-field" placeholder="0.00" />
-                    </td>
-                    <td style={{ width: '18%' }}>
-                      <Input className="input-field" placeholder="Eg. +10,-10" />
-                    </td>
-                    <td style={{ width: '6%' }} className="p-3">
-                      <FontAwesomeIcon icon={faCircleXmark} style={{ color: '#e26a6a' }} />
-                    </td>
-                  </tr>
+                  {associatedItemlist?.map((val, index) => {
+                    return (
+                      <tr className="border-bottom" key={index}>
+                        <td style={{ width: '40%' }} className="border-end">
+                          <div className="d-flex gap-2">
+                            <div className="p-1 table-img">
+                              <FontAwesomeIcon
+                                icon={faImage}
+                                style={{ color: '#c7c7c7', height: 25 }}
+                              />
+                            </div>
+                            {val?.itemDetail !== '' ? (
+                              <div className="w-100 bg-light rounded-3 d-flex justify-content-between p-2">
+                                <div className="d-flex flex-column">
+                                  <span className="fw-semibold">{val?.itemDetail?.name}</span>
+                                  <span>SKU: {val?.itemDetail?.sku}</span>
+                                </div>
+                                <FontAwesomeIcon
+                                  icon={faCircleXmark}
+                                  style={{ color: '#b4b4b4', cursor: 'pointer' }}
+                                  onClick={() => {}}
+                                />
+                              </div>
+                            ) : (
+                              <Dropdown
+                                trigger={'click'}
+                                menu={{
+                                  items: items?.map((val, index) => {
+                                    return {
+                                      label: (
+                                        <div className="row col-12 m-0 p-0">
+                                          <div className="col-6 text-start">
+                                            <div className="d-flex flex-column">
+                                              <span className="fw-bold">{val.name}</span>
+                                              <span>SKU : {val.sku}</span>
+                                            </div>
+                                          </div>
+                                          <div className="col-6 text-end">
+                                            <div className="d-flex flex-column">
+                                              <span className="fw-semibold">STOCK ON HAND</span>
+                                              <span>-</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      ),
+                                      key: val?.id
+                                    };
+                                  }),
+                                  className: 'custom-dropdown',
+                                  onClick: (e) => handleItem(e, index)
+                                }}>
+                                <Input
+                                  className="item-detail"
+                                  placeholder="Click to select an item."
+                                />
+                              </Dropdown>
+                            )}
+                          </div>
+                        </td>
+                        <td style={{ width: '18%' }} className="border-end">
+                          {adjustmentValue == 'quantity_adjustment'
+                            ? val?.Avlquantity
+                            : val?.currentVAl}
+                        </td>
+                        <td style={{ width: '18%' }} className="border-end">
+                          <Input className="input-field" placeholder="0.00" />
+                        </td>
+                        <td style={{ width: '18%' }}>
+                          <Input className="input-field" placeholder="Eg. +10,-10" />
+                        </td>
+                        <td style={{ width: '6%' }} className="p-3">
+                          <FontAwesomeIcon icon={faCircleXmark} style={{ color: '#e26a6a' }} />
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
 
             <div className="mb-2">
-              <Dropdown.Button
-                icon={<DownOutlined />}
-                menu={{
-                  items: [
+              <Button
+                type="text"
+                style={{ paddingLeft: '0px' }}
+                onClick={() =>
+                  setAssociatedlist([
+                    ...associatedItemlist,
                     {
-                      label: 'Add another line',
-                      key: 1
-                    },
-                    {
-                      label: 'Add item in bulk',
-                      key: 2
+                      itemDetail: '',
+                      Avlquantity: 0,
+                      newquantity: 0,
+                      quantityadjusted: 0,
+                      currentVAl: 0,
+                      changeval: 0,
+                      adjustedval: 0,
+                      isFilled: false
                     }
-                  ]
-                }}>
+                  ])
+                }>
                 <div className="d-flex gap-2 align-items-center justify-content-center">
                   <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add another
                   line
                 </div>
-              </Dropdown.Button>
+              </Button>
             </div>
 
             <hr />

@@ -28,7 +28,6 @@ const CreateAndEditGroupItem = () => {
   const [optionName, setOptionName] = useState('');
   const [optionItems, setOptionItems] = useState();
 
-
   const onBrandNameInputChange = (event) => {
     setBrandName(event.target.value);
   };
@@ -75,8 +74,7 @@ const CreateAndEditGroupItem = () => {
       inputRef.current?.focus();
     }, 0);
   };
-
-  const columns = [
+  const [columns, setColumn] = useState([
     {
       title: 'ITEM NAME',
       dataIndex: 'item_name'
@@ -97,30 +95,6 @@ const CreateAndEditGroupItem = () => {
       dataIndex: 'sku'
     },
     {
-      title: 'Opening Stock',
-      dataIndex: 'opening_stock'
-      // Initial Stock refers to the quentity of the item on hand before you start tracking  inventory for the item in Zoho Inventory
-    },
-    {
-      title: () => {
-        return (
-          <div className="d-flex flex-column">
-            <span className="">
-              OPENING STOCK VALUE (RS.){' '}
-              <Tooltip
-                placement="rightTop"
-                title="Opening stock value refer to the average purchase price of your initial stock. this is required for FIFO cost lot tracking and inventory valuation."
-              >
-                <QuestionCircleOutlined className="text-muted" />
-              </Tooltip>
-            </span>
-            <span>Per unit</span>
-          </div>
-        );
-      },
-      dataIndex: 'opening_stock_value'
-    },
-    {
       title: () => {
         return (
           <div className="d-flex flex-column">
@@ -128,8 +102,7 @@ const CreateAndEditGroupItem = () => {
               COST PRICE (RS.) *{' '}
               <Tooltip
                 placement="rightTop"
-                title="Click here to apply the same price to all the items"
-              >
+                title="Click here to apply the same price to all the items">
                 <QuestionCircleOutlined className="text-muted" />
               </Tooltip>
             </span>
@@ -147,8 +120,7 @@ const CreateAndEditGroupItem = () => {
               SELLING PRICE (RS.) *{' '}
               <Tooltip
                 placement="rightTop"
-                title="Click here to apply the same price to all the items"
-              >
+                title="Click here to apply the same price to all the items">
                 <QuestionCircleOutlined className="text-muted" />
               </Tooltip>
             </span>
@@ -166,8 +138,7 @@ const CreateAndEditGroupItem = () => {
               UPC{' '}
               <Tooltip
                 placement="rightTop"
-                title="Twelve digit unique number associated with the bar code (Universal Product Code)"
-              >
+                title="Twelve digit unique number associated with the bar code (Universal Product Code)">
                 <QuestionCircleOutlined className="text-muted" />
               </Tooltip>
             </span>
@@ -184,8 +155,7 @@ const CreateAndEditGroupItem = () => {
               EAN{' '}
               <Tooltip
                 placement="rightTop"
-                title="Thirteen digit unique number (International Article Number)"
-              >
+                title="Thirteen digit unique number (International Article Number)">
                 <QuestionCircleOutlined className="text-muted" />
               </Tooltip>
             </span>
@@ -202,8 +172,7 @@ const CreateAndEditGroupItem = () => {
               ISBN
               <Tooltip
                 placement="rightTop"
-                title="Thirteen digit unique commercial  Book identifier (International Standard Book Number)"
-              >
+                title="Thirteen digit unique commercial  Book identifier (International Standard Book Number)">
                 <QuestionCircleOutlined className="text-muted" />
               </Tooltip>
             </span>
@@ -220,8 +189,7 @@ const CreateAndEditGroupItem = () => {
             REORDER POINT{' '}
             <Tooltip
               placement="rightTop"
-              title="Recorder level refers to the quentity of an item below which , and item is considered to be low  on stock."
-            >
+              title="Recorder level refers to the quentity of an item below which , and item is considered to be low  on stock.">
               <QuestionCircleOutlined className="text-muted" />
             </Tooltip>
           </span>
@@ -229,7 +197,7 @@ const CreateAndEditGroupItem = () => {
       },
       dataIndex: 'opening_stock_value'
     }
-  ];
+  ]);
   return (
     <div className="w-100">
       <div className="w-100 bg-white p-3 border-bottom d-flex align-items-center justify-content-between ">
@@ -251,11 +219,10 @@ const CreateAndEditGroupItem = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}
-      >
+        }}>
         <Form
           layout="vertical"
-          name="conpositeForm"
+          name="conpositeGroupForm"
           form={form}
           initialValues={{
             type: 'good',
@@ -264,10 +231,11 @@ const CreateAndEditGroupItem = () => {
             purchase_information: true,
             sales_information: true,
             inventory_track: true,
-            weight_type: 'cm'
+            weight_type: 'cm',
+            item_type: 'inventory',
+            filter_list:'sales'
           }}
-          onFinish={(val) => console.log(val)}
-        >
+          onFinish={(val) => console.log(val)}>
           <div>
             <div className="row col-12 bg-light-subtle p-4 m-0">
               <div className="col-lg-8 d-flex flex-column gap-3">
@@ -277,14 +245,13 @@ const CreateAndEditGroupItem = () => {
                       <span>Type</span>{' '}
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
-                      >
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
                         <QuestionCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
                   </div>
                   <div className="col-lg-9 ">
-                    <Form.Item name="type" className="d-flex m-0 form-item">
+                    <Form.Item name="type" className="d-flex m-0 form-item" >
                       <Radio.Group>
                         <Radio value="good">Good</Radio>
                         <Radio value="services">Services</Radio>
@@ -305,8 +272,7 @@ const CreateAndEditGroupItem = () => {
                           required: true,
                           message: 'Please input Group Name!'
                         }
-                      ]}
-                    >
+                      ]}>
                       <Input className="w-100" />
                     </Form.Item>
                   </div>
@@ -331,15 +297,13 @@ const CreateAndEditGroupItem = () => {
                     <Form.Item
                       name="returnable_item"
                       className="d-flex m-0 form-item"
-                      valuePropName="checked"
-                    >
+                      valuePropName="checked">
                       <Checkbox>
                         <div className="d-flex align-items-center gap-2">
                           <span>Returnable Item</span>
                           <Tooltip
                             placement="rightTop"
-                            title="Enable this option if the item  is eligible for sales return"
-                          >
+                            title="Enable this option if the item  is eligible for sales return">
                             <QuestionCircleOutlined className="text-muted" />
                           </Tooltip>{' '}
                         </div>
@@ -365,8 +329,7 @@ const CreateAndEditGroupItem = () => {
                       <span>Unit*</span>{' '}
                       <Tooltip
                         placement="rightTop"
-                        title="This item will be measured in terms of this unit. (e.g.: kg,dozon)"
-                      >
+                        title="This item will be measured in terms of this unit. (e.g.: kg,dozon)">
                         <QuestionCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -380,8 +343,7 @@ const CreateAndEditGroupItem = () => {
                           required: true,
                           message: 'Please Select unit!'
                         }
-                      ]}
-                    >
+                      ]}>
                       <Select
                         options={[
                           { value: 'dz', label: 'dz' },
@@ -426,8 +388,7 @@ const CreateAndEditGroupItem = () => {
                             <Space
                               style={{
                                 padding: '0 8px 4px'
-                              }}
-                            >
+                              }}>
                               <Input
                                 placeholder="Please enter item"
                                 ref={inputRef}
@@ -438,14 +399,12 @@ const CreateAndEditGroupItem = () => {
                                 type="text"
                                 icon={<PlusOutlined />}
                                 onClick={addmanufacturerItem}
-                                disabled={!manufacturerName}
-                              >
+                                disabled={!manufacturerName}>
                                 Add item
                               </Button>
                             </Space>
                           </>
-                        )}
-                      >
+                        )}>
                         <Input />
                       </Select>
                     </Form.Item>
@@ -478,8 +437,7 @@ const CreateAndEditGroupItem = () => {
                             <Space
                               style={{
                                 padding: '0 8px 4px'
-                              }}
-                            >
+                              }}>
                               <Input
                                 placeholder="Please enter item"
                                 ref={inputRef}
@@ -490,14 +448,12 @@ const CreateAndEditGroupItem = () => {
                                 type="text"
                                 icon={<PlusOutlined />}
                                 onClick={addBrandItem}
-                                disabled={!brandName}
-                              >
+                                disabled={!brandName}>
                                 Add item
                               </Button>
                             </Space>
                           </>
-                        )}
-                      >
+                        )}>
                         <Input />
                       </Select>
                     </Form.Item>
@@ -516,8 +472,7 @@ const CreateAndEditGroupItem = () => {
                     <Form.Item
                       name="multiple_item"
                       className="d-flex m-0 form-item"
-                      valuePropName="checked"
-                    >
+                      valuePropName="checked">
                       <Checkbox>
                         <div className="d-flex align-items-center gap-2">
                           <span>Create Attributes and Options</span>
@@ -565,8 +520,7 @@ const CreateAndEditGroupItem = () => {
                         <Form.Item
                           name="options"
                           className="d-flex m-0 form-item"
-                          style={{ width: '90%' }}
-                        >
+                          style={{ width: '90%' }}>
                           <Form.Item name="brand" className="d-flex m-0 form-item">
                             <Select
                               mode="multiple"
@@ -592,8 +546,7 @@ const CreateAndEditGroupItem = () => {
                                   <Space
                                     style={{
                                       padding: '0 8px 4px'
-                                    }}
-                                  >
+                                    }}>
                                     <Input
                                       placeholder="Please enter item"
                                       ref={inputRef}
@@ -604,14 +557,12 @@ const CreateAndEditGroupItem = () => {
                                       type="text"
                                       icon={<PlusOutlined />}
                                       onClick={addOptionItem}
-                                      disabled={!optionName}
-                                    >
+                                      disabled={!optionName}>
                                       Add item
                                     </Button>
                                   </Space>
                                 </>
-                              )}
-                            >
+                              )}>
                               <Input />
                             </Select>
                           </Form.Item>
@@ -642,28 +593,12 @@ const CreateAndEditGroupItem = () => {
                 </div>
               </div>
               <div className="col-6 text-end">
-                {/* <Form.Item
-                                    name="filter_list"
-                                    className="d-flex m-0 form-item"
-                                >
-                                    <Radio.Group name="radiogroup" defaultValue={3}>
-                                        <Radio value={1}>Sales Only</Radio>
-                                        <Radio value={2}>Purchase Only</Radio>
-                                        <Radio value={3}>Both</Radio>
-                                    </Radio.Group>
-                                </Form.Item> */}
-                <Form.Item name="opening_stock_include" className="d-flex m-0 form-item">
-                  <Checkbox>
-                    <div className="d-flex align-items-center gap-2">
-                      <span>Include Opening Stock</span>
-                      <Tooltip
-                        placement="rightTop"
-                        title="Opening stock will be added for the item"
-                      >
-                        <QuestionCircleOutlined className="text-muted" />
-                      </Tooltip>
-                    </div>
-                  </Checkbox>
+                <Form.Item name="filter_list" className="d-flex m-0 form-item" hidden='true'>
+                  <Radio.Group name="radiogroup">
+                    <Radio value="sales">Sales Only</Radio>
+                    <Radio value="purchase">Purchase Only</Radio>
+                    <Radio value="both">Both</Radio>
+                  </Radio.Group>
                 </Form.Item>
               </div>
             </div>
@@ -679,15 +614,13 @@ const CreateAndEditGroupItem = () => {
               <Button
                 type="link"
                 className="fs-6 d-flex p-0 align-items-center"
-                onClick={() => setConfigureAccount(!configureAccount)}
-              >
+                onClick={() => setConfigureAccount(!configureAccount)}>
                 {' '}
                 {configureAccount ? <CaretDownOutlined /> : <CaretRightOutlined />} Configure
                 Accounts
                 <Tooltip
                   placement="rightTop"
-                  title="By default  ant item group will be associated with the following 3 account - sales,cost of goods and inventory asset. you can edit this using the Configure Accounts option"
-                >
+                  title="By default  ant item group will be associated with the following 3 account - sales,cost of goods and inventory asset. you can edit this using the Configure Accounts option">
                   <QuestionCircleOutlined className="text-muted" />
                 </Tooltip>
               </Button>
@@ -702,8 +635,7 @@ const CreateAndEditGroupItem = () => {
                         <Form.Item
                           name="sales_account"
                           className="d-flex m-0 form-item"
-                          style={{ width: '90%' }}
-                        >
+                          style={{ width: '90%' }}>
                           <Select
                             options={[
                               {
@@ -738,8 +670,7 @@ const CreateAndEditGroupItem = () => {
                         <Form.Item
                           name="sales_account"
                           className="d-flex m-0 form-item"
-                          style={{ width: '90%' }}
-                        >
+                          style={{ width: '90%' }}>
                           <Select
                             options={[
                               {
@@ -774,8 +705,7 @@ const CreateAndEditGroupItem = () => {
                         <Form.Item
                           name="sales_account"
                           className="d-flex m-0 form-item"
-                          style={{ width: '90%' }}
-                        >
+                          style={{ width: '90%' }}>
                           <Select
                             options={[
                               {

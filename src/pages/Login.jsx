@@ -166,7 +166,7 @@ const Login = ({ setSelectKey }) => {
                 Login
               </Button>
             </Form.Item>
-            <div className="text-center text-muted">
+            {/* <div className="text-center text-muted">
               Don&apos;t have an account?{' '}
               <span
                 className="text-primary navigate-auth"
@@ -174,7 +174,7 @@ const Login = ({ setSelectKey }) => {
               >
                 Register.
               </span>
-            </div>
+            </div> */}
           </Form>
         </div>
       </Card>

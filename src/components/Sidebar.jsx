@@ -42,6 +42,8 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
       navigate(routes.home.dashboard);
     } else if (val.key === 'reports') {
       navigate(routes.reports.self);
+    }else if (val.key === 'user') {
+      navigate(routes.user.self);
     }
   };
   return (

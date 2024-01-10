@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect,useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Dashboard/Home';
 import Sidebar from '../components/Sidebar';
@@ -65,8 +65,12 @@ import { user } from '../controller/api/AuthServices';
 import { isLoggedIn, setUserRole } from '../controller/localStorageHandler';
 import { setCurrentUser } from '../redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
+import { adminItems, defaultItems, managerItems, staffItems } from '../controller/api/sidebarData';
+import Register from "./Register";
+import UserList from "./Users/UserList";
 
-const Main = ({ items, selectKey, setSelectKey }) => {
+const Main = ({ selectKey, setSelectKey }) => {
+  const [items, setItems] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
     if (isLoggedIn()) {
@@ -74,6 +78,19 @@ const Main = ({ items, selectKey, setSelectKey }) => {
         user()
           .then((res) => {
             setUserRole(res.data.role);
+            switch (res?.data?.role?.toLowerCase()) {
+              case 'admin':
+                setItems(adminItems);
+                break;
+              case 'manager':
+                setItems(managerItems);
+                break;
+              case 'staff':
+                setItems(staffItems);
+                break;
+              default:
+                setItems(defaultItems);
+            }
             dispatch(setCurrentUser(res.data));
           })
           .catch((err) => console.log(err));
@@ -81,7 +98,7 @@ const Main = ({ items, selectKey, setSelectKey }) => {
         console.log('err=>', error);
       }
     }
-  }, [dispatch]);
+  }, [dispatch,isLoggedIn]);
   return (
     <div className="d-flex w-100">
       <Sidebar items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
@@ -213,6 +230,8 @@ const Main = ({ items, selectKey, setSelectKey }) => {
           {/* </Route>  */}
           <Route path={routes.reports.self} element={<ReportsItemsList />} />
           {/* <Route path='*' element={<PageNoteFound setSelectKey={setSelectKey} />} /> */}
+          <Route path={routes.user.self} element={<UserList/>} />
+          <Route path={routes.user.createUser} element={<Register/>} />
         </Routes>
       </div>
     </div>

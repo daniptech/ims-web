@@ -80,9 +80,9 @@ function App() {
             />
           }
         />
-        <Route path={routes.register.self} element={<Register />} />
+        {/* <Route path={routes.register.self} element={<Register />} /> */}
       </Routes>
-      {isLoggedIn() && <Main items={items} selectKey={selectKey} setSelectKey={setSelectKey} />}
+      {isLoggedIn() && <Main selectKey={selectKey} setSelectKey={setSelectKey} />}
     </div>
   );
 }
