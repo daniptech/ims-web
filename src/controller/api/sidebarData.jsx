@@ -4,14 +4,12 @@ import { faBagShopping, faCartFlatbed, faChartSimple } from '@fortawesome/free-s
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function getItem(label, key, icon, children) {
-  if (key !== 'items') {
     return {
       key,
       icon,
       children,
       label
     };
-  }
 }
 const adminItems = [
   getItem('Home', 'home', <HomeOutlined />),
