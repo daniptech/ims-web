@@ -88,7 +88,8 @@ const OtpPopup = ({
           <Form.Item
             name="otp"
             className="center-error-message"
-            rules={[{ validator: async () => Promise.resolve() }]}>
+            rules={[{ validator: async () => Promise.resolve() }]}
+          >
             <InputOTP autoFocus inputType="numeric" length={4} />
           </Form.Item>
           {otpValidTill?.otpTill > 0 ? (

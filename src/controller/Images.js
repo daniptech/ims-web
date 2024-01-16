@@ -7,7 +7,7 @@ import pagenotefoundtext from '../assets/images/pagenotefoundtext.png';
 import gotohometext from '../assets/images/gotohometext.png';
 import offlineimg from '../assets/images/offlineimg.svg';
 import errorImage from '../assets/images/errorImage.mp4';
-import begIcon from '../assets/images/Icons/begICon.svg'
+import begIcon from '../assets/images/Icons/begICon.svg';
 export const Images = {
   uploadImage,
   pagenotefoundimg,

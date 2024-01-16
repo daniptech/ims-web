@@ -53,7 +53,8 @@ const UserList = () => {
         style={{
           padding: 8
         }}
-        onKeyDown={(e) => e.stopPropagation()}>
+        onKeyDown={(e) => e.stopPropagation()}
+      >
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
@@ -73,7 +74,8 @@ const UserList = () => {
             size="small"
             style={{
               width: 90
-            }}>
+            }}
+          >
             Search
           </Button>
           <Button
@@ -84,7 +86,8 @@ const UserList = () => {
             size="small"
             style={{
               width: 90
-            }}>
+            }}
+          >
             Reset
           </Button>
           {/* <Button
@@ -105,7 +108,8 @@ const UserList = () => {
             size="small"
             onClick={() => {
               close();
-            }}>
+            }}
+          >
             close
           </Button>
         </Space>
@@ -260,7 +264,7 @@ const UserList = () => {
       title: 'ACTION',
       dataIndex: '',
       key: '',
-      width:"10%",
+      width: '10%',
       render: (record) => {
         return (
           <div className="d-flex align-items-center gap-2">
@@ -284,7 +288,8 @@ const UserList = () => {
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
-          style={{ height: '100vh', zIndex: '11111' }}>
+          style={{ height: '100vh', zIndex: '11111' }}
+        >
           <Bars
             height="130"
             width="130"
@@ -301,7 +306,8 @@ const UserList = () => {
           <Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-            onClick={() => navigate(routes.user.createUser)}>
+            onClick={() => navigate(routes.user.createUser)}
+          >
             + New
           </Button>
         </div>
@@ -309,7 +315,8 @@ const UserList = () => {
           className="m-3 p-3 border border-1 "
           style={{
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
-          }}>
+          }}
+        >
           <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
             <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
               Customize Columns

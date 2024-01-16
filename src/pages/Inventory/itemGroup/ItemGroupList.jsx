@@ -182,7 +182,8 @@ const ItemGroupList = () => {
             <Button
               type="primary"
               className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-              onClick={() => navigate(routes.inventory.itemGroups.new)}>
+              onClick={() => navigate(routes.inventory.itemGroups.new)}
+            >
               + New
             </Button>
           </>

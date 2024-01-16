@@ -16,7 +16,7 @@
     "@testing-library/react": "^13.4.0",
     "ajv": "^8.12.0",
     "antd": "^5.6.3",
-    "antd-input-otp": "^1.1.0",
+    "antd-input-otp": "^2.0.5",
     "axios": "^1.4.0",
     "bootstrap": "^5.3.0",
     "dayjs": "^1.11.8",
@@ -77,7 +77,9 @@
     "prettier": "3.0.0",
     "sass": "^1.65.1",
     "sass-loader": "^13.3.2",
+    "source-map-loader": "^5.0.0",
     "style-loader": "^3.3.3",
-    "url-loader": "^4.1.1"
+    "url-loader": "^4.1.1",
+    "webpack": "^5.89.0"
   }
 }

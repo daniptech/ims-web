@@ -7,7 +7,7 @@ const endpoint = {
     verifyOTP: 'authenticate',
     user: '',
     userAll: 'all',
-    craeteUser:'register'
+    craeteUser: 'register'
   }),
   inventory: include('/api', {
     item: include('item', {
@@ -71,13 +71,13 @@ const endpoint = {
     add: 'add',
     remove: 'delete/:id'
   }),
-  role: include('/api/roles',{
-    all:'all',
-    modules:'modules',
-    add:'add',
-    getrole:':id',
-    delete:':id',
-    update:':id'
+  role: include('/api/roles', {
+    all: 'all',
+    modules: 'modules',
+    add: 'add',
+    getrole: ':id',
+    delete: ':id',
+    update: ':id'
   })
 };
 

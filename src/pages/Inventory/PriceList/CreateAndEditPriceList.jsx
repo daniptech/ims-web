@@ -103,7 +103,8 @@ const CreateAndEditPriceList = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}>
+        }}
+      >
         <Form
           layout="vertical"
           name="conpositeForm"
@@ -115,7 +116,8 @@ const CreateAndEditPriceList = () => {
             discount: false,
             pricing_scheme: 'unit_price'
           }}
-          onFinish={(val) => console.log(val)}>
+          onFinish={(val) => console.log(val)}
+        >
           <div className="row col-12 p-4 m-0">
             <div className="col-8">
               <div className="row col-12">
@@ -142,7 +144,8 @@ const CreateAndEditPriceList = () => {
                           : setColumns(columns?.filter((val) => val.dataIndex !== 'sales_rates'));
 
                         setTransactionType(e.target.value);
-                      }}>
+                      }}
+                    >
                       <Radio value="sales">Sales</Radio>
                       <Radio value="purchase">Purchase</Radio>
                     </Radio.Group>
@@ -158,7 +161,8 @@ const CreateAndEditPriceList = () => {
                     <Radio.Group
                       name="radiogroup"
                       className="radio-container w-100 d-flex"
-                      onChange={(e) => setPriceListType(e.target.value)}>
+                      onChange={(e) => setPriceListType(e.target.value)}
+                    >
                       <Radio value="all_items" className="radio-item rounded-3">
                         <div className="d-flex flex-column">
                           <span className="fw-medium">All Items</span>
@@ -251,7 +255,8 @@ const CreateAndEditPriceList = () => {
                           name="radiogroup"
                           className="radio-container w-100 d-flex"
                           value={priceSchemeType}
-                          onChange={(e) => setPriceSchemeType(e.target.value)}>
+                          onChange={(e) => setPriceSchemeType(e.target.value)}
+                        >
                           <Radio value="unit_price" className="radio-item rounded-3">
                             Unit Price
                           </Radio>
@@ -289,26 +294,27 @@ const CreateAndEditPriceList = () => {
                         <Form.Item name="discount">
                           <Checkbox
                             onChange={(e) => {
-                            if(e.target.checked){
-                              setColumns([
-                                ...columns,
-                                {
-                                  title: 'DISCOUNT',
-                                  dataIndex: 'discount',
-                                  render: () => {
-                                    return (
-                                      <>
-                                        <Input />
-                                      </>
-                                    );
+                              if (e.target.checked) {
+                                setColumns([
+                                  ...columns,
+                                  {
+                                    title: 'DISCOUNT',
+                                    dataIndex: 'discount',
+                                    render: () => {
+                                      return (
+                                        <>
+                                          <Input />
+                                        </>
+                                      );
+                                    }
                                   }
-                                }
-                              ]);
-                            }else{
-                              setColumns(columns?.filter((val)=>val.dataIndex!=='discount'))
-                            }
+                                ]);
+                              } else {
+                                setColumns(columns?.filter((val) => val.dataIndex !== 'discount'));
+                              }
                               setDiscount(e.target.checked);
-                            }}>
+                            }}
+                          >
                             I want to include discount percentage for the items
                           </Checkbox>
                         </Form.Item>

@@ -9,7 +9,7 @@ import React from 'react-redux';
 import { Bars } from 'react-loader-spinner';
 import { useEffect } from 'react';
 import { getAllRole, removeRole } from '../../controller/api/role/roleServices';
-import { reverse } from "named-urls";
+import { reverse } from 'named-urls';
 
 const RoleListItem = () => {
   const navigate = useNavigate();
@@ -51,7 +51,8 @@ const RoleListItem = () => {
         style={{
           padding: 8
         }}
-        onKeyDown={(e) => e.stopPropagation()}>
+        onKeyDown={(e) => e.stopPropagation()}
+      >
         <Input
           ref={searchInput}
           placeholder={`Search ${dataIndex}`}
@@ -71,7 +72,8 @@ const RoleListItem = () => {
             size="small"
             style={{
               width: 90
-            }}>
+            }}
+          >
             Search
           </Button>
           <Button
@@ -82,7 +84,8 @@ const RoleListItem = () => {
             size="small"
             style={{
               width: 90
-            }}>
+            }}
+          >
             Reset
           </Button>
           {/* <Button
@@ -103,7 +106,8 @@ const RoleListItem = () => {
             size="small"
             onClick={() => {
               close();
-            }}>
+            }}
+          >
             close
           </Button>
         </Space>
@@ -165,17 +169,15 @@ const RoleListItem = () => {
           <div className="d-flex align-items-center gap-2">
             <DeleteOutlined
               onClick={async () => {
-              await removeRole({ id: record?.id })
-                .then(() => {
-                  message.success('Role Successfully Deleted');
-                  getRoleData();
-                })
-                .catch((err) => console.log('err -------=>', err));
-            }}
-          />
-          <EditOutlined
-           onClick={()=>navigate(reverse(routes.role.edit,{id:record.id}))}
-           />
+                await removeRole({ id: record?.id })
+                  .then(() => {
+                    message.success('Role Successfully Deleted');
+                    getRoleData();
+                  })
+                  .catch((err) => console.log('err -------=>', err));
+              }}
+            />
+            <EditOutlined onClick={() => navigate(reverse(routes.role.edit, { id: record.id }))} />
           </div>
         );
       },
@@ -193,7 +195,8 @@ const RoleListItem = () => {
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
-          style={{ height: '100vh', zIndex: '11111' }}>
+          style={{ height: '100vh', zIndex: '11111' }}
+        >
           <Bars
             height="130"
             width="130"
@@ -210,7 +213,8 @@ const RoleListItem = () => {
           <Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-            onClick={() => navigate(routes.role.createRole)}>
+            onClick={() => navigate(routes.role.createRole)}
+          >
             + New
           </Button>
         </div>
@@ -218,7 +222,8 @@ const RoleListItem = () => {
           className="m-3 p-3 border border-1 "
           style={{
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
-          }}>
+          }}
+        >
           <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
             <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
               Customize Columns

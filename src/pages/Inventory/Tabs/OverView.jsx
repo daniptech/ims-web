@@ -34,7 +34,8 @@ const EditableCell = ({ editing, dataIndex, title, inputType, children, ...restP
               required: true,
               message: `Please Input ${title}!`
             }
-          ]}>
+          ]}
+        >
           {inputNode}
         </Form.Item>
       ) : (
@@ -102,7 +103,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8
-              }}>
+              }}
+            >
               Save
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
@@ -113,7 +115,8 @@ const OverView = ({ inventoryitem, itemData }) => {
           <Typography.Link
             disabled={editingKey !== ''}
             className="d-flex justify-content-center align-items-center"
-            onClick={() => edit(record)}>
+            onClick={() => edit(record)}
+          >
             <EditOutlined /> Edit
           </Typography.Link>
         );
@@ -142,7 +145,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               onClick={() => save(record.key)}
               style={{
                 marginRight: 8
-              }}>
+              }}
+            >
               Save
             </Typography.Link>
             <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
@@ -153,7 +157,8 @@ const OverView = ({ inventoryitem, itemData }) => {
           <Typography.Link
             disabled={editingKey !== ''}
             className="d-flex justify-content-center align-items-center"
-            onClick={() => edit(record)}>
+            onClick={() => edit(record)}
+          >
             <EditOutlined /> Edit
           </Typography.Link>
         );
@@ -379,7 +384,8 @@ const OverView = ({ inventoryitem, itemData }) => {
                     ...associatedPriceList,
                     open: !associatedPriceList.open
                   })
-                }>
+                }
+              >
                 Associated Price Lists{' '}
                 {associatedPriceList.open ? <CaretDownOutlined /> : <CaretRightOutlined />}
               </Button>
@@ -477,7 +483,8 @@ const OverView = ({ inventoryitem, itemData }) => {
                   <tbody className=" position-relative">
                     <tr
                       className="border position-absolute d-flex justify-content-center align-items-center"
-                      style={{ height: '150px', width: '100%' }}>
+                      style={{ height: '150px', width: '100%' }}
+                    >
                       <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No data" />
                     </tr>
                   </tbody>
@@ -527,7 +534,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
+                >
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Shipped</span>
@@ -536,7 +544,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
+                >
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Received</span>
@@ -545,7 +554,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
+                >
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Invoiced</span>
@@ -554,7 +564,8 @@ const OverView = ({ inventoryitem, itemData }) => {
               <div className="col-md-6 col-lg-6 mb-4">
                 <div
                   style={{ width: '100%', height: '100px' }}
-                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center">
+                  className="bg-white rounded-3 p-1 d-flex flex-column justify-content-center align-items-center"
+                >
                   <span>0</span>
                   <span className="text-muted">Qty</span>
                   <span>To be Billed</span>

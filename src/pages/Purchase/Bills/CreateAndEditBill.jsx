@@ -90,13 +90,15 @@ const CreateAndEditBill = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}>
+        }}
+      >
         <Form
           layout="vertical"
           initialValues={{
             type: 'tds'
           }}
-          name="conpositeForm">
+          name="conpositeForm"
+        >
           <div>
             <div className="w-100 row col-12 bg-light p-4">
               <div className="col-6">
@@ -109,7 +111,8 @@ const CreateAndEditBill = () => {
                   <div className="col-9">
                     <div
                       className="d-flex align-items-center rounded-start border-start border-top border-bottom"
-                      style={{ height: '34px' }}>
+                      style={{ height: '34px' }}
+                    >
                       <Select
                         style={{
                           width: '90%'
@@ -146,7 +149,8 @@ const CreateAndEditBill = () => {
                           display: 'flex',
                           justifyContent: 'center',
                           alignItems: 'center'
-                        }}>
+                        }}
+                      >
                         <SearchOutlined
                           onClick={() => console.log('search')}
                           style={{ color: '#fff', fontSize: '20px' }}
@@ -221,7 +225,8 @@ const CreateAndEditBill = () => {
                       Payment Terms
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                      >
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -254,17 +259,20 @@ const CreateAndEditBill = () => {
                             <Space
                               style={{
                                 padding: '0 18px 4px'
-                              }}>
+                              }}
+                            >
                               <span
                                 className="d-flex align-items-center gap-3 text-primary"
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => setPaymentTermsModalOpen(true)}>
+                                onClick={() => setPaymentTermsModalOpen(true)}
+                              >
                                 {' '}
                                 <SettingTwoTone /> Manage Payment Terms
                               </span>
                             </Space>
                           </>
-                        )}>
+                        )}
+                      >
                         <Input />
                       </Select>
                     </Form.Item>
@@ -353,7 +361,8 @@ const CreateAndEditBill = () => {
                               key: 2
                             }
                           ]
-                        }}>
+                        }}
+                      >
                         <div className="d-flex gap-2 align-items-center justify-content-center">
                           <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add
                           another line

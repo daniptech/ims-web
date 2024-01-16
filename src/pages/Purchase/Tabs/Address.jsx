@@ -26,7 +26,7 @@ const Address = () => {
           </div>
           <div className="col-7">
             <Form.Item name="billingcountry" className="d-flex m-0 form-item">
-              <Input/>
+              <Input />
             </Form.Item>
           </div>
         </div>
@@ -70,7 +70,7 @@ const Address = () => {
           </div>
           <div className="col-7">
             <Form.Item name="billingstate" className="d-flex m-0 form-item">
-              <Input/>
+              <Input />
             </Form.Item>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { ArrowLeftOutlined, DownOutlined, EditOutlined } from '@ant-design/icons';
-import { Button, Dropdown, Tabs,message } from 'antd';
+import { Button, Dropdown, Tabs, message } from 'antd';
 import React from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { reverse } from 'named-urls';

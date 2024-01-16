@@ -18,7 +18,7 @@ export const allUser = () => {
   return Get(url, true);
 };
 
-export const createUser=(data)=>{
+export const createUser = (data) => {
   const url = getAPIUrl('auth.craeteUser');
   return Post(url, data, true);
-}
+};

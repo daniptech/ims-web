@@ -22,7 +22,6 @@ const Salesperson = ({ salesPersonModalOpen, setSalesPersonModalOpen }) => {
   const [editSalesPersonID, setEditSalesPersonID] = useState();
   const [salesPerson, setSalesPerson] = useState([]);
   useEffect(() => {
-    debugger
     getAllSalesPerson();
   }, []);
   const getAllSalesPerson = () => {
@@ -36,7 +35,7 @@ const Salesperson = ({ salesPersonModalOpen, setSalesPersonModalOpen }) => {
     if (editSalesPersonID === undefined) {
       addSalesPerson({ ...value, isDefault: true })
         .then(() => {
-            getAllSalesPerson();
+          getAllSalesPerson();
         })
         .catch((err) => console.log('err =====>', err));
     } else {
@@ -60,7 +59,6 @@ const Salesperson = ({ salesPersonModalOpen, setSalesPersonModalOpen }) => {
       .catch((err) => console.log('err =====>', err));
   };
   const handleEdit = (val) => {
-    debugger
     setEditSalesPersonID(val?.id);
     form.setFieldsValue({ ...val });
   };
@@ -72,7 +70,8 @@ const Salesperson = ({ salesPersonModalOpen, setSalesPersonModalOpen }) => {
       open={salesPersonModalOpen}
       onOk={''}
       footer={false}
-      onCancel={() => setSalesPersonModalOpen(false)}>
+      onCancel={() => setSalesPersonModalOpen(false)}
+    >
       <div className="w-100">
         <Form name="brand" form={form} onFinish={(value) => handleSubmit(value)}>
           <div className="row col-12">
@@ -85,7 +84,8 @@ const Salesperson = ({ salesPersonModalOpen, setSalesPersonModalOpen }) => {
                     required: true,
                     message: 'Please Enter  Name'
                   }
-                ]}>
+                ]}
+              >
                 <Input />
               </Form.Item>
             </div>
@@ -98,7 +98,8 @@ const Salesperson = ({ salesPersonModalOpen, setSalesPersonModalOpen }) => {
                     required: true,
                     message: 'Please Enter Email'
                   }
-                ]}>
+                ]}
+              >
                 <Input />
               </Form.Item>
             </div>
@@ -135,13 +136,15 @@ const Salesperson = ({ salesPersonModalOpen, setSalesPersonModalOpen }) => {
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleEdit(val)}>
+                        onClick={() => handleEdit(val)}
+                      >
                         <EditOutlined /> Edit
                       </span>
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleDelete(val)}>
+                        onClick={() => handleDelete(val)}
+                      >
                         <DeleteFilled /> Delete
                       </span>
                     </div>

@@ -18,8 +18,8 @@ export const removeRole = (params = {}) => {
   const url = getAPIUrl('role.delete', params);
   return Remove(url, true);
 };
-export const getRole = (params={}) => {
-  const url = getAPIUrl('role.getrole',params);
+export const getRole = (params = {}) => {
+  const url = getAPIUrl('role.getrole', params);
   return Get(url);
 };
 

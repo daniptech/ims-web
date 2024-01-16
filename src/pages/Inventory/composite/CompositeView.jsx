@@ -74,7 +74,8 @@ const CompositeView = () => {
             className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
             onClick={() =>
               navigate(reverse(routes.inventory.compositeItem.edit, { id: params.id }))
-            }>
+            }
+          >
             <EditOutlined />
           </Button>
           <Button type="primary">Create Bundle</Button>
@@ -86,7 +87,8 @@ const CompositeView = () => {
             arrow={{
               pointAtCenter: true
             }}
-            trigger="click">
+            trigger="click"
+          >
             <Button type="primary" className="d-flex justify-content-center align-items-center">
               More <DownOutlined />
             </Button>
@@ -112,7 +114,8 @@ const CompositeView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <OverView inventoryitem={'composite'} itemData={itemData} />
           </div>
         </TabPane>
@@ -124,7 +127,8 @@ const CompositeView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <Transaction />
           </div>
         </TabPane>
@@ -136,7 +140,8 @@ const CompositeView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <BuildingHistory />
           </div>
         </TabPane>
@@ -148,7 +153,8 @@ const CompositeView = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '79px'
-            }}>
+            }}
+          >
             <History />
           </div>
         </TabPane>

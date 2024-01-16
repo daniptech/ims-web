@@ -17,11 +17,11 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
       setSelectKey('home');
     } else if (pathname[1] === 'reports') {
       setSelectKey('reports');
-    }else if (pathname[1] === 'user') {
+    } else if (pathname[1] === 'user') {
       setSelectKey('user');
     } else if (pathname[1] === 'role') {
       setSelectKey('role');
-    }else {
+    } else {
       setSelectKey(currentSelectKey);
     }
   }, [setSelectKey]);
@@ -46,9 +46,9 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
       navigate(routes.home.dashboard);
     } else if (val.key === 'reports') {
       navigate(routes.reports.self);
-    }else if (val.key === 'user') {
+    } else if (val.key === 'user') {
       navigate(routes.user.self);
-    }else if (val.key === 'role') {
+    } else if (val.key === 'role') {
       navigate(routes.role.self);
     }
   };
@@ -56,7 +56,8 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
     <div style={{ minHeight: '100vh' }}>
       <div
         className="demo-logo-vertical d-flex justify-content-center align-items-center text-white gap-2"
-        style={{ height: '40px', background: '#1677FF' }}>
+        style={{ height: '40px', background: '#1677FF' }}
+      >
         <FontAwesomeIcon icon={faCartFlatbed} />
         {!collapsed && <span>Inventory</span>}
       </div>
@@ -65,7 +66,8 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
         // style={{ mixHeight: '93vh' }}
         collapsible
         collapsed={collapsed}
-        onCollapse={(value) => setCollapsed(value)}>
+        onCollapse={(value) => setCollapsed(value)}
+      >
         {/* <div
           className="demo-logo-vertical d-flex justify-content-center align-items-center text-white gap-2"
           style={{ height: '40px', background: '#1677FF' }}

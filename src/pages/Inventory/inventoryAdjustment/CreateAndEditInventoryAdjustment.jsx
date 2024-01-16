@@ -1,7 +1,5 @@
 import {
   ArrowLeftOutlined,
-  DownOutlined,
-  PlusOutlined,
   SettingTwoTone,
   UploadOutlined
 } from '@ant-design/icons';
@@ -19,7 +17,6 @@ import {
   message
 } from 'antd';
 import React, { useEffect } from 'react';
-import { useRef } from 'react';
 import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
@@ -34,7 +31,6 @@ const CreateAndEditInventoryAdjustment = () => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
   const params = useParams();
-  const inputRef = useRef(null);
   const [reason, setReason] = useState([]);
   const [reasonModalOpen, setReasonModalOpen] = useState(false);
   const currentUserData = useSelector((state) => state.user.currentuser);
@@ -69,7 +65,7 @@ const CreateAndEditInventoryAdjustment = () => {
     } else {
       const data = [...items];
       const itemList = [...associatedItemlist];
-      const itemData = data?.filter((val, index) => e.key == val.id);
+      const itemData = data?.filter((val) => e.key == val.id);
       const getFilledData = itemList?.filter((val) => val.isFilled);
       if (getFilledData.length) {
         const checkRepectedField = getFilledData?.filter((val) => {
@@ -152,7 +148,8 @@ const CreateAndEditInventoryAdjustment = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}>
+        }}
+      >
         <Form
           layout="vertical"
           name="adjustmentForm"
@@ -160,7 +157,8 @@ const CreateAndEditInventoryAdjustment = () => {
           initialValues={{
             mode_of_adjustment: 'quantity_adjustment'
           }}
-          onFinish={(val) => console.log(val)}>
+          onFinish={(val) => console.log(val)}
+        >
           <div className="row col-12 p-4">
             <div className="col-6">
               <div className="row col-12">
@@ -169,7 +167,8 @@ const CreateAndEditInventoryAdjustment = () => {
                   <Form.Item name="mode_of_adjustment">
                     <Radio.Group
                       value={adjustmentValue}
-                      onChange={(e) => setAdjustmentValue(e?.target?.value)}>
+                      onChange={(e) => setAdjustmentValue(e?.target?.value)}
+                    >
                       <Space direction="vertical">
                         <Radio value="quantity_adjustment">Quantity Adjustment</Radio>
                         <Radio value="value_adjustment">Value Adjustment</Radio>
@@ -263,19 +262,22 @@ const CreateAndEditInventoryAdjustment = () => {
                           <Space
                             style={{
                               padding: '0 18px 4px'
-                            }}>
+                            }}
+                          >
                             <span
                               className="d-flex align-items-center gap-3 text-primary"
                               style={{ cursor: 'pointer' }}
                               onClick={() => {
                                 setReasonModalOpen(true);
-                              }}>
+                              }}
+                            >
                               {' '}
                               <SettingTwoTone /> Manage Reason
                             </span>
                           </Space>
                         </>
-                      )}>
+                      )}
+                    >
                       <Input />
                     </Select>
                   </Form.Item>
@@ -345,7 +347,7 @@ const CreateAndEditInventoryAdjustment = () => {
                               <Dropdown
                                 trigger={'click'}
                                 menu={{
-                                  items: items?.map((val, index) => {
+                                  items: items?.map((val) => {
                                     return {
                                       label: (
                                         <div className="row col-12 m-0 p-0">
@@ -368,7 +370,8 @@ const CreateAndEditInventoryAdjustment = () => {
                                   }),
                                   className: 'custom-dropdown',
                                   onClick: (e) => handleItem(e, index)
-                                }}>
+                                }}
+                              >
                                 <Input
                                   className="item-detail"
                                   placeholder="Click to select an item."
@@ -416,7 +419,8 @@ const CreateAndEditInventoryAdjustment = () => {
                       isFilled: false
                     }
                   ])
-                }>
+                }
+              >
                 <div className="d-flex gap-2 align-items-center justify-content-center">
                   <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add another
                   line

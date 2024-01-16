@@ -192,7 +192,7 @@ const NavBar = () => {
                         onClick={() => {
                           logout();
                           navigate(routes.login.self);
-                          window.location.reload()
+                          window.location.reload();
                         }}
                       >
                         <FontAwesomeIcon icon={faArrowRightFromBracket} accordion />

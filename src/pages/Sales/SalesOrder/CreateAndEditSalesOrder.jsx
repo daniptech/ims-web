@@ -98,7 +98,8 @@ export const CreateAndEditSalesOrder = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}>
+        }}
+      >
         <Form layout="vertical" name="conpositeForm">
           <div>
             <div className="w-100 row col-12 bg-light  p-4">
@@ -204,7 +205,8 @@ export const CreateAndEditSalesOrder = () => {
                       Payment Terms
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                      >
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -237,17 +239,20 @@ export const CreateAndEditSalesOrder = () => {
                             <Space
                               style={{
                                 padding: '0 18px 4px'
-                              }}>
+                              }}
+                            >
                               <span
                                 className="d-flex align-items-center gap-3 text-primary"
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => setPaymentTermsModalOpen(true)}>
+                                onClick={() => setPaymentTermsModalOpen(true)}
+                              >
                                 {' '}
                                 <SettingTwoTone /> Manage Payment Terms
                               </span>
                             </Space>
                           </>
-                        )}>
+                        )}
+                      >
                         <Input />
                       </Select>
                     </Form.Item>
@@ -287,7 +292,8 @@ export const CreateAndEditSalesOrder = () => {
                       Salesperson
                       <Tooltip
                         placement="rightTop"
-                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. ">
+                        title="Select if this item is a Physical good or a service you're offering. Also, remember that once you include this item in a transaction, you can't change its type. "
+                      >
                         <InfoCircleOutlined className="text-muted" />
                       </Tooltip>{' '}
                     </label>
@@ -316,17 +322,20 @@ export const CreateAndEditSalesOrder = () => {
                             <Space
                               style={{
                                 padding: '0 8px 4px'
-                              }}>
+                              }}
+                            >
                               <span
                                 className="d-flex align-items-center gap-3 text-primary"
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => setSalesPersonModalOpen(true)}>
+                                onClick={() => setSalesPersonModalOpen(true)}
+                              >
                                 {' '}
                                 <SettingTwoTone /> Manage SalesPerson
                               </span>
                             </Space>
                           </>
-                        )}>
+                        )}
+                      >
                         <Input />
                       </Select>
                     </Form.Item>
@@ -373,12 +382,14 @@ export const CreateAndEditSalesOrder = () => {
                       </th>
                       <th
                         style={{ width: '18%' }}
-                        className="border-bottom border-top border-end text-end">
+                        className="border-bottom border-top border-end text-end"
+                      >
                         QUANTITY
                       </th>
                       <th
                         style={{ width: '18%' }}
-                        className="border-bottom border-top border-end text-end">
+                        className="border-bottom border-top border-end text-end"
+                      >
                         RATE
                       </th>
                       <th style={{ width: '18%' }} className="border-bottom border-top text-end">
@@ -423,7 +434,10 @@ export const CreateAndEditSalesOrder = () => {
                 <div className="row col-12 justify-content-between">
                   <div className="col-4 d-flex flex-column justify-content-between">
                     <div>
-                      <div className="d-flex gap-2 align-items-center " style={{cursor:'pointer'}}>
+                      <div
+                        className="d-flex gap-2 align-items-center "
+                        style={{ cursor: 'pointer' }}
+                      >
                         <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add
                         another line
                       </div>

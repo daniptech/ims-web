@@ -3,13 +3,12 @@ import React from 'react';
 import { addReason, getReason, removeReason } from '../../controller/api/FieldsDataServices';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import { DeleteFilled, EditOutlined } from '@ant-design/icons';
+import { DeleteFilled } from '@ant-design/icons';
 
 const Reason = ({ reasonModalOpen, setReasonModalOpen }) => {
   const [form] = Form.useForm();
   const [reason, setReason] = useState([]);
   useEffect(() => {
-    debugger
     getAllReason();
   }, []);
   const getAllReason = () => {
@@ -43,7 +42,8 @@ const Reason = ({ reasonModalOpen, setReasonModalOpen }) => {
       open={reasonModalOpen}
       onOk={''}
       footer={false}
-      onCancel={() => setReasonModalOpen(false)}>
+      onCancel={() => setReasonModalOpen(false)}
+    >
       <div className="w-100">
         <Form name="reason" form={form} onFinish={(value) => handleSubmit(value)}>
           <div className="row col-12">
@@ -56,7 +56,8 @@ const Reason = ({ reasonModalOpen, setReasonModalOpen }) => {
                     required: true,
                     message: 'Please Enter Reson'
                   }
-                ]}>
+                ]}
+              >
                 <Input />
               </Form.Item>
               <Button type="primary" htmlType="submit">
@@ -90,7 +91,8 @@ const Reason = ({ reasonModalOpen, setReasonModalOpen }) => {
                       <span
                         className="d-flex justify-content-center align-items-center gap-2"
                         style={{ cursor: 'pointer' }}
-                        onClick={() => handleDelete(val)}>
+                        onClick={() => handleDelete(val)}
+                      >
                         <DeleteFilled /> Delete
                       </span>
                     </div>

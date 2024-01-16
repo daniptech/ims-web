@@ -3,13 +3,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Login from './pages/Login';
 import './assets/css/custom.css';
 import { Navigate, Route, Routes } from 'react-router-dom';
-import Register from './pages/Register';
 import Main from './pages/Main';
 import { routes } from './controller/routes';
 import React, { useEffect, useState } from 'react';
-import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
-import { faBagShopping, faCartFlatbed, faChartSimple } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isLoggedIn } from './controller/localStorageHandler';
 
 function App() {
@@ -29,44 +25,7 @@ function App() {
   //   }
   // };
   const [selectKey, setSelectKey] = useState('1');
-  function getItem(label, key, icon, children) {
-    return {
-      key,
-      icon,
-      children,
-      label
-    };
-  }
-  const items = [
-    getItem('Home', 'home', <HomeOutlined />),
-    getItem('Inventory', 'inventory', <FontAwesomeIcon icon={faCartFlatbed} />, [
-      getItem('Items', 'items'),
-      getItem('Composite Items', 'compositeItem'),
-      getItem('Item Groups', 'itemGroups'),
-      getItem('Price Lists', 'priceList'),
-      getItem('Inventory Adjustments', 'inventoryAdjustments')
-    ]),
-    getItem('Sales', 'sales', <ShoppingCartOutlined />, [
-      getItem('Customers', 'customers'),
-      getItem('Sales Order', 'salesOrder'),
-      getItem('Packages', 'packages'),
-      getItem('Shipments', 'shipment'),
-      getItem('Delivery Challans', 'deliveryChallans'),
-      getItem('Invoice', 'invoices'),
-      getItem('Payment Received', 'paymentReceived'),
-      getItem('sales Return', 'salesReturn'),
-      getItem('Credit Notes', 'creditNotes')
-    ]),
-    getItem('Purchase', 'purchase', <FontAwesomeIcon icon={faBagShopping} />, [
-      getItem('Vendors', 'vendor'),
-      getItem('Purchase Order', 'purchaseOrder'),
-      getItem('Purchase Receives', 'purchaseReceives'),
-      getItem('Bills', 'bills'),
-      getItem('Payments Mode', 'paymentMode'),
-      getItem('Vendor Credits', 'vendorCredit')
-    ]),
-    getItem('Reports', 'reports', <FontAwesomeIcon icon={faChartSimple} />)
-  ];
+
   return (
     <div className="App">
       <Routes>

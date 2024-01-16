@@ -1,5 +1,5 @@
 import { Button, Card, Form, Input, Select, message } from 'antd';
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { countryData } from '../data/CountryData';
 import { ArrowLeftOutlined, GlobalOutlined } from '@ant-design/icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
@@ -9,15 +9,14 @@ import { routes } from '../controller/routes';
 import { enterOnlyNumber } from '../controller/enteronlynumber';
 import { useSelector } from 'react-redux';
 import { createUser } from '../controller/api/AuthServices';
-import { useState } from "react";
-import { getAllRole } from "../controller/api/role/roleServices";
+import { useState } from 'react';
+import { getAllRole } from '../controller/api/role/roleServices';
 
 const Register = () => {
   const { Option } = Select;
   const navigate = useNavigate();
   const [roleList, setRoleList] = useState([]);
   const currentUserData = useSelector((state) => state.user.currentuser);
-
 
   useEffect(() => {
     getRoleData();
@@ -41,7 +40,8 @@ const Register = () => {
           message: 'Please input your Country code!'
         }
       ]}
-      noStyle>
+      noStyle
+    >
       <Select showSearch placeholder="country code" className="heehjj" style={{ width: 80 }}>
         {countryData.map((val, index) => {
           return (
@@ -54,7 +54,7 @@ const Register = () => {
     </Form.Item>
   );
   const onFinish = async (value) => {
-   const payload = {
+    const payload = {
       ...value,
       organizationId: currentUserData?.organizationId,
       companyName: currentUserData?.companyName
@@ -63,7 +63,7 @@ const Register = () => {
     await createUser(payload)
       .then((res) => {
         message.success('User Successfully Created');
-        navigate(routes.user.self)
+        navigate(routes.user.self);
       })
       .catch((err) => {
         console.log('err======>', err);
@@ -219,7 +219,8 @@ const Register = () => {
                       required: true,
                       message: 'Please input First Name!'
                     }
-                  ]}>
+                  ]}
+                >
                   <Input className="w-100" />
                 </Form.Item>
               </div>
@@ -239,7 +240,8 @@ const Register = () => {
                       required: true,
                       message: 'Please input Last Name!'
                     }
-                  ]}>
+                  ]}
+                >
                   <Input className="w-100" />
                 </Form.Item>
               </div>
@@ -259,7 +261,8 @@ const Register = () => {
                       required: true,
                       message: 'Please input your Phone Number!'
                     }
-                  ]}>
+                  ]}
+                >
                   <Input
                     placeholder="Phone Number"
                     minLength={10}
@@ -286,7 +289,8 @@ const Register = () => {
                       required: true,
                       message: 'Please input your Email!'
                     }
-                  ]}>
+                  ]}
+                >
                   <Input placeholder="Email" />
                 </Form.Item>
               </div>
@@ -307,7 +311,8 @@ const Register = () => {
                       required: true,
                       message: 'Please input your Country!'
                     }
-                  ]}>
+                  ]}
+                >
                   <Input placeholder="Country" prefix={<GlobalOutlined />} />
                 </Form.Item>
               </div>
@@ -328,7 +333,8 @@ const Register = () => {
                       required: true,
                       message: 'Please input your City!'
                     }
-                  ]}>
+                  ]}
+                >
                   <Input placeholder="City" prefix={<FontAwesomeIcon icon={faLocationDot} />} />
                 </Form.Item>
               </div>
@@ -349,9 +355,14 @@ const Register = () => {
                       required: true,
                       message: 'Please input User Role!'
                     }
-                  ]}>
+                  ]}
+                >
                   <Select>
-                    {roleList?.map((val,index)=><Option value={val?.roleName} key={index}>{val?.roleName}</Option>)}
+                    {roleList?.map((val, index) => (
+                      <Option value={val?.roleName} key={index}>
+                        {val?.roleName}
+                      </Option>
+                    ))}
                   </Select>
                 </Form.Item>
               </div>

@@ -146,8 +146,8 @@ const CompositeItemsList = () => {
                 return data;
               }
             });
-            if(val?.children?.length==0){
-              delete val.children
+            if (val?.children?.length == 0) {
+              delete val.children;
             }
           }
           return val;
@@ -165,7 +165,8 @@ const CompositeItemsList = () => {
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
-          style={{ height: '100vh', zIndex: '11111' }}>
+          style={{ height: '100vh', zIndex: '11111' }}
+        >
           <Bars
             height="130"
             width="130"
@@ -186,7 +187,8 @@ const CompositeItemsList = () => {
                 menu={{
                   items
                 }}
-                placement="bottom">
+                placement="bottom"
+              >
                 <Button type="primary" className="d-flex justify-content-center align-items-center">
                   Bulk Action <DownOutlined />
                 </Button>
@@ -239,7 +241,8 @@ const CompositeItemsList = () => {
               <Button
                 type="primary"
                 className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-                onClick={() => navigate(routes.inventory.compositeItem.new)}>
+                onClick={() => navigate(routes.inventory.compositeItem.new)}
+              >
                 + New
               </Button>
             </>

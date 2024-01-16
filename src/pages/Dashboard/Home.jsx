@@ -91,7 +91,8 @@ const Home = () => {
               height: '100%',
               overflow: 'scroll',
               paddingBottom: '72px'
-            }}>
+            }}
+          >
             <div className="row col-12 w-100 dashboard-section m-0">
               <div className="col-md-12 col-sm-12 col-lg-8 sales-activity d-flex flex-column gap-3 p-4">
                 <span className="fs-5 fw-medium text-muted">Sales Activity</span>
@@ -104,7 +105,8 @@ const Home = () => {
                     <span className="text-muted fw-medium">Qty</span>
                     <p
                       className="m-0 d-flex justify-content-center align-items-center gap-2 mt-3"
-                      style={{ color: '#495569' }}>
+                      style={{ color: '#495569' }}
+                    >
                       <CheckCircleOutlined />
                       <span> TO BE PACKED</span>
                     </p>
@@ -117,7 +119,8 @@ const Home = () => {
                     <span className="text-muted fw-medium">Qty</span>
                     <p
                       className="m-0 d-flex justify-content-center align-items-center gap-2 mt-3"
-                      style={{ color: '#495569' }}>
+                      style={{ color: '#495569' }}
+                    >
                       <InboxOutlined />
                       <span> TO BE SHIPPED</span>
                     </p>
@@ -130,7 +133,8 @@ const Home = () => {
                     <span className="text-muted fw-medium">Qty</span>
                     <p
                       className="m-0 d-flex justify-content-center align-items-center gap-2 mt-3"
-                      style={{ color: '#495569' }}>
+                      style={{ color: '#495569' }}
+                    >
                       <FontAwesomeIcon icon={faEllipsis} />
                       <span> TO BE DELIVERED</span>
                     </p>
@@ -143,7 +147,8 @@ const Home = () => {
                     <span className="text-muted fw-medium">Qty</span>
                     <p
                       className="m-0 d-flex justify-content-center align-items-center gap-2 mt-3"
-                      style={{ color: '#495569' }}>
+                      style={{ color: '#495569' }}
+                    >
                       <FontAwesomeIcon icon={faFileLines} />
                       <span> TO BE INVOICED</span>
                     </p>
@@ -179,7 +184,8 @@ const Home = () => {
                 <div className="col-md-6 col-lg-6">
                   <div
                     className="w-100 product-detail-box p-2"
-                    style={{ minHeight: '37vh', maxHeight: '37vh' }}>
+                    style={{ minHeight: '37vh', maxHeight: '37vh' }}
+                  >
                     <div className="border-bottom">
                       <label className="mb-1 px-3 fw-semibold">PRODUCT DETAILS</label>
                     </div>
@@ -218,10 +224,11 @@ const Home = () => {
                                 <span className="fw-medium">All Items</span>
                               </div>
                             </div>
-                          }>  
+                          }
+                        >
                           <Progress
                             type="circle"
-                            percent={Math.floor(20/21*100)}
+                            percent={Math.floor((20 / 21) * 100)}
                             strokeWidth={20}
                             status="active"
                             size={100}
@@ -234,7 +241,8 @@ const Home = () => {
                 <div className="col-md-6 col-lg-6">
                   <div
                     className="w-100 product-detail-box p-2"
-                    style={{ minHeight: '37vh', maxHeight: '37vh' }}>
+                    style={{ minHeight: '37vh', maxHeight: '37vh' }}
+                  >
                     <div className="border-bottom d-flex justify-content-between">
                       <label className="mb-1 px-3 fw-semibold">TOP SELLING ITEMS</label>
                       <CalenderSelect
@@ -244,7 +252,8 @@ const Home = () => {
                     </div>
                     <div
                       className="w-100 d-flex justify-content-center align-items-center text-muted fw-medium"
-                      style={{ minHeight: '30vh' }}>
+                      style={{ minHeight: '30vh' }}
+                    >
                       No items were invoiced in this time frame
                     </div>
                   </div>
@@ -256,7 +265,8 @@ const Home = () => {
                 <div className="col-md-6 col-lg-4">
                   <div
                     className="w-100 product-detail-box p-2"
-                    style={{ minHeight: '37vh', maxHeight: '37vh' }}>
+                    style={{ minHeight: '37vh', maxHeight: '37vh' }}
+                  >
                     <div className="border-bottom d-flex justify-content-between">
                       <label className="mb-1 px-3 fw-semibold">PURCHASE ORDER</label>
                       <CalenderSelect
@@ -266,7 +276,8 @@ const Home = () => {
                     </div>
                     <div
                       className="w-100  row col-12 m-0"
-                      style={{ minHeight: '30vh', maxHeight: '30vh' }}>
+                      style={{ minHeight: '30vh', maxHeight: '30vh' }}
+                    >
                       <div className="col-12 p-2 d-flex flex-column justify-content-center align-items-center gap-1">
                         <div className="text-muted fs-6" style={{ fontWeight: 500 }}>
                           Active Items
@@ -286,7 +297,8 @@ const Home = () => {
                 <div className="col-md-6 col-lg-8">
                   <div
                     className="w-100 product-detail-box p-2"
-                    style={{ minHeight: '37vh', maxHeight: '37vh', overflow: 'hidden' }}>
+                    style={{ minHeight: '37vh', maxHeight: '37vh', overflow: 'hidden' }}
+                  >
                     <div className="border-bottom d-flex justify-content-between">
                       <label className="mb-1 px-3 fw-semibold">SALES ORDER</label>
                       <CalenderSelect

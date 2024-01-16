@@ -26,8 +26,8 @@ import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { faCircleXmark, faImage } from '@fortawesome/free-regular-svg-icons';
 import { faCirclePlus } from '@fortawesome/free-solid-svg-icons';
-import { getPaymentTerm } from "../../../controller/api/FieldsDataServices";
-import PaymentTerms from "../../../components/modals/PaymentTerms";
+import { getPaymentTerm } from '../../../controller/api/FieldsDataServices';
+import PaymentTerms from '../../../components/modals/PaymentTerms';
 
 const CreateAndEditPurchaseOrder = () => {
   const navigate = useNavigate();
@@ -225,7 +225,7 @@ const CreateAndEditPurchaseOrder = () => {
                     </label>
                   </div>
                   <div className="col-6">
-                  <Form.Item name="paymentTerms" className="d-flex m-0 form-item">
+                    <Form.Item name="paymentTerms" className="d-flex m-0 form-item">
                       <Select
                         options={
                           paymentTerm?.length
@@ -252,17 +252,20 @@ const CreateAndEditPurchaseOrder = () => {
                             <Space
                               style={{
                                 padding: '0 18px 4px'
-                              }}>
+                              }}
+                            >
                               <span
                                 className="d-flex align-items-center gap-3 text-primary"
                                 style={{ cursor: 'pointer' }}
-                                onClick={() => setPaymentTermsModalOpen(true)}>
+                                onClick={() => setPaymentTermsModalOpen(true)}
+                              >
                                 {' '}
                                 <SettingTwoTone /> Manage Payment Terms
                               </span>
                             </Space>
                           </>
-                        )}>
+                        )}
+                      >
                         <Input />
                       </Select>
                     </Form.Item>

@@ -3,26 +3,25 @@ import CanvasJSReact from '@canvasjs/react-charts';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Dropdown, Space } from 'antd';
-import dayjs from "dayjs";
+import dayjs from 'dayjs';
 import React from 'react';
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 const ChartView = () => {
   function getLastDateOfCurrentMonth() {
-  // Get the current date
-  const currentDate = new Date();
+    // Get the current date
+    const currentDate = new Date();
 
-  // Set the date to the first day of the next month
-  currentDate.setMonth(currentDate.getMonth() + 1, 1);
+    // Set the date to the first day of the next month
+    currentDate.setMonth(currentDate.getMonth() + 1, 1);
 
-  // Subtract one day to get the last day of the current month
-  currentDate.setDate(currentDate.getDate() - 1);
+    // Subtract one day to get the last day of the current month
+    currentDate.setDate(currentDate.getDate() - 1);
 
-  // Return the last date of the current month
-  return currentDate;
-}
+    // Return the last date of the current month
+    return currentDate;
+  }
 
-
-console.log(dayjs(getLastDateOfCurrentMonth()).format('DD'),"dkndldnldnd")
+  console.log(dayjs(getLastDateOfCurrentMonth()).format('DD'), 'dkndldnldnd');
   const options = {
     // animationEnabled:     true,
     // exportEnabled: true,
@@ -46,15 +45,18 @@ console.log(dayjs(getLastDateOfCurrentMonth()).format('DD'),"dkndldnldnd")
       maximum: dayjs(getLastDateOfCurrentMonth()).format('DD'), // Corrected property name from 'maximun' to 'maximum'
       labelFormatter: (e) => {
         // Display only odd values on the x-axis
-        return e.value % 2 !== 0 ? `${e.value} ${dayjs(getLastDateOfCurrentMonth()).format('MMM')}` : '';
+        return e.value % 2 !== 0
+          ? `${e.value} ${dayjs(getLastDateOfCurrentMonth()).format('MMM')}`
+          : '';
       }
     },
     data: [
       {
         type: 'line',
         // toolTipContent: "<div className=''><span>Rs.{x}</span><span>{y}</span></div>",
-        dataPoints: [{x:1,y:3},
-          {x:4,y:5}
+        dataPoints: [
+          { x: 1, y: 3 },
+          { x: 4, y: 5 }
         ]
       }
     ]
@@ -69,7 +71,8 @@ console.log(dayjs(getLastDateOfCurrentMonth()).format('DD'),"dkndldnldnd")
             menu={{
               items: [{ key: 1, label: 'slsml' }]
             }}
-            className="fs-6">
+            className="fs-6"
+          >
             <Space>
               Hover me
               <DownOutlined />

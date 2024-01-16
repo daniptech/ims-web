@@ -3,7 +3,12 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleXmark } from '@fortawesome/free-solid-svg-icons';
-import { createRole, getModules, getRole, updateRole } from '../../controller/api/role/roleServices';
+import {
+  createRole,
+  getModules,
+  getRole,
+  updateRole
+} from '../../controller/api/role/roleServices';
 import { routes } from '../../controller/routes';
 
 const CreateRole = () => {
@@ -36,7 +41,7 @@ const CreateRole = () => {
           const rolepermission = [...res.data.rolePermissions]?.map((val) => {
             return { ...val, isFilled: true };
           });
-          console.log(rolepermission,"dkdnmlddldnld")
+          console.log(rolepermission, 'dkdnmlddldnld');
           setRolePermission(rolepermission);
         })
         .catch((err) => console.log('err ===== >', err));
@@ -67,21 +72,21 @@ const CreateRole = () => {
           };
         })
       };
-     if(params?.id){
-        await updateRole(payload,{id:params?.id})
-        .then((res) => {
-          message.success('Role Successfully Updated');
-          navigate(routes.role.self);
-        })
-        .catch((err) => console.log('err ---->', err));
-     }else{
+      if (params?.id) {
+        await updateRole(payload, { id: params?.id })
+          .then((res) => {
+            message.success('Role Successfully Updated');
+            navigate(routes.role.self);
+          })
+          .catch((err) => console.log('err ---->', err));
+      } else {
         await createRole(payload)
-        .then((res) => {
-          message.success('Role Successfully Created');
-          navigate(routes.role.self);
-        })
-        .catch((err) => console.log('err ---->', err));
-     }
+          .then((res) => {
+            message.success('Role Successfully Created');
+            navigate(routes.role.self);
+          })
+          .catch((err) => console.log('err ---->', err));
+      }
     } else {
       message.info('Please Add minimum 1 Module Permission');
     }
@@ -106,7 +111,8 @@ const CreateRole = () => {
           height: '100%',
           overflow: 'scroll',
           paddingBottom: '100px'
-        }}>
+        }}
+      >
         <Form layout="vertical" form={form} name="createUser" onFinish={(val) => handleSubmit(val)}>
           <div className="row col-12 p-4 m-0">
             <div className="col-md-6 col-lg-6 d-flex flex-column gap-3 mb-3">
@@ -123,7 +129,8 @@ const CreateRole = () => {
                         required: true,
                         message: 'Please input Role Name!'
                       }
-                    ]}>
+                    ]}
+                  >
                     <Input className="w-100" />
                   </Form.Item>
                 </div>
@@ -143,7 +150,8 @@ const CreateRole = () => {
                         className="w-100"
                         value={val?.module}
                         placeholder="Select Module"
-                        onChange={(value) => handleModule(value, index)}>
+                        onChange={(value) => handleModule(value, index)}
+                      >
                         {OriginalModule?.map((val, indexNumber) => {
                           return (
                             <Option value={val?.key} key={indexNumber}>
@@ -165,7 +173,8 @@ const CreateRole = () => {
                             newarr[index].isFilled = true;
                           }
                           setRolePermission(newarr);
-                        }}>
+                        }}
+                      >
                         <Option value={1}>read</Option>
                         <Option value={2}>write</Option>
                       </Select>
@@ -185,7 +194,8 @@ const CreateRole = () => {
                               }
                             ]);
                           }}
-                          disabled={val.isFilled ? false : true}>
+                          disabled={val.isFilled ? false : true}
+                        >
                           <div className="d-flex gap-2 align-items-center justify-content-center">
                             <FontAwesomeIcon icon={faCirclePlus} style={{ color: '#005eff' }} /> Add
                             another Module
@@ -199,7 +209,8 @@ const CreateRole = () => {
                               (value, indexNumber) => indexNumber !== index
                             );
                             setRolePermission(deleteItem);
-                          }}>
+                          }}
+                        >
                           <FontAwesomeIcon icon={faCircleXmark} style={{ color: '#e26a6a' }} />
                         </Button>
                       )}
