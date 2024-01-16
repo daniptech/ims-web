@@ -380,7 +380,7 @@ const ItemsList = () => {
     setCurrentPage(page);
   };
   return (
-    <div className="w-100 position-relative ">
+    <div className="w-100 position-relative item-container ">
       {loader && (
         <div
           className="d-flex justify-content-center align-items-center w-100 position-absolute"
@@ -467,12 +467,12 @@ const ItemsList = () => {
           </Button>
         </div>
         <div
-          className="m-3 p-3 border border-1 "
+          className="m-3 p-3 pb-1 pt-1 border border-1 "
           style={{
             boxShadow: 'rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px'
           }}
         >
-          <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-3">
+          <div className="w-100 d-flex justify-content-end align-items-end p-3 mb-2">
             <Button type="primary" onClick={() => setCustomizeColoumn(true)}>
               Customize Columns
             </Button>
@@ -487,7 +487,6 @@ const ItemsList = () => {
                   : navigate(reverse(routes.inventory.items.view, { id: record.id }))
             })}
             scroll={{ x: 2400 }}
-            className=""
             pagination={{
               current: currentPage,
               pageSize: 5,

@@ -97,7 +97,7 @@ const Main = ({ selectKey, setSelectKey }) => {
   }, [dispatch, isLoggedIn]);
   return (
     <div className="d-flex w-100">
-      <Sidebar items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
+      <Sidebar items={adminItems} selectKey={selectKey} setSelectKey={setSelectKey} />
       <div className="w-100" style={{ maxHeight: '100vh', height: '100%', overflow: 'hidden' }}>
         <NavBar />
         <Routes>

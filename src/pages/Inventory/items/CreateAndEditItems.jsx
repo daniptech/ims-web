@@ -5,6 +5,7 @@ import {
   Divider,
   Form,
   Input,
+  InputNumber,
   Radio,
   Select,
   Space,
@@ -480,8 +481,19 @@ const CreateAndEditItems = () => {
                       </label>
                     </div>
                     <div className="col-lg-8 col-md-12">
-                      <Form.Item name="upc" className="d-flex m-0 form-item">
-                        <Input className="w-100" />
+                      <Form.Item name="upc" className="d-flex m-0 form-item"
+                       rules={[
+                        {
+                          pattern: /^(?:\d*)$/,
+                          message: "value should contain just number",
+                        },
+                        {
+                          min: 12,
+                          message: "Please add minimum 12 digit Number",
+                        },
+                      ]}
+                      >
+                        <Input maxLength={12} className="w-100" />
                       </Form.Item>
                     </div>
                   </div>
@@ -499,8 +511,19 @@ const CreateAndEditItems = () => {
                       </label>
                     </div>
                     <div className="col-lg-8 col-md-12">
-                      <Form.Item name="ean" className="d-flex m-0 form-item">
-                        <Input className="w-100" />
+                      <Form.Item name="ean" className="d-flex m-0 form-item"
+                       rules={[
+                        {
+                          pattern: /^(?:\d*)$/,
+                          message: "value should contain just number",
+                        },
+                        {
+                          min: 13,
+                          message: "Please add minimum 13 digit Number",
+                        },
+                      ]}
+                      >
+                        <Input maxLength={13} className="w-100" />
                       </Form.Item>
                     </div>
                   </div>
