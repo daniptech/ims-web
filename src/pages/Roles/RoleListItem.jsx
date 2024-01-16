@@ -1,39 +1,37 @@
 import { DeleteOutlined, EditOutlined, SearchOutlined } from '@ant-design/icons';
-import { Button, Input, Space, Table } from 'antd';
-import { useEffect, useRef, useState } from 'react';
+import { Button, Input, Space, Table, message } from 'antd';
+import { useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import CustomizeTableColumns from '../../components/modals/CustomizeTableColumns';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../../controller/routes';
-import React, { useDispatch, useSelector } from 'react-redux';
-import { getItem } from '../../controller/api/inventory/itemService';
-import { setItem } from '../../redux/slices/inventorySlice';
+import React from 'react-redux';
 import { Bars } from 'react-loader-spinner';
-import { allUser } from '../../controller/api/AuthServices';
+import { useEffect } from 'react';
+import { getAllRole, removeRole } from '../../controller/api/role/roleServices';
+import { reverse } from "named-urls";
 
-const UserList = () => {
-  const dispatch = useDispatch();
-  const itemData = useSelector((state) => state.inventory.items);
-  const currentUserData = useSelector((state) => state.user.currentuser);
+const RoleListItem = () => {
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [searchedColumn, setSearchedColumn] = useState('');
   const searchInput = useRef(null);
   const [customizeColoumn, setCustomizeColoumn] = useState(false);
   const [loader, setloader] = useState(false);
-  const [userData, setUserData] = useState([]);
+  const [roleList, setRoleList] = useState([]);
+
   useEffect(() => {
-    allUserGet();
+    getRoleData();
   }, []);
-  const allUserGet = async () => {
+  const getRoleData = () => {
     setloader(true);
-    await allUser()
+    getAllRole()
       .then((res) => {
-        setUserData(res.data);
+        setRoleList(res.data);
         setloader(false);
       })
       .catch((err) => {
-        console.log('err ====== >>', err);
+        console.log('err----->', err);
         setloader(false);
       });
   };
@@ -143,135 +141,46 @@ const UserList = () => {
   const [columns, setcolumns] = useState([
     {
       id: 1,
-      title: 'FIRST NAME',
-      dataIndex: 'firstName',
-      key: 'firstName',
-      ...getColumnSearchProps('firstName'),
-      render: (item, record) => (
-        <span className="d-flex justify-content-start align-items-center text-primary gap-2 text-start">
-          {item}
-        </span>
-      ),
-      sorter: (a, b) => a.firstName.length - b.firstName.length,
-      isVisible: true,
-      lock: true
-    },
-    {
-      id: 2,
-      title: 'LAST NAME',
-      dataIndex: 'lastName',
-      key: 'lastName',
-      ...getColumnSearchProps('lastName'),
-      sorter: (a, b) => a.lastName.length - b.lastName.length,
-      isVisible: true,
-      lock: true
-    },
-    {
-      id: 3,
-      title: 'PHONE NO.',
-      dataIndex: '',
-      key: 'phoneNumber',
-      render: (record) => (
-        <span>
-          {record.countryCode}
-          {record.phoneNumber}
-        </span>
-      ),
-      // ...getColumnSearchProps('stock'),
-      isVisible: true,
-      lock: false
-    },
-    {
-      id: 4,
-      title: 'EMAIL',
-      dataIndex: 'email',
-      key: 'email',
-      ...getColumnSearchProps('email'),
-      sorter: (a, b) => a.email.length - b.email.length,
-      sortDirections: ['descend', 'ascend'],
-      isVisible: false,
-      lock: false
-    },
-    {
-      id: 5,
-      title: 'ROLE',
-      dataIndex: 'role',
-      key: 'role',
+      title: 'ROLE Name ',
+      dataIndex: 'roleName',
+      key: 'roleName',
       render: (record) => (
         <span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }}>
           {record?.role}
         </span>
       ),
-      ...getColumnSearchProps('role'),
-      sorter: (a, b) => a.role.length - b.role.length,
+      ...getColumnSearchProps('roleName'),
+      sorter: (a, b) => a.roleName.length - b.roleName.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: true,
       lock: false
     },
     {
-      id: 6,
-      title: 'COUNTRY',
-      dataIndex: 'country',
-      key: 'country',
-      // ...getColumnSearchProps('usage_unit'),
-      // sorter: (a, b) => a.usage_unit.length - b.usage_unit.length,
-      sortDirections: ['descend', 'ascend'],
-      isVisible: false,
-      lock: false
-    },
-    {
-      id: 7,
-      title: 'CITY',
-      dataIndex: 'city',
-      key: 'city',
-      render: (record) => record,
-      // ...getColumnSearchProps('brrecorder_leveland'),
-      // sorter: (a, b) => a.brand.length - b.brand.length,
-      sortDirections: ['descend', 'ascend'],
-      isVisible: false,
-      lock: false
-    },
-    {
-      id: 8,
-      title: 'COMPANY NAME',
-      dataIndex: 'companyName',
-      key: 'companyName',
-      render: (record) => record,
-      // ...getColumnSearchProps('companyName'),
-      // sorter: (a, b) => a.companyName.length - b.companyName.length,
-      sortDirections: ['descend', 'ascend'],
-      isVisible: false,
-      lock: false
-    },
-    {
-      id: 9,
-      title: 'ORGANIZATION ID',
-      dataIndex: 'organizationId',
-      key: 'organizationId',
-      render: (record) => record,
-      // ...getColumnSearchProps('organizationId'),
-      // sorter: (a, b) => a.organizationId.length - b.organizationId.length,
-      sortDirections: ['descend', 'ascend'],
-      isVisible: false,
-      lock: false
-    },
-    {
-      id: 10,
-      title: 'ACTION',
+      id: 2,
+      title: 'Action',
       dataIndex: '',
-      key: '',
-      width:"10%",
+      key: 'action',
       render: (record) => {
         return (
           <div className="d-flex align-items-center gap-2">
-            <DeleteOutlined onClick={() => {}} />
-            <EditOutlined onClick={() => {}} />
+            <DeleteOutlined
+              onClick={async () => {
+              await removeRole({ id: record?.id })
+                .then(() => {
+                  message.success('Role Successfully Deleted');
+                  getRoleData();
+                })
+                .catch((err) => console.log('err -------=>', err));
+            }}
+          />
+          <EditOutlined
+           onClick={()=>navigate(reverse(routes.role.edit,{id:record.id}))}
+           />
           </div>
         );
       },
       isVisible: true,
-      lock: true,
-      fixed: 'right'
+      lock: true
     }
   ]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -301,7 +210,7 @@ const UserList = () => {
           <Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
-            onClick={() => navigate(routes.user.createUser)}>
+            onClick={() => navigate(routes.role.createRole)}>
             + New
           </Button>
         </div>
@@ -317,8 +226,8 @@ const UserList = () => {
           </div>
           <Table
             columns={columns.filter((val) => val.isVisible)}
-            dataSource={userData}
-            scroll={{ x: 1700 }}
+            dataSource={roleList}
+            // scroll={{ x:2400 }}
             className=""
             pagination={{
               current: currentPage,
@@ -341,4 +250,4 @@ const UserList = () => {
   );
 };
 
-export default UserList;
+export default RoleListItem;

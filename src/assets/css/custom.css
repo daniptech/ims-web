@@ -521,6 +521,7 @@
   min-width: 300px !important;
   max-height: 400px !important;
   overflow: scroll;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 .chart-card {

@@ -5,12 +5,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 function getItem(label, key, icon, children) {
+   if(key!=='items'){
     return {
       key,
       icon,
       children,
       label
     };
+   }
   }
   const adminItems = [
       getItem('Home', 'home', <HomeOutlined />),
@@ -41,7 +43,8 @@ function getItem(label, key, icon, children) {
         getItem('Vendor Credits', 'vendorCredit')
       ]),
       getItem('Reports', 'reports', <FontAwesomeIcon icon={faChartSimple} />),
-      getItem('User', 'user')
+      getItem('User', 'user'),
+      getItem('Role', 'role')
     ];
 
   const managerItems = [

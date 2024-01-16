@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from './Dashboard/Home';
 import Sidebar from '../components/Sidebar';
@@ -66,39 +66,35 @@ import { isLoggedIn, setUserRole } from '../controller/localStorageHandler';
 import { setCurrentUser } from '../redux/slices/userSlice';
 import { useDispatch } from 'react-redux';
 import { adminItems, defaultItems, managerItems, staffItems } from '../controller/api/sidebarData';
-import Register from "./Register";
-import UserList from "./Users/UserList";
+import Register from './Register';
+import UserList from './Users/UserList';
+import CreateRole from './Roles/CreateRole';
+import RoleListItem from './Roles/RoleListItem';
 
 const Main = ({ selectKey, setSelectKey }) => {
   const [items, setItems] = useState([]);
   const dispatch = useDispatch();
   useEffect(() => {
-    if (isLoggedIn()) {
-      try {
-        user()
-          .then((res) => {
-            setUserRole(res.data.role);
-            switch (res?.data?.role?.toLowerCase()) {
-              case 'admin':
-                setItems(adminItems);
-                break;
-              case 'manager':
-                setItems(managerItems);
-                break;
-              case 'staff':
-                setItems(staffItems);
-                break;
-              default:
-                setItems(defaultItems);
-            }
-            dispatch(setCurrentUser(res.data));
-          })
-          .catch((err) => console.log(err));
-      } catch (error) {
-        console.log('err=>', error);
-      }
-    }
-  }, [dispatch,isLoggedIn]);
+    user()
+      .then((res) => {
+        setUserRole(res.data.role);
+        switch (res?.data?.role?.toLowerCase()) {
+          case 'admin':
+            setItems(adminItems);
+            break;
+          case 'manager':
+            setItems(managerItems);
+            break;
+          case 'staff':
+            setItems(staffItems);
+            break;
+          default:
+            setItems(defaultItems);
+        }
+        dispatch(setCurrentUser(res.data));
+      })
+      .catch((err) => console.log(err));
+  }, [dispatch, isLoggedIn]);
   return (
     <div className="d-flex w-100">
       <Sidebar items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
@@ -230,8 +226,11 @@ const Main = ({ selectKey, setSelectKey }) => {
           {/* </Route>  */}
           <Route path={routes.reports.self} element={<ReportsItemsList />} />
           {/* <Route path='*' element={<PageNoteFound setSelectKey={setSelectKey} />} /> */}
-          <Route path={routes.user.self} element={<UserList/>} />
-          <Route path={routes.user.createUser} element={<Register/>} />
+          <Route path={routes.user.self} element={<UserList />} />
+          <Route path={routes.user.createUser} element={<Register />} />
+          <Route path={routes.role.self} element={<RoleListItem />} />
+          <Route path={routes.role.createRole} element={<CreateRole />} />
+          <Route path={routes.role.edit} element={<CreateRole />} />
         </Routes>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import { Button, Card, Form, Input, Select, message } from 'antd';
-import React from 'react';
+import React,{useEffect} from 'react';
 import { countryData } from '../data/CountryData';
 import { ArrowLeftOutlined, GlobalOutlined } from '@ant-design/icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
@@ -7,13 +7,34 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useNavigate } from 'react-router-dom';
 import { routes } from '../controller/routes';
 import { enterOnlyNumber } from '../controller/enteronlynumber';
+import { useSelector } from 'react-redux';
+import { createUser } from '../controller/api/AuthServices';
+import { useState } from "react";
+import { getAllRole } from "../controller/api/role/roleServices";
 
 const Register = () => {
   const { Option } = Select;
   const navigate = useNavigate();
+  const [roleList, setRoleList] = useState([]);
+  const currentUserData = useSelector((state) => state.user.currentuser);
+
+
+  useEffect(() => {
+    getRoleData();
+  }, []);
+  const getRoleData = () => {
+    getAllRole()
+      .then((res) => {
+        setRoleList(res.data);
+      })
+      .catch((err) => {
+        console.log('err----->', err);
+      });
+  };
+
   const selectBefore = (
     <Form.Item
-      name="country_code"
+      name="countryCode"
       rules={[
         {
           required: true,
@@ -21,7 +42,7 @@ const Register = () => {
         }
       ]}
       noStyle>
-      <Select placeholder="country code" className="heehjj" style={{ width: 80 }}>
+      <Select showSearch placeholder="country code" className="heehjj" style={{ width: 80 }}>
         {countryData.map((val, index) => {
           return (
             <Option value={val.code} key={index}>
@@ -32,9 +53,21 @@ const Register = () => {
       </Select>
     </Form.Item>
   );
-  const onFinish = () => {
-    navigate(routes.login.self);
-    message.success('Register Sucessfully');
+  const onFinish = async (value) => {
+   const payload = {
+      ...value,
+      organizationId: currentUserData?.organizationId,
+      companyName: currentUserData?.companyName
+    };
+
+    await createUser(payload)
+      .then((res) => {
+        message.success('User Successfully Created');
+        navigate(routes.user.self)
+      })
+      .catch((err) => {
+        console.log('err======>', err);
+      });
   };
   return (
     // <div className="w-100 d-flex justify-content-center align-items-center p-5 bg-light auth-page">
@@ -165,12 +198,12 @@ const Register = () => {
         </div>
         <div className="d-flex align-items-center gap-4 fs-5">
           <Button onClick={() => navigate(-1)}>Cancel</Button>
-          <Button type="primary" htmlType="submit" form="conpositeForm">
+          <Button type="primary" htmlType="submit" form="createUser">
             Submit
           </Button>
         </div>
       </div>
-      <Form layout="vertical" name="createUser">
+      <Form layout="vertical" name="createUser" onFinish={(value) => onFinish(value)}>
         <div className="row col-12 bg-light p-4 m-0">
           <div className="col-md-6 col-lg-6 d-flex flex-column gap-3 mb-3">
             <div className="row col-12 d-flex  align-items-center">
@@ -179,7 +212,7 @@ const Register = () => {
               </div>
               <div className="col-lg-8 col-md-12">
                 <Form.Item
-                  name="fname"
+                  name="firstName"
                   className="d-flex m-0 w-100 form-item"
                   rules={[
                     {
@@ -199,7 +232,7 @@ const Register = () => {
               </div>
               <div className="col-lg-8 col-md-12">
                 <Form.Item
-                  name="lname"
+                  name="lastName"
                   className="d-flex m-0 w-100 form-item"
                   rules={[
                     {
@@ -219,7 +252,7 @@ const Register = () => {
               </div>
               <div className="col-lg-8 col-md-12">
                 <Form.Item
-                  name="number"
+                  name="phoneNumber"
                   className="form-item"
                   rules={[
                     {
@@ -318,7 +351,7 @@ const Register = () => {
                     }
                   ]}>
                   <Select>
-                    <Option value={"admin"}>Admin</Option>
+                    {roleList?.map((val,index)=><Option value={val?.roleName} key={index}>{val?.roleName}</Option>)}
                   </Select>
                 </Form.Item>
               </div>

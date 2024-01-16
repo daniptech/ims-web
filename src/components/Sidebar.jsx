@@ -17,7 +17,11 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
       setSelectKey('home');
     } else if (pathname[1] === 'reports') {
       setSelectKey('reports');
-    } else {
+    }else if (pathname[1] === 'user') {
+      setSelectKey('user');
+    } else if (pathname[1] === 'role') {
+      setSelectKey('role');
+    }else {
       setSelectKey(currentSelectKey);
     }
   }, [setSelectKey]);
@@ -44,6 +48,8 @@ const Sidebar = ({ selectKey, setSelectKey, items }) => {
       navigate(routes.reports.self);
     }else if (val.key === 'user') {
       navigate(routes.user.self);
+    }else if (val.key === 'role') {
+      navigate(routes.role.self);
     }
   };
   return (
