@@ -6,6 +6,8 @@ import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
+import { hasAccessFeature } from '../../../controller/global';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
 
 const ItemGroupVIew = () => {
   const navigate = useNavigate();
@@ -89,7 +91,7 @@ const ItemGroupVIew = () => {
             <span className="fw-medium">Burger </span>
             <span className="fs-6">(1 Item&apos;s)</span>
           </div>
-          <div className="d-flex justify-content-center align-items-center gap-2 ">
+         {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_item_groups)&&<div className="d-flex justify-content-center align-items-center gap-2 ">
             <Button
               className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
               onClick={() => navigate(reverse(routes.inventory.itemGroups.edit, { id: params.id }))}
@@ -111,7 +113,7 @@ const ItemGroupVIew = () => {
                 More <DownOutlined />
               </Button>
             </Dropdown>
-          </div>
+          </div>}
         </div>
       </div>
       <div

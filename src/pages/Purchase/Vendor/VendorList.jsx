@@ -10,6 +10,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getVendor } from '../../../controller/api/purchase/vendorServices';
 import { setVendor } from '../../../redux/slices/purchaseSlice';
 import { Bars } from 'react-loader-spinner';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
+import { hasAccessFeature } from '../../../controller/global';
 
 const VendorList = () => {
   const dispatch = useDispatch();
@@ -280,13 +282,13 @@ const VendorList = () => {
                   }
                 ]}
               />
-              <Button
+             {hasAccessFeature(accesslevel.write,moduleEnum.Purchase_vender)&&<Button
                 type="primary"
                 className="fs-6 d-flex justify-content-center align-items-center fw-medium"
                 onClick={() => navigate(routes.purchase.vendor.new)}
               >
                 + New
-              </Button>
+              </Button>}
             </>
           )}
         </div>

@@ -12,6 +12,8 @@ import { reverse } from 'named-urls';
 import { getSingleItem } from '../../../controller/api/inventory/itemService';
 import { useSelector } from 'react-redux';
 import { removeCompositeItem } from '../../../controller/api/inventory/compositeServices';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
+import { hasAccessFeature } from '../../../controller/global';
 
 const CompositeView = () => {
   const params = useParams();
@@ -69,7 +71,7 @@ const CompositeView = () => {
           <ArrowLeftOutlined onClick={() => navigate(-1)} className="custom-back-button" />
           <span className="fw-medium">{itemData?.name}</span>
         </div>
-        <div className="d-flex justify-content-center align-items-center gap-2 ">
+        {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_composite_items)&&<div className="d-flex justify-content-center align-items-center gap-2 ">
           <Button
             className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
             onClick={() =>
@@ -93,7 +95,7 @@ const CompositeView = () => {
               More <DownOutlined />
             </Button>
           </Dropdown>
-        </div>
+        </div>}
       </div>
       <div className="fs-6 d-flex align-items-center " style={{ marginLeft: '40px' }}>
         <span>{itemData?.sku}</span>&nbsp;&nbsp;

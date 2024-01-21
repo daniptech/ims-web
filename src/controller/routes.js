@@ -144,7 +144,8 @@ export const routes = {
   }),
   user: include('', {
     self: 'user',
-    createUser: 'user/createUser'
+    createUser: 'user/createUser',
+    edit:'user/:id/edit'
   }),
   role: include('', {
     self: 'role',

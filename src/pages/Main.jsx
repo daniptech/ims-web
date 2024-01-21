@@ -64,45 +64,140 @@ import { ReportsItemsList } from './Reports/ReportsItemsList';
 import { user } from '../controller/api/AuthServices';
 import { isLoggedIn, setUserRole } from '../controller/localStorageHandler';
 import { setCurrentUser } from '../redux/slices/userSlice';
-import { useDispatch } from 'react-redux';
-import { adminItems, defaultItems, managerItems, staffItems } from '../controller/api/sidebarData';
+import { useDispatch, useSelector } from 'react-redux';
+import { adminItems } from '../controller/api/sidebarData';
 import Register from './Register';
 import UserList from './Users/UserList';
 import CreateRole from './Roles/CreateRole';
 import RoleListItem from './Roles/RoleListItem';
+import { HomeOutlined, ShoppingCartOutlined } from '@ant-design/icons';
+import { faBagShopping, faCartFlatbed, faChartSimple } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Bars } from 'react-loader-spinner';
+
 
 const Main = ({ selectKey, setSelectKey }) => {
-  const [items, setItems] = useState([]);
+  const [items,setItems]=useState([])
   const dispatch = useDispatch();
+  const [rolePermisiion,setRolePermission]=useState([])
+  const [loader, setloader] = useState(false);
   useEffect(() => {
+    setloader(true)
     user()
       .then((res) => {
-        setUserRole(res.data.role);
-        switch (res?.data?.role?.toLowerCase()) {
-          case 'admin':
-            setItems(adminItems);
-            break;
-          case 'manager':
-            setItems(managerItems);
-            break;
-          case 'staff':
-            setItems(staffItems);
-            break;
-          default:
-            setItems(defaultItems);
-        }
+        setUserRole(JSON.stringify(res.data.role));
+        setRolePermission(res.data.role.rolePermissions)
         dispatch(setCurrentUser(res.data));
+        setloader(false)
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.log(err)).finally(()=>setloader(false));
   }, [dispatch, isLoggedIn]);
+
+
+  function getItem(label, key, icon, children,accessname) {
+    // const rolePermisiion=[...currentUserData.role.rolePermisiion]
+    const getmoduleNumber=rolePermisiion?.map((val)=>val?.module)
+    if(accessname==true||getmoduleNumber.includes(accessname)){
+      return {
+        key,
+        icon,
+        children,
+        label
+      };
+    }
+}
+
+useEffect(()=>{
+  setItems([
+    getItem('Home', 'home', <HomeOutlined />,null,true),
+    getItem('Inventory', 'inventory', <FontAwesomeIcon icon={faCartFlatbed} />, [
+      getItem('Items', 'items',null,null,1),
+      getItem('Composite Items', 'compositeItem',null,null,2),
+      getItem('Item Groups', 'itemGroups',null,null,3),
+      getItem('Price Lists', 'priceList',null,null,4),
+      getItem('Inventory Adjustments', 'inventoryAdjustments',null,null,5)
+    ],true),
+    getItem('Sales', 'sales', <ShoppingCartOutlined />, [
+      getItem('Customers', 'customers',null,null,6),
+      getItem('Sales Order', 'salesOrder',null,null,7),
+      getItem('Packages', 'packages',null,null,8),
+      getItem('Shipments', 'shipment',null,null,9),
+      getItem('Delivery Challans', 'deliveryChallans',null,null,10),
+      getItem('Invoice', 'invoices',null,null,11),
+      getItem('Payment Received', 'paymentReceived',null,null,12),
+      getItem('sales Return', 'salesReturn',null,null,13),
+      getItem('Credit Notes', 'creditNotes',null,null,14)
+    ],true),
+    getItem('Purchase', 'purchase', <FontAwesomeIcon icon={faBagShopping} />, [
+      getItem('Vendors', 'vendor',null,null,15),
+      getItem('Purchase Order', 'purchaseOrder',null,null,16),
+      getItem('Purchase Receives', 'purchaseReceives',null,null,17),
+      getItem('Bills', 'bills',null,null,18),
+      getItem('Payments Mode', 'paymentMode',null,null,19),
+      getItem('Vendor Credits', 'vendorCredit',null,null,20)
+    ],true),
+    getItem('Reports', 'reports', <FontAwesomeIcon icon={faChartSimple} />,null,21),
+    getItem('User', 'user',null,null,22),
+    getItem('Role', 'role',null,null,23)
+  ])
+},[rolePermisiion])
+
+  // const items = [
+  //   getItem('Home', 'home', <HomeOutlined />),
+  //   getItem('Inventory', 'inventory', <FontAwesomeIcon icon={faCartFlatbed} />, [
+  //     getItem('Items', 'items'),
+  //     getItem('Composite Items', 'compositeItem'),
+  //     getItem('Item Groups', 'itemGroups'),
+  //     getItem('Price Lists', 'priceList'),
+  //     getItem('Inventory Adjustments', 'inventoryAdjustments')
+  //   ]),
+  //   getItem('Sales', 'sales', <ShoppingCartOutlined />, [
+  //     getItem('Customers', 'customers'),
+  //     getItem('Sales Order', 'salesOrder'),
+  //     getItem('Packages', 'packages'),
+  //     getItem('Shipments', 'shipment'),
+  //     getItem('Delivery Challans', 'deliveryChallans'),
+  //     getItem('Invoice', 'invoices'),
+  //     getItem('Payment Received', 'paymentReceived'),
+  //     getItem('sales Return', 'salesReturn'),
+  //     getItem('Credit Notes', 'creditNotes')
+  //   ]),
+  //   getItem('Purchase', 'purchase', <FontAwesomeIcon icon={faBagShopping} />, [
+  //     getItem('Vendors', 'vendor'),
+  //     getItem('Purchase Order', 'purchaseOrder'),
+  //     getItem('Purchase Receives', 'purchaseReceives'),
+  //     getItem('Bills', 'bills'),
+  //     getItem('Payments Mode', 'paymentMode'),
+  //     getItem('Vendor Credits', 'vendorCredit')
+  //   ]),
+  //   getItem('Reports', 'reports', <FontAwesomeIcon icon={faChartSimple} />),
+  //   getItem('User', 'user'),
+  //   getItem('Role', 'role')
+  // ];
   return (
-    <div className="d-flex w-100">
-      <Sidebar items={adminItems} selectKey={selectKey} setSelectKey={setSelectKey} />
+    <div className="d-flex w-100 position-relative">
+      {loader && (
+        <div
+          className="d-flex justify-content-center align-items-center w-100 position-absolute"
+          style={{ height: '100vh', zIndex: '11111' }}
+        >
+          <Bars
+            height="130"
+            width="130"
+            color="#1677ff"
+            ariaLabel="bars-loading"
+            wrapperStyle={{}}
+            wrapperClass=""
+            visible={loader}
+          />
+        </div>
+      )}
+      {loader==false&&<>
+        <Sidebar items={items} selectKey={selectKey} setSelectKey={setSelectKey} />
       <div className="w-100" style={{ maxHeight: '100vh', height: '100%', overflow: 'hidden' }}>
         <NavBar />
         <Routes>
           <Route path={routes.home.dashboard} element={<Home />} />
-          {/* <Route path={routes.inventory.self}> */}
           <Route path={routes.inventory.items.self} element={<ItemsList />} />
           <Route path={routes.inventory.items.view} element={<ItemView />} />
           <Route path={routes.inventory.items.new} element={<CreateAndEditItems />} />
@@ -140,8 +235,6 @@ const Main = ({ selectKey, setSelectKey }) => {
             path={routes.inventory.inventoryAdjustments.edit}
             element={<CreateAndEditInventoryAdjustment />}
           />
-          {/* </Route> */}
-          {/* <Route path={routes.sales.self}> */}
           <Route path={routes.sales.customers.self} element={<CustomerItemsList />} />
           <Route path={routes.sales.customers.view} element={<CustomerView />} />
           <Route path={routes.sales.customers.new} element={<CreateAndEditCustomer />} />
@@ -185,8 +278,6 @@ const Main = ({ selectKey, setSelectKey }) => {
             path={routes.sales.paymentReceived.edit}
             element={<CreateAndEditPaymentReceived />}
           />
-          {/* </Route> */}
-          {/* <Route path={routes.purchase.self}> */}
           <Route path={routes.purchase.vendor.self} element={<VendorList />} />
           <Route path={routes.purchase.vendor.view} element={<VendorView />} />
           <Route path={routes.purchase.vendor.edit} element={<CreateAndEditVendor />} />
@@ -222,17 +313,18 @@ const Main = ({ selectKey, setSelectKey }) => {
           <Route path={routes.purchase.vendorCredit.self} element={<VendorCreditList />} />
           <Route path={routes.purchase.vendorCredit.view} element={<VendorCreditView />} />
           <Route path={routes.purchase.vendorCredit.new} element={<CreateAndEditVendorCredit />} />
-          <Route path={routes.purchase.vendorCredit.edit} element={<CreateAndEditVendorCredit />} />
-          {/* </Route>  */}
+          <Route path={routes.purchase.vendorCredit.edit} element={<CreateAndEditVendorCredit />} /> 
           <Route path={routes.reports.self} element={<ReportsItemsList />} />
           {/* <Route path='*' element={<PageNoteFound setSelectKey={setSelectKey} />} /> */}
           <Route path={routes.user.self} element={<UserList />} />
           <Route path={routes.user.createUser} element={<Register />} />
+          <Route path={routes.user.edit} element={<Register />} />
           <Route path={routes.role.self} element={<RoleListItem />} />
           <Route path={routes.role.createRole} element={<CreateRole />} />
           <Route path={routes.role.edit} element={<CreateRole />} />
         </Routes>
       </div>
+      </>}
     </div>
   );
 };

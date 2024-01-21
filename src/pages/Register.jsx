@@ -4,21 +4,27 @@ import { countryData } from '../data/CountryData';
 import { ArrowLeftOutlined, GlobalOutlined } from '@ant-design/icons';
 import { faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { routes } from '../controller/routes';
 import { enterOnlyNumber } from '../controller/enteronlynumber';
 import { useSelector } from 'react-redux';
-import { createUser } from '../controller/api/AuthServices';
+import { createUser, updateUser } from '../controller/api/AuthServices';
 import { useState } from 'react';
 import { getAllRole } from '../controller/api/role/roleServices';
+import { useForm } from 'antd/es/form/Form';
 
 const Register = () => {
   const { Option } = Select;
   const navigate = useNavigate();
   const [roleList, setRoleList] = useState([]);
   const currentUserData = useSelector((state) => state.user.currentuser);
-
+  const location = useLocation()
+  const [form] = useForm();
+  const params=useParams()
   useEffect(() => {
+    if(params.id){
+      form.setFieldsValue({...location?.state?.data,role:location?.state?.data?.role?.roleName})
+    }
     getRoleData();
   }, []);
   const getRoleData = () => {
@@ -60,14 +66,24 @@ const Register = () => {
       companyName: currentUserData?.companyName
     };
 
-    await createUser(payload)
+   if(params.id){
+    await updateUser(payload,{id:params.id})
+    .then((res) => {
+      message.success('User Successfully Updated');
+      navigate(routes.user.self);
+    })
+    .catch((err) => {
+      console.log('err======>', err);
+    })
+
+   }else{ await createUser(payload)
       .then((res) => {
         message.success('User Successfully Created');
         navigate(routes.user.self);
       })
       .catch((err) => {
         console.log('err======>', err);
-      });
+      })}
   };
   return (
     // <div className="w-100 d-flex justify-content-center align-items-center p-5 bg-light auth-page">
@@ -203,7 +219,7 @@ const Register = () => {
           </Button>
         </div>
       </div>
-      <Form layout="vertical" name="createUser" onFinish={(value) => onFinish(value)}>
+      <Form layout="vertical" name="createUser" form={form}  onFinish={(value) => onFinish(value)}>
         <div className="row col-12 bg-light p-4 m-0">
           <div className="col-md-6 col-lg-6 d-flex flex-column gap-3 mb-3">
             <div className="row col-12 d-flex  align-items-center">

@@ -11,6 +11,8 @@ import { reverse } from 'named-urls';
 import { routes } from '../../../controller/routes';
 import { getSingleItem, removeItem } from '../../../controller/api/inventory/itemService';
 import { useSelector } from 'react-redux';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
+import { hasAccessFeature } from '../../../controller/global';
 const { TabPane } = Tabs;
 
 const ItemView = () => {
@@ -69,7 +71,7 @@ const ItemView = () => {
           <ArrowLeftOutlined onClick={() => navigate(-1)} className="custom-back-button" />
           <span className="fw-medium">{itemData?.name}</span>
         </div>
-        <div className="d-flex justify-content-center align-items-center gap-2 ">
+        {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_items)&&<div className="d-flex justify-content-center align-items-center gap-2 ">
           <Button
             className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
             onClick={() => navigate(reverse(routes.inventory.items.edit, { id: params.id }))}
@@ -95,7 +97,7 @@ const ItemView = () => {
               More <DownOutlined />
             </Button>
           </Dropdown>
-        </div>
+        </div>}
       </div>
       <div className="fs-6 d-flex align-items-center " style={{ marginLeft: '40px' }}>
         <span>{itemData?.sku}</span>&nbsp;&nbsp;

@@ -11,6 +11,8 @@ import { getItem } from '../../../controller/api/inventory/itemService';
 import { setItem } from '../../../redux/slices/inventorySlice';
 import { Bars } from 'react-loader-spinner';
 import { Icons } from '../../../controller/Images';
+import { hasAccessFeature } from '../../../controller/global';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
 
 const ItemsList = () => {
   const dispatch = useDispatch();
@@ -458,13 +460,13 @@ const ItemsList = () => {
               }
             ]}
           />
-          <Button
+          {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_items)&&<Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
             onClick={() => navigate(routes.inventory.items.new)}
           >
             + New
-          </Button>
+          </Button>}
         </div>
         <div
           className="m-3 p-3 pb-1 pt-1 border border-1 "

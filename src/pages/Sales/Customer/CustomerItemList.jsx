@@ -9,6 +9,8 @@ import { getCustomer } from '../../../controller/api/sales/customerServices';
 import { setCustomer } from '../../../redux/slices/salesSlice';
 import { Bars } from 'react-loader-spinner';
 import React from 'react';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
+import { hasAccessFeature } from '../../../controller/global';
 
 const CustomerItemsList = () => {
   const dispatch = useDispatch();
@@ -254,13 +256,13 @@ const CustomerItemsList = () => {
               }
             ]}
           />
-          <Button
+          {hasAccessFeature(accesslevel.write,moduleEnum.Sales_customers)&&<Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
             onClick={() => navigate(routes.sales.customers.new)}
           >
             + New
-          </Button>
+          </Button>}
         </div>
         <div
           className="m-3 p-3 border border-1 "

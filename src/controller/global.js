@@ -1,5 +1,6 @@
 import { getEnvValue } from './Environment';
 import { include, reverse } from 'named-urls';
+import { getUserRole } from './localStorageHandler';
 
 const endpoint = {
   auth: include('/api/user', {
@@ -7,7 +8,9 @@ const endpoint = {
     verifyOTP: 'authenticate',
     user: '',
     userAll: 'all',
-    craeteUser: 'register'
+    craeteUser: 'register',
+    deleteUser:':id',
+    updateUser:':id'
   }),
   inventory: include('/api', {
     item: include('item', {
@@ -87,4 +90,15 @@ export function getAPIUrl(url, params = null) {
     params
   );
   return getEnvValue('REACT_APP_API_URL') + path;
+}
+
+export function hasAccessFeature(accesslevel,module){
+  let access=false
+  const userRole=JSON.parse(getUserRole())
+  userRole?.rolePermissions?.forEach(element => {
+    if(element.module==module&&element.accessLevel==accesslevel){
+      access=true
+    }
+  });
+  return access
 }

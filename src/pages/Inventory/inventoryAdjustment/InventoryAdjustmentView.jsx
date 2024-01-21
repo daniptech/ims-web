@@ -12,6 +12,8 @@ import { routes } from '../../../controller/routes';
 import { Icons } from '../../../controller/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage } from '@fortawesome/free-regular-svg-icons';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
+import { hasAccessFeature } from '../../../controller/global';
 
 const InventoryAdjustmentView = () => {
   const navigate = useNavigate();
@@ -71,7 +73,7 @@ const InventoryAdjustmentView = () => {
             <ArrowLeftOutlined onClick={() => navigate(-1)} className="custom-back-button" />
             <span className="fw-medium">Adjustment Details </span>
           </div>
-          <div className="d-flex justify-content-center align-items-center gap-2 ">
+          {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_adjustment)&&<div className="d-flex justify-content-center align-items-center gap-2 ">
             <Button
               className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
               onClick={() =>
@@ -118,7 +120,7 @@ const InventoryAdjustmentView = () => {
             >
               <MoreOutlined />
             </Dropdown>
-          </div>
+          </div>}
         </div>
       </div>
       <div

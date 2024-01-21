@@ -1085,3 +1085,34 @@ export const CurrencyEnum = {
     name_plural: 'Zimbabwean Dollar'
   }
 };
+
+export const accesslevel = {
+  read: 1,
+  write: 2
+}
+export const moduleEnum = {
+  Inventory_items: 1,
+  Inventory_composite_items: 2,
+  Inventory_item_groups: 3,
+  Inventory_pricelists: 4,
+  Inventory_adjustment: 5,
+  Sales_customers: 6,
+  Sales_order: 7,
+  Sales_package: 8,
+  Sales_shipments: 9,
+  Sales_delivery_chalans: 10,
+  Sales_invoice: 11,
+  Sales_payment_recived: 12,
+  Sales_return: 13,
+  Sales_credit_note: 14,
+  Purchase_vender: 15,
+  Purchase_order: 16,
+  Purchase_recive: 17,
+  Dispatching_products: 18,
+  Purchase_recives_bills: 19,
+  Purchase_recives_payments_mode: 20,
+  Purchase_recives_veder_credits: 21,
+  Reports: 22,
+  User: 23,
+  Role: 24
+}

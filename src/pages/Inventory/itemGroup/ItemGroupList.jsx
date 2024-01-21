@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { reverse } from 'named-urls';
 import { routes } from '../../../controller/routes';
+import { hasAccessFeature } from '../../../controller/global';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
 const columns = [
   {
     title: 'Name',
@@ -179,13 +181,13 @@ const ItemGroupList = () => {
                 }
               ]}
             />
-            <Button
+           {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_item_groups)&&<Button
               type="primary"
               className="fs-6 d-flex justify-content-center align-items-center fw-medium"
               onClick={() => navigate(routes.inventory.itemGroups.new)}
             >
               + New
-            </Button>
+            </Button>}
           </>
         )}
       </div>

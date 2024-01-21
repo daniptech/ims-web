@@ -6,6 +6,8 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../controller/routes';
 //import { click } from '@testing-library/user-event/dist/click';
 import { reverse } from 'named-urls';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
+import { hasAccessFeature } from '../../../controller/global';
 
 const InventoryAdjustmentList = () => {
   const navigate = useNavigate();
@@ -76,13 +78,13 @@ const InventoryAdjustmentList = () => {
     <div className="w-100 h-100">
       <div className="w-100 p-3 d-flex justify-content-between align-items-center">
         <span className="fs-4 fw-medium">Inventory Adjustments</span>
-        <Button
+       {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_adjustment)&&<Button
           type="primary"
           className="fs-6 d-flex justify-content-center align-items-center fw-medium"
           onClick={() => navigate(routes.inventory.inventoryAdjustments.new)}
         >
           + New
-        </Button>
+        </Button>}
       </div>
       <div className="w-100 bg-light p-3 d-flex justify-content-between align-items-center">
         {selectedRows?.selectedRows?.length ? (

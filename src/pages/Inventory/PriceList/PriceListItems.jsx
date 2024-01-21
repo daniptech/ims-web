@@ -5,8 +5,9 @@ import { useNavigate } from 'react-router-dom';
 import { routes } from '../../../controller/routes';
 import { reverse } from 'named-urls';
 import axios from 'axios';
-import { CurrencyEnum, priceSchemaEnum, roundOfSchemaEnum } from '../../../controller/enum';
+import { CurrencyEnum, accesslevel, moduleEnum, priceSchemaEnum, roundOfSchemaEnum } from '../../../controller/enum';
 import { Bars } from 'react-loader-spinner';
+import { hasAccessFeature } from '../../../controller/global';
 
 
 const PriceListItems = () => {
@@ -89,7 +90,9 @@ const PriceListItems = () => {
       dataIndex: '',
       render: (record) => {
         return (
-          <div className="d-flex align-items-center gap-2 action-btn">
+          <>
+          {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_pricelists)&&
+            <div className="d-flex align-items-center gap-2 action-btn">
             <span
               className="text-primary"
               style={{ cursor: 'pointer' }}
@@ -104,6 +107,8 @@ const PriceListItems = () => {
             <LineOutlined rotate={90} />
             <DeleteOutlined className="text-danger" style={{ cursor: 'pointer' }} />
           </div>
+          }
+          </>
         );
       }
     }
@@ -164,13 +169,13 @@ const PriceListItems = () => {
               }
             ]}
           />
-          <Button
+          {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_pricelists)&&<Button
             type="primary"
             className="fs-6 d-flex justify-content-center align-items-center fw-medium"
             onClick={() => navigate(routes.inventory.priceList.new)}
           >
             + New Price List
-          </Button>
+          </Button>}
         </div>
         <div className=" p-3">
           <Table

@@ -9,7 +9,8 @@ import React, { useDispatch, useSelector } from 'react-redux';
 import { getItem } from '../../controller/api/inventory/itemService';
 import { setItem } from '../../redux/slices/inventorySlice';
 import { Bars } from 'react-loader-spinner';
-import { allUser } from '../../controller/api/AuthServices';
+import { allUser, removeUser } from '../../controller/api/AuthServices';
+import { reverse } from 'named-urls';
 
 const UserList = () => {
   const dispatch = useDispatch();
@@ -268,8 +269,16 @@ const UserList = () => {
       render: (record) => {
         return (
           <div className="d-flex align-items-center gap-2">
-            <DeleteOutlined onClick={() => {}} />
-            <EditOutlined onClick={() => {}} />
+            <DeleteOutlined onClick={() => {
+              removeUser({id:record.id})
+              .then(()=>{
+                allUserGet()
+                message.success("User Sucessfully Deleted")
+              }).catch(err=>console.log("err ------->",err))
+            }}  />
+            <EditOutlined onClick={() => { 
+              navigate(reverse(routes.user.edit,{id:record.id}),{state: { data: record } })
+            }} />
           </div>
         );
       },

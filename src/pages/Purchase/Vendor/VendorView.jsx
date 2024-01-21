@@ -12,6 +12,8 @@ import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { getSingleVendor, removeVendor } from '../../../controller/api/purchase/vendorServices';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
+import { hasAccessFeature } from '../../../controller/global';
 const { TabPane } = Tabs;
 
 const VendorView = () => {
@@ -69,7 +71,7 @@ const VendorView = () => {
           <ArrowLeftOutlined onClick={() => navigate(-1)} className="custom-back-button" />
           <span className="fw-medium">{vendorData?.firstName + ' ' + vendorData?.lastName}</span>
         </div>
-        <div className="d-flex justify-content-center align-items-center gap-2 ">
+        {hasAccessFeature(accesslevel.write,moduleEnum.Purchase_vender)&&<div className="d-flex justify-content-center align-items-center gap-2 ">
           <Button
             className="d-flex justify-content-center align-items-center p-2 fs-5 bg-light"
             onClick={() => navigate(reverse(routes.purchase.vendor.edit, { id: params.id }))}
@@ -90,7 +92,7 @@ const VendorView = () => {
               More <DownOutlined />
             </Button>
           </Dropdown>
-        </div>
+        </div>}
       </div>
       <Tabs defaultActiveKey="1" className="item-view-tabs">
         <TabPane tab={<h6 className="m-0">Overview</h6>} className="" key="1">

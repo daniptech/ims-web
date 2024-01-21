@@ -8,6 +8,8 @@ import { getItem } from '../../../controller/api/inventory/itemService';
 import { setCompositeItem } from '../../../redux/slices/inventorySlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { Bars } from 'react-loader-spinner';
+import { hasAccessFeature } from '../../../controller/global';
+import { accesslevel, moduleEnum } from '../../../controller/enum';
 
 const columns = [
   {
@@ -234,17 +236,17 @@ const CompositeItemsList = () => {
                   {
                     value: 'inactive_items',
                     label: 'Inactive Items',
-                    name: 'Inactive Composite Items  '
+                    name: 'Inactive Composite Items'
                   }
                 ]}
               />
-              <Button
+              {hasAccessFeature(accesslevel.write,moduleEnum.Inventory_composite_items)&&<Button
                 type="primary"
                 className="fs-6 d-flex justify-content-center align-items-center fw-medium"
                 onClick={() => navigate(routes.inventory.compositeItem.new)}
               >
                 + New
-              </Button>
+              </Button>}
             </>
           )}
         </div>
