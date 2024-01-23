@@ -104,3 +104,26 @@ export const vendorItem = {
   contactPersons: [],
   bankDetails: []
 };
+
+
+export const priceList={
+  name: "",
+  transactionType: "",
+  priceListType: "",
+  description: "",
+  percentage: 0,
+  roundOffTo: {
+    PriceRoundOffDto: "",
+    decimalPlaces: 0
+  },
+  schemeType: null,
+  currency: "",
+  discount: true,
+  priceListItems: [
+    {
+      itemId: 0,
+      customRate: 0,
+      discount: 0
+    }
+  ]
+}

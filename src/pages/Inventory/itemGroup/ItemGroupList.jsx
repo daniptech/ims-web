@@ -199,7 +199,7 @@ const ItemGroupList = () => {
           }}
           className="item-group-table"
           scroll={{
-            y: 450
+            y: 350
           }}
           onRow={(record) => ({
             onClick: () =>
@@ -211,7 +211,7 @@ const ItemGroupList = () => {
           dataSource={data}
           pagination={{
             current: currentPage,
-            pageSize: 8,
+            pageSize: 6,
             onChange: handleChangePage
           }}
         />

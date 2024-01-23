@@ -32,7 +32,7 @@ const VendorList = () => {
 
   useEffect(() => {
     setLoader(true);
-    getVendor({ organizationId: currentUserData?.organizationId })
+    getVendor({ organizationId: currentUserData?.organizationId.toString() })
       .then((res) => {
         dispatch(setVendor(res.data));
         setLoader(false);

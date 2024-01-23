@@ -51,7 +51,7 @@ const CreateAndEditInventoryAdjustment = () => {
 
   useEffect(() => {
     if (currentUserData?.organizationId) {
-      getItem({ organizationId: currentUserData?.organizationId }).then((res) => {
+      getItem({ organizationId: currentUserData?.organizationId.toString() }).then((res) => {
         if (res?.data) {
           setItems(res?.data);
         }

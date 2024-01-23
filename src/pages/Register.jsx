@@ -62,7 +62,7 @@ const Register = () => {
   const onFinish = async (value) => {
     const payload = {
       ...value,
-      organizationId: currentUserData?.organizationId,
+      organizationId: currentUserData?.organizationId.toString(),
       companyName: currentUserData?.companyName
     };
 

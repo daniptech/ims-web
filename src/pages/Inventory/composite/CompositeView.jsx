@@ -25,7 +25,7 @@ const CompositeView = () => {
     getItem();
   }, [currentUserData]);
   const getItem = () => {
-    getSingleItem({ id: params.id }, { organizationId: currentUserData?.organizationId })
+    getSingleItem({ id: params.id }, { organizationId: currentUserData?.organizationId.toString() })
       .then((res) => {
         setItemData(res?.data);
       })

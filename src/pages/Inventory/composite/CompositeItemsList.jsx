@@ -133,7 +133,7 @@ const CompositeItemsList = () => {
 
   useEffect(() => {
     setloader(true);
-    getItem({ organizationId: currentUserData?.organizationId, IsComposite: true })
+    getItem({ organizationId: currentUserData?.organizationId.toString(), IsComposite: true })
       .then((res) => {
         const updateData = res?.data?.map((val, index) => {
           if (val && val.associatedItems && val.associatedServices) {

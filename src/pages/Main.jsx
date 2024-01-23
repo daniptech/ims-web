@@ -88,9 +88,17 @@ const Main = ({ selectKey, setSelectKey }) => {
         setUserRole(JSON.stringify(res.data.role));
         setRolePermission(res.data.role.rolePermissions)
         dispatch(setCurrentUser(res.data));
-        setloader(false)
+        const timeoutId = setTimeout(() => {
+          setloader(false);
+        }, 2000);
+  
+        // Cleanup function to clear the timeout when the component unmounts
+        return () => clearTimeout(timeoutId);
       })
-      .catch((err) => console.log(err)).finally(()=>setloader(false));
+      .catch((err) =>{
+         console.log(err)
+         setloader(false)
+        })
   }, [dispatch, isLoggedIn]);
 
 

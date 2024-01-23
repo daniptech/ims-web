@@ -23,7 +23,7 @@ const VendorView = () => {
   const currentUserData = useSelector((state) => state.user.currentuser);
   useEffect(() => {
     if (currentUserData?.organizationId) {
-      getItem(currentUserData?.organizationId);
+      getItem(currentUserData?.organizationId.toString());
     }
   }, [currentUserData]);
   const getItem = (organizationId) => {

@@ -9,10 +9,12 @@ import { faArrowRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { routes } from '../controller/routes';
 import { useNavigate } from 'react-router-dom';
 import { logout } from '../controller/localStorageHandler';
+import { useSelector } from 'react-redux';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [notificationdrawer, setNotificationDrawer] = useState(false);
+  const currentUserData = useSelector((state) => state.user.currentuser);
   const [searchType, setsearchType] = useState({
     key: 'customer',
     label: 'Customer'
@@ -106,8 +108,7 @@ const NavBar = () => {
           height: 40,
           background: '#1677FF'
         }}
-        className="d-flex w-100 justify-content-center align-items-center position-sticky overflow-hidden header-container"
-      >
+        className="d-flex w-100 justify-content-center align-items-center position-sticky overflow-hidden header-container">
         <div className="d-flex w-100 justify-content-between align-items-center p-4">
           <div className="text-white d-flex  align-items-center gap-3">
             {/* <Input allowClear
@@ -115,8 +116,7 @@ const NavBar = () => {
             /> */}
             <div
               className="bg-light d-flex  align-items-center rounded-2"
-              style={{ width: '300px', height: '30px' }}
-            >
+              style={{ width: '300px', height: '30px' }}>
               <div className="row col-12 m-0 p-0">
                 <Dropdown
                   trigger="click"
@@ -127,15 +127,13 @@ const NavBar = () => {
                         return (
                           <Menu.Item
                             className={item.key === searchType.key && 'bg-primary'}
-                            key={item.key}
-                          >
+                            key={item.key}>
                             {item.label}
                           </Menu.Item>
                         );
                       })}
                     </Menu>
-                  }
-                >
+                  }>
                   <div className="col-2 d-flex justify-content-center align-items-center m-0 p-0 text-primary">
                     <SearchOutlined />
                     <DownOutlined style={{ fontSize: '10px' }} />
@@ -151,11 +149,11 @@ const NavBar = () => {
             </div>
           </div>
           <div className="text-white d-flex align-items-center gap-3">
-            <Tooltip title="You are currently in the Free Plane">
+            {/* <Tooltip title="You are currently in the Free Plane">
               <span className="text-truncate" style={{ width: '150px' }}>
                 You are currently in the Free Plane
               </span>
-            </Tooltip>
+            </Tooltip> */}
             <Badge count={1} className="notification-btn">
               <Avatar
                 shape="square"
@@ -172,16 +170,26 @@ const NavBar = () => {
                     <div className="border-bottom pb-3">
                       <div className="d-flex justify-content-between">
                         <div className="d-flex gap-3">
-                          <Avatar shape="square" size="large" src={''} icon={<UserOutlined />} />
+                          <Avatar
+                            style={{
+                              backgroundColor: '#1677ff',
+                              verticalAlign: 'middle',
+                              textTransform:'uppercase'
+                            }}
+                            shape="square"
+                            size="large"
+                            src={''}>
+                            {`${currentUserData?.firstName?.slice(0,1)}${currentUserData?.lastName?.slice(0,1)}`}
+                          </Avatar>
                           <div className="d-flex flex-column">
-                            <span className="">demo</span>
-                            <span className="text-muted">demo@mail.com</span>
+                            <span className="">{`${currentUserData?.firstName} ${currentUserData?.lastName}`}</span>
+                            <span className="text-muted">{currentUserData?.email}</span>
                           </div>
                         </div>
                       </div>
                       <div className="mt-1">
-                        <span>User ID: 60022275245 </span>•{' '}
-                        <span>Organization ID: 60022272371</span>
+                        <span>User ID: {currentUserData?.id} </span>•{' '}
+                        <span>Organization ID: {currentUserData?.organizationId}</span>
                       </div>
                     </div>
                     <div className="d-flex justify-content-between align-items-center mt-3">
@@ -193,16 +201,14 @@ const NavBar = () => {
                           logout();
                           navigate(routes.login.self);
                           window.location.reload();
-                        }}
-                      >
+                        }}>
                         <FontAwesomeIcon icon={faArrowRightFromBracket} accordion />
                         Sign Out
                       </span>
                     </div>
                   </div>
                 </div>
-              )}
-            >
+              )}>
               <Avatar icon={<UserOutlined />} />
             </Dropdown>
           </div>

@@ -50,7 +50,7 @@ const CreateAndEditItems = () => {
   const [manufacturerList, setManufacturerList] = useState([]);
   const [vendor, setVendor] = useState([]);
   const handleVendor = () => {
-    getVendor({ organizationId: currentUserData?.organizationId })
+    getVendor({ organizationId: currentUserData?.organizationId.toString() })
       .then((res) => setVendor(res.data))
       .catch((err) => console.log('err ======>', err));
   };
@@ -67,7 +67,7 @@ const CreateAndEditItems = () => {
   useEffect(() => {
     if (params.id) {
       setloader(true);
-      getSingleItem({ id: params.id }, { organizationId: currentUserData?.organizationId })
+      getSingleItem({ id: params.id }, { organizationId: currentUserData?.organizationId.toString() })
         .then((res) => {
           if (res?.data?.inventoryInfo == null) {
             setInventoryTrack(false);
@@ -145,7 +145,7 @@ const CreateAndEditItems = () => {
           item[key] = val[key];
         }
         if (key === 'organizationId') {
-          item[key] = currentUserData?.organizationId;
+          item[key] = currentUserData?.organizationId.toString();
         }
       }
     });

@@ -85,7 +85,7 @@ const CreateAndEditCompositeItem = () => {
   });
   useEffect(() => {
     if (currentUserData?.organizationId) {
-      getItem({ organizationId: currentUserData?.organizationId }).then((res) => {
+      getItem({ organizationId: currentUserData?.organizationId.toString() }).then((res) => {
         if (res?.data) {
           setAssociatedItemDropDownData(res?.data?.filter((val) => val.type !== 'Services'));
           setAssociatedServicesDropDownData(res?.data?.filter((val) => val.type == 'Services'));
@@ -95,7 +95,7 @@ const CreateAndEditCompositeItem = () => {
     if (params?.id) {
       setloader(true);
       handleVendor();
-      getSingleItem({ id: params.id }, { organizationId: currentUserData?.organizationId })
+      getSingleItem({ id: params.id }, { organizationId: currentUserData?.organizationId.toString() })
         .then((res) => {
           form.setFieldsValue({
             ...res.data,
@@ -236,7 +236,7 @@ const CreateAndEditCompositeItem = () => {
           item[key] = val[key];
         }
         if (key === 'organizationId') {
-          item[key] = currentUserData?.organizationId;
+          item[key] = currentUserData?.organizationId.toString();
         }
       }
     });

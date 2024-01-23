@@ -110,11 +110,11 @@ const CreateAndEditPriceList = () => {
           name="conpositeForm"
           form={form}
           initialValues={{
-            transaction_type: 'sales',
+            transactionType: 'sales',
             percentage_type: 'markup',
             price_list_type: 'all_items',
             discount: false,
-            pricing_scheme: 'unit_price'
+            // pricing_scheme: 'unit_price'
           }}
           onFinish={(val) => console.log(val)}
         >
@@ -135,14 +135,10 @@ const CreateAndEditPriceList = () => {
                   <label>Transaction Type</label>
                 </div>
                 <div className="col-5">
-                  <Form.Item name="transaction_type">
+                  <Form.Item name="transactionType">
                     <Radio.Group
                       name="radiogroup"
                       onChange={(e) => {
-                        e.target.value === 'sales'
-                          ? setColumns(columns?.filter((val) => val.dataIndex !== 'purchase_rates'))
-                          : setColumns(columns?.filter((val) => val.dataIndex !== 'sales_rates'));
-
                         setTransactionType(e.target.value);
                       }}
                     >
@@ -157,7 +153,7 @@ const CreateAndEditPriceList = () => {
                   <label>Price List Type</label>
                 </div>
                 <div className="col-10">
-                  <Form.Item name="price_list_type" className="radio-field">
+                  <Form.Item name="priceListType" className="radio-field">
                     <Radio.Group
                       name="radiogroup"
                       className="radio-container w-100 d-flex"
@@ -210,7 +206,7 @@ const CreateAndEditPriceList = () => {
                       <label className="text-danger">Round Off To *</label>
                     </div>
                     <div className="col-5">
-                      <Form.Item name="round_off_to">
+                      <Form.Item name="roundOffTo">
                         <Select
                           options={[
                             {
@@ -245,7 +241,7 @@ const CreateAndEditPriceList = () => {
                 </>
               ) : (
                 <>
-                  <div className="row col-12">
+                  {/* <div className="row col-12">
                     <div className="col-2">
                       <label className="">Pricing Scheme</label>
                     </div>
@@ -266,7 +262,7 @@ const CreateAndEditPriceList = () => {
                         </Radio.Group>
                       </Form.Item>
                     </div>
-                  </div>
+                  </div> */}
                   <div className="row col-12">
                     <div className="col-2">
                       <label className="">Currency</label>

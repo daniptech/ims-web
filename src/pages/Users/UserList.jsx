@@ -204,11 +204,10 @@ const UserList = () => {
       key: 'role',
       render: (record) => (
         <span className="d-inline-block text-truncate" style={{ maxWidth: '150px' }}>
-          {record?.role}
+          {record?.roleName}
         </span>
       ),
-      ...getColumnSearchProps('role'),
-      sorter: (a, b) => a.role.length - b.role.length,
+      sorter: (a, b) => a.role?.roleName.length - b.role?.roleName.length,
       sortDirections: ['descend', 'ascend'],
       isVisible: true,
       lock: false

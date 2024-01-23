@@ -1,5 +1,5 @@
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Image, Input, Select, Space, Table, Tooltip } from 'antd';
+import { Button, Image, Input, Select, Space, Table, Tooltip, message } from 'antd';
 import { useEffect, useRef, useState } from 'react';
 import Highlighter from 'react-highlight-words';
 import CustomizeTableColumns from '../../../components/modals/CustomizeTableColumns';
@@ -32,7 +32,7 @@ const ItemsList = () => {
 
   useEffect(() => {
     setloader(true);
-    getItem({ organizationId: currentUserData?.organizationId })
+    getItem({ organizationId: currentUserData?.organizationId.toString() })
       .then((res) => {
         dispatch(setItem(res.data));
         setloader(false);
@@ -485,7 +485,7 @@ const ItemsList = () => {
             onRow={(record) => ({
               onClick: () =>
                 record?.isComposite
-                  ? navigate(reverse(routes.inventory.compositeItem.view, { id: record.id }))
+                  ? hasAccessFeature(accesslevel.write,moduleEnum.Inventory_composite_items)?navigate(reverse(routes.inventory.compositeItem.view, { id: record.id })):message.info("you have not access to view composite item")
                   : navigate(reverse(routes.inventory.items.view, { id: record.id }))
             })}
             scroll={{ x: 2400 }}

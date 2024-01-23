@@ -42,7 +42,7 @@ const CreateAndEditVendor = () => {
   useEffect(() => {
     if (params.id) {
       setloader(true);
-      getSingleVendor({ id: params.id }, { organizationId: currentUserData?.organizationId })
+      getSingleVendor({ id: params.id }, { organizationId: currentUserData?.organizationId.toString() })
         .then((res) => {
           const billingdata = res?.data?.addresses?.filter((val) => val?.type === 'Billing');
           const shippingdata = res?.data?.addresses?.filter((val) => val?.type === 'Shipping');
